@@ -35,7 +35,6 @@ export const baseMetadata: Metadata = {
   creator: "Daniele Buser",
   publisher: "Daniele Buser",
 
-  // Crawling & indexing directives
   robots: {
     index: true,
     follow: true,
@@ -48,14 +47,12 @@ export const baseMetadata: Metadata = {
     },
   },
 
-  // Prevent mobile browsers from linkifying phone numbers / emails / addresses
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
 
-  // Canonical for the root
   alternates: {
     canonical: "https://danielebuser.com",
   },
@@ -79,7 +76,6 @@ export const baseMetadata: Metadata = {
     type: "website",
   },
 
-  // No Twitter/X account — card kept for link previews on X without a creator handle
   twitter: {
     card: "summary_large_image",
     title: "Daniele Buser | Creative Developer & Design Engineer",
@@ -94,7 +90,6 @@ export const baseMetadata: Metadata = {
   },
 };
 
-// ─── Page Metadata ─────────────────────────────────────────────────────────────
 export const homeMetadata: Metadata = {
   title: "Projects",
   description:
@@ -160,9 +155,6 @@ export const contactMetadata: Metadata = {
   },
 };
 
-// ─── JSON-LD Structured Data ───────────────────────────────────────────────────
-
-/** WebSite schema — tells Google this is a distinct website entity */
 export const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -178,7 +170,6 @@ export const websiteJsonLd = {
   inLanguage: "en-US",
 };
 
-/** Person schema — the central entity, cross-referenced by all page schemas */
 export const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -207,7 +198,6 @@ export const personJsonLd = {
   ],
 };
 
-/** CollectionPage — the projects listing at the root */
 export const homePageJsonLd = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -221,7 +211,6 @@ export const homePageJsonLd = {
   inLanguage: "en-US",
 };
 
-/** AboutPage — with BreadcrumbList for rich results */
 export const aboutPageJsonLd = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
@@ -252,7 +241,6 @@ export const aboutPageJsonLd = {
   },
 };
 
-/** ContactPage — with BreadcrumbList for rich results */
 export const contactPageJsonLd = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
