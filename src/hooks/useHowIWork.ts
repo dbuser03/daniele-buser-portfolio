@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/immutability */
-import { useRef, useState, useCallback, useMemo, type RefObject } from "react";
+import { useRef, useState, useEffect, useCallback, useMemo, type RefObject } from "react";
 import { HOW_I_WORK_SEQUENCE } from "@/constants/about";
 import { HoverableWord } from "@/types/about";
 
@@ -22,6 +22,7 @@ export const useHowIWork = () => {
   const [activeWord, setActiveWord] = useState<HoverableWord | null>(null);
   const [isImageHovered, setIsImageHovered] = useState(false);
   const sequenceIndexRef = useRef(0);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const playVideo = useCallback((word: HoverableWord) => {
     videoRefs[word].current?.play().catch(() => {});
@@ -34,18 +35,44 @@ export const useHowIWork = () => {
     el.currentTime = 0;
   }, [videoRefs]);
 
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const handleWordHover = useCallback((word: HoverableWord | null) => {
     if (isImageHovered) return;
 
-    if (activeWord) stopVideo(activeWord);
-    setActiveWord(word);
-    if (word) {
-      const el = videoRefs[word].current;
-      if (!el) return;
-      el.currentTime = 0;
-      playVideo(word);
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
     }
-  }, [activeWord, isImageHovered, playVideo, stopVideo, videoRefs]);
+
+    // Debounce both activation and deactivation to prevent high-frequency flickering
+    hoverTimeoutRef.current = setTimeout(() => {
+      if (word === null) {
+        setActiveWord((prev) => {
+          if (prev) stopVideo(prev);
+          return null;
+        });
+      } else {
+        setActiveWord((prev) => {
+          if (prev && prev !== word) stopVideo(prev);
+          if (prev !== word) {
+            const el = videoRefs[word].current;
+            if (el) {
+              el.currentTime = 0;
+              el.play().catch(() => {});
+            }
+          }
+          return word;
+        });
+      }
+    }, 50);
+  }, [isImageHovered, stopVideo, videoRefs]);
 
   const advanceSequence = useCallback(() => {
     sequenceIndexRef.current =
@@ -69,11 +96,19 @@ export const useHowIWork = () => {
   }, [videoRefs]);
 
   const handlePanelMouseEnter = useCallback(() => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
     setIsImageHovered(true);
     startSequence();
   }, [startSequence]);
 
   const handlePanelMouseLeave = useCallback(() => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
     setIsImageHovered(false);
     const current = HOW_I_WORK_SEQUENCE[sequenceIndexRef.current];
     stopVideo(current);

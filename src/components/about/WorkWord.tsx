@@ -33,7 +33,6 @@ export default function WorkWord({
       style={{ opacity, y, color: "inherit", fontFamily: "inherit" }}
       initial="rest"
       animate={isActive ? "hover" : "rest"}
-      whileHover="hover"
       onMouseEnter={() => onHover?.(word)}
       onMouseLeave={() => onHover?.(null)}
       onFocus={() => onHover?.(word)}
