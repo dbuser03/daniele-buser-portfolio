@@ -1,19 +1,48 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Neue Haas Grotesk Display';
+  src: url('/fonts/NeueHaasGroteskDisplay-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Haas Grotesk Display';
+  src: url('/fonts/NeueHaasGroteskDisplay-Reg.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Haas Grotesk Display';
+  src: url('/fonts/NeueHaasGroteskDisplay-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #0a0a0a;
+    --foreground: #f6f6f6;
+    --neutral: #9b9b9b;
+    --accent: #ff4500;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #f6f6f6;
+    --neutral: #9b9b9b;
+    --neutral-dark: #6b6b6b;
+    --accent: #ff4500;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Neue Haas Grotesk Display', 'Neue Haas Grotesk Text';
 }
