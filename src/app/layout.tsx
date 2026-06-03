@@ -2,7 +2,7 @@ import "./globals.css";
 import ClientLayout from "@/components/layout/ClientLayout";
 import { Metadata } from "next";
 import localFont from "next/font/local";
-import { baseMetadata, personJsonLd } from "@/seo/metadata";
+import { baseMetadata, personJsonLd, websiteJsonLd } from "@/seo/metadata";
 
 const neueHaasGrotesk = localFont({
   src: [
@@ -38,6 +38,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         <a
           href="#main-content"

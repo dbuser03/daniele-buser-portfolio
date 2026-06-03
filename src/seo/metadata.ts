@@ -2,12 +2,16 @@ import { Metadata } from "next";
 
 export const baseMetadata: Metadata = {
   metadataBase: new URL("https://danielebuser.com"),
+  applicationName: "Daniele Buser Portfolio",
+
   title: {
     default: "Daniele Buser | Creative Developer & Design Engineer",
     template: "%s | Daniele Buser — Creative Developer",
   },
+
   description:
-    "Personal creative development portfolio of Daniele Buser. Specializing in high-performance front-end engineering, interactive animations, and design systems.",
+    "Portfolio of Daniele Buser, Creative Developer & Design Engineer specialising in high-performance front-end engineering, interactive animations, and design systems built with Next.js, TypeScript and WebGL.",
+
   keywords: [
     "Daniele Buser",
     "Creative Developer",
@@ -16,16 +20,50 @@ export const baseMetadata: Metadata = {
     "Creative Development Portfolio",
     "Next.js Developer",
     "WebGL",
+    "Three.js",
     "Framer Motion",
+    "GSAP",
     "Interactive Web Design",
     "TypeScript",
+    "React",
+    "Tailwind CSS",
+    "UI Animation",
+    "Web Performance",
   ],
+
   authors: [{ name: "Daniele Buser", url: "https://danielebuser.com" }],
   creator: "Daniele Buser",
+  publisher: "Daniele Buser",
+
+  // Crawling & indexing directives
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+
+  // Prevent mobile browsers from linkifying phone numbers / emails / addresses
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+
+  // Canonical for the root
+  alternates: {
+    canonical: "https://danielebuser.com",
+  },
+
   openGraph: {
     title: "Daniele Buser | Creative Developer & Design Engineer",
     description:
-      "Personal creative development portfolio of Daniele Buser. Specializing in high-performance front-end engineering, interactive animations, and design systems.",
+      "Portfolio of Daniele Buser, Creative Developer & Design Engineer specialising in high-performance front-end engineering, interactive animations, and design systems built with Next.js, TypeScript and WebGL.",
     url: "https://danielebuser.com",
     siteName: "Daniele Buser Portfolio",
     images: [
@@ -33,74 +71,126 @@ export const baseMetadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Daniele Buser — Creative Developer & Design Engineer Portfolio Screenshot",
+        alt: "Daniele Buser — Creative Developer & Design Engineer Portfolio",
+        type: "image/png",
       },
     ],
     locale: "en_US",
     type: "website",
   },
+
+  // No Twitter/X account — card kept for link previews on X without a creator handle
   twitter: {
     card: "summary_large_image",
     title: "Daniele Buser | Creative Developer & Design Engineer",
     description:
-      "Personal creative development portfolio of Daniele Buser. Specializing in high-performance front-end engineering, interactive animations, and design systems.",
-    images: ["/og-image.png"],
+      "Portfolio of Daniele Buser, Creative Developer & Design Engineer specialising in high-performance front-end engineering, interactive animations, and design systems.",
+    images: [
+      {
+        url: "/og-image.png",
+        alt: "Daniele Buser — Creative Developer & Design Engineer Portfolio",
+      },
+    ],
   },
 };
 
+// ─── Page Metadata ─────────────────────────────────────────────────────────────
 export const homeMetadata: Metadata = {
   title: "Projects",
-  description: "Explore the creative development and interactive design projects of Daniele Buser, showcasing high-performance web, 3D graphics, and clean front-end engineering.",
+  description:
+    "Browse Daniele Buser's creative development projects: interactive 3D experiences, WebGL experiments, and high-performance front-end engineering showcasing the intersection of design and code.",
+  alternates: {
+    canonical: "https://danielebuser.com",
+  },
   openGraph: {
     title: "Projects | Daniele Buser — Creative Developer",
-    description: "Explore the creative development and interactive design projects of Daniele Buser, showcasing high-performance web, 3D graphics, and clean front-end engineering.",
+    description:
+      "Browse Daniele Buser's creative development projects: interactive 3D experiences, WebGL experiments, and high-performance front-end engineering showcasing the intersection of design and code.",
     url: "https://danielebuser.com",
+    type: "website",
   },
   twitter: {
     title: "Projects | Daniele Buser — Creative Developer",
-    description: "Explore the creative development and interactive design projects of Daniele Buser, showcasing high-performance web, 3D graphics, and clean front-end engineering.",
+    description:
+      "Browse Daniele Buser's creative development projects: interactive 3D experiences, WebGL experiments, and high-performance front-end engineering showcasing the intersection of design and code.",
   },
 };
 
 export const aboutMetadata: Metadata = {
   title: "About",
-  description: "Learn more about Daniele Buser, a creative developer combining design engineering, performance optimization, and interactive front-end experiences.",
+  description:
+    "Daniele Buser is a Creative Developer & Design Engineer passionate about bridging the gap between design and engineering — building interactive, performant, and visually rich web experiences.",
+  alternates: {
+    canonical: "https://danielebuser.com/about",
+  },
   openGraph: {
     title: "About | Daniele Buser — Creative Developer",
-    description: "Learn more about Daniele Buser, a creative developer combining design engineering, performance optimization, and interactive front-end experiences.",
+    description:
+      "Daniele Buser is a Creative Developer & Design Engineer passionate about bridging the gap between design and engineering — building interactive, performant, and visually rich web experiences.",
     url: "https://danielebuser.com/about",
+    type: "profile",
+    firstName: "Daniele",
+    lastName: "Buser",
   },
   twitter: {
     title: "About | Daniele Buser — Creative Developer",
-    description: "Learn more about Daniele Buser, a creative developer combining design engineering, performance optimization, and interactive front-end experiences.",
+    description:
+      "Daniele Buser is a Creative Developer & Design Engineer passionate about bridging the gap between design and engineering — building interactive, performant, and visually rich web experiences.",
   },
 };
 
 export const contactMetadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with Daniele Buser for freelance creative development, interactive design engineering contracts, or general inquiries.",
+  description:
+    "Available for freelance projects and full-time opportunities. Reach out to Daniele Buser for creative development, interactive design engineering, or front-end consultancy.",
+  alternates: {
+    canonical: "https://danielebuser.com/contacts",
+  },
   openGraph: {
     title: "Contact | Daniele Buser — Creative Developer",
-    description: "Get in touch with Daniele Buser for freelance creative development, interactive design engineering contracts, or general inquiries.",
+    description:
+      "Available for freelance projects and full-time opportunities. Reach out to Daniele Buser for creative development, interactive design engineering, or front-end consultancy.",
     url: "https://danielebuser.com/contacts",
+    type: "website",
   },
   twitter: {
     title: "Contact | Daniele Buser — Creative Developer",
-    description: "Get in touch with Daniele Buser for freelance creative development, interactive design engineering contracts, or general inquiries.",
+    description:
+      "Available for freelance projects and full-time opportunities. Reach out to Daniele Buser for creative development, interactive design engineering, or front-end consultancy.",
   },
 };
 
+// ─── JSON-LD Structured Data ───────────────────────────────────────────────────
+
+/** WebSite schema — tells Google this is a distinct website entity */
+export const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://danielebuser.com/#website",
+  name: "Daniele Buser Portfolio",
+  url: "https://danielebuser.com",
+  description:
+    "Portfolio of Daniele Buser, Creative Developer & Design Engineer specialising in high-performance front-end engineering, interactive animations, and design systems.",
+  author: {
+    "@type": "Person",
+    "@id": "https://danielebuser.com/#person",
+  },
+  inLanguage: "en-US",
+};
+
+/** Person schema — the central entity, cross-referenced by all page schemas */
 export const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  "name": "Daniele Buser",
-  "jobTitle": "Creative Developer & Design Engineer",
-  "url": "https://danielebuser.com",
-  "sameAs": [
+  "@id": "https://danielebuser.com/#person",
+  name: "Daniele Buser",
+  jobTitle: "Creative Developer & Design Engineer",
+  url: "https://danielebuser.com",
+  sameAs: [
     "https://linkedin.com/in/daniele-buser",
-    "https://github.com/dbuser03"
+    "https://github.com/dbuser03",
   ],
-  "knowsAbout": [
+  knowsAbout: [
     "Creative Development",
     "Design Engineering",
     "Front-end Engineering",
@@ -108,7 +198,87 @@ export const personJsonLd = {
     "React",
     "Tailwind CSS",
     "WebGL",
+    "Three.js",
     "Framer Motion",
-    "TypeScript"
-  ]
+    "GSAP",
+    "TypeScript",
+    "Web Performance",
+    "UI Animation",
+  ],
+};
+
+/** CollectionPage — the projects listing at the root */
+export const homePageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "https://danielebuser.com/#webpage",
+  url: "https://danielebuser.com",
+  name: "Projects | Daniele Buser — Creative Developer",
+  description:
+    "Browse Daniele Buser's creative development projects: interactive 3D experiences, WebGL experiments, and high-performance front-end engineering.",
+  isPartOf: { "@id": "https://danielebuser.com/#website" },
+  author: { "@id": "https://danielebuser.com/#person" },
+  inLanguage: "en-US",
+};
+
+/** AboutPage — with BreadcrumbList for rich results */
+export const aboutPageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "@id": "https://danielebuser.com/about#webpage",
+  url: "https://danielebuser.com/about",
+  name: "About | Daniele Buser — Creative Developer",
+  description:
+    "Daniele Buser is a Creative Developer & Design Engineer passionate about bridging the gap between design and engineering.",
+  isPartOf: { "@id": "https://danielebuser.com/#website" },
+  about: { "@id": "https://danielebuser.com/#person" },
+  inLanguage: "en-US",
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://danielebuser.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "About",
+        item: "https://danielebuser.com/about",
+      },
+    ],
+  },
+};
+
+/** ContactPage — with BreadcrumbList for rich results */
+export const contactPageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "@id": "https://danielebuser.com/contacts#webpage",
+  url: "https://danielebuser.com/contacts",
+  name: "Contact | Daniele Buser — Creative Developer",
+  description:
+    "Available for freelance projects and full-time opportunities. Reach out to Daniele Buser for creative development and interactive design engineering.",
+  isPartOf: { "@id": "https://danielebuser.com/#website" },
+  author: { "@id": "https://danielebuser.com/#person" },
+  inLanguage: "en-US",
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://danielebuser.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Contact",
+        item: "https://danielebuser.com/contacts",
+      },
+    ],
+  },
 };

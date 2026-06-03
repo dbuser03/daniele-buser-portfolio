@@ -6,18 +6,23 @@ import HowIWork from "@/components/about/HowIWork";
 import TechStack from "@/components/about/TechStack";
 import AboutContacts from "@/components/about/AboutContacts";
 import AboutLayout from "@/components/about/AboutLayout";
-import { aboutMetadata } from "@/seo/metadata";
+import { aboutMetadata, aboutPageJsonLd } from "@/seo/metadata";
 
 export const metadata: Metadata = aboutMetadata;
 
 export default function AboutPage() {
   return (
-    <main
-      id="main-content"
-      tabIndex={-1}
-      className="flex w-full flex-1 flex-col justify-start gap-0 bg-(--foreground) px-4 focus:outline-none"
-      aria-label="About page main content"
-    >
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageJsonLd) }}
+      />
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="flex w-full flex-1 flex-col justify-start gap-0 bg-(--foreground) px-4 focus:outline-none"
+        aria-label="About page main content"
+      >
       <AboutLayout contacts={<AboutContacts />}>
         <section className="flex min-h-screen w-full flex-col justify-center py-20">
           <div className="grid w-full grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-4">
@@ -40,5 +45,6 @@ export default function AboutPage() {
         </section>
       </AboutLayout>
     </main>
+    </>
   );
 }
