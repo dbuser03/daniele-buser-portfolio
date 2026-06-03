@@ -1,1 +1,1 @@
-export { default as Cursor } from "@/components/layout/cursor/Cursor";
+export { default as Cursor } from "./Cursor";

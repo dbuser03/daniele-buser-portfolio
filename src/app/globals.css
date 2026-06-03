@@ -28,27 +28,16 @@
   --background: #0a0a0a;
   --foreground: #f6f6f6;
   --neutral: #9b9b9b;
+  --neutral-dark: #6b6b6b;
   --accent: #ff4500;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #f6f6f6;
-    --neutral: #9b9b9b;
-    --neutral-dark: #6b6b6b;
-    --accent: #ff4500;
-  }
+  --grid-line-dark: #1a1a1a;
+  --grid-line-light: #e8e8e8;
 }
 
 html {
   overscroll-behavior: none;
   scrollbar-width: none;
-  -ms-overflow-style: none;
   user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 
 html::-webkit-scrollbar {

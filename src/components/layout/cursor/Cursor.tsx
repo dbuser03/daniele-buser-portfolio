@@ -1,77 +1,37 @@
 "use client";
 
-import React from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { CursorProps } from "@/types/layout/cursor";
-import { getLabelColor, calculateLabelOffset } from "@/utils/layout/cursor";
-import {
-  cursorVariants,
-  cursorAnimationConfig,
-} from "@/constants/layout/cursor";
-import CursorIcon from "./CursorIcon";
-import { useTransform } from "motion/react";
+import { motion } from "motion/react";
+import { CursorProps } from "@/types/cursor";
 
-const Cursor: React.FC<CursorProps> = ({
+export default function Cursor({
   smoothX,
   smoothY,
   cursorSize,
   isVisible,
-  label,
-  variant = "dark",
   color = "var(--accent)",
-  showIcon = false,
-  iconType = "touch",
-}) => {
-  const labelColor = getLabelColor(variant);
-  const labelOffset = useTransform(cursorSize, calculateLabelOffset);
-
+}: CursorProps) {
   return (
-    <>
-      <motion.div
-        className="pointer-events-none fixed z-40 rounded-full"
-        style={{
-          left: smoothX,
-          top: smoothY,
-          width: cursorSize,
-          height: cursorSize,
-          x: "-50%",
-          y: "-50%",
-        }}
-        initial={cursorVariants.circle.hidden}
-        animate={{
-          ...cursorVariants.circle.visible(isVisible),
-          backgroundColor: color,
-        }}
-        transition={cursorAnimationConfig.circle}
-      />
-      <AnimatePresence>
-        {isVisible && showIcon && (
-          <CursorIcon smoothX={smoothX} smoothY={smoothY} iconType={iconType} />
-        )}
-      </AnimatePresence>
-      <AnimatePresence mode="wait">
-        {isVisible && label && (
-          <motion.div
-            key={label}
-            className="pointer-events-none fixed z-40 text-sm font-medium whitespace-nowrap"
-            style={{
-              color: labelColor,
-              left: smoothX,
-              top: smoothY,
-              x: labelOffset,
-              y: "-50%",
-            }}
-            initial={cursorVariants.label.hidden}
-            animate={cursorVariants.label.visible}
-            exit={cursorVariants.label.exit}
-            transition={cursorAnimationConfig.label}
-          >
-            {label}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+    <motion.div
+      className="pointer-events-none fixed z-40 rounded-full"
+      style={{
+        left: smoothX,
+        top: smoothY,
+        width: cursorSize,
+        height: cursorSize,
+        x: "-50%",
+        y: "-50%",
+      }}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{
+        opacity: isVisible ? 1 : 0,
+        scale: isVisible ? 1 : 0.8,
+        backgroundColor: color,
+      }}
+      transition={{
+        opacity: { duration: 0.2, ease: "easeOut" },
+        scale: { duration: 0.2, ease: [0.34, 1.56, 0.64, 1] },
+        backgroundColor: { duration: 0.25, ease: "easeOut" },
+      }}
+    />
   );
-};
-
-export default Cursor;
+}

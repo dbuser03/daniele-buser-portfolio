@@ -2,65 +2,56 @@
 
 import { motion } from "motion/react";
 import Link from "next/link";
-import React from "react";
-import {
-  logoAnimationConfig,
-  logoVariants,
-  logoDelays,
-} from "@/constants/layout/header/logo";
-import { LogoProps } from "@/types/layout/header/logo";
-import {
-  getLogoTitleColor,
-  getLogoSubtitleColor,
-} from "@/utils/layout/header/logo";
-import { useCursorInteraction } from "@/hooks/layout/cursor/useCursorInteraction";
+import { CURSOR_SIZE } from "@/constants/cursor";
+import { LogoProps } from "@/types/layout";
+import { getPrimaryColor, getSecondaryColor } from "@/utils/theme";
+import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 
-const Logo: React.FC<LogoProps> = ({
+export default function Logo({
   variant = "dark",
   preventAnimation = false,
-}) => {
+}: LogoProps) {
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
     "header",
-    variant,
+    {
+      onEnter: { size: CURSOR_SIZE.xs, color: "var(--accent)" },
+    },
   );
 
   return (
     <Link
       href="/"
-      className="flex flex-col items-start no-underline"
+      className="flex flex-col items-start"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      aria-label="Go to homepage"
     >
       <motion.h1
         className="text-base leading-none font-bold md:text-lg"
-        style={{ color: getLogoTitleColor(variant) }}
-        variants={preventAnimation ? {} : logoVariants}
-        initial={preventAnimation ? "visible" : "hidden"}
-        animate="visible"
+        style={{ color: getPrimaryColor(variant) }}
+        initial={
+          preventAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+        }
+        animate={{ opacity: 1, y: 0 }}
         transition={
-          preventAnimation
-            ? {}
-            : { ...logoAnimationConfig, delay: logoDelays.title }
+          preventAnimation ? {} : { duration: 0.5, ease: "easeOut", delay: 0 }
         }
       >
         DANIELE BUSER
       </motion.h1>
       <motion.p
         className="text-xs md:text-sm"
-        style={{ color: getLogoSubtitleColor(variant) }}
-        variants={preventAnimation ? {} : logoVariants}
-        initial={preventAnimation ? "visible" : "hidden"}
-        animate="visible"
+        style={{ color: getSecondaryColor(variant) }}
+        initial={
+          preventAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+        }
+        animate={{ opacity: 1, y: 0 }}
         transition={
-          preventAnimation
-            ? {}
-            : { ...logoAnimationConfig, delay: logoDelays.subtitle }
+          preventAnimation ? {} : { duration: 0.5, ease: "easeOut", delay: 0.1 }
         }
       >
         Creative Developer
       </motion.p>
     </Link>
   );
-};
-
-export default Logo;
+}

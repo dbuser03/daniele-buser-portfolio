@@ -1,1 +1,1 @@
-export { default as Footer } from "@/components/layout/footer/Footer";
+export { default as Footer } from "./Footer";

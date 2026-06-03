@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, ReactNode } from "react";
-import { CursorContextType } from "@/types/layout/cursor";
+import { CursorContextType } from "@/types/cursor";
 
 const CursorContext = createContext<CursorContextType | undefined>(undefined);
 
