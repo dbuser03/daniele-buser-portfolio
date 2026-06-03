@@ -10,22 +10,27 @@ import {
   navbarAnimationConfig,
   navbarHoverAnimationConfig,
   navbarDelays,
-} from "@/constants/navbar";
+} from "@/constants/layout/header/navbar";
 import {
   isActiveNavLink,
   getNavbarTextColor,
   getNavbarHoverColor,
-} from "@/utils/navbar";
-import { NavbarProps } from "@/types/navbar";
+} from "@/utils/layout/header/navbar";
+import { NavbarProps } from "@/types/layout/header/navbar";
+import { useCursorInteraction } from "@/hooks/layout/cursor/useCursorInteraction";
 
 const Navbar: React.FC<NavbarProps> = ({
   variant = "dark",
   preventAnimation = false,
 }) => {
   const pathname = usePathname();
+  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
+    "header",
+    variant,
+  );
 
   return (
-    <nav className="navbar">
+    <nav>
       <ul className="flex gap-6 sm:gap-8 md:gap-12">
         {NAV_LINKS.map(({ href, label }, idx) => {
           const isActive = isActiveNavLink(pathname, href);
@@ -47,6 +52,8 @@ const Navbar: React.FC<NavbarProps> = ({
                   className={`text-xs md:text-sm ${
                     isActive ? "font-bold" : "font-normal"
                   }`}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
                 >
                   <motion.span
                     initial={{

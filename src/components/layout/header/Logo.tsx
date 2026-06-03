@@ -7,16 +7,30 @@ import {
   logoAnimationConfig,
   logoVariants,
   logoDelays,
-} from "@/constants/logo";
-import { LogoProps } from "@/types/logo";
-import { getLogoTitleColor, getLogoSubtitleColor } from "@/utils/logo";
+} from "@/constants/layout/header/logo";
+import { LogoProps } from "@/types/layout/header/logo";
+import {
+  getLogoTitleColor,
+  getLogoSubtitleColor,
+} from "@/utils/layout/header/logo";
+import { useCursorInteraction } from "@/hooks/layout/cursor/useCursorInteraction";
 
 const Logo: React.FC<LogoProps> = ({
   variant = "dark",
   preventAnimation = false,
 }) => {
+  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
+    "header",
+    variant,
+  );
+
   return (
-    <Link href="/" className="flex flex-col items-start no-underline">
+    <Link
+      href="/"
+      className="flex flex-col items-start no-underline"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <motion.h1
         className="text-base leading-none font-bold md:text-lg"
         style={{ color: getLogoTitleColor(variant) }}
