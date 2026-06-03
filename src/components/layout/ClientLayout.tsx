@@ -5,15 +5,18 @@ import Footer from "@/components/layout/footer/Footer";
 import Grid from "@/components/layout/grid/Grid";
 import { CursorProvider } from "@/contexts/CursorContext";
 import SmoothScrolling from "@/components/layout/cursor/SmoothScrolling";
+import { useReducedMotion } from "motion/react";
 
 export default function ClientLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <SmoothScrolling>
-      <CursorProvider>
+    <SmoothScrolling disabled={shouldReduceMotion ?? false}>
+      <CursorProvider disabled={shouldReduceMotion ?? false}>
         <div className="flex min-h-screen flex-col">
           <Grid />
           <Header />

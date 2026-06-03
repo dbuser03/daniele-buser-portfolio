@@ -2,7 +2,6 @@ import "./globals.css";
 import ClientLayout from "@/components/layout/ClientLayout";
 import { Metadata } from "next";
 import localFont from "next/font/local";
-import ReactDOM from "react-dom";
 
 const neueHaasGrotesk = localFont({
   src: [
@@ -26,8 +25,9 @@ const neueHaasGrotesk = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Daniele Buser",
-  description: "Personal Portfolio",
+  metadataBase: new URL("https://danielebuser.com"),
+  title: "Daniele Buser | Creative Developer",
+  description: "Daniele Buser's personal creative development portfolio website.",
 };
 
 export default function RootLayout({
@@ -35,19 +35,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Preload critical font for LCP
-  ReactDOM.preload("/fonts/NeueHaasGroteskDisplay-Bold.otf", {
-    as: "font",
-    type: "font/otf",
-  });
-  ReactDOM.preload("/fonts/NeueHaasGroteskDisplay-Reg.otf", {
-    as: "font",
-    type: "font/otf",
-  });
-
   return (
     <html lang="en" className={neueHaasGrotesk.variable} data-scroll-behavior="smooth">
       <body className="antialiased">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-(--accent) focus:text-(--foreground) focus:px-4 focus:py-2 focus:rounded-sm focus:outline-none"
+        >
+          Skip to content
+        </a>
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>

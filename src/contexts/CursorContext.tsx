@@ -13,6 +13,7 @@ import { useMotionValue, useSpring } from "motion/react";
 import { CursorContextType } from "@/types/cursor";
 import { CURSOR_SIZE } from "@/constants/cursor";
 import { CSS_VARIABLES } from "@/constants/theme";
+import { CURSOR_SPRING_CONFIG } from "@/constants/animations";
 import Cursor from "@/components/layout/cursor/Cursor";
 
 const CursorContext = createContext<CursorContextType | undefined>(undefined);
@@ -25,10 +26,16 @@ export const useCursorContext = () => {
   return context;
 };
 
-export const CursorProvider = ({ children }: { children: ReactNode }) => {
+export const CursorProvider = ({
+  children,
+  disabled = false,
+}: {
+  children: ReactNode;
+  disabled?: boolean;
+}) => {
   const [color, setColor] = useState<string>(CSS_VARIABLES.accent);
 
-  const cursorSize = useSpring(CURSOR_SIZE.sm, { stiffness: 500, damping: 40 });
+  const cursorSize = useSpring(CURSOR_SIZE.sm, CURSOR_SPRING_CONFIG);
   const smoothX = useMotionValue(-100);
   const smoothY = useMotionValue(-100);
   const opacity = useMotionValue(0);
@@ -52,6 +59,8 @@ export const CursorProvider = ({ children }: { children: ReactNode }) => {
   }, [opacity]);
 
   useEffect(() => {
+    if (disabled) return;
+
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     document.body.addEventListener("mouseleave", handleMouseLeave);
     document.body.addEventListener("mouseenter", handleMouseEnter);
@@ -61,7 +70,7 @@ export const CursorProvider = ({ children }: { children: ReactNode }) => {
       document.body.removeEventListener("mouseleave", handleMouseLeave);
       document.body.removeEventListener("mouseenter", handleMouseEnter);
     };
-  }, [handleMouseMove, handleMouseLeave, handleMouseEnter]);
+  }, [disabled, handleMouseMove, handleMouseLeave, handleMouseEnter]);
 
   const contextValue = useMemo(
     () => ({
@@ -75,13 +84,15 @@ export const CursorProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <CursorContext.Provider value={contextValue}>
-      <Cursor
-        smoothX={smoothX}
-        smoothY={smoothY}
-        cursorSize={cursorSize}
-        opacity={opacity}
-        color={color}
-      />
+      {!disabled && (
+        <Cursor
+          smoothX={smoothX}
+          smoothY={smoothY}
+          cursorSize={cursorSize}
+          opacity={opacity}
+          color={color}
+        />
+      )}
       {children}
     </CursorContext.Provider>
   );
