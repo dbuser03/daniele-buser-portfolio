@@ -31,7 +31,7 @@ export interface TechStackIconProps {
 export interface TechStackCellProps {
   children: React.ReactNode;
   cellId: string;
-  className: string;
+  className?: string;
   cellRef?: (node: HTMLDivElement | null) => void;
   onMouseEnter: () => void;
   onMouseLeave: () => void;

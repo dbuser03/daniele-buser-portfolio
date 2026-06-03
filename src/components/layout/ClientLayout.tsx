@@ -1,8 +1,8 @@
 "use client";
 
 import Header from "@/components/layout/header/Header";
-import Footer from "@/components/layout/footer/Footer";
-import Grid from "@/components/layout/grid/Grid";
+import Footer from "@/components/layout/Footer";
+import Grid from "@/components/layout/Grid";
 import { CursorProvider } from "@/contexts/CursorContext";
 import SmoothScrolling from "@/components/layout/cursor/SmoothScrolling";
 import { useReducedMotion } from "motion/react";
