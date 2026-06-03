@@ -6,16 +6,9 @@ import Link from "next/link";
 import type { Route } from "next";
 import { CURSOR_SIZE } from "@/constants/cursor";
 import { NAV_LINKS } from "@/constants/layout";
-import {
-  isActiveNavLink,
-  getNavbarTextColor,
-  getPrimaryColor,
-} from "@/utils/theme";
+import { isActiveNavLink } from "@/utils/theme";
 import { NavItemProps, NavbarProps } from "@/types/layout";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
-
-import { useThemeVariant } from "@/hooks/useThemeVariant";
-
 import { useLenis } from "lenis/react";
 
 function NavItem({
@@ -25,9 +18,9 @@ function NavItem({
   preventAnimation,
 }: NavItemProps) {
   const pathname = usePathname();
-  const variant = useThemeVariant();
   const lenis = useLenis();
   const isActive = isActiveNavLink(pathname, href);
+
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
     "header",
     isActive
@@ -70,10 +63,10 @@ function NavItem({
         >
           <motion.span
             animate={{
-              color: getNavbarTextColor(variant, isActive),
+              color: isActive ? "var(--foreground)" : "var(--neutral)",
             }}
             whileHover={
-              preventAnimation ? {} : { color: getPrimaryColor(variant) }
+              preventAnimation ? {} : { color: "var(--foreground)" }
             }
             transition={
               preventAnimation ? {} : { duration: 0.3, ease: "easeOut" }

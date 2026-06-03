@@ -7,7 +7,7 @@ export default function Header({
 }: HeaderProps) {
   return (
     <header
-      className="fixed top-0 z-30 flex w-full flex-row justify-between p-4"
+      className="fixed top-0 z-30 flex w-full flex-row justify-between p-4 mix-blend-difference"
     >
       <Logo preventAnimation={preventAnimation} />
       <Navbar preventAnimation={preventAnimation} />

@@ -1,13 +1,7 @@
 "use client";
 
 import { useRef, useState, useCallback, useEffect } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useTransform,
-  useMotionValueEvent,
-} from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   TECH_STACK_FIRST_ROW_ICONS,
   TECH_STACK_SECOND_ROW_ICONS,
@@ -18,8 +12,6 @@ import type { OverlayRect } from "@/types/about";
 import { getTechStackCellId } from "@/utils/about";
 import TechStackCell from "./TechStackCell";
 import TechStackIcon from "./TechStackIcon";
-
-const INITIAL_LABEL_RANGE: [number, number] = [0.05, 0.25];
 
 const overlaySpring = {
   type: "spring" as const,
@@ -32,27 +24,41 @@ export default function TechStack() {
   const containerRef = useRef<HTMLElement | null>(null);
   const cellRefs = useRef<Record<string, HTMLElement | null>>({});
   const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const [isInteractive, setIsInteractive] = useState(false);
-  const [hoveredCellId, setHoveredCellId] = useState<string | null>(null);
+  const highlightTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [hoveredCellId, setHoveredCellId] = useState<string | null>(
+    TECH_STACK_DEFAULT_CELL_ID,
+  );
+  const [fullyHighlightedCellId, setFullyHighlightedCellId] = useState<string | null>(
+    null,
+  );
   const [overlayRect, setOverlayRect] = useState<OverlayRect | null>(null);
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("header");
-  const mousePosRef = useRef<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mousePosRef.current = { x: e.clientX, y: e.clientY };
-    };
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      if (leaveTimeoutRef.current) clearTimeout(leaveTimeoutRef.current);
-    };
-  }, []);
+    if (highlightTimeoutRef.current) {
+      clearTimeout(highlightTimeoutRef.current);
+      highlightTimeoutRef.current = null;
+    }
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 75%", "start 25%"],
-  });
+    setFullyHighlightedCellId(null);
+
+    if (hoveredCellId) {
+      highlightTimeoutRef.current = setTimeout(() => {
+        setFullyHighlightedCellId(hoveredCellId);
+      }, 150);
+    }
+
+    return () => {
+      if (highlightTimeoutRef.current) {
+        clearTimeout(highlightTimeoutRef.current);
+      }
+    };
+  }, [hoveredCellId]);
+
+  const updateHoveredCell = useCallback((cellId: string) => {
+    setHoveredCellId(cellId);
+    setFullyHighlightedCellId(null);
+  }, []);
 
   const getOverlayRect = useCallback((): OverlayRect | null => {
     if (!hoveredCellId || !containerRef.current) return null;
@@ -81,49 +87,12 @@ export default function TechStack() {
     return () => window.removeEventListener("resize", handleResize);
   }, [getOverlayRect]);
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (latest >= 0.98 && !isInteractive) {
-      setIsInteractive(true);
-      let detectedCellId: string | null = null;
-      if (mousePosRef.current) {
-        const { x, y } = mousePosRef.current;
-        for (const [cellId, cellEl] of Object.entries(cellRefs.current)) {
-          if (cellEl) {
-            const rect = cellEl.getBoundingClientRect();
-            if (
-              x >= rect.left &&
-              x <= rect.right &&
-              y >= rect.top &&
-              y <= rect.bottom
-            ) {
-              detectedCellId = cellId;
-              break;
-            }
-          }
-        }
-      }
-      setHoveredCellId(detectedCellId || TECH_STACK_DEFAULT_CELL_ID);
-    } else if (latest < 0.98 && isInteractive) {
-      setIsInteractive(false);
-      if (leaveTimeoutRef.current) {
-        clearTimeout(leaveTimeoutRef.current);
-        leaveTimeoutRef.current = null;
-      }
-      setHoveredCellId(null);
-      handleMouseLeave();
-      setOverlayRect(null);
-    }
-  });
-
-  const labelOpacity = useTransform(scrollYProgress, INITIAL_LABEL_RANGE, [0, 1]);
-  const labelY = useTransform(scrollYProgress, INITIAL_LABEL_RANGE, [12, 0]);
-
   const handleCellMouseEnter = (cellId: string) => {
     if (leaveTimeoutRef.current) {
       clearTimeout(leaveTimeoutRef.current);
       leaveTimeoutRef.current = null;
     }
-    setHoveredCellId(cellId);
+    updateHoveredCell(cellId);
   };
 
   const handleCellMouseLeave = () => {
@@ -131,14 +100,8 @@ export default function TechStack() {
       clearTimeout(leaveTimeoutRef.current);
     }
     leaveTimeoutRef.current = setTimeout(() => {
-      if (isInteractive) {
-        setHoveredCellId(TECH_STACK_DEFAULT_CELL_ID);
-        handleMouseLeave();
-      } else {
-        setHoveredCellId(null);
-        handleMouseLeave();
-        setOverlayRect(null);
-      }
+      updateHoveredCell(TECH_STACK_DEFAULT_CELL_ID);
+      handleMouseLeave();
     }, 50);
   };
 
@@ -147,14 +110,8 @@ export default function TechStack() {
       clearTimeout(leaveTimeoutRef.current);
       leaveTimeoutRef.current = null;
     }
-    if (isInteractive) {
-      setHoveredCellId(TECH_STACK_DEFAULT_CELL_ID);
-      handleMouseLeave();
-    } else {
-      setHoveredCellId(null);
-      handleMouseLeave();
-      setOverlayRect(null);
-    }
+    updateHoveredCell(TECH_STACK_DEFAULT_CELL_ID);
+    handleMouseLeave();
   };
 
   return (
@@ -167,13 +124,16 @@ export default function TechStack() {
       <motion.h2
         id="tech-stack-heading"
         className="pb-3 text-xs text-(--neutral-dark) md:text-sm"
-        style={{ opacity: labelOpacity, y: labelY }}
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
         MY TECH STACK
       </motion.h2>
 
       <AnimatePresence>
-        {isInteractive && hoveredCellId && overlayRect && (
+        {hoveredCellId && overlayRect && (
           <motion.div
             className="pointer-events-none absolute z-20"
             style={{ backgroundColor: "var(--background)" }}
@@ -199,24 +159,28 @@ export default function TechStack() {
         )}
       </AnimatePresence>
 
-      <div className={`grid w-full grid-cols-1 gap-0 md:grid-cols-3 ${!isInteractive ? "pointer-events-none" : ""}`}>
+      <div className="grid w-full grid-cols-1 gap-0 md:grid-cols-3">
         {TECH_STACK_FIRST_ROW_ICONS.map((icon, index) => {
           const cellId = getTechStackCellId("first", index);
-          const cellIsActive = hoveredCellId === cellId && isInteractive;
+          const cellIsActive = hoveredCellId === cellId;
           return (
             <TechStackCell
               key={cellId}
               cellId={cellId}
-              scrollYProgress={scrollYProgress}
               className="relative min-h-44 bg-(--foreground) lg:aspect-3/2 lg:min-h-0"
-              cellRef={(node) => { if (node) cellRefs.current[cellId] = node; }}
+              cellRef={(node) => {
+                if (node) cellRefs.current[cellId] = node;
+              }}
               onMouseEnter={() => handleCellMouseEnter(cellId)}
               onMouseLeave={handleCellMouseLeave}
-              isInteractive={isInteractive}
             >
               <TechStackIcon
-                icon={{ ...icon, hoverPaddingClass: icon.hoverPaddingClass ?? "p-8 sm:p-12" }}
+                icon={{
+                  ...icon,
+                  hoverPaddingClass: icon.hoverPaddingClass ?? "p-8 sm:p-12",
+                }}
                 isActive={cellIsActive}
+                isFullyActive={fullyHighlightedCellId === cellId}
                 handleMouseEnter={handleMouseEnter}
                 handleMouseLeave={handleMouseLeave}
               />
@@ -225,7 +189,7 @@ export default function TechStack() {
         })}
       </div>
 
-      <div className={`grid w-full grid-cols-2 gap-0 sm:grid-cols-4 lg:grid-cols-7 ${!isInteractive ? "pointer-events-none" : ""}`}>
+      <div className="grid w-full grid-cols-2 gap-0 sm:grid-cols-4 lg:grid-cols-7">
         {Array.from({ length: 7 }, (_, index) => {
           const cellId = getTechStackCellId("second", index);
           const icon = TECH_STACK_SECOND_ROW_ICONS.find(
@@ -234,22 +198,23 @@ export default function TechStack() {
 
           if (!icon) return null;
 
-          const cellIsActive = hoveredCellId === cellId && isInteractive;
+          const cellIsActive = hoveredCellId === cellId;
 
           return (
             <TechStackCell
               key={cellId}
               cellId={cellId}
-              scrollYProgress={scrollYProgress}
               className="relative aspect-square bg-(--foreground)"
-              cellRef={(node) => { if (node) cellRefs.current[cellId] = node; }}
+              cellRef={(node) => {
+                if (node) cellRefs.current[cellId] = node;
+              }}
               onMouseEnter={() => handleCellMouseEnter(cellId)}
               onMouseLeave={handleCellMouseLeave}
-              isInteractive={isInteractive}
             >
               <TechStackIcon
                 icon={icon}
                 isActive={cellIsActive}
+                isFullyActive={fullyHighlightedCellId === cellId}
                 handleMouseEnter={handleMouseEnter}
                 handleMouseLeave={handleMouseLeave}
               />

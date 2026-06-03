@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { CONTACT_LINKS, EMAIL } from "@/constants/contacts";
 import { CURSOR_SIZE } from "@/constants/cursor";
@@ -47,7 +47,20 @@ function Separator() {
   return <span className="text-(--neutral)">|</span>;
 }
 
-export default function Contacts() {
+export default function Contacts({
+  paragraphDelay = 0.5,
+  linksDelay = 0.65,
+}: {
+  paragraphDelay?: number;
+  linksDelay?: number;
+} = {}) {
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsReady(true), 150);
+    return () => clearTimeout(timer);
+  }, []);
+
   const {
     handleMouseEnter: handleEmailEnter,
     handleMouseLeave: handleEmailLeave,
@@ -57,6 +70,46 @@ export default function Contacts() {
 
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("header");
 
+  const paragraphVariants = {
+    initial: {
+      opacity: 0,
+      y: 30,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut",
+      },
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+        delay: paragraphDelay,
+      },
+    },
+  } as const;
+
+  const linksVariants = {
+    initial: {
+      opacity: 0,
+      y: 30,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut",
+      },
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+        delay: linksDelay,
+      },
+    },
+  } as const;
+
   return (
     <section
       className="flex flex-col justify-between gap-10 md:gap-12 lg:flex-row lg:items-center"
@@ -64,18 +117,20 @@ export default function Contacts() {
     >
       <motion.p
         className="max-w-sm text-xl leading-tight sm:max-w-md sm:text-2xl md:max-w-xl md:text-3xl md:leading-none lg:max-w-md lg:text-2xl xl:max-w-xl xl:text-3xl 2xl:max-w-2xl 2xl:text-4xl"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
+        variants={paragraphVariants}
+        initial="initial"
+        whileInView={isReady ? "visible" : undefined}
+        viewport={{ once: false, amount: 0.1 }}
       >
         If you have a project in mind, feel free to reach out - I&apos;d be glad
         to help bring your vision to life.
       </motion.p>
 
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.65 }}
+        variants={linksVariants}
+        initial="initial"
+        whileInView={isReady ? "visible" : undefined}
+        viewport={{ once: false, amount: 0.1 }}
       >
         <a
           href={`mailto:${EMAIL}`}

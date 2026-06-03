@@ -2,22 +2,18 @@
 
 import { motion } from "motion/react";
 import { useCurrentTime } from "@/hooks/useCurrentTime";
-import { getPrimaryColor, getSecondaryColor } from "@/utils/theme";
 import { FooterProps } from "@/types/layout";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
-
-import { useThemeVariant } from "@/hooks/useThemeVariant";
 
 export default function Footer({
   preventAnimation = false,
 }: FooterProps) {
-  const variant = useThemeVariant();
   const currentTime = useCurrentTime();
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("footer");
 
   return (
     <footer
-      className="fixed bottom-0 z-30 flex w-full flex-col p-4 pointer-events-none"
+      className="fixed bottom-0 z-30 flex w-full flex-col p-4 pointer-events-none mix-blend-difference"
       aria-label="Site footer with location and time"
     >
       <div
@@ -26,8 +22,7 @@ export default function Footer({
         className="w-fit pointer-events-auto"
       >
         <motion.p
-          className="text-xs leading-none md:text-sm"
-          style={{ color: getPrimaryColor(variant) }}
+          className="text-xs leading-none md:text-sm text-(--foreground)"
           initial={
             preventAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
           }
@@ -41,8 +36,7 @@ export default function Footer({
           LUGANO - {currentTime}
         </motion.p>
         <motion.p
-          className="text-xs md:text-sm"
-          style={{ color: getSecondaryColor(variant) }}
+          className="text-xs md:text-sm text-(--neutral)"
           initial={
             preventAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
           }

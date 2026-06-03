@@ -21,6 +21,7 @@ export type TechStackIconConfig = {
 export interface TechStackIconProps {
   icon: TechStackIconConfig;
   isActive: boolean;
+  isFullyActive: boolean;
   handleMouseEnter: () => void;
   handleMouseLeave: () => void;
 }
@@ -28,12 +29,10 @@ export interface TechStackIconProps {
 export interface TechStackCellProps {
   children: React.ReactNode;
   cellId: string;
-  scrollYProgress: MotionValue<number>;
   className: string;
   cellRef: (node: HTMLDivElement | null) => void;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
-  isInteractive: boolean;
 }
 
 export type HoverableWord = "Obsess" | "Design" | "Code" | "Ship";

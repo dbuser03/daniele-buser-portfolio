@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useSpring } from "motion/react";
 import { HOW_I_WORK_WORDS, VIDEO_MAP } from "@/constants/about";
 import { useHowIWork } from "@/hooks/useHowIWork";
@@ -9,6 +9,13 @@ import WorkWord from "./WorkWord";
 import VideoLayer from "./VideoLayer";
 
 export default function HowIWork() {
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsReady(true), 150);
+    return () => clearTimeout(timer);
+  }, []);
+
   const wordsRef = useRef<HTMLDivElement | null>(null);
   const {
     activeWord,
@@ -98,8 +105,8 @@ export default function HowIWork() {
           <motion.p
             className="text-xl leading-tight text-(--background) sm:text-2xl md:text-3xl md:leading-none xl:col-span-6 xl:text-3xl 2xl:text-4xl"
             initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
+            whileInView={isReady ? { opacity: 1, y: 0 } : undefined}
+            viewport={{ once: false, amount: "some", margin: "-25% 0px -25% 0px" }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             Most of my time goes into the parts nobody sees — decisions,

@@ -4,15 +4,11 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { CURSOR_SIZE } from "@/constants/cursor";
 import { LogoProps } from "@/types/layout";
-import { getPrimaryColor, getSecondaryColor } from "@/utils/theme";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
-
-import { useThemeVariant } from "@/hooks/useThemeVariant";
 
 export default function Logo({
   preventAnimation = false,
 }: LogoProps) {
-  const variant = useThemeVariant();
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
     "header",
     {
@@ -29,8 +25,7 @@ export default function Logo({
       aria-label="Daniele Buser - Creative Developer"
     >
       <motion.span
-        className="text-base leading-none font-bold md:text-lg"
-        style={{ color: getPrimaryColor(variant) }}
+        className="text-base leading-none font-bold md:text-lg text-(--foreground)"
         initial={
           preventAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
         }
@@ -42,8 +37,7 @@ export default function Logo({
         DANIELE BUSER
       </motion.span>
       <motion.p
-        className="text-xs md:text-sm"
-        style={{ color: getSecondaryColor(variant) }}
+        className="text-xs md:text-sm text-(--neutral)"
         initial={
           preventAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
         }

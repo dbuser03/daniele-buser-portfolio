@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import type { Route } from "next";
@@ -8,9 +9,20 @@ import type { TechStackIconProps } from "@/types/about";
 export default function TechStackIcon({
   icon,
   isActive,
+  isFullyActive,
   handleMouseEnter,
   handleMouseLeave,
 }: TechStackIconProps) {
+  const [isMouseOver, setIsMouseOver] = useState(false);
+
+  useEffect(() => {
+    if (isMouseOver && isFullyActive) {
+      handleMouseEnter();
+    } else {
+      handleMouseLeave();
+    }
+  }, [isFullyActive, isMouseOver, handleMouseEnter, handleMouseLeave]);
+
   return (
     <Link
       href={icon.href as Route}
@@ -19,7 +31,9 @@ export default function TechStackIcon({
       className="relative z-30 flex h-full w-full items-center justify-center"
       aria-label={`Visit ${icon.label} website`}
     >
-      <div className={`inline-flex items-center justify-center ${icon.hoverPaddingClass ?? "p-6 sm:p-9"}`}>
+      <div
+        className={`inline-flex items-center justify-center ${icon.hoverPaddingClass ?? "p-6 sm:p-9"}`}
+      >
         <motion.div
           className={icon.sizeClass}
           style={{
@@ -32,15 +46,21 @@ export default function TechStackIcon({
             WebkitMaskSize: "contain",
             maskSize: "contain",
           }}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
+          onMouseEnter={() => setIsMouseOver(true)}
+          onMouseLeave={() => setIsMouseOver(false)}
           animate={{
             backgroundColor: isActive
               ? "var(--foreground)"
               : "var(--background)",
           }}
-          whileHover={{ scale: 1.12 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          transition={{
+            backgroundColor: {
+              type: "spring" as const,
+              stiffness: 170,
+              damping: 24,
+              mass: 0.9,
+            },
+          }}
           aria-hidden="true"
         />
       </div>

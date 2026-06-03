@@ -6,6 +6,7 @@ export default function Hey() {
       text="Hey"
       className="relative z-10 -ml-4 inline-block text-(--background)"
       ariaLabel="Hey - About page heading"
+      once={true}
     />
   );
 }
