@@ -32,7 +32,7 @@ export interface TechStackCellProps {
   children: React.ReactNode;
   cellId: string;
   className: string;
-  cellRef: (node: HTMLDivElement | null) => void;
+  cellRef?: (node: HTMLDivElement | null) => void;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
 }

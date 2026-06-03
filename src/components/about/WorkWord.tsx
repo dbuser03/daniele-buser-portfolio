@@ -3,6 +3,16 @@
 import { motion, useTransform } from "motion/react";
 import type { WorkWordProps } from "@/types/about";
 
+const arrowVariants = {
+  rest: { scaleX: 0, opacity: 0 },
+  hover: { scaleX: 1, opacity: 1 },
+} as const;
+
+const labelVariants = {
+  rest: { x: 0 },
+  hover: { x: 8 },
+} as const;
+
 export default function WorkWord({
   word,
   index,
@@ -31,11 +41,8 @@ export default function WorkWord({
       aria-label={`View video for ${word}`}
     >
       <motion.span
-        className="h-7 shrink-0 bg-(--background) sm:h-10 xl:h-12"
-        variants={{
-          rest: { width: 0, opacity: 0, marginRight: 0 },
-          hover: { width: 56, opacity: 1, marginRight: 12 },
-        }}
+        className="h-7 w-14 shrink-0 bg-(--background) sm:h-10 xl:h-12 mr-3 origin-left"
+        variants={arrowVariants}
         transition={{ duration: 0.28, ease: "easeOut" }}
         style={{
           WebkitMaskImage: "url(/icons/right-arrow.svg)",
@@ -51,10 +58,7 @@ export default function WorkWord({
       />
       <motion.span
         className="inline-block"
-        variants={{
-          rest: { x: 0 },
-          hover: { x: 8 },
-        }}
+        variants={labelVariants}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         {word}

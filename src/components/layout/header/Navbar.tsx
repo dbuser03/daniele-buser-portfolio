@@ -10,6 +10,7 @@ import { isActiveNavLink } from "@/utils/theme";
 import { NavItemProps, NavbarProps } from "@/types/layout";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { useLenis } from "lenis/react";
+import { cn } from "@/utils/cn";
 
 function NavItem({ href, label, delay, preventAnimation }: NavItemProps) {
   const pathname = usePathname();
@@ -48,9 +49,10 @@ function NavItem({ href, label, delay, preventAnimation }: NavItemProps) {
       >
         <Link
           href={href as Route}
-          className={`text-xs md:text-sm focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm ${
-            isActive ? "font-bold" : "font-normal"
-          }`}
+          className={cn(
+            "text-xs md:text-sm focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm",
+            isActive ? "font-bold" : "font-normal",
+          )}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onClick={handleClick}
