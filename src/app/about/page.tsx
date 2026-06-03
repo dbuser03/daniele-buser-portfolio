@@ -6,33 +6,9 @@ import HowIWork from "@/components/about/HowIWork";
 import TechStack from "@/components/about/TechStack";
 import AboutContacts from "@/components/about/AboutContacts";
 import AboutLayout from "@/components/about/AboutLayout";
+import { aboutMetadata } from "@/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "About | Daniele Buser",
-  description: "Learn more about Daniele Buser, a creative developer specializing in design engineering.",
-  openGraph: {
-    title: "About | Daniele Buser",
-    description: "Learn more about Daniele Buser, a creative developer specializing in design engineering.",
-    url: "https://danielebuser.com/about",
-    siteName: "Daniele Buser Portfolio",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Daniele Buser Portfolio Screenshot",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "About | Daniele Buser",
-    description: "Learn more about Daniele Buser, a creative developer specializing in design engineering.",
-    images: ["/og-image.png"],
-  },
-};
+export const metadata: Metadata = aboutMetadata;
 
 export default function AboutPage() {
   return (

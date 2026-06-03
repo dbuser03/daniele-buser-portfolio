@@ -1,33 +1,9 @@
 import type { Metadata } from "next";
 import Contacts from "@/components/contacts/Contacts";
 import Hello from "@/components/contacts/Hello";
+import { contactMetadata } from "@/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "Contact | Daniele Buser",
-  description: "Get in touch with Daniele Buser for project inquiries or collaboration possibilities.",
-  openGraph: {
-    title: "Contact | Daniele Buser",
-    description: "Get in touch with Daniele Buser for project inquiries or collaboration possibilities.",
-    url: "https://danielebuser.com/contacts",
-    siteName: "Daniele Buser Portfolio",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Daniele Buser Portfolio Screenshot",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Contact | Daniele Buser",
-    description: "Get in touch with Daniele Buser for project inquiries or collaboration possibilities.",
-    images: ["/og-image.png"],
-  },
-};
+export const metadata: Metadata = contactMetadata;
 
 export default function ContactPage() {
   return (

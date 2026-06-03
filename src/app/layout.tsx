@@ -2,6 +2,7 @@ import "./globals.css";
 import ClientLayout from "@/components/layout/ClientLayout";
 import { Metadata } from "next";
 import localFont from "next/font/local";
+import { baseMetadata, personJsonLd } from "@/seo/metadata";
 
 const neueHaasGrotesk = localFont({
   src: [
@@ -24,11 +25,7 @@ const neueHaasGrotesk = localFont({
   variable: "--font-neue-haas",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://danielebuser.com"),
-  title: "Daniele Buser | Creative Developer",
-  description: "Daniele Buser's personal creative development portfolio website.",
-};
+export const metadata: Metadata = baseMetadata;
 
 export default function RootLayout({
   children,
@@ -38,6 +35,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={neueHaasGrotesk.variable} data-scroll-behavior="smooth">
       <body className="antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-(--accent) focus:text-(--foreground) focus:px-4 focus:py-2 focus:rounded-sm focus:outline-none"

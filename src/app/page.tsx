@@ -1,31 +1,7 @@
 import type { Metadata } from "next";
+import { homeMetadata } from "@/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "Projects | Daniele Buser",
-  description: "Daniele Buser's personal portfolio website showcasing creative web and mobile design.",
-  openGraph: {
-    title: "Projects | Daniele Buser",
-    description: "Daniele Buser's personal portfolio website showcasing creative web and mobile design.",
-    url: "https://danielebuser.com",
-    siteName: "Daniele Buser Portfolio",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Daniele Buser Portfolio Screenshot",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Projects | Daniele Buser",
-    description: "Daniele Buser's personal portfolio website showcasing creative web and mobile design.",
-    images: ["/og-image.png"],
-  },
-};
+export const metadata: Metadata = homeMetadata;
 
 export default function Home() {
   return (
