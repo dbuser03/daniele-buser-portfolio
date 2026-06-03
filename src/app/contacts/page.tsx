@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Contacts from "@/components/contacts/Contacts";
 import Hello from "@/components/contacts/Hello";
-import { contactMetadata, contactPageJsonLd } from "@/seo/metadata";
+import { contactMetadata, contactPageJsonLd } from "@/utils/metadata";
 
 export const metadata: Metadata = contactMetadata;
 

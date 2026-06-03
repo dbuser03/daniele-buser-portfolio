@@ -6,7 +6,7 @@ import HowIWork from "@/components/about/HowIWork";
 import TechStack from "@/components/about/TechStack";
 import AboutContacts from "@/components/about/AboutContacts";
 import AboutLayout from "@/components/about/AboutLayout";
-import { aboutMetadata, aboutPageJsonLd } from "@/seo/metadata";
+import { aboutMetadata, aboutPageJsonLd } from "@/utils/metadata";
 
 export const metadata: Metadata = aboutMetadata;
 

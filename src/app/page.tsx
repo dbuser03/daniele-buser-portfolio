@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { homeMetadata, homePageJsonLd } from "@/seo/metadata";
+import { homeMetadata, homePageJsonLd } from "@/utils/metadata";
 
 export const metadata: Metadata = homeMetadata;
 

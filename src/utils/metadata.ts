@@ -29,6 +29,7 @@ export const baseMetadata: Metadata = {
     "Tailwind CSS",
     "UI Animation",
     "Web Performance",
+    "UI Animation",
   ],
 
   authors: [{ name: "Daniele Buser", url: "https://danielebuser.com" }],
@@ -193,6 +194,8 @@ export const personJsonLd = {
     "Framer Motion",
     "GSAP",
     "TypeScript",
+    "Web Performance",
+    "UI Animation",
     "Web Performance",
     "UI Animation",
   ],

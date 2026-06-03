@@ -2,7 +2,7 @@ import "./globals.css";
 import ClientLayout from "@/components/layout/ClientLayout";
 import { Metadata } from "next";
 import localFont from "next/font/local";
-import { baseMetadata, personJsonLd, websiteJsonLd } from "@/seo/metadata";
+import { baseMetadata, personJsonLd, websiteJsonLd } from "@/utils/metadata";
 
 const neueHaasGrotesk = localFont({
   src: [
