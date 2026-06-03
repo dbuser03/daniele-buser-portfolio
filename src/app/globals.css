@@ -31,3 +31,12 @@ body {
     cursor: none !important;
   }
 }
+
+/* Base focus styles for elements that don't override it */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}

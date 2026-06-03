@@ -24,6 +24,8 @@ export interface TechStackIconProps {
   isFullyActive: boolean;
   handleMouseEnter: () => void;
   handleMouseLeave: () => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 export interface TechStackCellProps {

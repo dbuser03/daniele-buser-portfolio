@@ -28,7 +28,7 @@ function ContactLinkItem({
       {...(download && {
         download: true,
       })}
-      className="text-md text-(--neutral) md:text-lg"
+      className="text-md text-(--neutral) md:text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -134,7 +134,7 @@ export default function Contacts({
       >
         <a
           href={`mailto:${EMAIL}`}
-          className="block"
+          className="block w-fit focus-visible:outline focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
           onMouseEnter={handleEmailEnter}
           onMouseLeave={handleEmailLeave}
           aria-label={`Send email to ${EMAIL}`}

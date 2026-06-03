@@ -5,24 +5,22 @@ import { useCurrentTime } from "@/hooks/useCurrentTime";
 import { FooterProps } from "@/types/layout";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 
-export default function Footer({
-  preventAnimation = false,
-}: FooterProps) {
+export default function Footer({ preventAnimation = false }: FooterProps) {
   const currentTime = useCurrentTime();
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("footer");
 
   return (
     <footer
-      className="fixed bottom-0 z-30 flex w-full flex-col p-4 pointer-events-none mix-blend-difference"
+      className="pointer-events-none fixed bottom-0 z-30 flex w-full flex-col p-4 mix-blend-difference"
       aria-label="Site footer with location and time"
     >
       <div
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="w-fit pointer-events-auto"
+        className="pointer-events-auto w-fit"
       >
         <motion.p
-          className="text-xs leading-none md:text-sm text-(--foreground)"
+          className="text-xs leading-none text-(--foreground) md:text-sm"
           initial={
             preventAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
           }
@@ -36,7 +34,7 @@ export default function Footer({
           LUGANO - {currentTime}
         </motion.p>
         <motion.p
-          className="text-xs md:text-sm text-(--neutral)"
+          className="text-xs text-(--neutral) md:text-sm"
           initial={
             preventAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
           }

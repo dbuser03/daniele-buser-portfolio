@@ -2,13 +2,9 @@ import Logo from "./Logo";
 import Navbar from "./Navbar";
 import { HeaderProps } from "@/types/layout";
 
-export default function Header({
-  preventAnimation = false,
-}: HeaderProps) {
+export default function Header({ preventAnimation = false }: HeaderProps) {
   return (
-    <header
-      className="fixed top-0 z-30 flex w-full flex-row justify-between p-4 mix-blend-difference"
-    >
+    <header className="fixed top-0 z-30 flex w-full flex-row justify-between p-4 mix-blend-difference">
       <Logo preventAnimation={preventAnimation} />
       <Navbar preventAnimation={preventAnimation} />
     </header>

@@ -54,7 +54,7 @@ export default function HowIWork() {
           <div className="relative aspect-16/7 w-full overflow-hidden bg-(--neutral) xl:col-span-9">
             <Image
               src="/Gemini_Generated_Image_fm1n4sfm1n4sfm1n.png"
-              alt="How I work"
+              alt=""
               fill
               sizes="(max-width: 1280px) 100vw, 75vw"
               className="object-cover"
@@ -75,7 +75,7 @@ export default function HowIWork() {
             >
               <Image
                 src="/c6b78190-32f7-45dc-b76c-3c19de735a9a.jpg"
-                alt="How I work"
+                alt=""
                 fill
                 sizes="(max-width: 1280px) 100vw, 25vw"
                 className="object-cover"
@@ -106,7 +106,11 @@ export default function HowIWork() {
             className="text-xl leading-tight text-(--background) sm:text-2xl md:text-3xl md:leading-none xl:col-span-6 xl:text-3xl 2xl:text-4xl"
             initial={{ opacity: 0, y: 30 }}
             whileInView={isReady ? { opacity: 1, y: 0 } : undefined}
-            viewport={{ once: false, amount: "some", margin: "-25% 0px -25% 0px" }}
+            viewport={{
+              once: false,
+              amount: "some",
+              margin: "-10% 0px -20% 0px",
+            }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             Most of my time goes into the parts nobody sees — decisions,

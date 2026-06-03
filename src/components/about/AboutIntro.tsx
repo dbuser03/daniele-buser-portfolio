@@ -22,9 +22,9 @@ export default function AboutIntro() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
     >
-      I&apos;m a {age ?? "..."}-year-old Swiss creative developer, who crafts web
-      and mobile products where design and code work as one. I enjoy taking the
-      lead on projects because, honestly, someone has to.
+      I&apos;m a {age ?? "..."}-year-old Swiss creative developer, who crafts
+      web and mobile products where design and code work as one. I enjoy taking
+      the lead on projects because, honestly, someone has to.
     </motion.p>
   );
 }

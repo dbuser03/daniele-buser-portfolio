@@ -12,6 +12,8 @@ export default function TechStackIcon({
   isFullyActive,
   handleMouseEnter,
   handleMouseLeave,
+  onFocus,
+  onBlur,
 }: TechStackIconProps) {
   const [isMouseOver, setIsMouseOver] = useState(false);
 
@@ -28,8 +30,10 @@ export default function TechStackIcon({
       href={icon.href as Route}
       target="_blank"
       rel="noopener noreferrer"
-      className="relative z-30 flex h-full w-full items-center justify-center"
+      className="relative z-30 flex h-full w-full items-center justify-center focus-visible:z-40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-[-2px]"
       aria-label={`Visit ${icon.label} website`}
+      onFocus={onFocus}
+      onBlur={onBlur}
     >
       <div
         className={`inline-flex items-center justify-center ${icon.hoverPaddingClass ?? "p-6 sm:p-9"}`}

@@ -28,9 +28,9 @@ export default function TechStack() {
   const [hoveredCellId, setHoveredCellId] = useState<string | null>(
     TECH_STACK_DEFAULT_CELL_ID,
   );
-  const [fullyHighlightedCellId, setFullyHighlightedCellId] = useState<string | null>(
-    null,
-  );
+  const [fullyHighlightedCellId, setFullyHighlightedCellId] = useState<
+    string | null
+  >(null);
   const [overlayRect, setOverlayRect] = useState<OverlayRect | null>(null);
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("header");
 
@@ -39,8 +39,6 @@ export default function TechStack() {
       clearTimeout(highlightTimeoutRef.current);
       highlightTimeoutRef.current = null;
     }
-
-    setFullyHighlightedCellId(null);
 
     if (hoveredCellId) {
       highlightTimeoutRef.current = setTimeout(() => {
@@ -183,6 +181,8 @@ export default function TechStack() {
                 isFullyActive={fullyHighlightedCellId === cellId}
                 handleMouseEnter={handleMouseEnter}
                 handleMouseLeave={handleMouseLeave}
+                onFocus={() => handleCellMouseEnter(cellId)}
+                onBlur={handleCellMouseLeave}
               />
             </TechStackCell>
           );
@@ -217,6 +217,8 @@ export default function TechStack() {
                 isFullyActive={fullyHighlightedCellId === cellId}
                 handleMouseEnter={handleMouseEnter}
                 handleMouseLeave={handleMouseLeave}
+                onFocus={() => handleCellMouseEnter(cellId)}
+                onBlur={handleCellMouseLeave}
               />
             </TechStackCell>
           );

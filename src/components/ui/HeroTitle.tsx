@@ -12,6 +12,7 @@ export default function HeroTitle({
   yOffset = 40,
   duration = 0.7,
   delay = 0.35,
+  as = "h1",
 }: HeroTitleProps) {
   const [isReady, setIsReady] = useState(false);
 
@@ -40,8 +41,10 @@ export default function HeroTitle({
     },
   } as const;
 
+  const MotionTag = motion[as] || motion.h1;
+
   return (
-    <motion.h1
+    <MotionTag
       className={`text-[10rem] leading-none lg:text-[12rem] xl:text-[14rem] 2xl:text-[16rem] ${className}`}
       variants={titleVariants}
       initial="initial"
@@ -53,6 +56,6 @@ export default function HeroTitle({
       <span className="text-(--accent)" aria-hidden="true">
         .
       </span>
-    </motion.h1>
+    </MotionTag>
   );
 }

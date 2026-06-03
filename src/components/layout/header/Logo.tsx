@@ -6,9 +6,7 @@ import { CURSOR_SIZE } from "@/constants/cursor";
 import { LogoProps } from "@/types/layout";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 
-export default function Logo({
-  preventAnimation = false,
-}: LogoProps) {
+export default function Logo({ preventAnimation = false }: LogoProps) {
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
     "header",
     {
@@ -19,13 +17,13 @@ export default function Logo({
   return (
     <Link
       href="/"
-      className="flex flex-col items-start"
+      className="flex flex-col items-start focus-visible:outline focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       aria-label="Daniele Buser - Creative Developer"
     >
       <motion.span
-        className="text-base leading-none font-bold md:text-lg text-(--foreground)"
+        className="text-base leading-none font-bold text-(--foreground) md:text-lg"
         initial={
           preventAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
         }
@@ -37,7 +35,7 @@ export default function Logo({
         DANIELE BUSER
       </motion.span>
       <motion.p
-        className="text-xs md:text-sm text-(--neutral)"
+        className="text-xs text-(--neutral) md:text-sm"
         initial={
           preventAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
         }

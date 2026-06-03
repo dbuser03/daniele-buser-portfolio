@@ -11,12 +11,7 @@ import { NavItemProps, NavbarProps } from "@/types/layout";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { useLenis } from "lenis/react";
 
-function NavItem({
-  href,
-  label,
-  delay,
-  preventAnimation,
-}: NavItemProps) {
+function NavItem({ href, label, delay, preventAnimation }: NavItemProps) {
   const pathname = usePathname();
   const lenis = useLenis();
   const isActive = isActiveNavLink(pathname, href);
@@ -53,7 +48,7 @@ function NavItem({
       >
         <Link
           href={href as Route}
-          className={`text-xs md:text-sm ${
+          className={`text-xs md:text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm ${
             isActive ? "font-bold" : "font-normal"
           }`}
           onMouseEnter={handleMouseEnter}
@@ -65,9 +60,7 @@ function NavItem({
             animate={{
               color: isActive ? "var(--foreground)" : "var(--neutral)",
             }}
-            whileHover={
-              preventAnimation ? {} : { color: "var(--foreground)" }
-            }
+            whileHover={preventAnimation ? {} : { color: "var(--foreground)" }}
             transition={
               preventAnimation ? {} : { duration: 0.3, ease: "easeOut" }
             }
@@ -80,9 +73,7 @@ function NavItem({
   );
 }
 
-export default function Navbar({
-  preventAnimation = false,
-}: NavbarProps) {
+export default function Navbar({ preventAnimation = false }: NavbarProps) {
   return (
     <nav aria-label="Main navigation">
       <ul className="flex gap-6 sm:gap-8 md:gap-12">

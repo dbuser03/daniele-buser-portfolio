@@ -19,7 +19,6 @@ export default function AboutPage() {
       aria-label="About page main content"
     >
       <AboutLayout contacts={<AboutContacts />}>
-        {/* Intro Section */}
         <section className="flex min-h-screen w-full flex-col justify-center py-20">
           <div className="grid w-full grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-4">
             <div className="relative z-10 flex flex-col gap-10 lg:col-span-9 lg:grid lg:h-full lg:grid-cols-9 lg:content-between lg:gap-4">
@@ -35,8 +34,6 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
-
-        {/* Tech Stack & How I Work Section */}
         <section className="flex min-h-screen w-full flex-col justify-center gap-16 pt-0 pb-64 lg:gap-20">
           <TechStack />
           <HowIWork />

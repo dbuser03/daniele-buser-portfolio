@@ -14,7 +14,7 @@ export default function VideoLayer({
   useEffect(() => {
     if (active && videoRef.current) {
       videoRef.current.load();
-      // We don't call play() here because autoPlay={active} handles it more reliably 
+      // We don't call play() here because autoPlay={active} handles it more reliably
       // once the source is loaded/buffered
     }
   }, [active, videoRef]);

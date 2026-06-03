@@ -27,7 +27,7 @@ export default function AboutLayout({
     <>
       <div
         ref={bodyRef}
-        className="sticky z-0 w-full flex flex-col gap-0"
+        className="sticky z-0 flex w-full flex-col gap-0"
         style={{
           top: bodyHeight ? `calc(100vh - ${bodyHeight}px)` : "auto",
         }}

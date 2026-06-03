@@ -18,7 +18,8 @@ export default function WorkWord({
 
   return (
     <motion.button
-      className="flex items-center overflow-visible bg-transparent border-none p-0 text-left text-3xl font-medium sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl"
+      type="button"
+      className="flex items-center overflow-visible border-none bg-transparent p-0 text-left text-3xl font-medium sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl"
       style={{ opacity, y, color: "inherit", fontFamily: "inherit" }}
       initial="rest"
       animate={isActive ? "hover" : "rest"}
