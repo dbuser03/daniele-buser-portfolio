@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import type { Route } from "next";
 import { CURSOR_SIZE } from "@/constants/cursor";
 import { NAV_LINKS } from "@/constants/layout";
 import {
@@ -13,14 +14,19 @@ import {
 import { NavItemProps, NavbarProps } from "@/types/layout";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 
+import { useThemeVariant } from "@/hooks/useThemeVariant";
+
+import { useLenis } from "lenis/react";
+
 function NavItem({
   href,
   label,
   delay,
-  pathname,
-  variant,
   preventAnimation,
 }: NavItemProps) {
+  const pathname = usePathname();
+  const variant = useThemeVariant();
+  const lenis = useLenis();
   const isActive = isActiveNavLink(pathname, href);
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
     "header",
@@ -34,6 +40,13 @@ function NavItem({
       : undefined,
   );
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isActive) {
+      e.preventDefault();
+      lenis?.scrollTo(0);
+    }
+  };
+
   return (
     <li>
       <motion.div
@@ -46,12 +59,13 @@ function NavItem({
         }
       >
         <Link
-          href={href}
+          href={href as Route}
           className={`text-xs md:text-sm ${
             isActive ? "font-bold" : "font-normal"
           }`}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          onClick={handleClick}
           aria-current={isActive ? "page" : undefined}
         >
           <motion.span
@@ -74,11 +88,8 @@ function NavItem({
 }
 
 export default function Navbar({
-  variant = "dark",
   preventAnimation = false,
 }: NavbarProps) {
-  const pathname = usePathname();
-
   return (
     <nav aria-label="Main navigation">
       <ul className="flex gap-6 sm:gap-8 md:gap-12">
@@ -87,8 +98,6 @@ export default function Navbar({
             key={link.href}
             {...link}
             delay={0.15 + idx * 0.05}
-            pathname={pathname}
-            variant={variant}
             preventAnimation={preventAnimation}
           />
         ))}

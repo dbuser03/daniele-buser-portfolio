@@ -1,4 +1,9 @@
 import type { Metadata } from "next";
+import AboutIntro from "@/components/about/AboutIntro";
+import AboutPortrait from "@/components/about/AboutPortrait";
+import Hey from "@/components/about/Hey";
+import HowIWork from "@/components/about/HowIWork";
+import TechStack from "@/components/about/TechStack";
 
 export const metadata: Metadata = {
   title: "About",
@@ -8,8 +13,30 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <main
-      className="flex w-full flex-1 flex-col justify-center bg-[var(--foreground)] px-4"
+      className="flex w-full flex-1 flex-col justify-start gap-0 bg-(--foreground) px-4"
       aria-label="About page main content"
-    ></main>
+    >
+      <section className="grid w-full grid-cols-1 gap-10 pt-44 lg:grid-cols-12 lg:gap-4">
+        <div className="relative z-10 flex flex-col gap-10 lg:col-span-9 lg:grid lg:h-full lg:grid-cols-9 lg:content-between lg:gap-4">
+          <div className="lg:col-span-9">
+            <Hey />
+          </div>
+          <div className="lg:col-span-6">
+            <AboutIntro />
+          </div>
+        </div>
+        <div className="relative z-10 hidden lg:col-span-3 lg:block">
+          <AboutPortrait />
+        </div>
+      </section>
+
+      <div className="pt-32">
+        <TechStack />
+      </div>
+
+      <div className="pt-32 pb-32">
+        <HowIWork />
+      </div>
+    </main>
   );
 }

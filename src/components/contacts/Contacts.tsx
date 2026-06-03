@@ -8,29 +8,18 @@ import { CSS_VARIABLES } from "@/constants/theme";
 import { ContactLink } from "@/types/contacts";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 
-export default function Contacts() {
-  const {
-    handleMouseEnter: handleEmailEnter,
-    handleMouseLeave: handleEmailLeave,
-  } = useCursorInteraction("header", {
-    onEnter: { size: CURSOR_SIZE.xs, color: CSS_VARIABLES.accent },
-  });
-
-  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("header");
-
-  const handleEmailClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    window.open(`mailto:${EMAIL}`, "_blank");
-  };
-
-  const renderContactLink = ({
-    href,
-    label,
-    external,
-    download,
-  }: ContactLink) => (
+function ContactLinkItem({
+  link,
+  onMouseEnter,
+  onMouseLeave,
+}: {
+  link: ContactLink;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+}) {
+  const { href, label, external, download } = link;
+  return (
     <a
-      key={label}
       href={href}
       {...(external && {
         target: "_blank",
@@ -39,9 +28,9 @@ export default function Contacts() {
       {...(download && {
         download: true,
       })}
-      className="text-md text-[var(--neutral)] md:text-lg"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      className="text-md text-(--neutral) md:text-lg"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <motion.span
         initial={{ color: "var(--neutral)" }}
@@ -52,12 +41,21 @@ export default function Contacts() {
       </motion.span>
     </a>
   );
+}
 
-  const renderSeparator = (index: number) => (
-    <span key={`separator-${index}`} className="text-[var(--neutral)]">
-      |
-    </span>
-  );
+function Separator() {
+  return <span className="text-(--neutral)">|</span>;
+}
+
+export default function Contacts() {
+  const {
+    handleMouseEnter: handleEmailEnter,
+    handleMouseLeave: handleEmailLeave,
+  } = useCursorInteraction("header", {
+    onEnter: { size: CURSOR_SIZE.xs, color: CSS_VARIABLES.accent },
+  });
+
+  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("header");
 
   return (
     <section
@@ -82,12 +80,11 @@ export default function Contacts() {
         <a
           href={`mailto:${EMAIL}`}
           className="block"
-          onClick={handleEmailClick}
           onMouseEnter={handleEmailEnter}
           onMouseLeave={handleEmailLeave}
           aria-label={`Send email to ${EMAIL}`}
         >
-          <motion.h1
+          <motion.h2
             id="contacts-heading"
             className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl"
             initial={{ color: "var(--foreground)" }}
@@ -95,7 +92,7 @@ export default function Contacts() {
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
             {EMAIL}
-          </motion.h1>
+          </motion.h2>
         </a>
 
         <nav
@@ -104,8 +101,12 @@ export default function Contacts() {
         >
           {CONTACT_LINKS.map((link, index) => (
             <Fragment key={link.label}>
-              {renderContactLink(link)}
-              {index < CONTACT_LINKS.length - 1 && renderSeparator(index)}
+              <ContactLinkItem
+                link={link}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              />
+              {index < CONTACT_LINKS.length - 1 && <Separator />}
             </Fragment>
           ))}
         </nav>

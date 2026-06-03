@@ -7,10 +7,12 @@ import { LogoProps } from "@/types/layout";
 import { getPrimaryColor, getSecondaryColor } from "@/utils/theme";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 
+import { useThemeVariant } from "@/hooks/useThemeVariant";
+
 export default function Logo({
-  variant = "dark",
   preventAnimation = false,
 }: LogoProps) {
+  const variant = useThemeVariant();
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
     "header",
     {
@@ -24,9 +26,9 @@ export default function Logo({
       className="flex flex-col items-start"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      aria-label="Go to homepage"
+      aria-label="Daniele Buser - Creative Developer"
     >
-      <motion.h1
+      <motion.span
         className="text-base leading-none font-bold md:text-lg"
         style={{ color: getPrimaryColor(variant) }}
         initial={
@@ -38,7 +40,7 @@ export default function Logo({
         }
       >
         DANIELE BUSER
-      </motion.h1>
+      </motion.span>
       <motion.p
         className="text-xs md:text-sm"
         style={{ color: getSecondaryColor(variant) }}

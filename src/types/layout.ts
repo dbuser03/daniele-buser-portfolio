@@ -1,5 +1,4 @@
 export interface LayoutComponentProps {
-  variant?: "dark" | "light";
   preventAnimation?: boolean;
 }
 
@@ -15,7 +14,5 @@ export interface NavLink {
 
 export interface NavItemProps extends NavLink {
   delay: number;
-  pathname: string;
-  variant: "dark" | "light";
   preventAnimation: boolean;
 }

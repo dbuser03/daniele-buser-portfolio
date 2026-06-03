@@ -1,23 +1,87 @@
 "use client";
 
-import React, { createContext, useContext, ReactNode } from "react";
+import {
+  createContext,
+  use,
+  ReactNode,
+  useState,
+  useCallback,
+  useEffect,
+  useMemo,
+} from "react";
+import { useMotionValue, useSpring } from "motion/react";
 import { CursorContextType } from "@/types/cursor";
+import { CURSOR_SIZE } from "@/constants/cursor";
+import { CSS_VARIABLES } from "@/constants/theme";
+import Cursor from "@/components/layout/cursor/Cursor";
 
 const CursorContext = createContext<CursorContextType | undefined>(undefined);
 
 export const useCursorContext = () => {
-  const context = useContext(CursorContext);
+  const context = use(CursorContext);
   if (!context) {
     throw new Error("useCursorContext must be used within CursorProvider");
   }
   return context;
 };
 
-export const CursorProvider: React.FC<
-  CursorContextType & { children: ReactNode }
-> = ({ children, ...contextValue }) => {
+export const CursorProvider = ({ children }: { children: ReactNode }) => {
+  const [color, setColor] = useState<string>(CSS_VARIABLES.accent);
+
+  const cursorSize = useSpring(CURSOR_SIZE.sm, { stiffness: 500, damping: 40 });
+  const smoothX = useMotionValue(-100);
+  const smoothY = useMotionValue(-100);
+  const opacity = useMotionValue(0);
+
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      smoothX.set(clientX);
+      smoothY.set(clientY);
+      opacity.set(1);
+    },
+    [smoothX, smoothY, opacity],
+  );
+
+  const handleMouseLeave = useCallback(() => {
+    opacity.set(0);
+  }, [opacity]);
+
+  const handleMouseEnter = useCallback(() => {
+    opacity.set(1);
+  }, [opacity]);
+
+  useEffect(() => {
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    document.body.addEventListener("mouseleave", handleMouseLeave);
+    document.body.addEventListener("mouseenter", handleMouseEnter);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      document.body.removeEventListener("mouseleave", handleMouseLeave);
+      document.body.removeEventListener("mouseenter", handleMouseEnter);
+    };
+  }, [handleMouseMove, handleMouseLeave, handleMouseEnter]);
+
+  const contextValue = useMemo(
+    () => ({
+      cursorSize,
+      smoothX,
+      smoothY,
+      setColor,
+    }),
+    [cursorSize, smoothX, smoothY],
+  );
+
   return (
     <CursorContext.Provider value={contextValue}>
+      <Cursor
+        smoothX={smoothX}
+        smoothY={smoothY}
+        cursorSize={cursorSize}
+        opacity={opacity}
+        color={color}
+      />
       {children}
     </CursorContext.Provider>
   );

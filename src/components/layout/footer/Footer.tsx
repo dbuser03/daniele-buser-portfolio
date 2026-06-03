@@ -6,25 +6,26 @@ import { getPrimaryColor, getSecondaryColor } from "@/utils/theme";
 import { FooterProps } from "@/types/layout";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 
+import { useThemeVariant } from "@/hooks/useThemeVariant";
+
 export default function Footer({
-  variant = "dark",
   preventAnimation = false,
 }: FooterProps) {
+  const variant = useThemeVariant();
   const currentTime = useCurrentTime();
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("footer");
 
   return (
     <footer
-      className="fixed bottom-0 z-30 flex w-full flex-col p-4"
-      role="contentinfo"
+      className="fixed bottom-0 z-30 flex w-full flex-col p-4 pointer-events-none"
       aria-label="Site footer with location and time"
     >
       <div
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="w-fit"
+        className="w-fit pointer-events-auto"
       >
-        <motion.h1
+        <motion.p
           className="text-xs leading-none md:text-sm"
           style={{ color: getPrimaryColor(variant) }}
           initial={
@@ -38,7 +39,7 @@ export default function Footer({
           }
         >
           LUGANO - {currentTime}
-        </motion.h1>
+        </motion.p>
         <motion.p
           className="text-xs md:text-sm"
           style={{ color: getSecondaryColor(variant) }}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Contacts, Hello } from "@/components/contacts";
+import Contacts from "@/components/contacts/Contacts";
+import Hello from "@/components/contacts/Hello";
 
 export const metadata: Metadata = {
   title: "Contacts",
@@ -9,11 +10,13 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <main
-      className="z-1 flex w-full flex-1 flex-col justify-center gap-40 px-4 md:gap-64 lg:gap-72"
+      className="z-1 flex w-full flex-1 flex-col justify-start gap-0 px-4"
       aria-label="Contacts page main content"
     >
-      <Hello />
-      <Contacts />
+      <section className="flex flex-col gap-64 pt-44">
+        <Hello />
+        <Contacts />
+      </section>
     </main>
   );
 }

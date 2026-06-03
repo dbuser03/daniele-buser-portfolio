@@ -8,8 +8,10 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main
-      className="flex w-full flex-1 flex-col bg-[var(--foreground)] px-4"
+      className="flex w-full flex-1 flex-col bg-(--foreground) px-4"
       aria-label="Projects page main content"
-    />
+    >
+      <h1 className="sr-only">Projects</h1>
+    </main>
   );
 }

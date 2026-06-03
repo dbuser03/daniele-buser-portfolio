@@ -11,7 +11,7 @@ export interface CursorProps {
   smoothX: MotionValue<number>;
   smoothY: MotionValue<number>;
   cursorSize: MotionValue<number>;
-  isVisible: boolean;
+  opacity: MotionValue<number>;
   color?: string;
 }
 

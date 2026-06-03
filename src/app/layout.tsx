@@ -1,52 +1,54 @@
-"use client";
-
 import "./globals.css";
-import { usePathname } from "next/navigation";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { Grid } from "@/components/layout/grid";
-import { Cursor } from "@/components/layout/cursor";
-import { CursorProvider } from "@/contexts/CursorContext";
-import { useSmoothCursor } from "@/hooks/useCursor";
-import { SmoothScrolling } from "@/components/layout/cursor/SmoothScrolling";
+import ClientLayout from "@/components/layout/ClientLayout";
+import { Metadata } from "next";
+import localFont from "next/font/local";
+import ReactDOM from "react-dom";
+
+const neueHaasGrotesk = localFont({
+  src: [
+    {
+      path: "../../public/fonts/NeueHaasGroteskDisplay-Light.otf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/NeueHaasGroteskDisplay-Reg.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/NeueHaasGroteskDisplay-Bold.otf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-neue-haas",
+});
+
+export const metadata: Metadata = {
+  title: "Daniele Buser",
+  description: "Personal Portfolio",
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname();
-  const isLightPage = pathname === "/" || pathname === "/about";
-  const variant = isLightPage ? "light" : "dark";
-
-  const { smoothX, smoothY, cursorSize, isVisible, color, setColor } =
-    useSmoothCursor();
+  // Preload critical font for LCP
+  ReactDOM.preload("/fonts/NeueHaasGroteskDisplay-Bold.otf", {
+    as: "font",
+    type: "font/otf",
+  });
+  ReactDOM.preload("/fonts/NeueHaasGroteskDisplay-Reg.otf", {
+    as: "font",
+    type: "font/otf",
+  });
 
   return (
-    <html lang="en">
+    <html lang="en" className={neueHaasGrotesk.variable} data-scroll-behavior="smooth">
       <body className="antialiased">
-        <SmoothScrolling>
-          <CursorProvider
-            cursorSize={cursorSize}
-            smoothX={smoothX}
-            smoothY={smoothY}
-            setColor={setColor}
-          >
-            <div className="flex min-h-screen flex-col">
-              <Grid variant={variant} />
-              <Cursor
-                smoothX={smoothX}
-                smoothY={smoothY}
-                cursorSize={cursorSize}
-                isVisible={isVisible}
-                color={color}
-              />
-              <Header variant={variant} />
-              {children}
-              <Footer variant={variant} />
-            </div>
-          </CursorProvider>
-        </SmoothScrolling>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

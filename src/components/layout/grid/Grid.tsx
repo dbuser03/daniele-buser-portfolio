@@ -1,38 +1,36 @@
 "use client";
 
-import { useGridBreakpoint } from "@/hooks/useGridBreakpoint";
-import { GridProps } from "@/types/grid";
-import { GRID_CONFIG } from "@/constants/grid";
+import { useThemeVariant } from "@/hooks/useThemeVariant";
 
-export default function Grid({ variant = "dark" }: GridProps) {
-  const breakpoint = useGridBreakpoint();
-  const config = GRID_CONFIG[breakpoint];
+export default function Grid() {
+  const variant = useThemeVariant();
+
   const gridLineColor =
-    variant === "light" ? "var(--grid-line-light)" : "var(--grid-line-dark)";
+    variant === "light"
+      ? "var(--grid-line-light)"
+      : "var(--grid-line-dark)";
 
   return (
     <div
-      className={`pointer-events-none fixed inset-0 z-0 ${config.margin}`}
+      className="pointer-events-none fixed inset-0 z-0 mx-4"
       aria-hidden="true"
+      data-variant={variant}
     >
       <div
-        className="grid h-full w-full"
-        style={{
-          gridTemplateColumns: `repeat(${config.columns}, 1fr)`,
-          gap: `${config.gutter}px`,
-        }}
+        className="grid h-full w-full grid-cols-4 gap-4 md:grid-cols-8 xl:grid-cols-12"
       >
-        {Array.from({ length: config.columns }).map((_, index) => (
-          <div key={index} className="relative h-full">
-            <div
-              className="absolute top-0 left-0 h-full w-px"
-              style={{ backgroundColor: gridLineColor }}
-            />
-            <div
-              className="absolute top-0 right-0 h-full w-px"
-              style={{ backgroundColor: gridLineColor }}
-            />
-          </div>
+        {Array.from({ length: 12 }).map((_, index) => (
+          <div
+            key={index}
+            className={`relative h-full border-x border-(--grid-line-color) ${
+              index >= 4 ? "hidden md:block" : ""
+            } ${index >= 8 ? "md:hidden xl:block" : ""}`}
+            style={
+              {
+                "--grid-line-color": gridLineColor,
+              } as React.CSSProperties
+            }
+          />
         ))}
       </div>
     </div>
