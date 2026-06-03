@@ -1,21 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useSpring } from "motion/react";
 import { HOW_I_WORK_WORDS, VIDEO_MAP } from "@/constants/about";
 import { useHowIWork } from "@/hooks/useHowIWork";
+import { useIsReady } from "@/hooks/useIsReady";
 import WorkWord from "./WorkWord";
 import VideoLayer from "./VideoLayer";
 
 export default function HowIWork() {
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsReady(true), 150);
-    return () => clearTimeout(timer);
-  }, []);
-
+  const isReady = useIsReady(150);
   const wordsRef = useRef<HTMLDivElement | null>(null);
   const {
     activeWord,

@@ -1,12 +1,13 @@
 "use client";
 
-import { Fragment, useState, useEffect, useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import { motion } from "motion/react";
 import { CONTACT_LINKS, EMAIL } from "@/constants/contacts";
 import { CURSOR_SIZE } from "@/constants/cursor";
 import { CSS_VARIABLES } from "@/constants/theme";
 import { ContactLink } from "@/types/contacts";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
+import { useIsReady } from "@/hooks/useIsReady";
 
 function ContactLinkItem({
   link,
@@ -70,12 +71,7 @@ export default function Contacts({
   paragraphDelay?: number;
   linksDelay?: number;
 } = {}) {
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsReady(true), 150);
-    return () => clearTimeout(timer);
-  }, []);
+  const isReady = useIsReady(150);
 
   const {
     handleMouseEnter: handleEmailEnter,

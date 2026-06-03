@@ -1,5 +1,6 @@
 import HeroTitle from "@/components/ui/HeroTitle";
 import Contacts from "@/components/contacts/Contacts";
+import { cn } from "@/utils/cn";
 
 export default function AboutContacts() {
   return (
@@ -12,9 +13,11 @@ export default function AboutContacts() {
           {Array.from({ length: 12 }).map((_, index) => (
             <div
               key={index}
-              className={`relative h-full border-x border-solid ${
-                index >= 4 ? "hidden md:block" : ""
-              } ${index >= 8 ? "md:hidden xl:block" : ""}`}
+              className={cn(
+                "relative h-full border-x border-solid",
+                index >= 4 && "hidden md:block",
+                index >= 8 && "md:hidden xl:block",
+              )}
               style={{
                 borderColor: "var(--grid-line-dark)",
               }}

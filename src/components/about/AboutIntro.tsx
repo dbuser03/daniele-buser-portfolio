@@ -1,19 +1,11 @@
 "use client";
 
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
 import { BIRTH_DATE } from "@/constants/about";
-import { getAgeFromBirthDate } from "@/utils/date";
+import { useAge } from "@/hooks/useAge";
 
 export default function AboutIntro() {
-  const [age, setAge] = useState<number | null>(null);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setAge(getAgeFromBirthDate(BIRTH_DATE));
-    }, 0);
-    return () => clearTimeout(timer);
-  }, []);
+  const age = useAge(BIRTH_DATE);
 
   return (
     <motion.p

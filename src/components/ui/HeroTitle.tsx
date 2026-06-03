@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { motion } from "motion/react";
 import type { HeroTitleProps } from "@/types/ui";
+import { cn } from "@/utils/cn";
+import { useIsReady } from "@/hooks/useIsReady";
 
 const createTitleVariants = (yOffset: number, duration: number, delay: number) => ({
   initial: {
@@ -34,12 +36,7 @@ export default function HeroTitle({
   delay = 0.35,
   as = "h1",
 }: HeroTitleProps) {
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsReady(true), 150);
-    return () => clearTimeout(timer);
-  }, []);
+  const isReady = useIsReady(150);
 
   const titleVariants = useMemo(
     () => createTitleVariants(yOffset, duration, delay),
@@ -50,7 +47,10 @@ export default function HeroTitle({
 
   return (
     <MotionTag
-      className={`text-[10rem] leading-none lg:text-[12rem] xl:text-[14rem] 2xl:text-[16rem] ${className}`}
+      className={cn(
+        "text-[10rem] leading-none lg:text-[12rem] xl:text-[14rem] 2xl:text-[16rem]",
+        className,
+      )}
       variants={titleVariants}
       initial="initial"
       whileInView={isReady ? "visible" : undefined}

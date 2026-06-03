@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useElementHeight } from "@/hooks/useElementHeight";
 
 export default function AboutLayout({
   children,
@@ -9,19 +9,7 @@ export default function AboutLayout({
   children: React.ReactNode;
   contacts: React.ReactNode;
 }) {
-  const [bodyHeight, setBodyHeight] = useState<number>(0);
-  const bodyRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (!bodyRef.current) return;
-    const resizeObserver = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        setBodyHeight(entry.contentRect.height);
-      }
-    });
-    resizeObserver.observe(bodyRef.current);
-    return () => resizeObserver.disconnect();
-  }, []);
+  const [bodyRef, bodyHeight] = useElementHeight<HTMLDivElement>();
 
   return (
     <>
