@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import type { Route } from "next";
 import type { TechStackIconProps } from "@/types/about";
+import { TECH_CELL_SPRING_CONFIG } from "@/constants/animations";
 
 export default function TechStackIcon({
   icon,
@@ -58,12 +59,7 @@ export default function TechStackIcon({
               : "var(--background)",
           }}
           transition={{
-            backgroundColor: {
-              type: "spring" as const,
-              stiffness: 170,
-              damping: 24,
-              mass: 0.9,
-            },
+            backgroundColor: TECH_CELL_SPRING_CONFIG,
           }}
           aria-hidden="true"
         />

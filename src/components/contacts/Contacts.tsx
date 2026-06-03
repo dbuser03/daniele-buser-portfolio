@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect, useMemo } from "react";
 import { motion } from "motion/react";
 import { CONTACT_LINKS, EMAIL } from "@/constants/contacts";
 import { CURSOR_SIZE } from "@/constants/cursor";
@@ -32,13 +32,9 @@ function ContactLinkItem({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <motion.span
-        initial={{ color: "var(--neutral)" }}
-        whileHover={{ color: "var(--foreground)" }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-      >
+      <span className="text-(--neutral) hover:text-(--foreground) transition-colors duration-300 ease-out">
         {label}
-      </motion.span>
+      </span>
     </a>
   );
 }
@@ -46,6 +42,26 @@ function ContactLinkItem({
 function Separator() {
   return <span className="text-(--neutral)">|</span>;
 }
+
+const createFadeUpVariants = (delay: number) => ({
+  initial: {
+    opacity: 0,
+    y: 30,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+    },
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
+      delay,
+    },
+  },
+} as const);
 
 export default function Contacts({
   paragraphDelay = 0.5,
@@ -70,45 +86,15 @@ export default function Contacts({
 
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("header");
 
-  const paragraphVariants = {
-    initial: {
-      opacity: 0,
-      y: 30,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut",
-      },
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.22, 1, 0.36, 1],
-        delay: paragraphDelay,
-      },
-    },
-  } as const;
+  const paragraphVariants = useMemo(
+    () => createFadeUpVariants(paragraphDelay),
+    [paragraphDelay],
+  );
 
-  const linksVariants = {
-    initial: {
-      opacity: 0,
-      y: 30,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut",
-      },
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.22, 1, 0.36, 1],
-        delay: linksDelay,
-      },
-    },
-  } as const;
+  const linksVariants = useMemo(
+    () => createFadeUpVariants(linksDelay),
+    [linksDelay],
+  );
 
   return (
     <section
@@ -139,15 +125,12 @@ export default function Contacts({
           onMouseLeave={handleEmailLeave}
           aria-label={`Send email to ${EMAIL}`}
         >
-          <motion.h2
+          <h2
             id="contacts-heading"
-            className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl text-(--foreground)"
-            initial={{ color: "var(--foreground)" }}
-            whileHover={{ color: "var(--neutral)" }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl text-(--foreground) hover:text-(--neutral) transition-colors duration-300 ease-out"
           >
             {EMAIL}
-          </motion.h2>
+          </h2>
         </a>
 
         <nav

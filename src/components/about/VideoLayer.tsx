@@ -1,5 +1,3 @@
-"use client";
-
 import { motion } from "motion/react";
 import { useEffect } from "react";
 import type { VideoLayerProps } from "@/types/about";
@@ -10,12 +8,9 @@ export default function VideoLayer({
   videoRef,
   onEnded,
 }: VideoLayerProps) {
-  // Lazy load video only when it becomes active or is about to
   useEffect(() => {
     if (active && videoRef.current) {
       videoRef.current.load();
-      // We don't call play() here because autoPlay={active} handles it more reliably
-      // once the source is loaded/buffered
     }
   }, [active, videoRef]);
 
