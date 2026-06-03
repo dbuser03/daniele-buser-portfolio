@@ -18,14 +18,12 @@ export default function Grid() {
         {Array.from({ length: 12 }).map((_, index) => (
           <div
             key={index}
-            className={`relative h-full border-x border-(--grid-line-color) ${
+            className={`relative h-full border-x border-solid ${
               index >= 4 ? "hidden md:block" : ""
             } ${index >= 8 ? "md:hidden xl:block" : ""}`}
-            style={
-              {
-                "--grid-line-color": gridLineColor,
-              } as React.CSSProperties
-            }
+            style={{
+              borderColor: gridLineColor,
+            }}
           />
         ))}
       </div>

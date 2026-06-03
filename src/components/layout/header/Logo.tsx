@@ -17,7 +17,7 @@ export default function Logo({ preventAnimation = false }: LogoProps) {
   return (
     <Link
       href="/"
-      className="flex flex-col items-start focus-visible:outline focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
+      className="flex flex-col items-start focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       aria-label="Daniele Buser - Creative Developer"

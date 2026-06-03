@@ -3,7 +3,7 @@ import Contacts from "@/components/contacts/Contacts";
 
 export default function AboutContacts() {
   return (
-    <section className="relative -mx-4 flex min-h-screen flex-col justify-center bg-(--background) px-4 py-20">
+    <section className="relative -mx-4 flex min-h-screen flex-col justify-center bg-(--background) text-(--foreground) py-20">
       <div
         className="pointer-events-none absolute inset-0 z-0 mx-4"
         aria-hidden="true"
@@ -12,9 +12,12 @@ export default function AboutContacts() {
           {Array.from({ length: 12 }).map((_, index) => (
             <div
               key={index}
-              className={`relative h-full border-x border-(--grid-line-dark) ${
+              className={`relative h-full border-x border-solid ${
                 index >= 4 ? "hidden md:block" : ""
               } ${index >= 8 ? "md:hidden xl:block" : ""}`}
+              style={{
+                borderColor: "var(--grid-line-dark)",
+              }}
             />
           ))}
         </div>

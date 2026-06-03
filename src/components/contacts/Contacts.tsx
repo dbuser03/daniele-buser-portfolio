@@ -28,7 +28,7 @@ function ContactLinkItem({
       {...(download && {
         download: true,
       })}
-      className="text-md text-(--neutral) md:text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
+      className="text-md text-(--neutral) md:text-lg focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -112,7 +112,7 @@ export default function Contacts({
 
   return (
     <section
-      className="flex flex-col justify-between gap-10 md:gap-12 lg:flex-row lg:items-center"
+      className="flex flex-col justify-between gap-10 md:gap-12 lg:flex-row lg:items-center text-(--foreground)"
       aria-labelledby="contacts-heading"
     >
       <motion.p
@@ -134,14 +134,14 @@ export default function Contacts({
       >
         <a
           href={`mailto:${EMAIL}`}
-          className="block w-fit focus-visible:outline focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
+          className="block w-fit focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
           onMouseEnter={handleEmailEnter}
           onMouseLeave={handleEmailLeave}
           aria-label={`Send email to ${EMAIL}`}
         >
           <motion.h2
             id="contacts-heading"
-            className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl"
+            className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl text-(--foreground)"
             initial={{ color: "var(--foreground)" }}
             whileHover={{ color: "var(--neutral)" }}
             transition={{ duration: 0.3, ease: "easeOut" }}

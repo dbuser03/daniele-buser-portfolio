@@ -48,7 +48,7 @@ function NavItem({ href, label, delay, preventAnimation }: NavItemProps) {
       >
         <Link
           href={href as Route}
-          className={`text-xs md:text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm ${
+          className={`text-xs md:text-sm focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm ${
             isActive ? "font-bold" : "font-normal"
           }`}
           onMouseEnter={handleMouseEnter}

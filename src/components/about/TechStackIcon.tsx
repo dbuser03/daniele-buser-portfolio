@@ -30,7 +30,7 @@ export default function TechStackIcon({
       href={icon.href as Route}
       target="_blank"
       rel="noopener noreferrer"
-      className="relative z-30 flex h-full w-full items-center justify-center focus-visible:z-40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-[-2px]"
+      className="relative z-30 flex h-full w-full items-center justify-center focus-visible:z-40 focus-visible:outline focus-visible:outline-(--accent) focus-visible:-outline-offset-2"
       aria-label={`Visit ${icon.label} website`}
       onFocus={onFocus}
       onBlur={onBlur}
