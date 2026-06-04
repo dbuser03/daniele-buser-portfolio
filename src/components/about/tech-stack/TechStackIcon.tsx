@@ -37,7 +37,7 @@ export default function TechStackIcon({
       onFocus={onFocus}
       onBlur={onBlur}
     >
-      <span className="sr-only">{icon.label}</span>
+      <span className="sr-only">{icon.label} (opens in new tab)</span>
       <div
         className={cn("inline-flex items-center justify-center", icon.hoverPaddingClass ?? "p-6 sm:p-9")}
       >
