@@ -6,16 +6,16 @@ import Link from "next/link";
 import type { Route } from "next";
 import { CURSOR_SIZE } from "@/constants/cursor";
 import { NAV_LINKS } from "@/constants/layout";
-import { isActiveNavLink } from "@/utils/theme";
-import { NavItemProps, NavbarProps } from "@/types/layout";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { useLenis } from "lenis/react";
 import { cn } from "@/utils/cn";
+import { STAGGER_FADE_UP } from "@/constants/animations";
+import type { NavItemProps, NavbarProps } from "@/types/layout";
 
 function NavItem({ href, label, delay, preventAnimation }: NavItemProps) {
   const pathname = usePathname();
   const lenis = useLenis();
-  const isActive = isActiveNavLink(pathname, href);
+  const isActive = pathname === href;
 
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
     "header",
@@ -44,7 +44,7 @@ function NavItem({ href, label, delay, preventAnimation }: NavItemProps) {
         }
         animate={{ opacity: 1, y: 0 }}
         transition={
-          preventAnimation ? {} : { duration: 0.5, ease: "easeOut", delay }
+          preventAnimation ? {} : STAGGER_FADE_UP(delay)
         }
       >
         <Link

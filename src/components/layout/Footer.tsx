@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { useCurrentTime } from "@/hooks/useCurrentTime";
 import { FooterProps } from "@/types/layout";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
+import { STAGGER_FADE_UP } from "@/constants/animations";
 
 export default function Footer({ preventAnimation = false }: FooterProps) {
   const currentTime = useCurrentTime();
@@ -28,7 +29,7 @@ export default function Footer({ preventAnimation = false }: FooterProps) {
           transition={
             preventAnimation
               ? {}
-              : { duration: 0.5, ease: "easeOut", delay: 0.8 }
+              : STAGGER_FADE_UP(0.8)
           }
         >
           LUGANO - {currentTime}
@@ -42,7 +43,7 @@ export default function Footer({ preventAnimation = false }: FooterProps) {
           transition={
             preventAnimation
               ? {}
-              : { duration: 0.5, ease: "easeOut", delay: 0.9 }
+              : STAGGER_FADE_UP(0.9)
           }
         >
           46° 00&apos; 13.24&quot; - 08° 57&apos; 03.79&quot;

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { CURSOR_SIZE } from "@/constants/cursor";
 import { LogoProps } from "@/types/layout";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
+import { STAGGER_FADE_UP } from "@/constants/animations";
 
 export default function Logo({ preventAnimation = false }: LogoProps) {
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
@@ -29,7 +30,7 @@ export default function Logo({ preventAnimation = false }: LogoProps) {
         }
         animate={{ opacity: 1, y: 0 }}
         transition={
-          preventAnimation ? {} : { duration: 0.5, ease: "easeOut", delay: 0 }
+          preventAnimation ? {} : STAGGER_FADE_UP(0)
         }
       >
         DANIELE BUSER
@@ -41,7 +42,7 @@ export default function Logo({ preventAnimation = false }: LogoProps) {
         }
         animate={{ opacity: 1, y: 0 }}
         transition={
-          preventAnimation ? {} : { duration: 0.5, ease: "easeOut", delay: 0.1 }
+          preventAnimation ? {} : STAGGER_FADE_UP(0.1)
         }
       >
         Creative Developer

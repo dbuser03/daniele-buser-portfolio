@@ -8,6 +8,7 @@ import { CSS_VARIABLES } from "@/constants/theme";
 import { ContactLink } from "@/types/contacts";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { useIsReady } from "@/hooks/useIsReady";
+import { FADE_UP_TRANSITION } from "@/constants/animations";
 
 function ContactLinkItem({
   link,
@@ -35,6 +36,7 @@ function ContactLinkItem({
     >
       <span className="text-(--neutral) hover:text-(--foreground) transition-colors duration-300 ease-out">
         {label}
+        {external && <span className="sr-only"> (opens in new tab)</span>}
       </span>
     </a>
   );
@@ -57,8 +59,7 @@ const createFadeUpVariants = (delay: number) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1],
+      ...FADE_UP_TRANSITION,
       delay,
     },
   },

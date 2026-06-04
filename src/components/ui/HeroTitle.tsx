@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import type { HeroTitleProps } from "@/types/ui";
 import { cn } from "@/utils/cn";
 import { useIsReady } from "@/hooks/useIsReady";
+import { EASE_OUT_EXPO } from "@/constants/animations";
 
 const createTitleVariants = (yOffset: number, duration: number, delay: number) => ({
   initial: {
@@ -20,7 +21,7 @@ const createTitleVariants = (yOffset: number, duration: number, delay: number) =
     y: 0,
     transition: {
       duration,
-      ease: [0.22, 1, 0.36, 1] as const,
+      ease: EASE_OUT_EXPO,
       delay,
     },
   },
