@@ -1,5 +1,6 @@
 import { HoverableWord, TechStackIconConfig } from "@/types/about";
 import { getTechStackCellId } from "@/utils/about";
+import { GITHUB_URL } from "@/constants/site";
 
 export const BIRTH_DATE = new Date(2003, 8, 25);
 
@@ -108,7 +109,7 @@ export const TECH_STACK_SECOND_ROW_ICONS: Array<{
     icon: {
       path: "/icons/github-icon.svg",
       sizeClass: "h-12 w-12 sm:h-14 sm:w-14 lg:h-16 lg:w-16",
-      href: "https://github.com/dbuser03",
+      href: GITHUB_URL,
       label: "GitHub",
     },
   },
