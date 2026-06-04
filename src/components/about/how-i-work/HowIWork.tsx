@@ -8,6 +8,7 @@ import { useHowIWork } from "@/hooks/useHowIWork";
 import { useIsReady } from "@/hooks/useIsReady";
 import WorkWord from "./WorkWord";
 import VideoLayer from "./VideoLayer";
+import { FADE_UP_TRANSITION } from "@/constants/animations";
 
 export default function HowIWork() {
   const isReady = useIsReady(150);
@@ -48,7 +49,7 @@ export default function HowIWork() {
         <div className="grid grid-cols-1 gap-4 xl:grid-cols-12">
           <div className="relative aspect-16/7 w-full overflow-hidden bg-(--neutral) xl:col-span-9">
             <Image
-              src="/Gemini_Generated_Image_fm1n4sfm1n4sfm1n.png"
+              src="/how-i-work-hero.webp"
               alt=""
               fill
               sizes="(max-width: 1280px) 100vw, 75vw"
@@ -69,7 +70,7 @@ export default function HowIWork() {
               transition={{ duration: 0.4, ease: "easeInOut" }}
             >
               <Image
-                src="/c6b78190-32f7-45dc-b76c-3c19de735a9a.jpg"
+                src="/how-i-work-panel.webp"
                 alt=""
                 fill
                 sizes="(max-width: 1280px) 100vw, 25vw"
@@ -106,7 +107,7 @@ export default function HowIWork() {
               amount: "some",
               margin: "-10% 0px -20% 0px",
             }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            transition={FADE_UP_TRANSITION}
           >
             Most of my time goes into the parts nobody sees — decisions,
             tradeoffs, things that get cut. What ships is what survives that

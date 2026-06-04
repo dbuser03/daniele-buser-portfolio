@@ -2,22 +2,23 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
+import { EASE_OUT_EXPO, FADE_UP_TRANSITION } from "@/constants/animations";
 
 export default function AboutPortrait() {
   return (
-    <motion.div
+    <motion.figure
       className="relative aspect-3/4 w-full overflow-hidden"
       initial={{ opacity: 0, y: 48 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.65 }}
+      transition={{ duration: 0.8, ease: EASE_OUT_EXPO, delay: 0.65 }}
     >
       <motion.div
         className="relative h-full w-full"
         whileHover={{ scale: 1.08, y: -12 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        transition={FADE_UP_TRANSITION}
       >
         <Image
-          src="/CV_SUPSI_6394.jpg"
+          src="/portrait.webp"
           alt="Portrait of Daniele Buser"
           fill
           className="object-cover"
@@ -25,6 +26,6 @@ export default function AboutPortrait() {
           priority
         />
       </motion.div>
-    </motion.div>
+    </motion.figure>
   );
 }
