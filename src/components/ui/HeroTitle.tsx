@@ -18,6 +18,7 @@ export default function HeroTitle({
   delay = 0.35,
   as = "h1",
   showDot = true,
+  trigger = "inView",
 }: HeroTitleProps) {
   const isReady = useIsReady(150);
 
@@ -36,7 +37,8 @@ export default function HeroTitle({
       )}
       variants={titleVariants}
       initial="initial"
-      whileInView={isReady ? "visible" : undefined}
+      animate={trigger === "mount" && isReady ? "visible" : undefined}
+      whileInView={trigger === "inView" && isReady ? "visible" : undefined}
       viewport={{ once, amount: 0.2 }}
       aria-label={ariaLabel}
     >

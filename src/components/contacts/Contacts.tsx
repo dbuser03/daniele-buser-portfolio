@@ -83,8 +83,7 @@ export default function Contacts({
         className="max-w-sm text-xl leading-tight sm:max-w-md sm:text-2xl md:max-w-xl md:text-3xl md:leading-none lg:max-w-md lg:text-2xl xl:max-w-xl xl:text-3xl 2xl:max-w-2xl 2xl:text-4xl"
         variants={paragraphVariants}
         initial="initial"
-        whileInView={isReady ? "visible" : undefined}
-        viewport={{ once: false, amount: 0.1 }}
+        animate={isReady ? "visible" : "initial"}
       >
         If you have a project in mind, feel free to reach out - I&apos;d be glad
         to help bring your vision to life.
@@ -93,8 +92,7 @@ export default function Contacts({
       <motion.div
         variants={linksVariants}
         initial="initial"
-        whileInView={isReady ? "visible" : undefined}
-        viewport={{ once: false, amount: 0.1 }}
+        animate={isReady ? "visible" : "initial"}
       >
         <a
           href={`mailto:${EMAIL}`}

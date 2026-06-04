@@ -6,6 +6,7 @@ export default function Hello() {
       text="Say Hello"
       className="text-(--foreground)"
       ariaLabel="Say Hello - Contact page heading"
+      trigger="mount"
     />
   );
 }

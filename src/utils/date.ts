@@ -20,3 +20,6 @@ export const getAgeFromBirthDate = (
 
   return age;
 };
+
+export const getCurrentTwoDigitYear = (): string =>
+  String(new Date().getFullYear()).slice(-2);

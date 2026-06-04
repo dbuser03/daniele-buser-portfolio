@@ -19,8 +19,7 @@ export default function AboutPortrait() {
       className="relative aspect-3/4 w-full overflow-hidden"
       variants={portraitVariants}
       initial="initial"
-      whileInView={isReady ? "visible" : undefined}
-      viewport={{ once: true, amount: 0.1 }}
+      animate={isReady ? "visible" : "initial"}
     >
       <motion.div
         className="relative h-full w-full"

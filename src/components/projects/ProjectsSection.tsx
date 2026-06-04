@@ -27,8 +27,7 @@ export default function ProjectsSection() {
         className="grid grid-cols-1 lg:grid-cols-12 gap-4 w-full"
         variants={gridVariants}
         initial="initial"
-        whileInView={isReady ? "visible" : undefined}
-        viewport={{ once: true, amount: 0.05 }}
+        animate={isReady ? "visible" : "initial"}
       >
         {PROJECTS.map((project) => (
           <ProjectCard key={project.id} project={project} />
