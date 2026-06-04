@@ -10,6 +10,9 @@
   --grid-line-light: #e8e8e8;
 }
 
+/* Scrollbar hidden by design — Lenis smooth scroll provides the UX.
+   Custom cursor and scroll-linked animations serve as scroll indicators.
+   Users can still scroll via keyboard, touch, trackpad, or wheel. */
 html {
   overscroll-behavior: none;
   scrollbar-width: none;
