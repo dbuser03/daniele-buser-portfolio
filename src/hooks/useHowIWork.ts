@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/immutability */
+/* eslint-disable react-hooks/immutability -- videoRefs uses a stable useMemo-wrapped Record of individual useRef values; immutability rule false-positives on the Record wrapper */
 import { useRef, useState, useEffect, useCallback, useMemo, type RefObject } from "react";
 import { HOW_I_WORK_SEQUENCE } from "@/constants/about";
 import { HoverableWord } from "@/types/about";
@@ -51,7 +51,6 @@ export const useHowIWork = () => {
       hoverTimeoutRef.current = null;
     }
 
-    // Debounce both activation and deactivation to prevent high-frequency flickering
     hoverTimeoutRef.current = setTimeout(() => {
       if (word === null) {
         setActiveWord((prev) => {

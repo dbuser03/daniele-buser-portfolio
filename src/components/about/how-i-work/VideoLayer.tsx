@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "motion/react";
 import { useEffect } from "react";
 import type { VideoLayerProps } from "@/types/about";

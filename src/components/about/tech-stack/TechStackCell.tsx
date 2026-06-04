@@ -1,5 +1,8 @@
+"use client";
+
 import { motion } from "motion/react";
 import type { TechStackCellProps } from "@/types/about";
+import { TECH_CELL_SPRING_CONFIG } from "@/constants/animations";
 
 export default function TechStackCell({
   children,
@@ -8,7 +11,7 @@ export default function TechStackCell({
   onMouseEnter,
   onMouseLeave,
   isActive,
-}: TechStackCellProps & { isActive: boolean }) {
+}: TechStackCellProps) {
   return (
     <div
       ref={cellRef}
@@ -20,12 +23,7 @@ export default function TechStackCell({
         <motion.div
           layoutId="tech-stack-highlight"
           className="absolute inset-0 z-20 pointer-events-none bg-(--background)"
-          transition={{
-            type: "spring",
-            stiffness: 170,
-            damping: 24,
-            mass: 0.9,
-          }}
+          transition={TECH_CELL_SPRING_CONFIG}
         />
       )}
       <div className="relative z-30 h-full w-full">

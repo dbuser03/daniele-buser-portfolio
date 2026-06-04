@@ -6,6 +6,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import type { TechStackIconProps } from "@/types/about";
 import { TECH_CELL_SPRING_CONFIG } from "@/constants/animations";
+import { cn } from "@/utils/cn";
 
 export default function TechStackIcon({
   icon,
@@ -32,12 +33,12 @@ export default function TechStackIcon({
       target="_blank"
       rel="noopener noreferrer"
       className="relative z-30 flex h-full w-full items-center justify-center focus-visible:z-40 focus-visible:outline focus-visible:outline-(--accent) focus-visible:-outline-offset-2"
-      aria-label={`Visit ${icon.label} website`}
+      aria-label={`Visit ${icon.label} website (opens in new tab)`}
       onFocus={onFocus}
       onBlur={onBlur}
     >
       <div
-        className={`inline-flex items-center justify-center ${icon.hoverPaddingClass ?? "p-6 sm:p-9"}`}
+        className={cn("inline-flex items-center justify-center", icon.hoverPaddingClass ?? "p-6 sm:p-9")}
       >
         <motion.div
           className={icon.sizeClass}

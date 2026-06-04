@@ -1,13 +1,6 @@
 import { MotionValue } from "motion/react";
 import { RefObject } from "react";
 
-export type OverlayRect = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-};
-
 export type TechStackRow = "first" | "second";
 
 export type TechStackIconConfig = {
@@ -35,6 +28,7 @@ export interface TechStackCellProps {
   cellRef?: (node: HTMLDivElement | null) => void;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
+  isActive: boolean;
 }
 
 export type HoverableWord = "Obsess" | "Design" | "Code" | "Ship";

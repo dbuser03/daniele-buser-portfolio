@@ -1,10 +1,5 @@
 import { MotionValue } from "motion/react";
 
-export interface CursorPosition {
-  x: number;
-  y: number;
-}
-
 export type CursorInteractionType = "header" | "footer" | "default";
 
 export interface CursorProps {

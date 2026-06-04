@@ -3,6 +3,7 @@ import { getTechStackCellId } from "@/utils/about";
 
 export const BIRTH_DATE = new Date(2003, 8, 25);
 
+/** Display order of words in the How I Work section */
 export const HOW_I_WORK_WORDS: HoverableWord[] = [
   "Obsess",
   "Design",
@@ -17,12 +18,8 @@ export const VIDEO_MAP: Record<HoverableWord, string> = {
   Ship: "/videos/cosmos_341236427.mp4",
 };
 
-export const HOW_I_WORK_SEQUENCE: HoverableWord[] = [
-  "Obsess",
-  "Design",
-  "Code",
-  "Ship",
-];
+/** Sequence order for auto-play rotation (may differ from display order) */
+export const HOW_I_WORK_SEQUENCE = HOW_I_WORK_WORDS;
 
 export const TECH_STACK_DEFAULT_CELL_ID = getTechStackCellId("first", 0);
 
