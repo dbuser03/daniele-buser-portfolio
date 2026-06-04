@@ -29,14 +29,25 @@ export default function ProjectsSection() {
     [isTitleInView],
   );
 
+  const labelVariants = useMemo(
+    () => createFadeUpVariants(isTitleInView ? 0.5 : 0.2, 15, 0.4),
+    [isTitleInView],
+  );
+
   return (
     <section
-      className="relative z-10 flex w-full flex-col pt-24 pb-64"
+      className="relative z-10 flex w-full flex-col pb-64"
       aria-labelledby="projects-list-heading"
     >
-      <h2 id="projects-list-heading" className="sr-only">
-        Project Gallery
-      </h2>
+      <motion.h2
+        id="projects-list-heading"
+        className="pb-3 text-xs text-(--neutral-dark) md:text-sm"
+        variants={labelVariants}
+        initial="initial"
+        animate="visible"
+      >
+        SELECTED WORKS
+      </motion.h2>
       <motion.div
         className="grid w-full grid-cols-1 gap-4 lg:grid-cols-12"
         variants={gridVariants}

@@ -11,13 +11,17 @@ export default function TechStackCell({
   onMouseEnter,
   onMouseLeave,
   isActive,
-}: TechStackCellProps) {
+  delay = 0,
+}: TechStackCellProps & { delay?: number }) {
   return (
-    <div
+    <motion.div
       ref={cellRef}
       className={className}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      initial={{ opacity: 0, y: 25 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut", delay }}
     >
       {isActive && (
         <motion.div
@@ -29,6 +33,6 @@ export default function TechStackCell({
       <div className="relative z-30 h-full w-full">
         {children}
       </div>
-    </div>
+    </motion.div>
   );
 }

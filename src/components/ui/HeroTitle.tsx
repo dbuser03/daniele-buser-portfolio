@@ -7,6 +7,7 @@ import { cn } from "@/utils/cn";
 import { createFadeUpVariants } from "@/constants/animations";
 
 export default function HeroTitle({
+  id,
   text,
   children,
   className = "",
@@ -18,6 +19,7 @@ export default function HeroTitle({
   as = "h1",
   showDot = true,
   trigger = "inView",
+  viewport,
 }: HeroTitleProps) {
   const titleVariants = useMemo(
     () => createFadeUpVariants(delay, yOffset, duration),
@@ -28,6 +30,7 @@ export default function HeroTitle({
 
   return (
     <MotionTag
+      id={id}
       className={cn(
         "text-[10rem] leading-none lg:text-[12rem] xl:text-[14rem] 2xl:text-[16rem]",
         className,
@@ -36,7 +39,7 @@ export default function HeroTitle({
       initial="initial"
       animate={trigger === "mount" ? "visible" : undefined}
       whileInView={trigger === "inView" ? "visible" : undefined}
-      viewport={{ once, amount: 0.2 }}
+      viewport={viewport || { once, amount: 0.2 }}
       aria-label={ariaLabel}
     >
       {children || text}

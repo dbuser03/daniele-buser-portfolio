@@ -6,6 +6,8 @@ import { BIRTH_DATE } from "@/constants/about";
 import { useAge } from "@/hooks/useAge";
 import { createFadeUpVariants } from "@/constants/animations";
 
+export const ABOUT_INTRO_ID = "about-intro-paragraph";
+
 export default function AboutIntro() {
   const age = useAge(BIRTH_DATE);
 
@@ -16,6 +18,7 @@ export default function AboutIntro() {
 
   return (
     <motion.p
+      id={ABOUT_INTRO_ID}
       className="text-xl leading-tight text-(--background) sm:text-2xl md:text-3xl md:leading-none lg:text-2xl xl:text-3xl 2xl:text-4xl"
       variants={introVariants}
       initial="initial"
