@@ -95,8 +95,8 @@ export const baseMetadata: Metadata = {
   },
 };
 
-export const homeMetadata: Metadata = {
-  title: "Projects",
+export const projectsMetadata: Metadata = {
+  title: "Projects | Daniele Buser — Creative Developer",
   description:
     "Explore Daniele Buser's creative development projects: interactive 3D web experiences, WebGL experiments, and high-performance front-end engineering.",
   alternates: {
@@ -209,7 +209,7 @@ export const personJsonLd = {
   ],
 };
 
-export const homePageJsonLd = {
+export const projectsPageJsonLd = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "@id": `${SITE_URL}/#webpage`,
@@ -220,6 +220,19 @@ export const homePageJsonLd = {
   isPartOf: { "@id": `${SITE_URL}/#website` },
   author: { "@id": `${SITE_URL}/#person` },
   inLanguage: "en-US",
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    "@id": `${SITE_URL}/#breadcrumb`,
+    name: "Breadcrumbs",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_URL,
+      },
+    ],
+  },
 };
 
 export const aboutPageJsonLd = {

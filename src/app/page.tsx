@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { homeMetadata, homePageJsonLd } from "@/utils/metadata";
+import { projectsMetadata, projectsPageJsonLd } from "@/utils/metadata";
 import ProjectsTitle from "@/components/projects/ProjectsTitle";
 import ProjectsSection from "@/components/projects/ProjectsSection";
 import AboutLayout from "@/components/about/AboutLayout";
 import AboutContacts from "@/components/about/AboutContacts";
 
-export const metadata: Metadata = homeMetadata;
+export const metadata: Metadata = projectsMetadata;
 
 export default function Home() {
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(homePageJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectsPageJsonLd) }}
       />
       <main
         id="main-content"
