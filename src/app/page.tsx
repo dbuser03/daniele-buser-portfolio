@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { homeMetadata, homePageJsonLd } from "@/utils/metadata";
+import ProjectsTitle from "@/components/projects/ProjectsTitle";
 
 export const metadata: Metadata = homeMetadata;
 
@@ -16,7 +17,9 @@ export default function Home() {
         className="flex w-full flex-1 flex-col bg-(--foreground) px-4 focus:outline-none"
         aria-label="Projects page main content"
       >
-        <h1 className="sr-only">Projects</h1>
+        <section className="flex min-h-[85vh] w-full flex-col justify-center py-20">
+          <ProjectsTitle />
+        </section>
       </main>
     </>
   );

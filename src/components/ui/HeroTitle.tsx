@@ -29,6 +29,7 @@ const createTitleVariants = (yOffset: number, duration: number, delay: number) =
 
 export default function HeroTitle({
   text,
+  children,
   className = "",
   ariaLabel,
   once = false,
@@ -36,6 +37,7 @@ export default function HeroTitle({
   duration = 0.7,
   delay = 0.35,
   as = "h1",
+  showDot = true,
 }: HeroTitleProps) {
   const isReady = useIsReady(150);
 
@@ -58,10 +60,12 @@ export default function HeroTitle({
       viewport={{ once, amount: 0.2 }}
       aria-label={ariaLabel}
     >
-      {text}
-      <span className="text-(--accent)" aria-hidden="true">
-        .
-      </span>
+      {children || text}
+      {showDot && (
+        <span className="text-(--accent)" aria-hidden="true">
+          .
+        </span>
+      )}
     </MotionTag>
   );
 }
