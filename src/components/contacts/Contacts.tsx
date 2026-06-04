@@ -8,7 +8,7 @@ import { CSS_VARIABLES } from "@/constants/theme";
 import { ContactLink } from "@/types/contacts";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { useIsReady } from "@/hooks/useIsReady";
-import { FADE_UP_TRANSITION } from "@/constants/animations";
+import { createFadeUpVariants } from "@/constants/animations";
 
 function ContactLinkItem({
   link,
@@ -45,25 +45,6 @@ function ContactLinkItem({
 function Separator() {
   return <span className="text-(--neutral)">|</span>;
 }
-
-const createFadeUpVariants = (delay: number) => ({
-  initial: {
-    opacity: 0,
-    y: 30,
-    transition: {
-      duration: 0.4,
-      ease: "easeOut",
-    },
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      ...FADE_UP_TRANSITION,
-      delay,
-    },
-  },
-} as const);
 
 export default function Contacts({
   paragraphDelay = 0.5,

@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
 import {
   TECH_STACK_FIRST_ROW_ICONS,
   TECH_STACK_SECOND_ROW_ICONS,
@@ -27,16 +26,12 @@ export default function TechStack() {
       onMouseLeave={handleMouseLeaveTechStack}
       aria-labelledby="tech-stack-heading"
     >
-      <motion.h2
+      <h2
         id="tech-stack-heading"
         className="pb-3 text-xs text-(--neutral-dark) md:text-sm"
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
         MY TECH STACK
-      </motion.h2>
+      </h2>
 
       <div className="grid w-full grid-cols-1 gap-0 md:grid-cols-3">
         {TECH_STACK_FIRST_ROW_ICONS.map((icon, index) => {

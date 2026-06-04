@@ -25,7 +25,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       <div
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="flex w-full flex-col bg-(--background) p-4 pb-20 transition-all duration-300 ease-out"
+        className="flex w-full flex-col bg-(--background) p-4 pb-36 transition-all duration-300 ease-out"
         aria-label={`Project card: ${project.title}`}
       >
         <div className="aspect-4/3 w-full bg-(--neutral-dark)"></div>

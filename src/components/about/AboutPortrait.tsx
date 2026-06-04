@@ -1,16 +1,26 @@
 "use client";
 
+import { useMemo } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { EASE_OUT_EXPO, FADE_UP_TRANSITION } from "@/constants/animations";
+import { FADE_UP_TRANSITION, createFadeUpVariants } from "@/constants/animations";
+import { useIsReady } from "@/hooks/useIsReady";
 
 export default function AboutPortrait() {
+  const isReady = useIsReady(150);
+
+  const portraitVariants = useMemo(
+    () => createFadeUpVariants(0.65),
+    [],
+  );
+
   return (
     <motion.figure
       className="relative aspect-3/4 w-full overflow-hidden"
-      initial={{ opacity: 0, y: 48 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: EASE_OUT_EXPO, delay: 0.65 }}
+      variants={portraitVariants}
+      initial="initial"
+      whileInView={isReady ? "visible" : undefined}
+      viewport={{ once: true, amount: 0.1 }}
     >
       <motion.div
         className="relative h-full w-full"

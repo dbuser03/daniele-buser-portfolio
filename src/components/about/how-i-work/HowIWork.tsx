@@ -8,7 +8,7 @@ import { useHowIWork } from "@/hooks/useHowIWork";
 import { useIsReady } from "@/hooks/useIsReady";
 import WorkWord from "./WorkWord";
 import VideoLayer from "./VideoLayer";
-import { FADE_UP_TRANSITION } from "@/constants/animations";
+import { FADE_UP_TRANSITION, SCROLL_SPRING_CONFIG } from "@/constants/animations";
 
 export default function HowIWork() {
   const isReady = useIsReady(150);
@@ -28,11 +28,7 @@ export default function HowIWork() {
     target: wordsRef,
     offset: ["start 85%", "start 30%"],
   });
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 110,
-    damping: 26,
-    mass: 0.35,
-  });
+  const smoothProgress = useSpring(scrollYProgress, SCROLL_SPRING_CONFIG);
 
   return (
     <section

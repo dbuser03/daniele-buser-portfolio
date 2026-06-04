@@ -1,19 +1,28 @@
 "use client";
 
+import { useMemo } from "react";
 import { motion } from "motion/react";
 import { BIRTH_DATE } from "@/constants/about";
 import { useAge } from "@/hooks/useAge";
-import { FADE_UP_TRANSITION } from "@/constants/animations";
+import { createFadeUpVariants } from "@/constants/animations";
+import { useIsReady } from "@/hooks/useIsReady";
 
 export default function AboutIntro() {
   const age = useAge(BIRTH_DATE);
+  const isReady = useIsReady(150);
+
+  const introVariants = useMemo(
+    () => createFadeUpVariants(0.5),
+    [],
+  );
 
   return (
     <motion.p
       className="text-xl leading-tight text-(--background) sm:text-2xl md:text-3xl md:leading-none lg:text-2xl xl:text-3xl 2xl:text-4xl"
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ ...FADE_UP_TRANSITION, delay: 0.5 }}
+      variants={introVariants}
+      initial="initial"
+      whileInView={isReady ? "visible" : undefined}
+      viewport={{ once: true, amount: 0.1 }}
     >
       I&apos;m a {age ?? "..."}-year-old Swiss creative developer, who crafts
       web and mobile products where design and code work as one. I enjoy taking

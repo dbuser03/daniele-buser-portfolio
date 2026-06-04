@@ -5,27 +5,7 @@ import { motion } from "motion/react";
 import type { HeroTitleProps } from "@/types/ui";
 import { cn } from "@/utils/cn";
 import { useIsReady } from "@/hooks/useIsReady";
-import { EASE_OUT_EXPO } from "@/constants/animations";
-
-const createTitleVariants = (yOffset: number, duration: number, delay: number) => ({
-  initial: {
-    opacity: 0,
-    y: yOffset,
-    transition: {
-      duration: 0.4,
-      ease: "easeOut",
-    },
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration,
-      ease: EASE_OUT_EXPO,
-      delay,
-    },
-  },
-} as const);
+import { createFadeUpVariants } from "@/constants/animations";
 
 export default function HeroTitle({
   text,
@@ -34,7 +14,7 @@ export default function HeroTitle({
   ariaLabel,
   once = false,
   yOffset = 40,
-  duration = 0.7,
+  duration = 0.45,
   delay = 0.35,
   as = "h1",
   showDot = true,
@@ -42,8 +22,8 @@ export default function HeroTitle({
   const isReady = useIsReady(150);
 
   const titleVariants = useMemo(
-    () => createTitleVariants(yOffset, duration, delay),
-    [yOffset, duration, delay],
+    () => createFadeUpVariants(delay, yOffset, duration),
+    [delay, yOffset, duration],
   );
 
   const MotionTag = motion[as] || motion.h1;

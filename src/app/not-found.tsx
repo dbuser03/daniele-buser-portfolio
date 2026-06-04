@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "motion/react";
 import HeroTitle from "@/components/ui/HeroTitle";
-import { EASE_OUT_EXPO } from "@/constants/animations";
+import { EASE_OUT } from "@/constants/animations";
 
 export default function NotFound() {
   return (
@@ -19,7 +19,7 @@ export default function NotFound() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: EASE_OUT_EXPO, delay: 0.5 }}
+          transition={{ duration: 0.4, ease: EASE_OUT, delay: 0.5 }}
           className="text-xs text-(--neutral) md:text-sm tracking-wide -mt-3"
         >
           This page doesn&apos;t exist.
@@ -28,7 +28,7 @@ export default function NotFound() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: EASE_OUT_EXPO, delay: 0.7 }}
+        transition={{ duration: 0.4, ease: EASE_OUT, delay: 0.7 }}
       >
         <Link
           href="/"

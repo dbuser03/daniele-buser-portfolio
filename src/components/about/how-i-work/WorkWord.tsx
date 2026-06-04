@@ -2,6 +2,7 @@
 
 import { motion, useTransform } from "motion/react";
 import type { WorkWordProps } from "@/types/about";
+import { EASE_OUT } from "@/constants/animations";
 
 const arrowVariants = {
   rest: { x: -56, opacity: 0 },
@@ -43,7 +44,7 @@ export default function WorkWord({
         <motion.div
           className="h-full w-full bg-(--background)"
           variants={arrowVariants}
-          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.3, ease: EASE_OUT }}
           style={{
             WebkitMaskImage: "url(/icons/right-arrow.svg)",
             maskImage: "url(/icons/right-arrow.svg)",
@@ -59,7 +60,7 @@ export default function WorkWord({
       <motion.span
         className="inline-block"
         variants={labelVariants}
-        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.3, ease: EASE_OUT }}
       >
         {word}
       </motion.span>

@@ -29,7 +29,7 @@ export default function Cursor({
         scale: 1,
       }}
       transition={{
-        scale: { duration: 0.2, ease: [0.34, 1.56, 0.64, 1] },
+        scale: { duration: 0.2, ease: "backOut" },
         backgroundColor: { duration: 0.25, ease: "easeOut" },
       }}
     />

@@ -19,7 +19,7 @@ export default function AboutContacts() {
           className="text-(--foreground)"
           ariaLabel="Say Hello - Contact section heading"
           yOffset={90}
-          duration={1.2}
+          duration={0.75}
           delay={0.2}
         />
         <Contacts paragraphDelay={0.3} linksDelay={0.4} />
