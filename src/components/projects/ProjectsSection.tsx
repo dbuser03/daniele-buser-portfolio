@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { PROJECTS } from "@/constants/projects";
 import ProjectCard from "./ProjectCard";
@@ -9,10 +9,18 @@ import { createFadeUpVariants } from "@/constants/animations";
 
 export default function ProjectsSection() {
   const isReady = useIsReady(150);
+  const [gridDelay, setGridDelay] = useState(0.65);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.scrollY > 50) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setGridDelay(0.05);
+    }
+  }, []);
 
   const gridVariants = useMemo(
-    () => createFadeUpVariants(0.65),
-    [],
+    () => createFadeUpVariants(gridDelay),
+    [gridDelay],
   );
 
   return (

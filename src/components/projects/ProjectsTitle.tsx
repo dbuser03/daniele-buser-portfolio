@@ -11,6 +11,7 @@ export default function ProjectsTitle() {
   const [twoDigitYear, setTwoDigitYear] = useState("26");
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTwoDigitYear(getCurrentTwoDigitYear());
   }, []);
 
