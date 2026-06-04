@@ -13,7 +13,6 @@ export const metadata: Metadata = aboutMetadata;
 export default function AboutPage() {
   return (
     <>
-      {/* JSON-LD: static data only — safe for dangerouslySetInnerHTML */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageJsonLd) }}

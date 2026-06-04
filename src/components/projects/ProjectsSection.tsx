@@ -1,41 +1,47 @@
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { inView } from "motion";
 import { motion } from "motion/react";
 import { PROJECTS } from "@/constants/projects";
 import ProjectCard from "./ProjectCard";
-import { useIsReady } from "@/hooks/useIsReady";
 import { createFadeUpVariants } from "@/constants/animations";
+import { PROJECTS_TITLE_ID } from "./ProjectsTitle";
 
 export default function ProjectsSection() {
-  const isReady = useIsReady(150);
-  const [gridDelay, setGridDelay] = useState(0.65);
+  const [isTitleInView, setIsTitleInView] = useState(() => {
+    if (typeof window === "undefined") return true;
+    const title = document.getElementById(PROJECTS_TITLE_ID);
+    if (!title) return true;
+    const rect = title.getBoundingClientRect();
+    return rect.bottom > 0 && rect.top < window.innerHeight;
+  });
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.scrollY > 50) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setGridDelay(0.05);
-    }
+    return inView(`#${PROJECTS_TITLE_ID}`, () => {
+      setIsTitleInView(true);
+      return () => setIsTitleInView(false);
+    });
   }, []);
 
   const gridVariants = useMemo(
-    () => createFadeUpVariants(gridDelay),
-    [gridDelay],
+    () => createFadeUpVariants(isTitleInView ? 0.65 : 0.35),
+    [isTitleInView],
   );
 
   return (
     <section
-      className="relative z-10 w-full flex flex-col gap-12 sm:gap-16 lg:gap-24 pb-32"
+      className="relative z-10 flex w-full flex-col pt-24 pb-64"
       aria-labelledby="projects-list-heading"
     >
       <h2 id="projects-list-heading" className="sr-only">
         Project Gallery
       </h2>
       <motion.div
-        className="grid grid-cols-1 lg:grid-cols-12 gap-4 w-full"
+        className="grid w-full grid-cols-1 gap-4 lg:grid-cols-12"
         variants={gridVariants}
         initial="initial"
-        animate={isReady ? "visible" : "initial"}
+        animate="visible"
       >
         {PROJECTS.map((project) => (
           <ProjectCard key={project.id} project={project} />

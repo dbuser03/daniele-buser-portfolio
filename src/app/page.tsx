@@ -18,7 +18,7 @@ export default function Home() {
         className="flex w-full flex-1 flex-col bg-(--foreground) px-4 focus:outline-none"
         aria-label="Projects page main content"
       >
-        <section className="flex min-h-[85vh] w-full flex-col justify-center py-20">
+        <section className="flex min-h-[60vh] w-full flex-col justify-center">
           <ProjectsTitle />
         </section>
         <ProjectsSection />

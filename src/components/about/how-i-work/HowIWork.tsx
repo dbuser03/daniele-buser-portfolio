@@ -5,13 +5,11 @@ import { useRef } from "react";
 import { motion, useScroll, useSpring } from "motion/react";
 import { HOW_I_WORK_WORDS, VIDEO_MAP } from "@/constants/about";
 import { useHowIWork } from "@/hooks/useHowIWork";
-import { useIsReady } from "@/hooks/useIsReady";
 import WorkWord from "./WorkWord";
 import VideoLayer from "./VideoLayer";
 import { FADE_UP_TRANSITION, SCROLL_SPRING_CONFIG } from "@/constants/animations";
 
 export default function HowIWork() {
-  const isReady = useIsReady(150);
   const wordsRef = useRef<HTMLDivElement | null>(null);
   const {
     activeWord,
@@ -97,7 +95,7 @@ export default function HowIWork() {
           <motion.p
             className="text-xl leading-tight text-(--background) sm:text-2xl md:text-3xl md:leading-none xl:col-span-6 xl:text-3xl 2xl:text-4xl"
             initial={{ opacity: 0, y: 30 }}
-            whileInView={isReady ? { opacity: 1, y: 0 } : undefined}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{
               once: false,
               amount: "some",

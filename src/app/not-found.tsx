@@ -5,11 +5,8 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import HeroTitle from "@/components/ui/HeroTitle";
 import { createFadeUpVariants } from "@/constants/animations";
-import { useIsReady } from "@/hooks/useIsReady";
 
 export default function NotFound() {
-  const isReady = useIsReady(150);
-
   const paragraphVariants = useMemo(
     () => createFadeUpVariants(0.35, 20, 0.4),
     [],
@@ -33,7 +30,7 @@ export default function NotFound() {
         <motion.p
           variants={paragraphVariants}
           initial="initial"
-          whileInView={isReady ? "visible" : undefined}
+          whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
           className="text-xs text-(--neutral) md:text-sm tracking-wide -mt-3"
         >
@@ -43,7 +40,7 @@ export default function NotFound() {
       <motion.div
         variants={buttonVariants}
         initial="initial"
-        whileInView={isReady ? "visible" : undefined}
+        whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
       >
         <Link

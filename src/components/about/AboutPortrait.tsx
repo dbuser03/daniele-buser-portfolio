@@ -4,11 +4,8 @@ import { useMemo } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { FADE_UP_TRANSITION, createFadeUpVariants } from "@/constants/animations";
-import { useIsReady } from "@/hooks/useIsReady";
 
 export default function AboutPortrait() {
-  const isReady = useIsReady(150);
-
   const portraitVariants = useMemo(
     () => createFadeUpVariants(0.65),
     [],
@@ -19,7 +16,7 @@ export default function AboutPortrait() {
       className="relative aspect-3/4 w-full overflow-hidden"
       variants={portraitVariants}
       initial="initial"
-      animate={isReady ? "visible" : "initial"}
+      animate="visible"
     >
       <motion.div
         className="relative h-full w-full"

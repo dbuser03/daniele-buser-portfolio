@@ -4,7 +4,6 @@ import { useMemo } from "react";
 import { motion } from "motion/react";
 import type { HeroTitleProps } from "@/types/ui";
 import { cn } from "@/utils/cn";
-import { useIsReady } from "@/hooks/useIsReady";
 import { createFadeUpVariants } from "@/constants/animations";
 
 export default function HeroTitle({
@@ -20,8 +19,6 @@ export default function HeroTitle({
   showDot = true,
   trigger = "inView",
 }: HeroTitleProps) {
-  const isReady = useIsReady(150);
-
   const titleVariants = useMemo(
     () => createFadeUpVariants(delay, yOffset, duration),
     [delay, yOffset, duration],
@@ -37,8 +34,8 @@ export default function HeroTitle({
       )}
       variants={titleVariants}
       initial="initial"
-      animate={trigger === "mount" && isReady ? "visible" : undefined}
-      whileInView={trigger === "inView" && isReady ? "visible" : undefined}
+      animate={trigger === "mount" ? "visible" : undefined}
+      whileInView={trigger === "inView" ? "visible" : undefined}
       viewport={{ once, amount: 0.2 }}
       aria-label={ariaLabel}
     >
