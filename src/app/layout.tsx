@@ -33,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={neueHaasGrotesk.variable} data-scroll-behavior="smooth">
+    <html lang="en" className={neueHaasGrotesk.variable}>
       <body className="antialiased">
         <script
           type="application/ld+json"

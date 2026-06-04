@@ -8,6 +8,7 @@ export const metadata: Metadata = contactMetadata;
 export default function ContactPage() {
   return (
     <>
+      {/* JSON-LD: static data only — safe for dangerouslySetInnerHTML */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageJsonLd) }}

@@ -1,23 +1,22 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/constants/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://danielebuser.com";
-  
   return [
     {
-      url: baseUrl,
+      url: SITE_URL,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/about`,
+      url: `${SITE_URL}/about`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/contacts`,
+      url: `${SITE_URL}/contacts`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,

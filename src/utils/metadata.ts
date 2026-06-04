@@ -1,7 +1,8 @@
 import { Metadata } from "next";
+import { SITE_URL } from "@/constants/site";
 
 export const baseMetadata: Metadata = {
-  metadataBase: new URL("https://danielebuser.com"),
+  metadataBase: new URL(SITE_URL),
   applicationName: "Daniele Buser Portfolio",
 
   title: {
@@ -27,7 +28,6 @@ export const baseMetadata: Metadata = {
     "TypeScript",
     "React",
     "Tailwind CSS",
-    "UI Animation",
     "Web Performance",
     "UI Animation",
   ],
@@ -194,8 +194,6 @@ export const personJsonLd = {
     "Framer Motion",
     "GSAP",
     "TypeScript",
-    "Web Performance",
-    "UI Animation",
     "Web Performance",
     "UI Animation",
   ],
