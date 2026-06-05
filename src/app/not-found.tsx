@@ -30,8 +30,7 @@ export default function NotFound() {
         <motion.p
           variants={paragraphVariants}
           initial="initial"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          animate="visible"
           className="text-xs text-(--neutral) md:text-sm tracking-wide -mt-3"
         >
           This page doesn&apos;t exist.
@@ -40,8 +39,7 @@ export default function NotFound() {
       <motion.div
         variants={buttonVariants}
         initial="initial"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
+        animate="visible"
       >
         <Link
           href="/"

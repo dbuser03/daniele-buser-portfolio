@@ -166,22 +166,12 @@ export default function HowIWork() {
         </div>
 
         <div className="grid grid-cols-1 gap-8 xl:grid-cols-12 xl:gap-4">
-          <motion.p
-            className="text-xl leading-tight text-(--background) sm:text-2xl md:text-3xl md:leading-none xl:col-span-6 xl:text-3xl 2xl:text-4xl"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{
-              once: false,
-              amount: "some",
-              margin: "-10% 0px -20% 0px",
-            }}
-            transition={FADE_UP_TRANSITION}
-          >
+          <p className="text-xl leading-tight text-(--background) sm:text-2xl md:text-3xl md:leading-none xl:col-span-6 xl:text-3xl 2xl:text-4xl">
             Most of my time goes into the parts nobody sees — decisions,
             tradeoffs, things that get cut. What ships is what survives that
             process. I handle design and development together, which means
             faster decisions and fewer misunderstandings.
-          </motion.p>
+          </p>
           <div
             ref={wordsRef}
             className="flex flex-col gap-1 xl:col-span-3 xl:col-start-10 xl:items-start"

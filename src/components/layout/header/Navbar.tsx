@@ -15,7 +15,10 @@ import type { NavItemProps, NavbarProps } from "@/types/layout";
 function NavItem({ href, label, delay, preventAnimation }: NavItemProps) {
   const pathname = usePathname();
   const lenis = useLenis();
-  const isActive = pathname === href;
+  const isActive =
+    href === "/"
+      ? pathname === "/" || pathname.startsWith("/projects/")
+      : pathname === href;
 
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
     "header",
@@ -30,7 +33,7 @@ function NavItem({ href, label, delay, preventAnimation }: NavItemProps) {
   );
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (isActive) {
+    if (isActive && pathname === href) {
       e.preventDefault();
       lenis?.scrollTo(0);
     }

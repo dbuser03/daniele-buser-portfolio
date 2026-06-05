@@ -25,6 +25,48 @@ const neueHaasGrotesk = localFont({
   variable: "--font-neue-haas",
 });
 
+const ppNeueMontreal = localFont({
+  src: [
+    {
+      path: "../../public/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal/PPNeueMontreal-Light.otf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../public/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal/PPNeueMontreal-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal/PPNeueMontreal-Semibold.otf",
+      weight: "600",
+      style: "normal",
+    },
+  ],
+  variable: "--font-pp-montreal",
+});
+
+const ppNeueMontrealMono = localFont({
+  src: [
+    {
+      path: "../../public/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal-mono/PPNeueMontrealMono-Thin.otf",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "../../public/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal-mono/PPNeueMontrealMono-Book.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal-mono/PPNeueMontrealMono-Bold.otf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-pp-montreal-mono",
+});
+
 export const metadata: Metadata = baseMetadata;
 
 export default function RootLayout({
@@ -33,7 +75,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={neueHaasGrotesk.variable}>
+    <html lang="en" className={`${neueHaasGrotesk.variable} ${ppNeueMontreal.variable} ${ppNeueMontrealMono.variable}`}>
       <body className="antialiased">
         <script
           type="application/ld+json"

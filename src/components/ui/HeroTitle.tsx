@@ -18,7 +18,7 @@ export default function HeroTitle({
   delay = 0.35,
   as = "h1",
   showDot = true,
-  trigger = "inView",
+  trigger = "mount",
   viewport,
 }: HeroTitleProps) {
   const titleVariants = useMemo(
