@@ -6,10 +6,11 @@ import HeroTitle from "@/components/ui/HeroTitle";
 import { motion } from "motion/react";
 import Skeleton from "@/components/ui/Skeleton";
 import { Download } from "lucide-react";
-import { EarthGlobeAscii } from "@/components/projects/EarthGlobeAscii";
+import { EarthGlobeAscii } from "@/components/projects/leonardo-UI/EarthGlobeAscii";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { useCursorContext } from "@/contexts/CursorContext";
 import { CURSOR_SIZE } from "@/constants/cursor";
+import { LeonardoUI } from "@/components/projects/leonardo-UI/LeonardoUI";
 
 const COLOR_DETAILS: Record<string, { rgb: string; pantone: string }> = {
   "#0A0A0A": { rgb: "10 10 10", pantone: "Black 6 C" },
@@ -256,11 +257,15 @@ export default function ProjectDetailClient({
                 </div>
               </div>
 
-              <div className="relative flex aspect-4/3 w-full flex-col justify-between bg-(--card-dark) p-4">
+              <div className="relative flex aspect-4/3 w-full flex-col justify-between overflow-hidden bg-(--card-dark) p-4">
                 <div>
                   <span className="text-xs tracking-wider text-(--neutral) uppercase select-none md:text-sm">
                     Components
                   </span>
+                </div>
+
+                <div className="mt-auto flex max-h-[calc(100%-40px)] w-full flex-col gap-4 overflow-y-auto pr-1 pb-2 text-left">
+                  <LeonardoUI />
                 </div>
               </div>
 
@@ -280,13 +285,13 @@ export default function ProjectDetailClient({
                   className="absolute right-4 bottom-4 z-10 text-(--neutral)"
                   aria-label="Download Globe component"
                 >
-                <motion.span
-                  animate={{ color: "var(--neutral)" }}
-                  whileHover={{ color: "var(--foreground)" }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                >
-                  <Download size={20} strokeWidth={1.5} />
-                </motion.span>
+                  <motion.span
+                    animate={{ color: "var(--neutral)" }}
+                    whileHover={{ color: "var(--foreground)" }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                  >
+                    <Download size={20} strokeWidth={1.5} />
+                  </motion.span>
                 </a>
               </div>
             </div>
