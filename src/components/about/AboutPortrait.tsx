@@ -1,11 +1,14 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { FADE_UP_TRANSITION, createFadeUpVariants } from "@/constants/animations";
+import Skeleton from "@/components/ui/Skeleton";
 
 export default function AboutPortrait() {
+  const [isLoading, setIsLoading] = useState(true);
+
   const portraitVariants = useMemo(
     () => createFadeUpVariants(0.65),
     [],
@@ -23,6 +26,7 @@ export default function AboutPortrait() {
         whileHover={{ scale: 1.08, y: -12 }}
         transition={FADE_UP_TRANSITION}
       >
+        <Skeleton isLoading={isLoading} variant="on-light" />
         <Image
           src="/portrait.webp"
           alt="Portrait of Daniele Buser"
@@ -30,6 +34,7 @@ export default function AboutPortrait() {
           className="object-cover"
           sizes="(min-width: 1024px) 33vw, 0px"
           priority
+          onLoad={() => setIsLoading(false)}
         />
       </motion.div>
     </motion.figure>

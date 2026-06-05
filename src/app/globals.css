@@ -43,3 +43,41 @@ button:focus-visible,
   outline-offset: 4px;
   border-radius: 2px;
 }
+
+/* ─── Skeleton shimmer ─────────────────────────────────────────────────────── */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Light shimmer — use on dark backgrounds (#0a0a0a) */
+.skeleton-shimmer--on-dark {
+  background: linear-gradient(
+    105deg,
+    #141414 0%,
+    #1a1a1a 35%,
+    #1e1e1e 50%,
+    #1a1a1a 65%,
+    #141414 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 2.8s ease-in-out infinite;
+}
+
+/* Dark shimmer — use on light backgrounds (#f6f6f6) */
+.skeleton-shimmer--on-light {
+  background: linear-gradient(
+    105deg,
+    #e6e6e6 0%,
+    #ececec 35%,
+    #f0f0f0 50%,
+    #ececec 65%,
+    #e6e6e6 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 2.8s ease-in-out infinite;
+}

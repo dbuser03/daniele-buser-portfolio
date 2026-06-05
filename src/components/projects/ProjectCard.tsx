@@ -4,6 +4,7 @@ import { Project } from "@/types/projects";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { CURSOR_SIZE } from "@/constants/cursor";
 import { CSS_VARIABLES } from "@/constants/theme";
+import Skeleton from "@/components/ui/Skeleton";
 
 interface ProjectCardProps {
   project: Project;
@@ -31,7 +32,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         className="group flex w-full flex-col bg-(--background) p-4 pb-8 transition-all duration-300 ease-out focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-4"
         aria-label={`Project card: ${project.title}`}
       >
-        <div className="aspect-4/3 w-full bg-(--neutral-dark)" />
+        <div className="relative aspect-4/3 w-full overflow-hidden bg-(--neutral-dark)">
+          <Skeleton isLoading variant="on-dark" />
+        </div>
         <div className="mt-8 flex justify-between items-start text-(--foreground)">
           <h3 className="text-2xl font-medium tracking-tight sm:text-3xl md:text-4xl lg:text-3xl xl:text-4xl leading-none">
             {project.title}
@@ -51,4 +54,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     </div>
   );
 }
+
+
 

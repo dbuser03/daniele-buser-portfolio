@@ -10,10 +10,13 @@ import { HOW_I_WORK_WORDS, VIDEO_MAP } from "@/constants/about";
 import { useHowIWork } from "@/hooks/useHowIWork";
 import WorkWord from "./WorkWord";
 import VideoLayer from "./VideoLayer";
+import Skeleton from "@/components/ui/Skeleton";
 import { FADE_UP_TRANSITION, SCROLL_SPRING_CONFIG } from "@/constants/animations";
 
 export default function HowIWork() {
   const wordsRef = useRef<HTMLDivElement | null>(null);
+  const [isHeroLoading, setIsHeroLoading] = useState(true);
+  const [isPanelLoading, setIsPanelLoading] = useState(true);
   const {
     activeWord,
     isImageHovered,
@@ -106,6 +109,7 @@ export default function HowIWork() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease: "easeOut", delay: baseDelay }}
           >
+            <Skeleton isLoading={isHeroLoading} variant="on-light" />
             <Image
               src="/how-i-work-hero.webp"
               alt=""
@@ -113,6 +117,7 @@ export default function HowIWork() {
               sizes="(max-width: 1280px) 100vw, 75vw"
               className="object-cover"
               aria-hidden="true"
+              onLoad={() => setIsHeroLoading(false)}
             />
           </motion.div>
 
@@ -130,6 +135,7 @@ export default function HowIWork() {
               animate={{ opacity: activeWord ? 0 : 1 }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
             >
+              <Skeleton isLoading={isPanelLoading} variant="on-light" />
               <Image
                 src="/how-i-work-panel.webp"
                 alt=""
@@ -137,6 +143,7 @@ export default function HowIWork() {
                 sizes="(max-width: 1280px) 100vw, 25vw"
                 className="object-cover"
                 aria-hidden="true"
+                onLoad={() => setIsPanelLoading(false)}
               />
             </motion.div>
 
