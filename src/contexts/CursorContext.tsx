@@ -8,7 +8,6 @@ import {
   useCallback,
   useEffect,
   useMemo,
-  useRef,
 } from "react";
 import { useMotionValue, useSpring } from "motion/react";
 import { CursorContextType } from "@/types/cursor";
@@ -41,14 +40,9 @@ export const CursorProvider = ({
   const smoothY = useMotionValue(-100);
   const opacity = useMotionValue(0);
 
-  const lastX = useRef(-100);
-  const lastY = useRef(-100);
-
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
       const { clientX, clientY } = e;
-      lastX.current = clientX;
-      lastY.current = clientY;
       smoothX.set(clientX);
       smoothY.set(clientY);
       opacity.set(1);
@@ -64,29 +58,19 @@ export const CursorProvider = ({
     opacity.set(1);
   }, [opacity]);
 
-  const handleScroll = useCallback(() => {
-    const event = new MouseEvent("mousemove", {
-      clientX: lastX.current,
-      clientY: lastY.current,
-    });
-    window.dispatchEvent(event);
-  }, []);
-
   useEffect(() => {
     if (disabled) return;
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    window.addEventListener("scroll", handleScroll, { passive: true });
     document.body.addEventListener("mouseleave", handleMouseLeave);
     document.body.addEventListener("mouseenter", handleMouseEnter);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("scroll", handleScroll);
       document.body.removeEventListener("mouseleave", handleMouseLeave);
       document.body.removeEventListener("mouseenter", handleMouseEnter);
     };
-  }, [disabled, handleMouseMove, handleMouseLeave, handleMouseEnter, handleScroll]);
+  }, [disabled, handleMouseMove, handleMouseLeave, handleMouseEnter]);
 
   const contextValue = useMemo(
     () => ({

@@ -8,7 +8,7 @@ export const PROJECTS: Project[] = [
       "Portfolio website for Machine Learning Engineer Leonardo Berselli, built with Next.js, Tailwind, and Motion, featuring custom WebGL and physics details.",
     longDescription:
       "Leonardo Berselli is a Machine Learning Engineer. His portfolio features a highly interactive, techy aesthetic inspired by the world of informatics.\n\nThe main site is built using Next.js, Tailwind, and Motion, with custom Three.js WebGL and Matter.js physics integrated as refined interactive details.",
-    image: "/projects/leonardo-berselli-portfolio/leonardo-berselli-portfolio.webp",
+    image: "/projects/leonardo-berselli-portfolio.png",
     tags: ["Next.js", "Tailwind", "Motion", "WebGL"],
     year: "2025",
     href: "https://github.com/dbuser03",
