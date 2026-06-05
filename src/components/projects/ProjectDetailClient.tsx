@@ -1,9 +1,15 @@
 "use client";
 
+import { useEffect } from "react";
 import { Project } from "@/types/projects";
 import HeroTitle from "@/components/ui/HeroTitle";
 import { motion } from "motion/react";
 import Skeleton from "@/components/ui/Skeleton";
+import { Download } from "lucide-react";
+import { EarthGlobeAscii } from "@/components/projects/EarthGlobeAscii";
+import { useCursorInteraction } from "@/hooks/useCursorInteraction";
+import { useCursorContext } from "@/contexts/CursorContext";
+import { CURSOR_SIZE } from "@/constants/cursor";
 
 const COLOR_DETAILS: Record<string, { rgb: string; pantone: string }> = {
   "#0A0A0A": { rgb: "10 10 10", pantone: "Black 6 C" },
@@ -20,6 +26,11 @@ interface ProjectDetailClientProps {
 export default function ProjectDetailClient({
   project,
 }: ProjectDetailClientProps) {
+  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("header");
+  const { cursorSize } = useCursorContext();
+
+  const handleGlobeDragStart = () => cursorSize.set(CURSOR_SIZE.xs);
+  const handleGlobeDragEnd = () => cursorSize.set(CURSOR_SIZE.sm);
 
   return (
     <div className="relative z-10 flex min-h-screen w-full flex-col pt-32 pb-48 text-(--background)">
@@ -64,7 +75,7 @@ export default function ProjectDetailClient({
         <div className="mt-10 grid grid-cols-1 gap-4 md:mt-14 xl:grid-cols-12">
           <div className="flex flex-col xl:col-span-2">
             <h2 className="text-xs tracking-wider text-(--neutral-dark) uppercase md:text-sm">
-              Overview
+              Obsession
             </h2>
           </div>
 
@@ -83,7 +94,7 @@ export default function ProjectDetailClient({
 
         <div className="mt-28 flex w-full flex-col">
           <h2 className="text-xs tracking-wider text-(--neutral-dark) uppercase md:text-sm">
-            Branding
+            Design
           </h2>
 
           <div className="mt-4 flex w-full flex-col bg-(--background) p-4">
@@ -97,20 +108,29 @@ export default function ProjectDetailClient({
 
                 <div className="mt-8 flex w-full gap-4 pb-2">
                   {project.brandingColors?.map((color) => {
-                    const details = COLOR_DETAILS[color.toUpperCase()] || { rgb: "", pantone: "" };
+                    const details = COLOR_DETAILS[color.toUpperCase()] || {
+                      rgb: "",
+                      pantone: "",
+                    };
                     return (
                       <div key={color} className="flex flex-1 flex-col">
                         <div
-                          className="w-full h-42 lg:h-50 xl:h-58 2xl:h-66 border border-(--foreground)/10"
+                          className="h-42 w-full border border-(--foreground)/10 lg:h-50 xl:h-58 2xl:h-66"
                           style={{ backgroundColor: color }}
                         />
                         <div
-                          className="mt-8 flex flex-col gap-y-1.5 text-xs text-(--foreground) font-normal uppercase select-none md:text-sm leading-none"
-                          style={{ fontFamily: "var(--font-neue-haas), sans-serif" }}
+                          className="mt-8 flex flex-col gap-y-1.5 text-xs leading-none font-normal text-(--foreground) uppercase select-none md:text-sm"
+                          style={{
+                            fontFamily: "var(--font-neue-haas), sans-serif",
+                          }}
                         >
                           <span>{color}</span>
-                          <span className="text-(--neutral)">RGB {details.rgb}</span>
-                          <span className="text-(--neutral)">PMS {details.pantone}</span>
+                          <span className="text-(--neutral)">
+                            RGB {details.rgb}
+                          </span>
+                          <span className="text-(--neutral)">
+                            PMS {details.pantone}
+                          </span>
                         </div>
                       </div>
                     );
@@ -125,7 +145,7 @@ export default function ProjectDetailClient({
                   </span>
                 </div>
 
-                <div className="grid w-full grid-cols-2 items-end gap-4 pl-2 pb-2">
+                <div className="grid w-full grid-cols-2 items-end gap-4 pb-2 pl-2">
                   <div className="flex flex-col items-start justify-end">
                     <span
                       className="text-[10rem] leading-none font-normal text-(--neutral) select-none lg:text-[12rem] xl:text-[14rem] 2xl:text-[16rem]"
@@ -136,7 +156,7 @@ export default function ProjectDetailClient({
                       Aa
                     </span>
                     <span
-                      className="text-xs font-normal tracking-wider text-(--neutral-dark) select-none md:text-sm -mt-3 md:-mt-5"
+                      className="-mt-3 text-xs font-normal tracking-wider text-(--neutral-dark) select-none md:-mt-5 md:text-sm"
                       style={{
                         fontFamily: "var(--font-neue-haas), sans-serif",
                       }}
@@ -144,7 +164,7 @@ export default function ProjectDetailClient({
                       sans
                     </span>
                     <span
-                      className="mt-1 text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-normal text-(--foreground) select-none leading-[0.95] whitespace-nowrap"
+                      className="mt-1 text-xl leading-[0.95] font-normal whitespace-nowrap text-(--foreground) select-none sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
                       style={{
                         fontFamily: "var(--font-pp-montreal), sans-serif",
                         letterSpacing: "-0.02em",
@@ -152,14 +172,29 @@ export default function ProjectDetailClient({
                     >
                       PP Neue Montreal
                     </span>
-                    <div className="mt-8 flex flex-col gap-y-1.5 text-xs md:text-sm text-(--foreground) select-none leading-none">
-                      <span style={{ fontFamily: "var(--font-pp-montreal), sans-serif", fontWeight: 300 }}>
+                    <div className="mt-8 flex flex-col gap-y-1.5 text-xs leading-none text-(--foreground) select-none md:text-sm">
+                      <span
+                        style={{
+                          fontFamily: "var(--font-pp-montreal), sans-serif",
+                          fontWeight: 300,
+                        }}
+                      >
                         Light 300
                       </span>
-                      <span style={{ fontFamily: "var(--font-pp-montreal), sans-serif", fontWeight: 400 }}>
+                      <span
+                        style={{
+                          fontFamily: "var(--font-pp-montreal), sans-serif",
+                          fontWeight: 400,
+                        }}
+                      >
                         Regular 400
                       </span>
-                      <span style={{ fontFamily: "var(--font-pp-montreal), sans-serif", fontWeight: 600 }}>
+                      <span
+                        style={{
+                          fontFamily: "var(--font-pp-montreal), sans-serif",
+                          fontWeight: 600,
+                        }}
+                      >
                         Semibold 600
                       </span>
                     </div>
@@ -175,7 +210,7 @@ export default function ProjectDetailClient({
                       Aa
                     </span>
                     <span
-                      className="text-xs font-normal tracking-wider text-(--neutral-dark) select-none md:text-sm -mt-3 md:-mt-5"
+                      className="-mt-3 text-xs font-normal tracking-wider text-(--neutral-dark) select-none md:-mt-5 md:text-sm"
                       style={{
                         fontFamily: "var(--font-neue-haas), sans-serif",
                       }}
@@ -183,7 +218,7 @@ export default function ProjectDetailClient({
                       mono
                     </span>
                     <span
-                      className="mt-1 text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-normal text-(--foreground) select-none leading-[0.95] whitespace-nowrap"
+                      className="mt-1 text-xl leading-[0.95] font-normal whitespace-nowrap text-(--foreground) select-none sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
                       style={{
                         fontFamily: "var(--font-pp-montreal-mono), monospace",
                         letterSpacing: "-0.05em",
@@ -191,19 +226,68 @@ export default function ProjectDetailClient({
                     >
                       PP Neue Montreal Mono
                     </span>
-                    <div className="mt-8 flex flex-col gap-y-1.5 text-xs md:text-sm text-(--foreground) select-none leading-none">
-                      <span style={{ fontFamily: "var(--font-pp-montreal-mono), monospace", fontWeight: 100 }}>
+                    <div className="mt-8 flex flex-col gap-y-1.5 text-xs leading-none text-(--foreground) select-none md:text-sm">
+                      <span
+                        style={{
+                          fontFamily: "var(--font-pp-montreal-mono), monospace",
+                          fontWeight: 100,
+                        }}
+                      >
                         Thin 100
                       </span>
-                      <span style={{ fontFamily: "var(--font-pp-montreal-mono), monospace", fontWeight: 400 }}>
+                      <span
+                        style={{
+                          fontFamily: "var(--font-pp-montreal-mono), monospace",
+                          fontWeight: 400,
+                        }}
+                      >
                         Book 400
                       </span>
-                      <span style={{ fontFamily: "var(--font-pp-montreal-mono), monospace", fontWeight: 700 }}>
+                      <span
+                        style={{
+                          fontFamily: "var(--font-pp-montreal-mono), monospace",
+                          fontWeight: 700,
+                        }}
+                      >
                         Bold 700
                       </span>
                     </div>
                   </div>
                 </div>
+              </div>
+
+              <div className="relative flex aspect-4/3 w-full flex-col justify-between bg-(--card-dark) p-4">
+                <div>
+                  <span className="text-xs tracking-wider text-(--neutral) uppercase select-none md:text-sm">
+                    Components
+                  </span>
+                </div>
+              </div>
+
+              <div className="relative flex aspect-4/3 w-full items-center justify-center overflow-hidden bg-(--card-dark)">
+                <span className="absolute top-4 left-4 z-10 text-xs tracking-wider text-(--neutral) uppercase select-none md:text-sm">
+                  Cool S***t
+                </span>
+                <EarthGlobeAscii
+                  onDragStart={handleGlobeDragStart}
+                  onDragEnd={handleGlobeDragEnd}
+                />
+                <a
+                  href="/projects/leonardo-berselli-portfolio/globe.zip"
+                  download
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                  className="absolute right-4 bottom-4 z-10 text-(--neutral)"
+                  aria-label="Download Globe component"
+                >
+                <motion.span
+                  animate={{ color: "var(--neutral)" }}
+                  whileHover={{ color: "var(--foreground)" }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                >
+                  <Download size={20} strokeWidth={1.5} />
+                </motion.span>
+                </a>
               </div>
             </div>
           </div>
