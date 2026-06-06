@@ -1,6 +1,6 @@
 "use client";
 
-import { ComponentType } from "react";
+import { ComponentType, useMemo } from "react";
 import { Project } from "@/types/projects";
 import HeroTitle from "@/components/ui/HeroTitle";
 import { motion } from "motion/react";
@@ -19,30 +19,36 @@ interface ProjectDetailClientProps {
 export default function ProjectDetailClient({
   project,
 }: ProjectDetailClientProps) {
-  const CustomComponents = dynamic(
+  const CustomComponents = useMemo(
     () =>
-      import(
-        `@/components/projects/${project.id}/${project.id}-UI`
-      ).then((m) => m.default || Object.values(m)[0]),
-    {
-      loading: () => <Skeleton isLoading={true} variant="on-light" />,
-      ssr: false,
-    },
-  ) as ComponentType;
-
-  const coolShitName = project.coolShitName || "InteractiveDemo";
-  const CoolShitComponent = project.hasCoolShit
-    ? (dynamic(
+      dynamic(
         () =>
           import(
-            `@/components/projects/${project.id}/components/${coolShitName}`
+            `@/components/projects/${project.id}/${project.id}-UI`
           ).then((m) => m.default || Object.values(m)[0]),
         {
-          loading: () => <Skeleton isLoading={true} variant="on-light" />,
-          ssr: false,
-        }
-      ) as ComponentType)
-    : null;
+          loading: () => <Skeleton isLoading={true} variant="on-dark" />,
+        },
+      ) as ComponentType,
+    [project.id],
+  );
+
+  const coolShitName = project.coolShitName || "InteractiveDemo";
+  const CoolShitComponent = useMemo(
+    () =>
+      project.hasCoolShit
+        ? (dynamic(
+            () =>
+              import(
+                `@/components/projects/${project.id}/components/${coolShitName}`
+              ).then((m) => m.default || Object.values(m)[0]),
+            {
+              loading: () => <Skeleton isLoading={true} variant="on-dark" />,
+            },
+          ) as ComponentType)
+        : null,
+    [project.id, project.hasCoolShit, coolShitName],
+  );
 
   return (
     <div className="relative z-10 flex min-h-screen w-full flex-col pt-32 pb-48 text-(--background)">
