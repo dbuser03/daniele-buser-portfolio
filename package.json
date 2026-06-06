@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-"dev": "tsx scripts/init-projects.ts && next dev",
-"build": "tsx scripts/init-projects.ts && next build",
+    "dev": "tsx scripts/init-projects.ts && next dev",
+    "build": "tsx scripts/init-projects.ts && next build",
     "start": "next start",
     "lint": "eslint"
   },
@@ -36,6 +36,7 @@
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "tailwindcss": "^4.2.4",
+    "tsx": "^4.22.4",
     "typescript": "^6.0.3"
   }
 }

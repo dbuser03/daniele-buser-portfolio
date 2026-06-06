@@ -1,11 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useMemo, useEffect } from "react";
 import { motion, useScroll, useSpring } from "motion/react";
-import { inView } from "motion";
-import { ABOUT_HEY_ID } from "../Hey";
-import { ABOUT_INTRO_ID } from "../AboutIntro";
 import { HOW_I_WORK_WORDS, VIDEO_MAP } from "@/constants/about";
 import { useHowIWork } from "@/hooks/useHowIWork";
 import WorkWord from "./WorkWord";
@@ -35,57 +32,30 @@ export default function HowIWork() {
 
   const smoothProgress = useSpring(scrollYProgress, SCROLL_SPRING_CONFIG);
 
-  const [isIntroInView, setIsIntroInView] = useState(() => {
-    if (typeof window === "undefined") return true;
-    const heyEl = document.getElementById(ABOUT_HEY_ID);
-    const introEl = document.getElementById(ABOUT_INTRO_ID);
-    
-    const isHeyVisible = heyEl 
-      ? heyEl.getBoundingClientRect().bottom > 50 && heyEl.getBoundingClientRect().top < window.innerHeight 
-      : false;
-      
-    const isIntroVisible = introEl 
-      ? introEl.getBoundingClientRect().bottom > 180 && introEl.getBoundingClientRect().top < window.innerHeight 
-      : false;
-
-    return isHeyVisible || isIntroVisible;
+  const playVideoRef = useRef(playVideo);
+  const advanceSequenceRef = useRef(advanceSequence);
+  useEffect(() => {
+    playVideoRef.current = playVideo;
+  });
+  useEffect(() => {
+    advanceSequenceRef.current = advanceSequence;
   });
 
-  useEffect(() => {
-    const checkVisibility = () => {
-      const heyEl = document.getElementById(ABOUT_HEY_ID);
-      const introEl = document.getElementById(ABOUT_INTRO_ID);
-      
-      const isHeyVisible = heyEl 
-        ? heyEl.getBoundingClientRect().bottom > 50 && heyEl.getBoundingClientRect().top < window.innerHeight 
-        : false;
-        
-      const isIntroVisible = introEl 
-        ? introEl.getBoundingClientRect().bottom > 180 && introEl.getBoundingClientRect().top < window.innerHeight 
-        : false;
-
-      setIsIntroInView(isHeyVisible || isIntroVisible);
-    };
-
-    const unsubHey = inView(`#${ABOUT_HEY_ID}`, () => {
-      setIsIntroInView(true);
-      return () => checkVisibility();
+  const onEndedMap = useMemo(() => {
+    const map: Record<string, () => void> = {};
+    HOW_I_WORK_WORDS.forEach((w) => {
+      map[w] = () => {
+        if (isImageHovered) {
+          advanceSequenceRef.current();
+        } else if (activeWord === w) {
+          playVideoRef.current(w);
+        }
+      };
     });
+    return map;
+  }, [isImageHovered, activeWord]);
 
-    const unsubIntro = inView(`#${ABOUT_INTRO_ID}`, () => {
-      setIsIntroInView(true);
-      return () => checkVisibility();
-    });
-
-    checkVisibility();
-
-    return () => {
-      unsubHey();
-      unsubIntro();
-    };
-  }, []);
-
-  const baseDelay = isIntroInView ? 0.95 : 0.15;
+  const baseDelay = 0.95;
 
   return (
     <section
@@ -127,7 +97,11 @@ export default function HowIWork() {
             onMouseLeave={handlePanelMouseLeave}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: "easeOut", delay: baseDelay + 0.08 }}
+            transition={{
+              duration: 0.45,
+              ease: "easeOut",
+              delay: baseDelay + 0.08,
+            }}
           >
             <motion.div
               className="absolute inset-0"
@@ -153,13 +127,7 @@ export default function HowIWork() {
                 src={VIDEO_MAP[word]}
                 active={activeWord === word}
                 videoRef={videoRefs[word]}
-                onEnded={() => {
-                  if (isImageHovered) {
-                    advanceSequence();
-                  } else if (activeWord === word) {
-                    playVideo(word);
-                  }
-                }}
+                onEnded={onEndedMap[word]}
               />
             ))}
           </motion.div>
