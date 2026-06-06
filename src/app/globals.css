@@ -42,37 +42,11 @@ button:focus-visible,
   border-radius: 2px;
 }
 
-@keyframes skeleton-shimmer {
-  0% {
-    background-position: -200% 0;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.skeleton-shimmer--on-dark {
-  background: linear-gradient(
-    105deg,
-    #141414 0%,
-    #1a1a1a 35%,
-    #1e1e1e 50%,
-    #1a1a1a 65%,
-    #141414 100%
-  );
-  background-size: 200% 100%;
-  animation: skeleton-shimmer 2.8s ease-in-out infinite;
-}
-
-.skeleton-shimmer--on-light {
-  background: linear-gradient(
-    105deg,
-    #e6e6e6 0%,
-    #ececec 35%,
-    #f0f0f0 50%,
-    #ececec 65%,
-    #e6e6e6 100%
-  );
-  background-size: 200% 100%;
-  animation: skeleton-shimmer 2.8s ease-in-out infinite;
 }
