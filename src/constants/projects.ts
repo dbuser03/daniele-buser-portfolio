@@ -13,7 +13,7 @@ export const PROJECTS: Project[] = [
     cardImage:
       "/projects/leonardo-berselli-portfolio/leonardo-berselli-portfolio.webp",
     tags: ["Next.js", "Tailwind", "Motion", "WebGL"],
-    year: "2025",
+    year: "2026",
     brandingColors: [
       { hex: "#0A0A0A", pantone: "Black 6 C" },
       { hex: "#262626", pantone: "426 C" },

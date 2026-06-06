@@ -1,3 +1,4 @@
+import { cn } from "@/utils/cn";
 import type { ProjectFont } from "@/types/projects";
 import DetailSectionCard from "@/components/projects/project-detail/DetailSectionCard";
 
@@ -31,7 +32,7 @@ export default function DetailTypefacesCard({
 
   return (
     <DetailSectionCard label="Typefaces">
-      <div className={`grid w-full gap-4 pb-2 pl-2 ${gridCols}`}>
+      <div className={cn("grid w-full gap-4 pb-2 pl-2", gridCols)}>
         {displayFonts.map((font) => (
           <div
             key={font.name}

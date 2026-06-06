@@ -1,12 +1,11 @@
 "use client";
 
 import { motion } from "motion/react";
-import { useCurrentTime } from "@/hooks/useCurrentTime";
+import TimeDisplay from "./TimeDisplay";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { STAGGER_FADE_UP } from "@/constants/animations";
 
 export default function Footer() {
-  const currentTime = useCurrentTime();
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("footer");
 
   return (
@@ -25,7 +24,7 @@ export default function Footer() {
           animate={{ opacity: 1, y: 0 }}
           transition={STAGGER_FADE_UP(0.8)}
         >
-          LUGANO - {currentTime}
+          LUGANO - <TimeDisplay />
         </motion.p>
         <motion.p
           className="text-xs text-(--neutral) md:text-sm"
@@ -33,9 +32,10 @@ export default function Footer() {
           animate={{ opacity: 1, y: 0 }}
           transition={STAGGER_FADE_UP(0.9)}
         >
-          46° 00&apos; 13.24&quot; - 08° 57&apos; 03.79&quot;
+          46&deg; 00&apos; 13.24&quot; - 08&deg; 57&apos; 03.79&quot;
         </motion.p>
       </div>
     </footer>
   );
 }
+

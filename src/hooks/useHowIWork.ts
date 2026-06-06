@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect, type RefObject } from "react";
+import { useRef, useState, useEffect, useCallback, useMemo, type RefObject } from "react";
 import { HOW_I_WORK_SEQUENCE } from "@/constants/about";
 import { HoverableWord } from "@/types/about";
 
@@ -17,35 +17,35 @@ export const useHowIWork = () => {
   const codeRef = useRef<HTMLVideoElement | null>(null);
   const shipRef = useRef<HTMLVideoElement | null>(null);
 
-  const videoRefs: Record<HoverableWord, RefObject<HTMLVideoElement | null>> = {
+  const videoRefs = useMemo(() => ({
     Obsess: obsessRef,
     Design: designRef,
     Code: codeRef,
     Ship: shipRef,
-  };
+  }), [obsessRef, designRef, codeRef, shipRef]);
 
   const [activeWord, setActiveWord] = useState<HoverableWord | null>(null);
   const [isImageHovered, setIsImageHovered] = useState(false);
   const sequenceIndexRef = useRef(0);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const playVideo = (word: HoverableWord) => {
+  const playVideo = useCallback((word: HoverableWord) => {
     getVideoRef(word, videoRefs).current?.play().catch(() => {});
-  };
+  }, [videoRefs]);
 
-  const stopVideo = (word: HoverableWord) => {
+  const stopVideo = useCallback((word: HoverableWord) => {
     const el = getVideoRef(word, videoRefs).current;
     if (!el) return;
     el.pause();
     el.currentTime = 0;
-  };
+  }, [videoRefs]);
 
-  const resetAndPlay = (word: HoverableWord) => {
+  const resetAndPlay = useCallback((word: HoverableWord) => {
     const el = getVideoRef(word, videoRefs).current;
     if (!el) return;
     el.currentTime = 0;
     el.play().catch(() => {});
-  };
+  }, [videoRefs]);
 
   useEffect(() => {
     return () => {
@@ -55,7 +55,7 @@ export const useHowIWork = () => {
     };
   }, []);
 
-  const handleWordHover = (word: HoverableWord | null) => {
+  const handleWordHover = useCallback((word: HoverableWord | null) => {
     if (isImageHovered) return;
 
     if (hoverTimeoutRef.current) {
@@ -79,7 +79,7 @@ export const useHowIWork = () => {
         });
       }
     }, 50);
-  };
+  }, [isImageHovered, resetAndPlay, stopVideo]);
 
   const advanceSequence = () => {
     sequenceIndexRef.current =

@@ -1,4 +1,4 @@
-"use client";
+import { cn } from "@/utils/cn";
 
 import { motion, AnimatePresence } from "motion/react";
 
@@ -26,7 +26,7 @@ export default function Skeleton({
     <AnimatePresence>
       {isLoading && (
         <motion.div
-          className={`absolute inset-0 z-10 ${className}`}
+          className={cn("absolute inset-0 z-10", className)}
           style={{
             background: SHIMMER_GRADIENTS[variant],
             backgroundSize: "200% 100%",

@@ -3,12 +3,12 @@
 import {
   createContext,
   use,
-  ReactNode,
   useState,
   useCallback,
   useEffect,
   useMemo,
 } from "react";
+import type { ReactNode } from "react";
 import { useMotionValue, useSpring } from "motion/react";
 import { usePathname } from "next/navigation";
 import { CursorContextType } from "@/types/cursor";
@@ -70,8 +70,8 @@ export const CursorProvider = ({
     if (disabled) return;
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    document.body.addEventListener("mouseleave", handleMouseLeave);
-    document.body.addEventListener("mouseenter", handleMouseEnter);
+    document.body.addEventListener("mouseleave", handleMouseLeave, { passive: true });
+    document.body.addEventListener("mouseenter", handleMouseEnter, { passive: true });
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);

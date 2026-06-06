@@ -1,3 +1,4 @@
+import { cn } from "@/utils/cn";
 import type { ReactNode } from "react";
 
 interface DetailSectionCardProps {
@@ -13,7 +14,7 @@ export default function DetailSectionCard({
 }: DetailSectionCardProps) {
   return (
     <div
-      className={`relative flex aspect-4/3 w-full flex-col justify-between overflow-hidden bg-(--card-dark) p-4 ${className}`}
+      className={cn("relative flex aspect-4/3 w-full flex-col justify-between overflow-hidden bg-(--card-dark) p-4", className)}
     >
       <div>
         <span className="text-xs tracking-wider text-(--neutral) uppercase md:text-sm">

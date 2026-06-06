@@ -1,16 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
-
+// Returns the current year as a string. No client‑side state needed.
 export function useCurrentYear(): string {
-  const [year, setYear] = useState("--");
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setYear(String(new Date().getFullYear()).slice(-2));
-    }, 0);
-    return () => clearTimeout(timer);
-  }, []);
-
-  return year;
+  return new Date().getFullYear().toString();
 }

@@ -39,7 +39,7 @@ export default async function ProjectPage({ params }: PageProps) {
   const project = PROJECTS.find((p) => p.id === slug);
 
   if (!project) {
-    notFound();
+    return notFound();
   }
 
   return (
