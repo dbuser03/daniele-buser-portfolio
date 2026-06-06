@@ -24,7 +24,7 @@ export default function DetailPaletteCard({
                 style={{ backgroundColor: hex }}
               />
               <div
-                className="mt-8 flex flex-col gap-y-1.5 text-xs leading-none font-normal text-(--foreground) uppercase select-none md:text-sm"
+                className="mt-8 flex flex-col gap-y-1.5 text-xs leading-none font-normal text-(--foreground) uppercase md:text-sm"
                 style={{
                   fontFamily: "var(--font-neue-haas), sans-serif",
                 }}

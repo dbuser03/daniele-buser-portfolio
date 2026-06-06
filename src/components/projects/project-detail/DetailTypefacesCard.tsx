@@ -38,13 +38,13 @@ export default function DetailTypefacesCard({
             className="flex flex-col items-start justify-end"
           >
             <span
-              className="text-[10rem] leading-none font-normal text-(--neutral) select-none lg:text-[12rem] xl:text-[14rem] 2xl:text-[16rem]"
+              className="text-[10rem] leading-none font-normal text-(--neutral) lg:text-[12rem] xl:text-[14rem] 2xl:text-[16rem]"
               style={{ fontFamily: getFontFamily(font) }}
             >
               {font.sampleText || "Aa"}
             </span>
             <span
-              className="-mt-3 text-xs font-normal tracking-wider text-(--neutral-dark) select-none md:-mt-5 md:text-sm"
+              className="-mt-3 text-xs font-normal tracking-wider text-(--neutral-dark) md:-mt-5 md:text-sm"
               style={{
                 fontFamily: "var(--font-neue-haas), sans-serif",
               }}
@@ -52,7 +52,7 @@ export default function DetailTypefacesCard({
               {font.type}
             </span>
             <span
-              className="mt-1 text-xl leading-[0.95] font-normal whitespace-nowrap text-(--foreground) select-none sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
+              className="mt-1 text-xl leading-[0.95] font-normal whitespace-nowrap text-(--foreground) sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
               style={{
                 fontFamily: getFontFamily(font),
                 letterSpacing: font.type === "mono" ? "-0.05em" : "-0.02em",
@@ -60,7 +60,7 @@ export default function DetailTypefacesCard({
             >
               {font.name}
             </span>
-            <div className="mt-8 flex flex-col gap-y-1.5 text-xs leading-none text-(--foreground) select-none md:text-sm">
+            <div className="mt-8 flex flex-col gap-y-1.5 text-xs leading-none text-(--foreground) md:text-sm">
               {(font.weights || []).map((weight) => (
                 <span
                   key={weight.name}
