@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { useEarthGlobe } from "@/hooks/useEarthGlobe";
+import { useEarthGlobe } from "./hooks/useEarthGlobe";
 
 interface EarthGlobeAsciiProps {
   dark?: boolean;

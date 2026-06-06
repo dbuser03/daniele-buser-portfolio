@@ -3,13 +3,13 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { GLOBE_TEXTURES, GLOBE_CONFIG } from "@/constants/globe";
+import { GLOBE_TEXTURES, GLOBE_CONFIG } from "../constants/globe";
 import {
   createAsciiAtlas,
   getAsciiColorFromCSS,
   patchGlobeShader,
   type AsciiUniforms,
-} from "@/shaders/asciiGlobe";
+} from "../shaders/asciiGlobe";
 
 interface UseEarthGlobeOptions {
   containerRef: React.RefObject<HTMLDivElement | null>;

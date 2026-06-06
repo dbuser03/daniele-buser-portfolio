@@ -1,24 +1,49 @@
 "use client";
 
-import { useEffect } from "react";
-import { Project } from "@/types/projects";
+import { useState, ComponentType } from "react";
+import { Project, ProjectFont, ProjectColor } from "@/types/projects";
 import HeroTitle from "@/components/ui/HeroTitle";
 import { motion } from "motion/react";
-import Skeleton from "@/components/ui/Skeleton";
 import { Download } from "lucide-react";
-import { EarthGlobeAscii } from "@/components/projects/leonardo-UI/EarthGlobeAscii";
+import Skeleton from "@/components/ui/Skeleton";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { useCursorContext } from "@/contexts/CursorContext";
 import { CURSOR_SIZE } from "@/constants/cursor";
-import { LeonardoUI } from "@/components/projects/leonardo-UI/LeonardoUI";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import { hexToRgbStr } from "@/utils/colors";
 
-const COLOR_DETAILS: Record<string, { rgb: string; pantone: string }> = {
-  "#0A0A0A": { rgb: "10 10 10", pantone: "Black 6 C" },
-  "#262626": { rgb: "38 38 38", pantone: "426 C" },
-  "#737373": { rgb: "115 115 115", pantone: "424 C" },
-  "#E5E5E5": { rgb: "229 229 229", pantone: "Cool Gray 1 C" },
-  "#F7F7F7": { rgb: "247 247 247", pantone: "7541 C" },
-};
+const toKebabCase = (str: string): string =>
+  str
+    .replace(/([a-z])([A-Z])/g, "$1-$2")
+    .replace(/[\s_]+/g, "-")
+    .toLowerCase();
+
+function ImageWithSkeleton({ src, alt }: { src: string; alt: string }) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+
+  return (
+    <div className="relative h-full w-full">
+      {(isLoading || hasError) && <Skeleton isLoading={true} variant="on-light" />}
+      {!hasError && (
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          className={`object-cover transition-opacity duration-500 ${isLoading ? "opacity-0" : "opacity-100"}`}
+          sizes="100vw"
+          priority
+          onLoad={() => setIsLoading(false)}
+          onError={() => {
+            setHasError(true);
+            setIsLoading(false);
+          }}
+        />
+      )}
+    </div>
+  );
+}
 
 interface ProjectDetailClientProps {
   project: Project;
@@ -32,6 +57,33 @@ export default function ProjectDetailClient({
 
   const handleGlobeDragStart = () => cursorSize.set(CURSOR_SIZE.xs);
   const handleGlobeDragEnd = () => cursorSize.set(CURSOR_SIZE.sm);
+
+  const CustomComponents = project.hasCustomComponents
+    ? (dynamic(
+        () =>
+          import(
+            `@/components/projects/${project.id}-components/${project.id}-UI`
+          ).then((m) => m.default || Object.values(m)[0]),
+        {
+          loading: () => <Skeleton isLoading={true} variant="on-light" />,
+          ssr: false,
+        }
+      ) as ComponentType)
+    : null;
+
+  const coolShitName = project.coolShitName || "InteractiveDemo";
+  const CoolShitComponent = project.hasCoolShit
+    ? (dynamic(
+        () =>
+          import(
+            `@/components/projects/${project.id}-components/components/${coolShitName}`
+          ).then((m) => m.default || Object.values(m)[0]),
+        {
+          loading: () => <Skeleton isLoading={true} variant="on-light" />,
+          ssr: false,
+        }
+      ) as ComponentType<{ onDragStart?: () => void; onDragEnd?: () => void }>)
+    : null;
 
   return (
     <div className="relative z-10 flex min-h-screen w-full flex-col pt-32 pb-48 text-(--background)">
@@ -70,7 +122,11 @@ export default function ProjectDetailClient({
           }}
           className="relative mt-20 aspect-video w-full overflow-hidden bg-(--neutral-dark) md:mt-28"
         >
-          <Skeleton isLoading={true} variant="on-light" />
+          {project.image ? (
+            <ImageWithSkeleton src={project.image} alt={project.title} />
+          ) : (
+            <Skeleton isLoading={true} variant="on-light" />
+          )}
         </motion.div>
 
         <div className="mt-10 grid grid-cols-1 gap-4 md:mt-14 xl:grid-cols-12">
@@ -81,14 +137,9 @@ export default function ProjectDetailClient({
           </div>
 
           <div className="xl:col-span-10">
-            <div className="columns-1 gap-4 text-xl leading-tight font-normal text-(--background) sm:text-2xl md:columns-2 md:text-3xl md:leading-none lg:text-2xl xl:text-3xl 2xl:text-4xl">
-              {(project.longDescription || project.description)
-                .split("\n\n")
-                .map((paragraph, index) => (
-                  <p key={index} className="mb-4 break-inside-avoid md:mb-0">
-                    {paragraph}
-                  </p>
-                ))}
+            <div className="grid grid-cols-1 gap-8 text-xl leading-tight font-normal text-(--background) sm:text-2xl md:grid-cols-2 md:text-3xl md:leading-none lg:text-2xl xl:text-3xl 2xl:text-4xl">
+              <p className="break-inside-avoid">{project.descriptionCol1}</p>
+              <p className="break-inside-avoid">{project.descriptionCol2}</p>
             </div>
           </div>
         </div>
@@ -108,16 +159,17 @@ export default function ProjectDetailClient({
                 </div>
 
                 <div className="mt-8 flex w-full gap-4 pb-2">
-                  {project.brandingColors?.map((color) => {
-                    const details = COLOR_DETAILS[color.toUpperCase()] || {
-                      rgb: "",
-                      pantone: "",
-                    };
+                  {project.brandingColors.map((colorVal) => {
+                    const hex = colorVal.hex;
+                    const pantone = colorVal.pantone;
+                    const rgb = colorVal.rgb || hexToRgbStr(hex);
+                    const name = colorVal.name || "";
+
                     return (
-                      <div key={color} className="flex flex-1 flex-col">
+                      <div key={hex} className="flex flex-1 flex-col">
                         <div
                           className="h-42 w-full border border-(--foreground)/10 lg:h-50 xl:h-58 2xl:h-66"
-                          style={{ backgroundColor: color }}
+                          style={{ backgroundColor: hex }}
                         />
                         <div
                           className="mt-8 flex flex-col gap-y-1.5 text-xs leading-none font-normal text-(--foreground) uppercase select-none md:text-sm"
@@ -125,13 +177,17 @@ export default function ProjectDetailClient({
                             fontFamily: "var(--font-neue-haas), sans-serif",
                           }}
                         >
-                          <span>{color}</span>
-                          <span className="text-(--neutral)">
-                            RGB {details.rgb}
-                          </span>
-                          <span className="text-(--neutral)">
-                            PMS {details.pantone}
-                          </span>
+                          <span>{hex}</span>
+                          {rgb && (
+                            <span className="text-(--neutral)">
+                              RGB {rgb}
+                            </span>
+                          )}
+                          {pantone && (
+                            <span className="text-(--neutral)">
+                              PMS {pantone}
+                            </span>
+                          )}
                         </div>
                       </div>
                     );
@@ -146,154 +202,95 @@ export default function ProjectDetailClient({
                   </span>
                 </div>
 
-                <div className="grid w-full grid-cols-2 items-end gap-4 pb-2 pl-2">
-                  <div className="flex flex-col items-start justify-end">
-                    <span
-                      className="text-[10rem] leading-none font-normal text-(--neutral) select-none lg:text-[12rem] xl:text-[14rem] 2xl:text-[16rem]"
-                      style={{
-                        fontFamily: "var(--font-pp-montreal), sans-serif",
-                      }}
-                    >
-                      Aa
-                    </span>
-                    <span
-                      className="-mt-3 text-xs font-normal tracking-wider text-(--neutral-dark) select-none md:-mt-5 md:text-sm"
-                      style={{
-                        fontFamily: "var(--font-neue-haas), sans-serif",
-                      }}
-                    >
-                      sans
-                    </span>
-                    <span
-                      className="mt-1 text-xl leading-[0.95] font-normal whitespace-nowrap text-(--foreground) select-none sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
-                      style={{
-                        fontFamily: "var(--font-pp-montreal), sans-serif",
-                        letterSpacing: "-0.02em",
-                      }}
-                    >
-                      PP Neue Montreal
-                    </span>
-                    <div className="mt-8 flex flex-col gap-y-1.5 text-xs leading-none text-(--foreground) select-none md:text-sm">
+                <div className={`grid w-full gap-4 pb-2 pl-2 ${project.brandingFonts.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}>
+                  {project.brandingFonts.map((font) => (
+                    <div key={font.name} className="flex flex-col items-start justify-end">
                       <span
+                        className="text-[10rem] leading-none font-normal text-(--neutral) select-none lg:text-[12rem] xl:text-[14rem] 2xl:text-[16rem]"
                         style={{
-                          fontFamily: "var(--font-pp-montreal), sans-serif",
-                          fontWeight: 300,
+                          fontFamily: font.familyVar ? `${font.familyVar}, sans-serif` : "sans-serif",
                         }}
                       >
-                        Light 300
+                        {font.sampleText || "Aa"}
                       </span>
                       <span
+                        className="-mt-3 text-xs font-normal tracking-wider text-(--neutral-dark) select-none md:-mt-5 md:text-sm"
                         style={{
-                          fontFamily: "var(--font-pp-montreal), sans-serif",
-                          fontWeight: 400,
+                          fontFamily: "var(--font-neue-haas), sans-serif",
                         }}
                       >
-                        Regular 400
+                        {font.type}
                       </span>
                       <span
+                        className="mt-1 text-xl leading-[0.95] font-normal whitespace-nowrap text-(--foreground) select-none sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
                         style={{
-                          fontFamily: "var(--font-pp-montreal), sans-serif",
-                          fontWeight: 600,
+                          fontFamily: font.familyVar ? `${font.familyVar}, sans-serif` : "sans-serif",
+                          letterSpacing: font.type === "mono" ? "-0.05em" : "-0.02em",
                         }}
                       >
-                        Semibold 600
+                        {font.name}
                       </span>
+                      <div className="mt-8 flex flex-col gap-y-1.5 text-xs leading-none text-(--foreground) select-none md:text-sm">
+                        {font.weights.map((weight) => (
+                          <span
+                            key={weight.name}
+                            style={{
+                              fontFamily: font.familyVar ? `${font.familyVar}, sans-serif` : "sans-serif",
+                              fontWeight: weight.value,
+                            }}
+                          >
+                            {weight.name}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="flex flex-col items-start justify-end">
-                    <span
-                      className="text-[10rem] leading-none font-normal text-(--neutral) select-none lg:text-[12rem] xl:text-[14rem] 2xl:text-[16rem]"
-                      style={{
-                        fontFamily: "var(--font-pp-montreal-mono), monospace",
-                      }}
-                    >
-                      Aa
-                    </span>
-                    <span
-                      className="-mt-3 text-xs font-normal tracking-wider text-(--neutral-dark) select-none md:-mt-5 md:text-sm"
-                      style={{
-                        fontFamily: "var(--font-neue-haas), sans-serif",
-                      }}
-                    >
-                      mono
-                    </span>
-                    <span
-                      className="mt-1 text-xl leading-[0.95] font-normal whitespace-nowrap text-(--foreground) select-none sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
-                      style={{
-                        fontFamily: "var(--font-pp-montreal-mono), monospace",
-                        letterSpacing: "-0.05em",
-                      }}
-                    >
-                      PP Neue Montreal Mono
-                    </span>
-                    <div className="mt-8 flex flex-col gap-y-1.5 text-xs leading-none text-(--foreground) select-none md:text-sm">
-                      <span
-                        style={{
-                          fontFamily: "var(--font-pp-montreal-mono), monospace",
-                          fontWeight: 100,
-                        }}
-                      >
-                        Thin 100
-                      </span>
-                      <span
-                        style={{
-                          fontFamily: "var(--font-pp-montreal-mono), monospace",
-                          fontWeight: 400,
-                        }}
-                      >
-                        Book 400
-                      </span>
-                      <span
-                        style={{
-                          fontFamily: "var(--font-pp-montreal-mono), monospace",
-                          fontWeight: 700,
-                        }}
-                      >
-                        Bold 700
-                      </span>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
 
-              <div className="relative flex aspect-4/3 w-full flex-col justify-between overflow-hidden bg-(--card-dark) p-4">
-                <div>
-                  <span className="text-xs tracking-wider text-(--neutral) uppercase select-none md:text-sm">
-                    Components
+              {CustomComponents && (
+                <div className="relative flex aspect-4/3 w-full flex-col justify-between overflow-hidden bg-(--card-dark) p-4">
+                  <div>
+                    <span className="text-xs tracking-wider text-(--neutral) uppercase select-none md:text-sm">
+                      Components
+                    </span>
+                  </div>
+
+                  <div className={`project-theme-${project.id} mt-auto flex max-h-[calc(100%-40px)] w-full flex-col gap-4 overflow-y-auto pr-1 pb-2 text-left`}>
+                    <CustomComponents />
+                  </div>
+                </div>
+              )}
+
+              {CoolShitComponent && (
+                <div className="relative flex aspect-4/3 w-full items-center justify-center overflow-hidden bg-(--card-dark)">
+                  <span className="absolute top-4 left-4 z-10 text-xs tracking-wider text-(--neutral) uppercase select-none md:text-sm">
+                    Cool S***t
                   </span>
-                </div>
-
-                <div className="mt-auto flex max-h-[calc(100%-40px)] w-full flex-col gap-4 overflow-y-auto pr-1 pb-2 text-left">
-                  <LeonardoUI />
-                </div>
-              </div>
-
-              <div className="relative flex aspect-4/3 w-full items-center justify-center overflow-hidden bg-(--card-dark)">
-                <span className="absolute top-4 left-4 z-10 text-xs tracking-wider text-(--neutral) uppercase select-none md:text-sm">
-                  Cool S***t
-                </span>
-                <EarthGlobeAscii
-                  onDragStart={handleGlobeDragStart}
-                  onDragEnd={handleGlobeDragEnd}
-                />
-                <a
-                  href="/projects/leonardo-berselli-portfolio/globe.zip"
-                  download
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  className="absolute right-4 bottom-4 z-10 text-(--neutral)"
-                  aria-label="Download Globe component"
-                >
-                  <motion.span
-                    animate={{ color: "var(--neutral)" }}
-                    whileHover={{ color: "var(--foreground)" }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
+                  <div className={`project-theme-${project.id} flex h-full w-full items-center justify-center`}>
+                    <CoolShitComponent
+                      onDragStart={handleGlobeDragStart}
+                      onDragEnd={handleGlobeDragEnd}
+                    />
+                  </div>
+                  <a
+                    href={`/projects/${project.id}/${toKebabCase(coolShitName)}.zip`}
+                    download
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                    className="absolute right-4 bottom-4 z-10 text-(--neutral)"
+                    aria-label="Download component"
                   >
-                    <Download size={20} strokeWidth={1.5} />
-                  </motion.span>
-                </a>
-              </div>
+                    <motion.span
+                      animate={{ color: "var(--neutral)" }}
+                      whileHover={{ color: "var(--foreground)" }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                    >
+                      <Download size={20} strokeWidth={1.5} />
+                    </motion.span>
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -301,3 +298,4 @@ export default function ProjectDetailClient({
     </div>
   );
 }
+
