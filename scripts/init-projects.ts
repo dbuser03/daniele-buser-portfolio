@@ -135,7 +135,7 @@ function traceDependencies(
     } catch (e) {
       const err = e as Error;
       console.warn(
-        `[init-projects] Errore nel tracciamento dipendenze di ${currentFile}:`,
+        `[init-projects] Error tracing dependencies of ${currentFile}:`,
         err.message,
       );
     }
@@ -226,7 +226,7 @@ function parseProjectColors(block: string, id: string): ParsedColor[] {
   const colorsMatch = block.match(/brandingColors\s*:\s*\[([\s\S]*?)\]/);
   if (!colorsMatch) {
     throw new Error(
-      `[init-projects] Progetto '${id}': Campo 'brandingColors' mancante.`,
+      `[init-projects] Project '${id}': Missing 'brandingColors' field.`,
     );
   }
 
@@ -241,12 +241,12 @@ function parseProjectColors(block: string, id: string): ParsedColor[] {
 
     if (!hexMatch) {
       throw new Error(
-        `[init-projects] Progetto '${id}': Colore mancante del campo obbligatorio 'hex'.`,
+        `[init-projects] Project '${id}': Missing required color field 'hex'.`,
       );
     }
     if (!pantoneMatch) {
       throw new Error(
-        `[init-projects] Progetto '${id}': Colore mancante del campo obbligatorio 'pantone'.`,
+        `[init-projects] Project '${id}': Missing required color field 'pantone'.`,
       );
     }
 
@@ -257,7 +257,7 @@ function parseProjectColors(block: string, id: string): ParsedColor[] {
     const hexRegex = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
     if (!hexRegex.test(hex)) {
       throw new Error(
-        `[init-projects] Progetto '${id}': Colore HEX '${hex}' non valido. Deve iniziare con # e contenere 3 o 6 caratteri esadecimali.`,
+        `[init-projects] Project '${id}': Invalid HEX color '${hex}'. Must start with # and contain 3 or 6 hex characters.`,
       );
     }
 
@@ -265,7 +265,7 @@ function parseProjectColors(block: string, id: string): ParsedColor[] {
       /^(?:(?:[A-Za-z\s]+)?\d{1,5}\s+[A-Za-z]{1,3}|[A-Za-z\s]+\s+[A-Z]{1,3}|\d{2}-\d{4}\s+[A-Z]{2,3})$/i;
     if (!pantoneRegex.test(pantone)) {
       throw new Error(
-        `[init-projects] Progetto '${id}': Codice Pantone '${pantone}' non valido. Esempi validi: 'Black 6 C', '7527 C', 'White C', '18-1663 TCX'.`,
+        `[init-projects] Project '${id}': Invalid Pantone code '${pantone}'. Valid examples: 'Black 6 C', '7527 C', 'White C', '18-1663 TCX'.`,
       );
     }
 
@@ -274,7 +274,7 @@ function parseProjectColors(block: string, id: string): ParsedColor[] {
         /^(?:rgb\()?\s*(25[0-5]|2[0-4]\d|[01]?\d?\d)\s*[\s,]\s*(25[0-5]|2[0-4]\d|[01]?\d?\d)\s*[\s,]\s*(25[0-5]|2[0-4]\d|[01]?\d?\d)\s*\)?$/i;
       if (!rgbRegex.test(rgb)) {
         throw new Error(
-          `[init-projects] Progetto '${id}': Valore RGB '${rgb}' non valido. Formati supportati: '255 255 255' o '255, 255, 255'.`,
+          `[init-projects] Project '${id}': Invalid RGB value '${rgb}'. Supported formats: '255 255 255' or '255, 255, 255'.`,
         );
       }
     }
@@ -448,7 +448,7 @@ function generateThemeCss(
 function init(): void {
   if (!fs.existsSync(PROJECTS_FILE)) {
     console.warn(
-      `[init-projects] File progetti non trovato a: ${PROJECTS_FILE}`,
+      `[init-projects] Projects file not found at: ${PROJECTS_FILE}`,
     );
     return;
   }
@@ -458,7 +458,7 @@ function init(): void {
 
   if (projectsBlocks.length === 0) {
     console.warn(
-      "[init-projects] Impossibile trovare l'array PROJECTS in src/constants/projects.ts",
+      "[init-projects] Could not find PROJECTS array in src/constants/projects.ts",
     );
     return;
   }
@@ -485,7 +485,7 @@ function init(): void {
     if (!fs.existsSync(projectSrcDir)) {
       fs.mkdirSync(projectSrcDir, { recursive: true });
       console.log(
-        `[init-projects] Creata cartella sorgente: ${projectSrcDir}`,
+        `[init-projects] Created source directory: ${projectSrcDir}`,
       );
     }
 
@@ -493,7 +493,7 @@ function init(): void {
       const cssContent = generateThemeCss(id, brandingColors, brandingFonts);
       const themeCssPath = path.join(projectSrcDir, "theme.css");
       fs.writeFileSync(themeCssPath, cssContent, "utf8");
-      console.log(`[init-projects] Creato/Aggiornato theme.css per ${id}`);
+      console.log(`[init-projects] Created/Updated theme.css for ${id}`);
     }
 
     const uiFilePath = path.join(projectSrcDir, `${id}-UI.tsx`);
@@ -522,7 +522,7 @@ export default function ThemeOnly() {
 }
 `;
       fs.writeFileSync(uiFilePath, uiContent, "utf8");
-      console.log(`[init-projects] Creato UI file per ${id}`);
+      console.log(`[init-projects] Created UI file for ${id}`);
     }
 
     if (hasCustomComponents) {
@@ -618,7 +618,7 @@ export default function ThemeOnly() {
           const themeCssSrc = path.join(projectSrcDir, "theme.css");
           if (fs.existsSync(themeCssSrc)) {
             fs.copyFileSync(themeCssSrc, path.join(coolShitDir, "theme.css"));
-            console.log(`[init-projects] Copiato theme.css in ${coolShitDir}`);
+            console.log(`[init-projects] Copied theme.css to ${coolShitDir}`);
           }
 
           try {
@@ -631,17 +631,17 @@ export default function ThemeOnly() {
               cwd: coolShitDir,
               stdio: "ignore",
             });
-            console.log(`[init-projects] Creato archivio zip: ${zipPath}`);
+            console.log(`[init-projects] Created zip archive: ${zipPath}`);
           } catch (err) {
             const error = err as Error;
             console.warn(
-              `[init-projects] Impossibile creare l'archivio zip per ${id}:`,
+              `[init-projects] Could not create zip archive for ${id}:`,
               error.message,
             );
           }
         } else {
           console.warn(
-            `[init-projects] Componente ${coolShitName} non trovato a: ${entryFile}`,
+            `[init-projects] Component ${coolShitName} not found at: ${entryFile}`,
           );
         }
       }
@@ -654,7 +654,7 @@ export default function ThemeOnly() {
         const entries = fs.readdirSync(subdirPath);
         if (entries.length === 0) {
           fs.rmdirSync(subdirPath);
-          console.log(`[init-projects] Rimossa cartella vuota: ${subdirPath}`);
+          console.log(`[init-projects] Removed empty directory: ${subdirPath}`);
         }
       }
     }
