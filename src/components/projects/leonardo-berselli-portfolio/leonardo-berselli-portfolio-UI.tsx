@@ -78,7 +78,7 @@ export default function LeonardoUI() {
         <div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-12">
           <div className="flex w-full items-center justify-between border border-(--neutral)/20 px-3 py-2.5 sm:col-span-7">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-[10px] leading-none tracking-widest text-(--neutral) uppercase select-none">
+              <span className="font-mono text-[10px] leading-none tracking-widest text-(--neutral) uppercase">
                 Engine
               </span>
               <Switch
@@ -88,11 +88,12 @@ export default function LeonardoUI() {
                 className="flex items-center"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
+                aria-label="Toggle engine"
               />
             </div>
             <div className="flex items-center">
               <span
-                className={`font-mono text-[10px] leading-none tracking-wider uppercase select-none ${
+                className={`font-mono text-[10px] leading-none tracking-wider uppercase ${
                   engineActive
                     ? "animate-pulse-white-neutral"
                     : "text-(--neutral)"

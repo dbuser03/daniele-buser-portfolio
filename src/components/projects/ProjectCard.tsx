@@ -29,7 +29,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         href={`/projects/${project.id}` as Route}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="group flex w-full flex-col bg-(--card-dark) p-4 pb-8 transition-all duration-300 ease-out focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-4"
+        className="group flex w-full flex-col bg-(--card-dark) p-4 pb-8 transition-all duration-300 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
         aria-label={`Project card: ${project.title}`}
       >
         <div className="relative aspect-4/3 w-full overflow-hidden bg-(--neutral-dark)">

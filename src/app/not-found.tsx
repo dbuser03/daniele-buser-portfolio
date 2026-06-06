@@ -19,7 +19,12 @@ export default function NotFound() {
   );
 
   return (
-    <main className="relative z-10 flex min-h-screen flex-col justify-center bg-(--background) text-(--foreground) px-4">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="relative z-10 flex min-h-screen flex-col justify-center bg-(--background) text-(--foreground) px-4 focus:outline-none"
+      aria-label="404 page main content"
+    >
       <div
         className="pointer-events-none absolute inset-0 z-0 mx-4"
         aria-hidden="true"
@@ -53,7 +58,7 @@ export default function NotFound() {
           >
             <Link
               href="/"
-              className="cursor-pointer rounded-sm border border-(--foreground) bg-(--background) px-5 py-2.5 text-xs font-normal uppercase tracking-wider text-(--foreground) hover:bg-(--foreground) hover:text-(--background) hover:border-(--foreground) transition-all duration-300"
+              className="cursor-pointer rounded-sm border border-(--foreground) bg-(--background) px-5 py-2.5 text-xs font-normal uppercase tracking-wider text-(--foreground) hover:bg-(--foreground) hover:text-(--background) hover:border-(--foreground) transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
             >
               Go home
             </Link>
