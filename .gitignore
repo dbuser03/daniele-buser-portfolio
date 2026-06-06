@@ -43,3 +43,6 @@ skills-lock.json
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# generated project assets
+public/projects/**/*.zip
