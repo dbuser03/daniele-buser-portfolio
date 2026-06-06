@@ -1,10 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import { inView } from "motion";
-import { ABOUT_HEY_ID } from "../Hey";
-import { ABOUT_INTRO_ID } from "../AboutIntro";
 import {
   TECH_STACK_FIRST_ROW_ICONS,
   TECH_STACK_SECOND_ROW_ICONS,
@@ -25,57 +21,7 @@ export default function TechStack() {
     handleMouseLeave,
   } = useTechStack();
 
-  const [isIntroInView, setIsIntroInView] = useState(() => {
-    if (typeof window === "undefined") return true;
-    const heyEl = document.getElementById(ABOUT_HEY_ID);
-    const introEl = document.getElementById(ABOUT_INTRO_ID);
-    
-    const isHeyVisible = heyEl 
-      ? heyEl.getBoundingClientRect().bottom > 50 && heyEl.getBoundingClientRect().top < window.innerHeight 
-      : false;
-      
-    const isIntroVisible = introEl 
-      ? introEl.getBoundingClientRect().bottom > 180 && introEl.getBoundingClientRect().top < window.innerHeight 
-      : false;
-
-    return isHeyVisible || isIntroVisible;
-  });
-
-  useEffect(() => {
-    const checkVisibility = () => {
-      const heyEl = document.getElementById(ABOUT_HEY_ID);
-      const introEl = document.getElementById(ABOUT_INTRO_ID);
-      
-      const isHeyVisible = heyEl 
-        ? heyEl.getBoundingClientRect().bottom > 50 && heyEl.getBoundingClientRect().top < window.innerHeight 
-        : false;
-        
-      const isIntroVisible = introEl 
-        ? introEl.getBoundingClientRect().bottom > 180 && introEl.getBoundingClientRect().top < window.innerHeight 
-        : false;
-
-      setIsIntroInView(isHeyVisible || isIntroVisible);
-    };
-
-    const unsubHey = inView(`#${ABOUT_HEY_ID}`, () => {
-      setIsIntroInView(true);
-      return () => checkVisibility();
-    });
-
-    const unsubIntro = inView(`#${ABOUT_INTRO_ID}`, () => {
-      setIsIntroInView(true);
-      return () => checkVisibility();
-    });
-
-    checkVisibility();
-
-    return () => {
-      unsubHey();
-      unsubIntro();
-    };
-  }, []);
-
-  const baseDelay = isIntroInView ? 0.95 : 0.15;
+  const baseDelay = 0.95;
 
   return (
     <section
@@ -108,10 +54,7 @@ export default function TechStack() {
               delay={baseDelay + index * 0.08}
             >
               <TechStackIcon
-                icon={{
-                  ...icon,
-                  hoverPaddingClass: icon.hoverPaddingClass ?? "p-8 sm:p-12",
-                }}
+                icon={icon}
                 isActive={cellIsActive}
                 isFullyActive={fullyHighlightedCellId === cellId}
                 handleMouseEnter={handleMouseEnter}

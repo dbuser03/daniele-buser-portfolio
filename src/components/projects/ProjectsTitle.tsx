@@ -3,11 +3,11 @@
 import { useMemo } from "react";
 import { motion } from "motion/react";
 import { createFadeUpVariants } from "@/constants/animations";
-import { useCurrentYear } from "@/hooks/useCurrentYear";
+
 export const PROJECTS_TITLE_ID = "projects-title";
 
-export default function ProjectsTitle() {
-  const twoDigitYear = useCurrentYear();
+export default function ProjectsTitle({ year }: { year: string }) {
+  const twoDigitYear = year;
   const projectsVariants = useMemo(
     () => createFadeUpVariants(0.35, 40, 0.45),
     [],

@@ -45,6 +45,8 @@ function Separator() {
   return <span className="text-(--neutral)">|</span>;
 }
 
+const DEFAULT_VIEWPORT = { once: false, amount: 0.1 };
+
 export default function Contacts({
   paragraphDelay = 0.5,
   linksDelay = 0.65,
@@ -86,7 +88,7 @@ export default function Contacts({
         initial="initial"
         animate={trigger === "mount" ? "visible" : undefined}
         whileInView={trigger === "inView" ? "visible" : undefined}
-        viewport={viewport || { once: false, amount: 0.1 }}
+        viewport={viewport || DEFAULT_VIEWPORT}
       >
         If you have a project in mind, feel free to reach out - I&apos;d be glad
         to help bring your vision to life.
@@ -97,7 +99,7 @@ export default function Contacts({
         initial="initial"
         animate={trigger === "mount" ? "visible" : undefined}
         whileInView={trigger === "inView" ? "visible" : undefined}
-        viewport={viewport || { once: false, amount: 0.1 }}
+        viewport={viewport || DEFAULT_VIEWPORT}
       >
         <a
           href={`mailto:${EMAIL}`}

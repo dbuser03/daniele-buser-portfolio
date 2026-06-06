@@ -2,14 +2,14 @@
 
 import { useMemo } from "react";
 import { motion } from "motion/react";
-import { BIRTH_DATE } from "@/constants/about";
-import { useAge } from "@/hooks/useAge";
+
+
 import { createFadeUpVariants } from "@/constants/animations";
 
 export const ABOUT_INTRO_ID = "about-intro-paragraph";
 
-export default function AboutIntro() {
-  const age = useAge(BIRTH_DATE);
+export default function AboutIntro({ age }: { age: number }) {
+
 
   const introVariants = useMemo(
     () => createFadeUpVariants(0.5),

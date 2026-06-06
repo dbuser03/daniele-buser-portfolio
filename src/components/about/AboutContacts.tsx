@@ -2,8 +2,8 @@ import HeroTitle from "@/components/ui/HeroTitle";
 import Contacts from "@/components/contacts/Contacts";
 import GridLines from "@/components/layout/GridLines";
 
+const viewportConfig = { once: false, amount: 0.6 };
 export default function AboutContacts() {
-  const viewportConfig = { once: false, amount: 0.6 };
 
   return (
     <section className="relative -mx-4 flex min-h-screen flex-col justify-center bg-(--background) text-(--foreground) px-4 py-20">
@@ -23,6 +23,7 @@ export default function AboutContacts() {
           yOffset={40}
           duration={0.45}
           delay={0.2}
+          trigger="inView"
           viewport={viewportConfig}
         />
         <Contacts

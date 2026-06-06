@@ -1,15 +1,15 @@
 "use client";
 
+import { useCallback } from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CURSOR_SIZE } from "@/constants/cursor";
-import { LogoProps } from "@/types/layout";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { STAGGER_FADE_UP } from "@/constants/animations";
 import { useLenis } from "lenis/react";
 
-export default function Logo({ preventAnimation = false }: LogoProps) {
+export default function Logo() {
   const pathname = usePathname();
   const lenis = useLenis();
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
@@ -19,12 +19,12 @@ export default function Logo({ preventAnimation = false }: LogoProps) {
     },
   );
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     if (pathname === "/") {
       e.preventDefault();
       lenis?.scrollTo(0);
     }
-  };
+  }, [pathname, lenis]);
 
   return (
     <Link
@@ -37,25 +37,17 @@ export default function Logo({ preventAnimation = false }: LogoProps) {
     >
       <motion.span
         className="text-base leading-none font-bold text-(--foreground) md:text-lg"
-        initial={
-          preventAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-        }
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={
-          preventAnimation ? {} : STAGGER_FADE_UP(0)
-        }
+        transition={STAGGER_FADE_UP(0)}
       >
         DANIELE BUSER
       </motion.span>
       <motion.p
         className="text-xs text-(--neutral) md:text-sm"
-        initial={
-          preventAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-        }
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={
-          preventAnimation ? {} : STAGGER_FADE_UP(0.1)
-        }
+        transition={STAGGER_FADE_UP(0.1)}
       >
         Creative Developer
       </motion.p>

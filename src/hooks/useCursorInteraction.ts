@@ -1,3 +1,5 @@
+"use client";
+
 import { useCursorContext } from "@/contexts/CursorContext";
 import { CursorInteractionConfig, CursorInteractionType } from "@/types/cursor";
 import { getCursorInteractionConfig } from "@/utils/cursor";

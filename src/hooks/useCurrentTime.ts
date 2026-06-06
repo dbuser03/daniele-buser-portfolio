@@ -1,19 +1,24 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { formatTime } from "@/utils/date";
+import { useSyncExternalStore } from "react";
 
-export const useCurrentTime = () => {
-  const [time, setTime] = useState<string>("");
+function getTime(): string {
+  return new Date().toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
 
-  useEffect(() => {
-    const updateTime = () => setTime(formatTime(new Date()));
+function subscribe(callback: () => void): () => void {
+  const id = setInterval(callback, 60000);
+  return () => clearInterval(id);
+}
 
-    updateTime();
-    const interval = setInterval(updateTime, 60000);
+export function useCurrentTime(): string {
+  return useSyncExternalStore(
+    subscribe,
+    getTime,
+    () => "",
+  );
+}
 
-    return () => clearInterval(interval);
-  }, []);
-
-  return time;
-};

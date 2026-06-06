@@ -30,6 +30,7 @@ export const TECH_STACK_FIRST_ROW_ICONS: TechStackIconConfig[] = [
     sizeClass: "h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24",
     href: "https://react.dev/",
     label: "React",
+    hoverPaddingClass: "p-8 sm:p-12",
   },
   {
     path: "/icons/nextjs-icon.svg",
@@ -43,6 +44,7 @@ export const TECH_STACK_FIRST_ROW_ICONS: TechStackIconConfig[] = [
     sizeClass: "h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24",
     href: "https://www.typescriptlang.org/",
     label: "TypeScript",
+    hoverPaddingClass: "p-8 sm:p-12",
   },
 ];
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, memo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Route } from "next";
@@ -12,7 +12,7 @@ interface ProjectCardProps {
   project: Project;
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+function ProjectCard({ project }: ProjectCardProps) {
   const imageSrc = project.cardImage || project.image;
   const [isLoading, setIsLoading] = useState(!!imageSrc);
   const [hasError, setHasError] = useState(false);
@@ -68,6 +68,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     </div>
   );
 }
+
+export default memo(ProjectCard);
 
 
 

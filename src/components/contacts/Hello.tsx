@@ -1,12 +1,11 @@
-import HeroTitle from "@/components/ui/HeroTitle";
+import { HeroTitleStatic } from "@/components/ui/HeroTitle";
 
 export default function Hello() {
   return (
-    <HeroTitle
+    <HeroTitleStatic
       text="Say Hello"
       className="text-(--foreground)"
       ariaLabel="Say Hello - Contact page heading"
-      trigger="mount"
     />
   );
 }

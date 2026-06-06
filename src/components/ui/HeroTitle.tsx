@@ -51,3 +51,11 @@ export default function HeroTitle({
     </MotionTag>
   );
 }
+
+export const HeroTitleAnimated = (props: HeroTitleProps) => (
+  <HeroTitle once={true} trigger="mount" {...props} />
+);
+
+export const HeroTitleStatic = (props: HeroTitleProps) => (
+  <HeroTitle once={false} {...props} />
+);

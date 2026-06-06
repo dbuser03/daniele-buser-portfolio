@@ -8,6 +8,7 @@ import AboutContacts from "@/components/about/AboutContacts";
 export const metadata: Metadata = projectsMetadata;
 
 export default function Home() {
+  const twoDigitYear = new Date().getFullYear().toString().slice(-2);
   return (
     <>
       <script
@@ -22,7 +23,7 @@ export default function Home() {
       >
         <AboutLayout contacts={<AboutContacts />}>
           <section className="flex min-h-[65vh] w-full flex-col justify-center">
-            <ProjectsTitle />
+            <ProjectsTitle year={twoDigitYear} />
           </section>
           <ProjectsSection />
         </AboutLayout>

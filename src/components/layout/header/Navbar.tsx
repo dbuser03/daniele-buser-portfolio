@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo, useCallback } from "react";
 import { motion } from "motion/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -10,9 +11,9 @@ import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { useLenis } from "lenis/react";
 import { cn } from "@/utils/cn";
 import { STAGGER_FADE_UP } from "@/constants/animations";
-import type { NavItemProps, NavbarProps } from "@/types/layout";
+import type { NavItemProps } from "@/types/layout";
 
-function NavItem({ href, label, delay, preventAnimation }: NavItemProps) {
+function NavItem({ href, label, delay }: NavItemProps) {
   const pathname = usePathname();
   const lenis = useLenis();
   const isActive =
@@ -20,35 +21,31 @@ function NavItem({ href, label, delay, preventAnimation }: NavItemProps) {
       ? pathname === "/" || pathname.startsWith("/projects/")
       : pathname === href;
 
+  const cursorConfig = useMemo(() => isActive ? {
+    onEnter: {
+      size: CURSOR_SIZE.xs,
+      color: "var(--accent)",
+    },
+  } : undefined, [isActive]);
+
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
     "header",
-    isActive
-      ? {
-          onEnter: {
-            size: CURSOR_SIZE.xs,
-            color: "var(--accent)",
-          },
-        }
-      : undefined,
+    cursorConfig,
   );
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     if (isActive && pathname === href) {
       e.preventDefault();
       lenis?.scrollTo(0);
     }
-  };
+  }, [isActive, pathname, href, lenis]);
 
   return (
     <li>
       <motion.div
-        initial={
-          preventAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-        }
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={
-          preventAnimation ? {} : STAGGER_FADE_UP(delay)
-        }
+        transition={STAGGER_FADE_UP(delay)}
       >
         <Link
           href={href as Route}
@@ -65,10 +62,8 @@ function NavItem({ href, label, delay, preventAnimation }: NavItemProps) {
             animate={{
               color: isActive ? "var(--foreground)" : "var(--neutral)",
             }}
-            whileHover={preventAnimation ? {} : { color: "var(--foreground)" }}
-            transition={
-              preventAnimation ? {} : { duration: 0.3, ease: "easeOut" }
-            }
+            whileHover={{ color: "var(--foreground)" }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
           >
             {label}
           </motion.span>
@@ -78,7 +73,7 @@ function NavItem({ href, label, delay, preventAnimation }: NavItemProps) {
   );
 }
 
-export default function Navbar({ preventAnimation = false }: NavbarProps) {
+export default function Navbar() {
   return (
     <nav aria-label="Main navigation">
       <ul className="flex gap-6 sm:gap-8 md:gap-12">
@@ -87,7 +82,6 @@ export default function Navbar({ preventAnimation = false }: NavbarProps) {
             key={link.href}
             {...link}
             delay={0.15 + idx * 0.05}
-            preventAnimation={preventAnimation}
           />
         ))}
       </ul>

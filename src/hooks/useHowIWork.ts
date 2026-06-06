@@ -1,6 +1,16 @@
+"use client";
+
 import { useRef, useState, useEffect, type RefObject } from "react";
 import { HOW_I_WORK_SEQUENCE } from "@/constants/about";
 import { HoverableWord } from "@/types/about";
+
+function getVideoRef(
+  word: HoverableWord,
+  refs: Record<HoverableWord, RefObject<HTMLVideoElement | null>>,
+) {
+  return refs[word];
+}
+
 export const useHowIWork = () => {
   const obsessRef = useRef<HTMLVideoElement | null>(null);
   const designRef = useRef<HTMLVideoElement | null>(null);
@@ -20,18 +30,18 @@ export const useHowIWork = () => {
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const playVideo = (word: HoverableWord) => {
-    videoRefs[word].current?.play().catch(() => {});
+    getVideoRef(word, videoRefs).current?.play().catch(() => {});
   };
 
   const stopVideo = (word: HoverableWord) => {
-    const el = videoRefs[word].current;
+    const el = getVideoRef(word, videoRefs).current;
     if (!el) return;
     el.pause();
     el.currentTime = 0;
   };
 
   const resetAndPlay = (word: HoverableWord) => {
-    const el = videoRefs[word].current;
+    const el = getVideoRef(word, videoRefs).current;
     if (!el) return;
     el.currentTime = 0;
     el.play().catch(() => {});

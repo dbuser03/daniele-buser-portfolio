@@ -7,10 +7,14 @@ import TechStack from "@/components/about/tech-stack/TechStack";
 import AboutContacts from "@/components/about/AboutContacts";
 import AboutLayout from "@/components/about/AboutLayout";
 import { aboutMetadata, aboutPageJsonLd } from "@/utils/metadata";
+import { BIRTH_DATE } from "@/constants/about";
+import { getAgeFromBirthDate } from "@/utils/date";
 
 export const metadata: Metadata = aboutMetadata;
+export const dynamic = "force-dynamic";
 
 export default function AboutPage() {
+  const age = getAgeFromBirthDate(BIRTH_DATE);
   return (
     <>
       <script
@@ -31,7 +35,7 @@ export default function AboutPage() {
                 <Hey />
               </div>
               <div className="lg:col-span-6">
-                <AboutIntro />
+                <AboutIntro age={age} />
               </div>
             </div>
             <div className="relative z-10 hidden lg:col-span-3 lg:block">

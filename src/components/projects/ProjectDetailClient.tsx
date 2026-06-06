@@ -1,8 +1,8 @@
 "use client";
 
-import { ComponentType, useMemo } from "react";
-import { Project } from "@/types/projects";
-import HeroTitle from "@/components/ui/HeroTitle";
+import type { ComponentType } from "react";
+import type { Project } from "@/types/projects";
+import { HeroTitleAnimated } from "@/components/ui/HeroTitle";
 import { motion } from "motion/react";
 import Skeleton from "@/components/ui/Skeleton";
 import dynamic from "next/dynamic";
@@ -12,6 +12,30 @@ import DetailTypefacesCard from "@/components/projects/project-detail/DetailType
 import DetailCustomComponentsCard from "@/components/projects/project-detail/DetailCustomComponentsCard";
 import DetailCoolShitCard from "@/components/projects/project-detail/DetailCoolShitCard";
 
+const UI_MAP: Record<string, ComponentType> = {
+  "leonardo-berselli-portfolio": dynamic(
+    () =>
+      import(
+        "@/components/projects/leonardo-berselli-portfolio/leonardo-berselli-portfolio-UI"
+      ),
+    {
+      loading: () => <Skeleton isLoading={true} variant="on-dark" />,
+    },
+  ),
+};
+
+const COOL_SHIT_MAP: Record<string, ComponentType> = {
+  "leonardo-berselli-portfolio": dynamic(
+    () =>
+      import(
+        "@/components/projects/leonardo-berselli-portfolio/components/EarthGlobeAscii"
+      ).then((m) => ({ default: m.EarthGlobeAscii })),
+    {
+      loading: () => <Skeleton isLoading={true} variant="on-dark" />,
+    },
+  ),
+};
+
 interface ProjectDetailClientProps {
   project: Project;
 }
@@ -19,50 +43,23 @@ interface ProjectDetailClientProps {
 export default function ProjectDetailClient({
   project,
 }: ProjectDetailClientProps) {
-  const CustomComponents = useMemo(
-    () =>
-      dynamic(
-        () =>
-          import(
-            `@/components/projects/${project.id}/${project.id}-UI`
-          ).then((m) => m.default || Object.values(m)[0]),
-        {
-          loading: () => <Skeleton isLoading={true} variant="on-dark" />,
-        },
-      ) as ComponentType,
-    [project.id],
-  );
-
+  const CustomComponents = UI_MAP[project.id];
+  const CoolShitComponent = project.hasCoolShit
+    ? COOL_SHIT_MAP[project.id]
+    : null;
   const coolShitName = project.coolShitName || "InteractiveDemo";
-  const CoolShitComponent = useMemo(
-    () =>
-      project.hasCoolShit
-        ? (dynamic(
-            () =>
-              import(
-                `@/components/projects/${project.id}/components/${coolShitName}`
-              ).then((m) => m.default || Object.values(m)[0]),
-            {
-              loading: () => <Skeleton isLoading={true} variant="on-dark" />,
-            },
-          ) as ComponentType)
-        : null,
-    [project.id, project.hasCoolShit, coolShitName],
-  );
 
   return (
     <div className="relative z-10 flex min-h-screen w-full flex-col pt-32 pb-48 text-(--background)">
       <div className="my-auto flex w-full flex-col">
         <div className="flex flex-col">
-          <HeroTitle
-            id="project-detail-title"
-            text={project.title}
-            className="relative z-10 -ml-1 text-[2rem] leading-none text-(--background) sm:text-[3rem] md:text-[4rem] lg:text-[5rem] xl:text-[6rem] 2xl:text-[7rem]"
-            ariaLabel={`${project.title} - Project heading`}
-            once={true}
-            trigger="mount"
-            showDot={false}
-          />
+           <HeroTitleAnimated
+             id="project-detail-title"
+             text={project.title}
+             className="relative z-10 -ml-1 text-[2rem] leading-none text-(--background) sm:text-[3rem] md:text-[4rem] lg:text-[5rem] xl:text-[6rem] 2xl:text-[7rem]"
+             ariaLabel={`${project.title} - Project heading`}
+             showDot={false}
+           />
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

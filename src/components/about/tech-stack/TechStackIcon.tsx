@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useRef, memo } from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import type { Route } from "next";
@@ -8,7 +8,7 @@ import type { TechStackIconProps } from "@/types/about";
 import { TECH_CELL_SPRING_CONFIG } from "@/constants/animations";
 import { cn } from "@/utils/cn";
 
-export default function TechStackIcon({
+function TechStackIcon({
   icon,
   isActive,
   isFullyActive,
@@ -17,15 +17,27 @@ export default function TechStackIcon({
   onFocus,
   onBlur,
 }: TechStackIconProps) {
-  const [isMouseOver, setIsMouseOver] = useState(false);
+  const isMouseOverRef = useRef(false);
+
+  const handleIconMouseEnter = () => {
+    isMouseOverRef.current = true;
+    if (isFullyActive) handleMouseEnter();
+  };
+
+  const handleIconMouseLeave = () => {
+    isMouseOverRef.current = false;
+    handleMouseLeave();
+  };
 
   useEffect(() => {
-    if (isMouseOver && isFullyActive) {
-      handleMouseEnter();
-    } else {
-      handleMouseLeave();
+    if (isMouseOverRef.current) {
+      if (isFullyActive) {
+        handleMouseEnter();
+      } else {
+        handleMouseLeave();
+      }
     }
-  }, [isFullyActive, isMouseOver, handleMouseEnter, handleMouseLeave]);
+  }, [isFullyActive, handleMouseEnter, handleMouseLeave]);
 
   return (
     <Link
@@ -53,8 +65,8 @@ export default function TechStackIcon({
             WebkitMaskSize: "contain",
             maskSize: "contain",
           }}
-          onMouseEnter={() => setIsMouseOver(true)}
-          onMouseLeave={() => setIsMouseOver(false)}
+          onMouseEnter={handleIconMouseEnter}
+          onMouseLeave={handleIconMouseLeave}
           animate={{
             backgroundColor: isActive
               ? "var(--foreground)"
@@ -69,3 +81,5 @@ export default function TechStackIcon({
     </Link>
   );
 }
+
+export default memo(TechStackIcon);

@@ -1,11 +1,11 @@
 "use client";
 
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useState, memo } from "react";
 import type { VideoLayerProps } from "@/types/about";
 import Skeleton from "@/components/ui/Skeleton";
 
-export default function VideoLayer({
+function VideoLayer({
   src,
   active,
   videoRef,
@@ -37,3 +37,5 @@ export default function VideoLayer({
     </motion.div>
   );
 }
+
+export default memo(VideoLayer);

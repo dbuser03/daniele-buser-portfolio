@@ -1,26 +1,26 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useCallback, useRef } from "react";
 
 export function useElementHeight<T extends HTMLElement>() {
-  const [height, setHeight] = useState<number>(0);
-  const ref = useRef<T | null>(null);
+  const [height, setHeight] = useState(0);
+  const observerRef = useRef<ResizeObserver | null>(null);
 
-  useEffect(() => {
-    if (!ref.current) return;
+  const measuredRef = useCallback((node: T | null) => {
+    // Disconnect any previous observer when the node changes
+    observerRef.current?.disconnect();
 
-    const resizeObserver = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        setHeight(entry.contentRect.height);
-      }
+    if (!node) return;
+
+    // Measure synchronously on mount — no paint flash
+    setHeight(node.getBoundingClientRect().height);
+
+    // Watch for subsequent resize changes
+    observerRef.current = new ResizeObserver(([entry]) => {
+      setHeight(entry.contentRect.height);
     });
-
-    resizeObserver.observe(ref.current);
-
-    return () => {
-      resizeObserver.disconnect();
-    };
+    observerRef.current.observe(node);
   }, []);
 
-  return [ref, height] as const;
+  return [measuredRef, height] as const;
 }
