@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: `${project.title} | Daniele Buser — Creative Developer`,
       description: project.description,
-      ...(project.image ? { images: [{ url: project.image }] } : {}),
+      ...(project.cardImage ? { images: [{ url: project.cardImage }] } : {}),
     },
   };
 }

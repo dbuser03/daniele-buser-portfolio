@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node scripts/init-projects.mjs && next dev",
-    "build": "node scripts/init-projects.mjs && next build",
+"dev": "tsx scripts/init-projects.ts && next dev",
+"build": "tsx scripts/init-projects.ts && next build",
     "start": "next start",
     "lint": "eslint"
   },

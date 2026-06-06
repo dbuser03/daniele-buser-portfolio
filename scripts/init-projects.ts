@@ -1,6 +1,28 @@
 import fs from "fs";
 import path from "path";
 import { execSync } from "child_process";
+import { toKebabCase } from "../src/utils/string";
+import { escapeRegex } from "../src/utils/regex";
+import { getFontFormat } from "../src/utils/file";
+
+interface FontWeight {
+  name: string;
+  value: string;
+  file: string | null;
+}
+
+interface ParsedFont {
+  name: string;
+  familyVarName: string;
+  type: string;
+  weights: FontWeight[];
+}
+
+interface ParsedColor {
+  hex: string;
+  pantone: string;
+  rgb: string | null;
+}
 
 const PROJECTS_FILE = path.join(process.cwd(), "src/constants/projects.ts");
 const PROJECTS_COMPONENTS_DIR = path.join(
@@ -8,14 +30,11 @@ const PROJECTS_COMPONENTS_DIR = path.join(
   "src/components/projects",
 );
 
-function toKebabCase(str) {
-  return str
-    .replace(/([a-z])([A-Z])/g, "$1-$2")
-    .replace(/[\s_]+/g, "-")
-    .toLowerCase();
-}
-
-function resolveImport(importPath, currentFile, projectSrcDir) {
+function resolveImport(
+  importPath: string,
+  currentFile: string,
+  projectSrcDir: string,
+): string | null {
   let resolvedPath = "";
 
   if (importPath.startsWith("@/")) {
@@ -61,7 +80,6 @@ function resolveImport(importPath, currentFile, projectSrcDir) {
     return resolvedPath;
   }
 
-  // Cerca con estensioni
   for (const ext of extensions) {
     const withExt = resolvedPath + ext;
     if (fs.existsSync(withExt)) {
@@ -72,12 +90,15 @@ function resolveImport(importPath, currentFile, projectSrcDir) {
   return null;
 }
 
-function traceDependencies(entryFile, projectSrcDir) {
-  const visited = new Set();
-  const queue = [entryFile];
+function traceDependencies(
+  entryFile: string,
+  projectSrcDir: string,
+): string[] {
+  const visited = new Set<string>();
+  const queue: string[] = [entryFile];
 
   while (queue.length > 0) {
-    const currentFile = queue.shift();
+    const currentFile = queue.shift()!;
     if (visited.has(currentFile)) continue;
     visited.add(currentFile);
 
@@ -112,9 +133,10 @@ function traceDependencies(entryFile, projectSrcDir) {
         }
       }
     } catch (e) {
+      const err = e as Error;
       console.warn(
         `[init-projects] Errore nel tracciamento dipendenze di ${currentFile}:`,
-        e.message,
+        err.message,
       );
     }
   }
@@ -122,11 +144,11 @@ function traceDependencies(entryFile, projectSrcDir) {
   return Array.from(visited);
 }
 
-function escapeRegex(str) {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
-function makeImportsRelative(content, fileRelativePath, id) {
+function makeImportsRelative(
+  content: string,
+  fileRelativePath: string,
+  id: string,
+): string {
   const prefix = `@/components/projects/${id}/`;
   const escapedPrefix = escapeRegex(prefix);
   const currentDir = path.dirname(fileRelativePath);
@@ -146,7 +168,7 @@ function makeImportsRelative(content, fileRelativePath, id) {
   );
 }
 
-function extractProjectBlocks(fileContent) {
+function extractProjectBlocks(fileContent: string): string[] {
   const arrayMatch = fileContent.match(
     /export\s+const\s+PROJECTS\s*:\s*Project\[\]\s*=\s*\[([\s\S]*)\];/,
   );
@@ -155,7 +177,7 @@ function extractProjectBlocks(fileContent) {
   }
 
   const arrayContent = arrayMatch[1];
-  const blocks = [];
+  const blocks: string[] = [];
   let braceCount = 0;
   let currentBlock = "";
   let inString = false;
@@ -200,7 +222,7 @@ function extractProjectBlocks(fileContent) {
   return blocks;
 }
 
-function parseProjectColors(block, id) {
+function parseProjectColors(block: string, id: string): ParsedColor[] {
   const colorsMatch = block.match(/brandingColors\s*:\s*\[([\s\S]*?)\]/);
   if (!colorsMatch) {
     throw new Error(
@@ -210,7 +232,7 @@ function parseProjectColors(block, id) {
 
   const colorsContent = colorsMatch[1];
   const colorObjects = colorsContent.match(/\{[\s\S]*?\}/g) || [];
-  const parsedColors = [];
+  const parsedColors: ParsedColor[] = [];
 
   for (const colorObjStr of colorObjects) {
     const hexMatch = colorObjStr.match(/hex\s*:\s*["']([^"']+)["']/);
@@ -263,22 +285,13 @@ function parseProjectColors(block, id) {
   return parsedColors;
 }
 
-function getFontFormat(file) {
-  const ext = path.extname(file).toLowerCase();
-  if (ext === ".otf") return "opentype";
-  if (ext === ".ttf") return "truetype";
-  if (ext === ".woff2") return "woff2";
-  if (ext === ".woff") return "woff";
-  return "";
-}
-
-function parseProjectFonts(block) {
+function parseProjectFonts(block: string): ParsedFont[] {
   const startMatch = block.match(/brandingFonts\s*:\s*\[/);
   if (!startMatch) {
     return [];
   }
 
-  const startIdx = startMatch.index + startMatch[0].length;
+  const startIdx = startMatch.index! + startMatch[0].length;
   let bracketCount = 1;
   let inString = false;
   let stringChar = "";
@@ -313,8 +326,8 @@ function parseProjectFonts(block) {
   }
 
   const fontsContent = block.substring(startIdx, endIdx);
-  const fontObjects = [];
-  
+  const fontObjects: string[] = [];
+
   let braceCount = 0;
   let currentObj = "";
   inString = false;
@@ -322,7 +335,10 @@ function parseProjectFonts(block) {
 
   for (let i = 0; i < fontsContent.length; i++) {
     const char = fontsContent[i];
-    if ((char === '"' || char === "'" || char === "`") && fontsContent[i - 1] !== "\\") {
+    if (
+      (char === '"' || char === "'" || char === "`") &&
+      fontsContent[i - 1] !== "\\"
+    ) {
       if (!inString) {
         inString = true;
         stringChar = char;
@@ -347,21 +363,23 @@ function parseProjectFonts(block) {
     }
   }
 
-  const parsedFonts = [];
+  const parsedFonts: ParsedFont[] = [];
 
   for (const fontObjStr of fontObjects) {
     const nameMatch = fontObjStr.match(/name\s*:\s*["']([^"']+)["']/);
     const familyVarMatch = fontObjStr.match(/familyVar\s*:\s*["']([^"']+)["']/);
     const typeMatch = fontObjStr.match(/type\s*:\s*["']([^"']+)["']/);
-    
+
     if (!nameMatch) continue;
     const name = nameMatch[1];
     const familyVarRaw = familyVarMatch ? familyVarMatch[1] : "";
-    const familyVarName = familyVarRaw.match(/var\(([^)]+)\)/) ? familyVarRaw.match(/var\(([^)]+)\)/)[1] : "";
+    const familyVarName = familyVarRaw.match(/var\(([^)]+)\)/)
+      ? familyVarRaw.match(/var\(([^)]+)\)/)![1]
+      : "";
     const type = typeMatch ? typeMatch[1] : "sans";
 
     const weightsMatch = fontObjStr.match(/weights\s*:\s*\[([\s\S]*?)\]/);
-    const weights = [];
+    const weights: FontWeight[] = [];
     if (weightsMatch) {
       const weightsContent = weightsMatch[1];
       const weightObjects = weightsContent.match(/\{[\s\S]*?\}/g) || [];
@@ -374,7 +392,7 @@ function parseProjectFonts(block) {
           weights.push({
             name: wNameMatch[1],
             value: wValueMatch[1],
-            file: wFileMatch ? wFileMatch[1] : null
+            file: wFileMatch ? wFileMatch[1] : null,
           });
         }
       }
@@ -384,17 +402,20 @@ function parseProjectFonts(block) {
       name,
       familyVarName,
       type,
-      weights
+      weights,
     });
   }
 
   return parsedFonts;
 }
 
-function generateThemeCss(id, colors, fonts) {
+function generateThemeCss(
+  id: string,
+  colors: ParsedColor[],
+  fonts: ParsedFont[],
+): string {
   let cssContent = '@import "tailwindcss";\n\n';
 
-  // 1. @font-face rules (global, no conflict)
   fonts.forEach((font) => {
     font.weights.forEach((weight) => {
       if (weight.file) {
@@ -413,7 +434,6 @@ function generateThemeCss(id, colors, fonts) {
     });
   });
 
-  // 2. Color and font variables scoped under .project-theme-<id>
   cssContent += `.project-theme-${id} {
   --background: ${colors[0].hex};
   --neutral-dark: ${colors.length >= 2 ? colors[1].hex : colors[0].hex};
@@ -425,7 +445,7 @@ function generateThemeCss(id, colors, fonts) {
   return cssContent;
 }
 
-function init() {
+function init(): void {
   if (!fs.existsSync(PROJECTS_FILE)) {
     console.warn(
       `[init-projects] File progetti non trovato a: ${PROJECTS_FILE}`,
@@ -448,7 +468,6 @@ function init() {
     if (!idMatch) continue;
     const id = idMatch[1];
 
-    // Parse colors and fonts
     const brandingColors = parseProjectColors(block, id);
     const brandingFonts = parseProjectFonts(block);
 
@@ -462,10 +481,7 @@ function init() {
       fs.mkdirSync(projectPublicFontsDir, { recursive: true });
     }
 
-    const projectSrcDir = path.join(
-      PROJECTS_COMPONENTS_DIR,
-      id,
-    );
+    const projectSrcDir = path.join(PROJECTS_COMPONENTS_DIR, id);
     if (!fs.existsSync(projectSrcDir)) {
       fs.mkdirSync(projectSrcDir, { recursive: true });
       console.log(
@@ -473,7 +489,6 @@ function init() {
       );
     }
 
-    // Always generate theme.css with variables and @font-face rules
     if (brandingColors.length > 0) {
       const cssContent = generateThemeCss(id, brandingColors, brandingFonts);
       const themeCssPath = path.join(projectSrcDir, "theme.css");
@@ -481,8 +496,6 @@ function init() {
       console.log(`[init-projects] Creato/Aggiornato theme.css per ${id}`);
     }
 
-    // Always generate the UI file to ensure theme.css (@font-face rules) is loaded
-    // When hasCustomComponents is false, it renders null
     const uiFilePath = path.join(projectSrcDir, `${id}-UI.tsx`);
     if (!fs.existsSync(uiFilePath)) {
       const uiContent = hasCustomComponents
@@ -549,7 +562,10 @@ export default function ThemeOnly() {
           `components/${coolShitName}.tsx`,
         );
         if (!fs.existsSync(entryFile)) {
-          entryFile = path.join(projectSrcDir, `components/${coolShitName}.ts`);
+          entryFile = path.join(
+            projectSrcDir,
+            `components/${coolShitName}.ts`,
+          );
         }
 
         if (fs.existsSync(entryFile)) {
@@ -560,7 +576,7 @@ export default function ThemeOnly() {
 
             let destRelativePath = "";
             if (isEntry) {
-              destRelativePath = `${coolShitName}${path.extname(file)}`; 
+              destRelativePath = `${coolShitName}${path.extname(file)}`;
             } else {
               destRelativePath = path.relative(projectSrcDir, file);
             }
@@ -616,17 +632,29 @@ export default function ThemeOnly() {
               stdio: "ignore",
             });
             console.log(`[init-projects] Creato archivio zip: ${zipPath}`);
-
           } catch (err) {
+            const error = err as Error;
             console.warn(
               `[init-projects] Impossibile creare l'archivio zip per ${id}:`,
-              err.message,
+              error.message,
             );
           }
         } else {
           console.warn(
             `[init-projects] Componente ${coolShitName} non trovato a: ${entryFile}`,
           );
+        }
+      }
+    }
+
+    const subdirs = ["components", "hooks", "constants", "utils"];
+    for (const subdir of subdirs) {
+      const subdirPath = path.join(projectSrcDir, subdir);
+      if (fs.existsSync(subdirPath)) {
+        const entries = fs.readdirSync(subdirPath);
+        if (entries.length === 0) {
+          fs.rmdirSync(subdirPath);
+          console.log(`[init-projects] Rimossa cartella vuota: ${subdirPath}`);
         }
       }
     }
