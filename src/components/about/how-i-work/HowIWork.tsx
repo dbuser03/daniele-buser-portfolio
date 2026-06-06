@@ -11,7 +11,7 @@ import { useHowIWork } from "@/hooks/useHowIWork";
 import WorkWord from "./WorkWord";
 import VideoLayer from "./VideoLayer";
 import Skeleton from "@/components/ui/Skeleton";
-import { FADE_UP_TRANSITION, SCROLL_SPRING_CONFIG } from "@/constants/animations";
+import { SCROLL_SPRING_CONFIG } from "@/constants/animations";
 
 export default function HowIWork() {
   const wordsRef = useRef<HTMLDivElement | null>(null);

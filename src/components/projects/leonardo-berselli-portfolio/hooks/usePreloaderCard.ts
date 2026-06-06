@@ -3,15 +3,23 @@ import { PRELOADER_CONSTANTS } from "../constants/preloader";
 
 export function usePreloaderCard() {
   const [progress, setProgress] = useState(0);
-  const [coreLoad, setCoreLoad] = useState(0);
+  const [coreLoad, setCoreLoad] = useState(12);
+
+  const isReset = progress === 0;
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
+
+    const coreInterval = setInterval(() => {
+      setCoreLoad(Math.floor(Math.random() * 33) + 65);
+    }, PRELOADER_CONSTANTS.CORE_LOAD_INTERVAL);
 
     const timer = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer);
+          clearInterval(coreInterval);
+          setCoreLoad(12);
           timeoutId = setTimeout(() => {
             setProgress(0);
           }, PRELOADER_CONSTANTS.HOLD_RESET_DELAY);
@@ -25,21 +33,10 @@ export function usePreloaderCard() {
 
     return () => {
       clearInterval(timer);
+      clearInterval(coreInterval);
       clearTimeout(timeoutId);
     };
-  }, [progress === 0]);
-
-  useEffect(() => {
-    if (progress < 100) {
-      const interval = setInterval(() => {
-        setCoreLoad(Math.floor(Math.random() * 33) + 65);
-      }, PRELOADER_CONSTANTS.CORE_LOAD_INTERVAL);
-
-      return () => clearInterval(interval);
-    } else {
-      setCoreLoad(12);
-    }
-  }, [progress]);
+  }, [isReset]);
 
   return { progress, coreLoad };
 }

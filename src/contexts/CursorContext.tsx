@@ -10,6 +10,7 @@ import {
   useMemo,
 } from "react";
 import { useMotionValue, useSpring } from "motion/react";
+import { usePathname } from "next/navigation";
 import { CursorContextType } from "@/types/cursor";
 import { CURSOR_SIZE } from "@/constants/cursor";
 import { CSS_VARIABLES } from "@/constants/theme";
@@ -34,11 +35,18 @@ export const CursorProvider = ({
   disabled?: boolean;
 }) => {
   const [color, setColor] = useState<string>(CSS_VARIABLES.accent);
+  const pathname = usePathname();
 
   const cursorSize = useSpring(CURSOR_SIZE.sm, CURSOR_SPRING_CONFIG);
   const smoothX = useMotionValue(-100);
   const smoothY = useMotionValue(-100);
   const opacity = useMotionValue(0);
+
+  useEffect(() => {
+    cursorSize.set(CURSOR_SIZE.sm);
+    const id = setTimeout(() => setColor(CSS_VARIABLES.accent), 0);
+    return () => clearTimeout(id);
+  }, [pathname, cursorSize]);
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {

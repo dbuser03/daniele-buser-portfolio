@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef } from "react";
-import { useEarthGlobe } from "./hooks/useEarthGlobe";
-import { useGlobeCursorPulse } from "./hooks/useGlobeCursorPulse";
+import { useEarthGlobe } from "@/components/projects/leonardo-berselli-portfolio/hooks/useEarthGlobe";
+import { useGlobeCursorPulse } from "@/components/projects/leonardo-berselli-portfolio/hooks/useGlobeCursorPulse";
 
 interface EarthGlobeAsciiProps {
   dark?: boolean;

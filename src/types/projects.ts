@@ -8,6 +8,7 @@ export interface ProjectColor {
 export interface ProjectFontWeight {
   name: string;
   value: number | string;
+  file?: string;
 }
 
 export interface ProjectFont {

@@ -6,8 +6,6 @@ import Link from "next/link";
 import type { Route } from "next";
 import { Project } from "@/types/projects";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
-import { CURSOR_SIZE } from "@/constants/cursor";
-import { CSS_VARIABLES } from "@/constants/theme";
 import Skeleton from "@/components/ui/Skeleton";
 
 interface ProjectCardProps {
@@ -19,15 +17,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   const [isLoading, setIsLoading] = useState(!!imageSrc);
   const [hasError, setHasError] = useState(false);
 
-  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
-    "default",
-    {
-      onEnter: {
-        size: CURSOR_SIZE.md,
-        color: CSS_VARIABLES.accent,
-      },
-    },
-  );
+  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("header", {
+    onEnter: { color: "var(--accent)" },
+  });
 
   const showSkeleton = !imageSrc || isLoading || hasError;
 

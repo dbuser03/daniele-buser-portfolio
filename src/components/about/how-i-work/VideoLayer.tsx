@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { VideoLayerProps } from "@/types/about";
 import Skeleton from "@/components/ui/Skeleton";
 
@@ -12,19 +12,6 @@ export default function VideoLayer({
   onEnded,
 }: VideoLayerProps) {
   const [isLoading, setIsLoading] = useState(true);
-
-  // Reset skeleton each time this layer becomes active
-  useEffect(() => {
-    if (active) {
-      setIsLoading(true);
-    }
-  }, [active, src]);
-
-  useEffect(() => {
-    if (active && videoRef.current) {
-      videoRef.current.load();
-    }
-  }, [active, videoRef]);
 
   return (
     <motion.div
@@ -42,6 +29,7 @@ export default function VideoLayer({
         autoPlay={active}
         preload="none"
         onEnded={onEnded}
+        onLoadStart={() => setIsLoading(true)}
         onLoadedData={() => setIsLoading(false)}
         className="h-full w-full object-cover"
         aria-hidden="true"
@@ -49,5 +37,3 @@ export default function VideoLayer({
     </motion.div>
   );
 }
-
-

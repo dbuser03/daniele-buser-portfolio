@@ -1,6 +1,6 @@
-import earthDay from "@/components/projects/leonardo-berselli-portfolio-components/textures/earth_atmos_2048.jpg";
-import earthNormal from "@/components/projects/leonardo-berselli-portfolio-components/textures/earth_normal_2048.jpg";
-import earthSpecular from "@/components/projects/leonardo-berselli-portfolio-components/textures/earth_specular_2048.jpg";
+import earthDay from "@/components/projects/leonardo-berselli-portfolio/textures/earth_atmos_2048.jpg";
+import earthNormal from "@/components/projects/leonardo-berselli-portfolio/textures/earth_normal_2048.jpg";
+import earthSpecular from "@/components/projects/leonardo-berselli-portfolio/textures/earth_specular_2048.jpg";
 
 export const GLOBE_TEXTURES = {
   earthDay: earthDay.src,

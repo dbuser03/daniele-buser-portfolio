@@ -176,6 +176,5 @@ export function useEarthGlobe({
       if (asciiTexture) asciiTexture.dispose();
       asciiColorRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [containerRef, darkProp]);
+  }, [containerRef, darkProp, onDragStart, onDragEnd]);
 }

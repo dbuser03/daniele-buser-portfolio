@@ -3,13 +3,13 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { GLOBE_TEXTURES, GLOBE_CONFIG } from "@/components/projects/leonardo-berselli-portfolio-components/constants/globe";
+import { GLOBE_TEXTURES, GLOBE_CONFIG } from "@/components/projects/leonardo-berselli-portfolio/constants/globe";
 import {
   createAsciiAtlas,
   getAsciiColorFromCSS,
   patchGlobeShader,
   type AsciiUniforms,
-} from "@/components/projects/leonardo-berselli-portfolio-components/shaders/asciiGlobe";
+} from "@/components/projects/leonardo-berselli-portfolio/shaders/asciiGlobe";
 
 interface UseEarthGlobeOptions {
   containerRef: React.RefObject<HTMLDivElement | null>;
@@ -176,6 +176,5 @@ export function useEarthGlobe({
       if (asciiTexture) asciiTexture.dispose();
       asciiColorRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [containerRef, darkProp]);
+  }, [containerRef, darkProp, onDragStart, onDragEnd]);
 }

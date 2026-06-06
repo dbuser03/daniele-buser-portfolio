@@ -76,7 +76,7 @@ export default function LeonardoUI() {
         </div>
 
         <div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-12">
-          <div className="flex w-full items-center justify-between border border-(--neutral-dark)/20 bg-(--neutral-dark)/5 px-3 py-2.5 sm:col-span-7">
+          <div className="flex w-full items-center justify-between border border-(--neutral)/20 px-3 py-2.5 sm:col-span-7">
             <div className="flex items-center gap-3">
               <span className="font-mono text-[10px] leading-none tracking-widest text-(--neutral) uppercase select-none">
                 Engine
@@ -95,7 +95,7 @@ export default function LeonardoUI() {
                 className={`font-mono text-[10px] leading-none tracking-wider uppercase select-none ${
                   engineActive
                     ? "animate-pulse-white-neutral"
-                    : "text-(--neutral-dark)"
+                    : "text-(--neutral)"
                 }`}
               >
                 {engineActive ? "RUNNING" : "STABLE"}
@@ -156,7 +156,7 @@ export default function LeonardoUI() {
 
           <div className="grid w-full grid-cols-2 gap-3 pt-0.5 font-mono text-[8px] tracking-widest uppercase md:grid-cols-4 md:text-[9px]">
             <div className="space-y-1">
-              <div className="text-[7px] text-(--neutral-dark)">
+              <div className="text-[7px] text-(--neutral)">
                 SYSTEM_STATUS
               </div>
               <div>
@@ -169,7 +169,7 @@ export default function LeonardoUI() {
               </div>
             </div>
             <div className="space-y-1">
-              <div className="text-[7px] text-(--neutral-dark)">
+              <div className="text-[7px] text-(--neutral)">
                 NETWORK_BRIDGE
               </div>
               <div>
@@ -184,7 +184,7 @@ export default function LeonardoUI() {
               </div>
             </div>
             <div className="hidden space-y-1 md:block">
-              <div className="text-[7px] text-(--neutral-dark)">GEO_LOC</div>
+              <div className="text-[7px] text-(--neutral)">GEO_LOC</div>
               <div>
                 <span className="text-(--neutral)">LAT:</span>{" "}
                 <span className="text-(--foreground)">
@@ -199,7 +199,7 @@ export default function LeonardoUI() {
               </div>
             </div>
             <div className="space-y-1 text-right">
-              <div className="text-[7px] text-(--neutral-dark)">LICENSE</div>
+              <div className="text-[7px] text-(--neutral)">LICENSE</div>
               <div>
                 <span className="text-(--neutral)">OS:</span>{" "}
                 <span className="text-(--foreground)">
@@ -223,7 +223,7 @@ export default function LeonardoUI() {
             variant="square"
             className="group/card relative w-full border border-(--foreground)/10 bg-(--card-dark) p-4"
           >
-            <div className="absolute top-0 right-0 p-3 font-mono text-[9px] text-(--neutral-dark)">
+            <div className="absolute top-0 right-0 p-3 font-mono text-[9px] text-(--neutral)">
               CLIENT_ENV
             </div>
             <div className="space-y-3">
@@ -235,25 +235,25 @@ export default function LeonardoUI() {
               </div>
               <div className="flex flex-col gap-2 pt-1 font-mono text-[10px]">
                 <div className="flex justify-between border-b border-(--foreground)/10 pb-1">
-                  <span className="text-(--neutral-dark)">OS</span>
+                  <span className="text-(--neutral)">OS</span>
                   <span className="text-(--foreground)">
                     {sysInfo?.os || "---"}
                   </span>
                 </div>
                 <div className="flex justify-between border-b border-(--foreground)/10 pb-1">
-                  <span className="text-(--neutral-dark)">CORES</span>
+                  <span className="text-(--neutral)">CORES</span>
                   <span className="text-(--foreground)">
                     {sysInfo?.cores || "---"}
                   </span>
                 </div>
                 <div className="flex justify-between border-b border-(--foreground)/10 pb-1">
-                  <span className="text-(--neutral-dark)">GPU_UNIT</span>
+                  <span className="text-(--neutral)">GPU_UNIT</span>
                   <span className="text-(--foreground)">
                     {sysInfo?.gpu || "---"}
                   </span>
                 </div>
                 <div className="flex justify-between pb-1">
-                  <span className="text-(--neutral-dark)">VIEWPORT</span>
+                  <span className="text-(--neutral)">VIEWPORT</span>
                   <span className="text-(--foreground)">
                     {sysInfo?.res || "---"}
                   </span>
@@ -266,7 +266,7 @@ export default function LeonardoUI() {
             variant="square"
             className="group/card relative w-full border border-(--foreground)/10 bg-(--card-dark) p-4"
           >
-            <div className="absolute top-0 right-0 p-3 font-mono text-[9px] text-(--neutral-dark)">
+            <div className="absolute top-0 right-0 p-3 font-mono text-[9px] text-(--neutral)">
               LOCAL_METRICS
             </div>
             <div className="space-y-3">
@@ -278,13 +278,13 @@ export default function LeonardoUI() {
               </div>
               <div className="flex flex-col gap-2 pt-1 font-mono text-[10px]">
                 <div className="flex justify-between border-b border-(--foreground)/10 pb-1">
-                  <span className="text-(--neutral-dark)">IPV4_ADDR</span>
+                  <span className="text-(--neutral)">IPV4_ADDR</span>
                   <span className="text-(--foreground)">
                     {sysInfo?.ip || "---"}
                   </span>
                 </div>
                 <div className="flex justify-between border-b border-(--foreground)/10 pb-1">
-                  <span className="text-(--neutral-dark)">LANGUAGE</span>
+                  <span className="text-(--neutral)">LANGUAGE</span>
                   <span className="text-(--foreground)">
                     {typeof navigator !== "undefined"
                       ? navigator.language
@@ -292,13 +292,13 @@ export default function LeonardoUI() {
                   </span>
                 </div>
                 <div className="flex justify-between border-b border-(--foreground)/10 pb-1">
-                  <span className="text-(--neutral-dark)">UPTIME</span>
+                  <span className="text-(--neutral)">UPTIME</span>
                   <span className="text-(--foreground)">
                     {formatUptime(uptime)}
                   </span>
                 </div>
                 <div className="flex justify-between pb-1">
-                  <span className="text-(--neutral-dark)">CONNECTION</span>
+                  <span className="text-(--neutral)">CONNECTION</span>
                   <span className="text-(--foreground)">SECURE</span>
                 </div>
               </div>

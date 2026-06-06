@@ -2,12 +2,16 @@
 
 import { motion } from "motion/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { CURSOR_SIZE } from "@/constants/cursor";
 import { LogoProps } from "@/types/layout";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { STAGGER_FADE_UP } from "@/constants/animations";
+import { useLenis } from "lenis/react";
 
 export default function Logo({ preventAnimation = false }: LogoProps) {
+  const pathname = usePathname();
+  const lenis = useLenis();
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
     "header",
     {
@@ -15,12 +19,20 @@ export default function Logo({ preventAnimation = false }: LogoProps) {
     },
   );
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      lenis?.scrollTo(0);
+    }
+  };
+
   return (
     <Link
       href="/"
       className="flex flex-col items-start focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
       aria-label="Daniele Buser - Creative Developer"
     >
       <motion.span

@@ -7,7 +7,6 @@ const PROJECTS_COMPONENTS_DIR = path.join(
   process.cwd(),
   "src/components/projects",
 );
-const PUBLIC_FONTS_DIR = path.join(process.cwd(), "public/fonts");
 
 function toKebabCase(str) {
   return str
@@ -123,14 +122,22 @@ function traceDependencies(entryFile, projectSrcDir) {
   return Array.from(visited);
 }
 
+function escapeRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function makeImportsRelative(content, fileRelativePath, id) {
-  const prefix = `@/components/projects/${id}-components/`;
+  const prefix = `@/components/projects/${id}/`;
+  const escapedPrefix = escapeRegex(prefix);
   const currentDir = path.dirname(fileRelativePath);
 
   return content.replace(
-    /(from\s+["']|import\s*\(\s*["'])(@\/components\/projects\/[^"']+-components\/)([^"']+)["']/g,
-    (match, p1, p2, p3) => {
-      let relPath = path.relative(currentDir, p3);
+    new RegExp(
+      `(from\\s+["']|import\\s*\\(\\s*["'])${escapedPrefix}([^"']+)["']`,
+      "g",
+    ),
+    (match, p1, p2) => {
+      let relPath = path.relative(currentDir, p2);
       if (!relPath.startsWith(".")) {
         relPath = "./" + relPath;
       }
@@ -139,28 +146,16 @@ function makeImportsRelative(content, fileRelativePath, id) {
   );
 }
 
-function init() {
-  if (!fs.existsSync(PROJECTS_FILE)) {
-    console.warn(
-      `[init-projects] File progetti non trovato a: ${PROJECTS_FILE}`,
-    );
-    return;
-  }
-
-  const fileContent = fs.readFileSync(PROJECTS_FILE, "utf8");
+function extractProjectBlocks(fileContent) {
   const arrayMatch = fileContent.match(
     /export\s+const\s+PROJECTS\s*:\s*Project\[\]\s*=\s*\[([\s\S]*)\];/,
   );
   if (!arrayMatch) {
-    console.warn(
-      "[init-projects] Impossibile trovare l'array PROJECTS in src/constants/projects.ts",
-    );
-    return;
+    return [];
   }
 
   const arrayContent = arrayMatch[1];
-  const projectsBlocks = [];
-
+  const blocks = [];
   let braceCount = 0;
   let currentBlock = "";
   let inString = false;
@@ -195,11 +190,257 @@ function init() {
       if (char === "}") {
         braceCount--;
         if (braceCount === 0) {
-          projectsBlocks.push(currentBlock);
+          blocks.push(currentBlock);
           currentBlock = "";
         }
       }
     }
+  }
+
+  return blocks;
+}
+
+function parseProjectColors(block, id) {
+  const colorsMatch = block.match(/brandingColors\s*:\s*\[([\s\S]*?)\]/);
+  if (!colorsMatch) {
+    throw new Error(
+      `[init-projects] Progetto '${id}': Campo 'brandingColors' mancante.`,
+    );
+  }
+
+  const colorsContent = colorsMatch[1];
+  const colorObjects = colorsContent.match(/\{[\s\S]*?\}/g) || [];
+  const parsedColors = [];
+
+  for (const colorObjStr of colorObjects) {
+    const hexMatch = colorObjStr.match(/hex\s*:\s*["']([^"']+)["']/);
+    const pantoneMatch = colorObjStr.match(/pantone\s*:\s*["']([^"']+)["']/);
+    const rgbMatch = colorObjStr.match(/rgb\s*:\s*["']([^"']+)["']/);
+
+    if (!hexMatch) {
+      throw new Error(
+        `[init-projects] Progetto '${id}': Colore mancante del campo obbligatorio 'hex'.`,
+      );
+    }
+    if (!pantoneMatch) {
+      throw new Error(
+        `[init-projects] Progetto '${id}': Colore mancante del campo obbligatorio 'pantone'.`,
+      );
+    }
+
+    const hex = hexMatch[1];
+    const pantone = pantoneMatch[1];
+    const rgb = rgbMatch ? rgbMatch[1] : null;
+
+    const hexRegex = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
+    if (!hexRegex.test(hex)) {
+      throw new Error(
+        `[init-projects] Progetto '${id}': Colore HEX '${hex}' non valido. Deve iniziare con # e contenere 3 o 6 caratteri esadecimali.`,
+      );
+    }
+
+    const pantoneRegex =
+      /^(?:(?:[A-Za-z\s]+)?\d{1,5}\s+[A-Za-z]{1,3}|[A-Za-z\s]+\s+[A-Z]{1,3}|\d{2}-\d{4}\s+[A-Z]{2,3})$/i;
+    if (!pantoneRegex.test(pantone)) {
+      throw new Error(
+        `[init-projects] Progetto '${id}': Codice Pantone '${pantone}' non valido. Esempi validi: 'Black 6 C', '7527 C', 'White C', '18-1663 TCX'.`,
+      );
+    }
+
+    if (rgb) {
+      const rgbRegex =
+        /^(?:rgb\()?\s*(25[0-5]|2[0-4]\d|[01]?\d?\d)\s*[\s,]\s*(25[0-5]|2[0-4]\d|[01]?\d?\d)\s*[\s,]\s*(25[0-5]|2[0-4]\d|[01]?\d?\d)\s*\)?$/i;
+      if (!rgbRegex.test(rgb)) {
+        throw new Error(
+          `[init-projects] Progetto '${id}': Valore RGB '${rgb}' non valido. Formati supportati: '255 255 255' o '255, 255, 255'.`,
+        );
+      }
+    }
+
+    parsedColors.push({ hex, pantone, rgb });
+  }
+
+  return parsedColors;
+}
+
+function getFontFormat(file) {
+  const ext = path.extname(file).toLowerCase();
+  if (ext === ".otf") return "opentype";
+  if (ext === ".ttf") return "truetype";
+  if (ext === ".woff2") return "woff2";
+  if (ext === ".woff") return "woff";
+  return "";
+}
+
+function parseProjectFonts(block) {
+  const startMatch = block.match(/brandingFonts\s*:\s*\[/);
+  if (!startMatch) {
+    return [];
+  }
+
+  const startIdx = startMatch.index + startMatch[0].length;
+  let bracketCount = 1;
+  let inString = false;
+  let stringChar = "";
+  let endIdx = startIdx;
+
+  for (let i = startIdx; i < block.length; i++) {
+    const char = block[i];
+    if (
+      (char === '"' || char === "'" || char === "`") &&
+      block[i - 1] !== "\\"
+    ) {
+      if (!inString) {
+        inString = true;
+        stringChar = char;
+        continue;
+      }
+      if (char === stringChar) {
+        inString = false;
+        continue;
+      }
+    }
+    if (!inString) {
+      if (char === "[") bracketCount++;
+      if (char === "]") {
+        bracketCount--;
+        if (bracketCount === 0) {
+          endIdx = i;
+          break;
+        }
+      }
+    }
+  }
+
+  const fontsContent = block.substring(startIdx, endIdx);
+  const fontObjects = [];
+  
+  let braceCount = 0;
+  let currentObj = "";
+  inString = false;
+  stringChar = "";
+
+  for (let i = 0; i < fontsContent.length; i++) {
+    const char = fontsContent[i];
+    if ((char === '"' || char === "'" || char === "`") && fontsContent[i - 1] !== "\\") {
+      if (!inString) {
+        inString = true;
+        stringChar = char;
+      } else if (char === stringChar) {
+        inString = false;
+      }
+    }
+    if (!inString) {
+      if (char === "{") braceCount++;
+    }
+    if (braceCount > 0) {
+      currentObj += char;
+    }
+    if (!inString) {
+      if (char === "}") {
+        braceCount--;
+        if (braceCount === 0) {
+          fontObjects.push(currentObj);
+          currentObj = "";
+        }
+      }
+    }
+  }
+
+  const parsedFonts = [];
+
+  for (const fontObjStr of fontObjects) {
+    const nameMatch = fontObjStr.match(/name\s*:\s*["']([^"']+)["']/);
+    const familyVarMatch = fontObjStr.match(/familyVar\s*:\s*["']([^"']+)["']/);
+    const typeMatch = fontObjStr.match(/type\s*:\s*["']([^"']+)["']/);
+    
+    if (!nameMatch) continue;
+    const name = nameMatch[1];
+    const familyVarRaw = familyVarMatch ? familyVarMatch[1] : "";
+    const familyVarName = familyVarRaw.match(/var\(([^)]+)\)/) ? familyVarRaw.match(/var\(([^)]+)\)/)[1] : "";
+    const type = typeMatch ? typeMatch[1] : "sans";
+
+    const weightsMatch = fontObjStr.match(/weights\s*:\s*\[([\s\S]*?)\]/);
+    const weights = [];
+    if (weightsMatch) {
+      const weightsContent = weightsMatch[1];
+      const weightObjects = weightsContent.match(/\{[\s\S]*?\}/g) || [];
+      for (const wObjStr of weightObjects) {
+        const wNameMatch = wObjStr.match(/name\s*:\s*["']([^"']+)["']/);
+        const wValueMatch = wObjStr.match(/value\s*:\s*([0-9a-zA-Z]+)/);
+        const wFileMatch = wObjStr.match(/file\s*:\s*["']([^"']+)["']/);
+
+        if (wNameMatch && wValueMatch) {
+          weights.push({
+            name: wNameMatch[1],
+            value: wValueMatch[1],
+            file: wFileMatch ? wFileMatch[1] : null
+          });
+        }
+      }
+    }
+
+    parsedFonts.push({
+      name,
+      familyVarName,
+      type,
+      weights
+    });
+  }
+
+  return parsedFonts;
+}
+
+function generateThemeCss(id, colors, fonts) {
+  let cssContent = '@import "tailwindcss";\n\n';
+
+  // 1. @font-face rules (global, no conflict)
+  fonts.forEach((font) => {
+    font.weights.forEach((weight) => {
+      if (weight.file) {
+        const format = getFontFormat(weight.file);
+        const formatStr = format ? ` format('${format}')` : "";
+        cssContent += `@font-face {
+  font-family: '${font.name}';
+  src: url('/projects/${id}/fonts/${weight.file}')${formatStr};
+  font-weight: ${weight.value};
+  font-style: normal;
+  font-display: swap;
+}
+
+`;
+      }
+    });
+  });
+
+  // 2. Color and font variables scoped under .project-theme-<id>
+  cssContent += `.project-theme-${id} {
+  --background: ${colors[0].hex};
+  --neutral-dark: ${colors.length >= 2 ? colors[1].hex : colors[0].hex};
+  --neutral: ${colors.length >= 3 ? colors[2].hex : colors[0].hex};
+  --accent: ${colors.length >= 4 ? colors[3].hex : colors[0].hex};
+  --foreground: ${colors[colors.length - 1].hex};
+}
+`;
+  return cssContent;
+}
+
+function init() {
+  if (!fs.existsSync(PROJECTS_FILE)) {
+    console.warn(
+      `[init-projects] File progetti non trovato a: ${PROJECTS_FILE}`,
+    );
+    return;
+  }
+
+  const fileContent = fs.readFileSync(PROJECTS_FILE, "utf8");
+  const projectsBlocks = extractProjectBlocks(fileContent);
+
+  if (projectsBlocks.length === 0) {
+    console.warn(
+      "[init-projects] Impossibile trovare l'array PROJECTS in src/constants/projects.ts",
+    );
+    return;
   }
 
   for (const block of projectsBlocks) {
@@ -207,62 +448,9 @@ function init() {
     if (!idMatch) continue;
     const id = idMatch[1];
 
-    const colorsMatch = block.match(/brandingColors\s*:\s*\[([\s\S]*?)\]/);
-    if (colorsMatch) {
-      const colorsContent = colorsMatch[1];
-      const colorObjects = colorsContent.match(/\{[\s\S]*?\}/g) || [];
-      for (const colorObjStr of colorObjects) {
-        const hexMatch = colorObjStr.match(/hex\s*:\s*["']([^"']+)["']/);
-        const pantoneMatch = colorObjStr.match(
-          /pantone\s*:\s*["']([^"']+)["']/,
-        );
-        const rgbMatch = colorObjStr.match(/rgb\s*:\s*["']([^"']+)["']/);
-
-        if (!hexMatch) {
-          throw new Error(
-            `[init-projects] Progetto '${id}': Colore mancante del campo obbligatorio 'hex'.`,
-          );
-        }
-        if (!pantoneMatch) {
-          throw new Error(
-            `[init-projects] Progetto '${id}': Colore mancante del campo obbligatorio 'pantone'.`,
-          );
-        }
-
-        const hex = hexMatch[1];
-        const pantone = pantoneMatch[1];
-        const rgb = rgbMatch ? rgbMatch[1] : null;
-
-        const hexRegex = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
-        if (!hexRegex.test(hex)) {
-          throw new Error(
-            `[init-projects] Progetto '${id}': Colore HEX '${hex}' non valido. Deve iniziare con # e contenere 3 o 6 caratteri esadecimali.`,
-          );
-        }
-
-        const pantoneRegex =
-          /^(?:(?:[A-Za-z\s]+)?\d{1,5}\s+[A-Za-z]{1,3}|[A-Za-z\s]+\s+[A-Z]{1,3}|\d{2}-\d{4}\s+[A-Z]{2,3})$/i;
-        if (!pantoneRegex.test(pantone)) {
-          throw new Error(
-            `[init-projects] Progetto '${id}': Codice Pantone '${pantone}' non valido. Esempi validi: 'Black 6 C', '7527 C', 'White C', '18-1663 TCX'.`,
-          );
-        }
-
-        if (rgb) {
-          const rgbRegex =
-            /^(?:rgb\()?\s*(25[0-5]|2[0-4]\d|[01]?\d?\d)\s*[\s,]\s*(25[0-5]|2[0-4]\d|[01]?\d?\d)\s*[\s,]\s*(25[0-5]|2[0-4]\d|[01]?\d?\d)\s*\)?$/i;
-          if (!rgbRegex.test(rgb)) {
-            throw new Error(
-              `[init-projects] Progetto '${id}': Valore RGB '${rgb}' non valido. Formati supportati: '255 255 255' o '255, 255, 255'.`,
-            );
-          }
-        }
-      }
-    } else {
-      throw new Error(
-        `[init-projects] Progetto '${id}': Campo 'brandingColors' mancante.`,
-      );
-    }
+    // Parse colors and fonts
+    const brandingColors = parseProjectColors(block, id);
+    const brandingFonts = parseProjectFonts(block);
 
     const hasCustomComponents = /hasCustomComponents\s*:\s*true/.test(block);
     const hasCoolShit = /hasCoolShit\s*:\s*true/.test(block);
@@ -272,85 +460,33 @@ function init() {
 
     if (!fs.existsSync(projectPublicFontsDir)) {
       fs.mkdirSync(projectPublicFontsDir, { recursive: true });
-      console.log(`[init-projects] Creata cartella font pubblica per ${id}`);
     }
 
-    if (fs.existsSync(PUBLIC_FONTS_DIR)) {
-      const fontFiles = fs.readdirSync(PUBLIC_FONTS_DIR);
-      for (const fontFile of fontFiles) {
-        const srcFont = path.join(PUBLIC_FONTS_DIR, fontFile);
-        const destFont = path.join(projectPublicFontsDir, fontFile);
-        if (!fs.existsSync(destFont)) {
-          fs.copyFileSync(srcFont, destFont);
-        }
-      }
-    }
-
-    if (hasCustomComponents) {
-      const projectSrcDir = path.join(
-        PROJECTS_COMPONENTS_DIR,
-        `${id}-components`,
+    const projectSrcDir = path.join(
+      PROJECTS_COMPONENTS_DIR,
+      id,
+    );
+    if (!fs.existsSync(projectSrcDir)) {
+      fs.mkdirSync(projectSrcDir, { recursive: true });
+      console.log(
+        `[init-projects] Creata cartella sorgente: ${projectSrcDir}`,
       );
-      if (!fs.existsSync(projectSrcDir)) {
-        fs.mkdirSync(projectSrcDir, { recursive: true });
-        console.log(
-          `[init-projects] Creata cartella sorgente: ${projectSrcDir}`,
-        );
-      }
+    }
 
-      const subdirs = ["components", "hooks", "constants", "utils"];
-      for (const subdir of subdirs) {
-        const subdirPath = path.join(projectSrcDir, subdir);
-        if (!fs.existsSync(subdirPath)) {
-          fs.mkdirSync(subdirPath, { recursive: true });
-        }
-      }
+    // Always generate theme.css with variables and @font-face rules
+    if (brandingColors.length > 0) {
+      const cssContent = generateThemeCss(id, brandingColors, brandingFonts);
+      const themeCssPath = path.join(projectSrcDir, "theme.css");
+      fs.writeFileSync(themeCssPath, cssContent, "utf8");
+      console.log(`[init-projects] Creato/Aggiornato theme.css per ${id}`);
+    }
 
-      const colors = [];
-      const colorsMatch = block.match(/brandingColors\s*:\s*\[([\s\S]*?)\]/);
-      if (colorsMatch) {
-        const colorsContent = colorsMatch[1];
-        const colorObjects = colorsContent.match(/\{[\s\S]*?\}/g) || [];
-        for (const colorObjStr of colorObjects) {
-          const hexMatch = colorObjStr.match(/hex\s*:\s*["']([^"']+)["']/);
-          if (hexMatch) {
-            colors.push(hexMatch[1]);
-          }
-        }
-      }
-
-      if (colors.length > 0) {
-        let cssContent = `/* Auto-generated theme for ${id} */
-.project-theme-${id} {
-`;
-        colors.forEach((hex, idx) => {
-          cssContent += `  --project-color-${idx}: ${hex};\n`;
-        });
-
-        const bg = colors[0];
-        const cardDark = colors[1] || bg;
-        const foreground = colors[colors.length - 1];
-        const neutralDark = colors.length >= 3 ? colors[2] : cardDark;
-        const neutral = colors.length >= 4 ? colors[3] : foreground;
-        const accent = colors.length >= 5 ? colors[2] : colors[1] || foreground;
-
-        cssContent += `
-  --background: ${bg};
-  --foreground: ${foreground};
-  --card-dark: ${cardDark};
-  --neutral-dark: ${neutralDark};
-  --neutral: ${neutral};
-  --accent: ${accent};
-}
-`;
-        const themeCssPath = path.join(projectSrcDir, "theme.css");
-        fs.writeFileSync(themeCssPath, cssContent, "utf8");
-        console.log(`[init-projects] Creato/Aggiornato theme.css per ${id}`);
-      }
-
-      const uiFilePath = path.join(projectSrcDir, `${id}-UI.tsx`);
-      if (!fs.existsSync(uiFilePath)) {
-        const boilerplate = `"use client";
+    // Always generate the UI file to ensure theme.css (@font-face rules) is loaded
+    // When hasCustomComponents is false, it renders null
+    const uiFilePath = path.join(projectSrcDir, `${id}-UI.tsx`);
+    if (!fs.existsSync(uiFilePath)) {
+      const uiContent = hasCustomComponents
+        ? `"use client";
 
 import "./theme.css";
 
@@ -363,9 +499,26 @@ export default function CustomComponentsUI() {
     </div>
   );
 }
+`
+        : `"use client";
+
+import "./theme.css";
+
+export default function ThemeOnly() {
+  return null;
+}
 `;
-        fs.writeFileSync(uiFilePath, boilerplate, "utf8");
-        console.log(`[init-projects] Creato UI boilerplate per ${id}`);
+      fs.writeFileSync(uiFilePath, uiContent, "utf8");
+      console.log(`[init-projects] Creato UI file per ${id}`);
+    }
+
+    if (hasCustomComponents) {
+      const subdirs = ["components", "hooks", "constants", "utils"];
+      for (const subdir of subdirs) {
+        const subdirPath = path.join(projectSrcDir, subdir);
+        if (!fs.existsSync(subdirPath)) {
+          fs.mkdirSync(subdirPath, { recursive: true });
+        }
       }
 
       if (hasCoolShit) {
@@ -408,6 +561,7 @@ export default function CustomComponentsUI() {
             let destRelativePath = "";
             if (isEntry) {
               destRelativePath = `${coolShitName}${path.extname(file)}`; 
+            } else {
               destRelativePath = path.relative(projectSrcDir, file);
             }
 

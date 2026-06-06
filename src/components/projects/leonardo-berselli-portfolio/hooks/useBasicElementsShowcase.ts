@@ -10,7 +10,7 @@ export function useBasicElementsShowcase() {
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("header", {
     onEnter: {
       size: CURSOR_SIZE.xs,
-      color: CSS_VARIABLES.accent,
+      color: CSS_VARIABLES.neutral,
     },
     onLeave: {
       size: CURSOR_SIZE.sm,

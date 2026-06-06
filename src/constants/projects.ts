@@ -27,9 +27,9 @@ export const PROJECTS: Project[] = [
         familyVar: "var(--font-pp-montreal)",
         type: "sans",
         weights: [
-          { name: "Light 300", value: 300 },
-          { name: "Regular 400", value: 400 },
-          { name: "Semibold 600", value: 600 },
+          { name: "Light 300", value: 300, file: "pp-neue-montreal/PPNeueMontreal-Light.otf" },
+          { name: "Regular 400", value: 400, file: "pp-neue-montreal/PPNeueMontreal-Regular.otf" },
+          { name: "Semibold 600", value: 600, file: "pp-neue-montreal/PPNeueMontreal-Semibold.otf" },
         ],
       },
       {
@@ -37,9 +37,9 @@ export const PROJECTS: Project[] = [
         familyVar: "var(--font-pp-montreal-mono)",
         type: "mono",
         weights: [
-          { name: "Thin 100", value: 100 },
-          { name: "Book 400", value: 400 },
-          { name: "Bold 700", value: 700 },
+          { name: "Thin 100", value: 100, file: "pp-neue-montreal-mono/PPNeueMontrealMono-Thin.otf" },
+          { name: "Book 400", value: 400, file: "pp-neue-montreal-mono/PPNeueMontrealMono-Book.otf" },
+          { name: "Bold 700", value: 700, file: "pp-neue-montreal-mono/PPNeueMontrealMono-Bold.otf" },
         ],
       },
     ],
