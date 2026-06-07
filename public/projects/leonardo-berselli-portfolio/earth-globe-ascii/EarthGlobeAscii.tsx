@@ -2,26 +2,29 @@
 
 import { useRef } from "react";
 import { useEarthGlobe } from "./hooks/useEarthGlobe";
-import { useGlobeCursorPulse } from "./hooks/useGlobeCursorPulse";
 
 interface EarthGlobeAsciiProps {
   dark?: boolean;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+  onDragStart?: () => void;
+  onDragEnd?: () => void;
 }
 
-export function EarthGlobeAscii({ dark }: EarthGlobeAsciiProps) {
+export function EarthGlobeAscii({
+  dark,
+  onMouseEnter,
+  onMouseLeave,
+  onDragStart,
+  onDragEnd,
+}: EarthGlobeAsciiProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const {
-    handleMouseEnter,
-    handleMouseLeave,
-    handleDragStart,
-    handleDragEnd,
-  } = useGlobeCursorPulse();
 
   useEarthGlobe({
     containerRef,
     dark,
-    onDragStart: handleDragStart,
-    onDragEnd: handleDragEnd,
+    onDragStart,
+    onDragEnd,
   });
 
   return (
@@ -29,8 +32,8 @@ export function EarthGlobeAscii({ dark }: EarthGlobeAsciiProps) {
       <div
         ref={containerRef}
         className="h-full w-full"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     </div>
   );

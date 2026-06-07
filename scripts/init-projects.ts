@@ -95,6 +95,7 @@ function traceDependencies(
   projectSrcDir: string,
 ): string[] {
   const visited = new Set<string>();
+  const portfolioDir = path.join(projectSrcDir, "portfolio");
   const queue: string[] = [entryFile];
 
   while (queue.length > 0) {
@@ -114,6 +115,7 @@ function traceDependencies(
         if (
           resolved &&
           resolved.startsWith(projectSrcDir) &&
+          !resolved.startsWith(portfolioDir) &&
           !visited.has(resolved)
         ) {
           queue.push(resolved);
@@ -127,6 +129,7 @@ function traceDependencies(
         if (
           resolved &&
           resolved.startsWith(projectSrcDir) &&
+          !resolved.startsWith(portfolioDir) &&
           !visited.has(resolved)
         ) {
           queue.push(resolved);
@@ -526,7 +529,7 @@ export default function ThemeOnly() {
     }
 
     if (hasCustomComponents) {
-      const subdirs = ["components", "hooks", "constants", "utils"];
+      const subdirs = ["components", "hooks", "constants", "utils", "portfolio"];
       for (const subdir of subdirs) {
         const subdirPath = path.join(projectSrcDir, subdir);
         if (!fs.existsSync(subdirPath)) {
@@ -647,7 +650,7 @@ export default function ThemeOnly() {
       }
     }
 
-    const subdirs = ["components", "hooks", "constants", "utils"];
+    const subdirs = ["components", "hooks", "constants", "utils", "portfolio"];
     for (const subdir of subdirs) {
       const subdirPath = path.join(projectSrcDir, subdir);
       if (fs.existsSync(subdirPath)) {

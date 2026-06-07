@@ -28,8 +28,8 @@ const COOL_SHIT_MAP: Record<string, ComponentType> = {
   "leonardo-berselli-portfolio": dynamic(
     () =>
       import(
-        "@/components/projects/leonardo-berselli-portfolio/components/EarthGlobeAscii"
-      ).then((m) => ({ default: m.EarthGlobeAscii })),
+        "@/components/projects/leonardo-berselli-portfolio/portfolio/EarthGlobeAsciiWithCursor"
+      ).then((m) => ({ default: m.EarthGlobeAsciiWithCursor })),
     {
       loading: () => <Skeleton isLoading={true} variant="on-dark" />,
     },
