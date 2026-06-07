@@ -30,7 +30,7 @@ export default function WorkWord({
   return (
     <motion.button
       type="button"
-      className="relative flex items-center overflow-visible border-none bg-transparent p-0 text-left text-3xl font-medium sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
+      className="relative flex items-center overflow-visible border-none bg-transparent p-0 text-left text-7xl font-medium focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
       style={{ opacity, y, color: "inherit", fontFamily: "inherit" }}
       initial="rest"
       animate={isActive ? "hover" : "rest"}
@@ -40,7 +40,7 @@ export default function WorkWord({
       onBlur={() => onHover?.(null)}
       aria-label={`View video for ${word}`}
     >
-      <span className="absolute left-0 h-7 w-14 overflow-hidden sm:h-10 xl:h-12" aria-hidden="true">
+      <span className="absolute left-0 h-12 w-14 overflow-hidden" aria-hidden="true">
         <motion.div
           className="h-full w-full bg-(--background)"
           variants={arrowVariants}

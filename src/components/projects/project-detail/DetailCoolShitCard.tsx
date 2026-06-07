@@ -21,7 +21,7 @@ export default function DetailCoolShitCard({
 
   return (
     <div className="relative flex aspect-4/3 w-full items-center justify-center overflow-hidden bg-(--card-dark)">
-      <span className="absolute top-4 left-4 z-10 text-xs tracking-wider text-(--neutral) uppercase md:text-sm">
+      <span className="absolute top-4 left-4 z-10 text-sm tracking-wider text-(--neutral) uppercase">
         Cool S***t
       </span>
       <div className="flex h-full w-full items-center justify-center">

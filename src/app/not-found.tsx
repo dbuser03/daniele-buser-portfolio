@@ -36,8 +36,8 @@ export default function NotFound() {
         <GridLines variant="dark" />
       </div>
 
-      <div className="relative z-10 grid w-full grid-cols-4 gap-4 md:grid-cols-8 xl:grid-cols-12">
-        <div className="col-span-4 flex flex-col items-center gap-10 text-center md:col-span-8 xl:col-span-12">
+      <div className="relative z-10 grid w-full grid-cols-12 gap-4">
+        <div className="col-span-12 flex flex-col items-center gap-10 text-center">
           <div className="flex flex-col items-center gap-0 text-center">
             <HeroTitleStatic
               text="404"
@@ -50,7 +50,7 @@ export default function NotFound() {
               variants={paragraphVariants}
               initial="initial"
               animate="visible"
-              className="text-xs text-(--neutral) md:text-sm tracking-wide -mt-3"
+              className="text-sm text-(--neutral) tracking-wide -mt-3"
             >
               This page doesn&apos;t exist.
             </motion.p>

@@ -28,7 +28,7 @@ export default function DetailPaletteCard({ colors }: DetailPaletteCardProps) {
               onMouseLeave={handleMouseLeave}
             >
               <motion.span
-                className="mb-2 text-xs font-normal tracking-wider text-(--neutral-dark) md:-mt-5 md:text-sm"
+                className="mb-2 text-sm font-normal tracking-wider text-(--neutral-dark) -mt-5"
                 style={{ fontFamily: "var(--font-neue-haas), sans-serif" }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: copied === hex ? 1 : 0 }}
@@ -36,7 +36,7 @@ export default function DetailPaletteCard({ colors }: DetailPaletteCardProps) {
                 (copied)
               </motion.span>
               <motion.div
-                className="h-42 w-full border border-(--foreground)/10 lg:h-50 xl:h-58 2xl:h-66"
+                className="h-66 w-full border border-(--foreground)/10"
                 style={{ backgroundColor: hex }}
                 whileHover={{ scale: 0.98 }}
                 whileTap={{ scale: 0.94 }}
@@ -48,7 +48,7 @@ export default function DetailPaletteCard({ colors }: DetailPaletteCardProps) {
               />
 
               <div
-                className="mt-8 flex flex-col gap-y-1.5 text-xs leading-none font-normal text-(--foreground) uppercase md:text-sm"
+                className="mt-8 flex flex-col gap-y-1.5 text-sm leading-none font-normal text-(--foreground) uppercase"
                 style={{ fontFamily: "var(--font-neue-haas), sans-serif" }}
               >
                 <span>{hex}</span>

@@ -27,7 +27,7 @@ function ContactLinkItem({
       {...(download && {
         download: true,
       })}
-      className="text-md text-(--neutral) md:text-lg focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
+      className="text-lg text-(--neutral) focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -75,11 +75,11 @@ export default function Contacts({
 
   return (
     <section
-      className="flex flex-col justify-between gap-10 md:gap-12 lg:flex-row lg:items-center text-(--foreground)"
+      className="flex flex-row items-center justify-between gap-12 text-(--foreground)"
       aria-labelledby="contacts-heading"
     >
       <motion.p
-        className="max-w-sm text-xl leading-tight sm:max-w-md sm:text-2xl md:max-w-xl md:text-3xl md:leading-none lg:max-w-md lg:text-2xl xl:max-w-xl xl:text-3xl 2xl:max-w-2xl 2xl:text-4xl"
+        className="max-w-2xl text-4xl leading-none"
         variants={paragraphVariants}
         initial="initial"
         animate={trigger === "mount" ? "visible" : undefined}
@@ -110,7 +110,7 @@ export default function Contacts({
         >
           <h2
             id="contacts-heading"
-            className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl text-(--foreground)"
+            className="text-7xl text-(--foreground)"
           >
             {EMAIL}
           </h2>

@@ -75,8 +75,8 @@ export default function LeonardoUI() {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-12">
-          <div className="flex w-full items-center justify-between border border-(--neutral)/20 px-3 py-2.5 sm:col-span-7">
+        <div className="grid grid-cols-12 items-stretch gap-3">
+          <div className="flex w-full items-center justify-between border border-(--neutral)/20 px-3 py-2.5 col-span-7">
             <div className="flex items-center gap-3">
               <span className="font-mono text-[10px] leading-none tracking-widest text-(--neutral) uppercase">
                 Engine
@@ -104,7 +104,7 @@ export default function LeonardoUI() {
             </div>
           </div>
 
-          <div className="grid h-full grid-cols-2 gap-2 sm:col-span-5">
+          <div className="grid h-full grid-cols-2 gap-2 col-span-5">
             <Badge
               variant="default"
               className="flex h-5 w-full items-center justify-center px-2 font-mono text-[9.5px]"
@@ -138,7 +138,7 @@ export default function LeonardoUI() {
         className="group/card relative w-full border border-(--foreground)/10 bg-(--card-dark) p-4"
       >
         <div className="space-y-3">
-          <div className="flex items-end justify-between font-mono text-[9px] tracking-[0.2em] text-(--neutral) uppercase md:text-xs">
+          <div className="flex items-end justify-between font-mono text-xs tracking-[0.2em] text-(--neutral) uppercase">
             <div className="flex items-center gap-3">
               <div className="h-2 w-2 animate-pulse rounded-[1px] bg-(--foreground)" />
               <span className="text-(--foreground)">System Initialization</span>
@@ -155,7 +155,7 @@ export default function LeonardoUI() {
             />
           </div>
 
-          <div className="grid w-full grid-cols-2 gap-3 pt-0.5 font-mono text-[8px] tracking-widest uppercase md:grid-cols-4 md:text-[9px]">
+          <div className="grid w-full grid-cols-4 gap-3 pt-0.5 font-mono text-[9px] tracking-widest uppercase">
             <div className="space-y-1">
               <div className="text-[7px] text-(--neutral)">
                 SYSTEM_STATUS
@@ -184,7 +184,7 @@ export default function LeonardoUI() {
                 <span className="text-(--foreground)">ACTIVE</span>
               </div>
             </div>
-            <div className="hidden space-y-1 md:block">
+            <div className="block space-y-1">
               <div className="text-[7px] text-(--neutral)">GEO_LOC</div>
               <div>
                 <span className="text-(--neutral)">LAT:</span>{" "}
@@ -219,7 +219,7 @@ export default function LeonardoUI() {
       </Card>
 
       <div className="w-full">
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        <div className="grid grid-cols-2 gap-3">
           <Card
             variant="square"
             className="group/card relative w-full border border-(--foreground)/10 bg-(--card-dark) p-4"

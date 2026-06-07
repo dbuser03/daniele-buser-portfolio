@@ -17,11 +17,11 @@ export default function ProjectsTitle({ year }: { year: string }) {
   return (
     <h1
       id={PROJECTS_TITLE_ID}
-      className="relative z-10 flex w-full items-baseline justify-between text-[3.5rem] leading-none text-(--background) sm:text-[6rem] md:text-[8rem] lg:text-[10rem] xl:text-[12rem] 2xl:text-[14rem]"
-      aria-label={`Projects '${twoDigitYear}`}
+      className="relative z-10 flex w-full items-baseline justify-between text-[14rem] leading-none text-(--background)"
+      aria-label={`Projects ${twoDigitYear}`}
     >
       <motion.span
-        className="-ml-1 inline-block sm:-ml-2 md:-ml-3 lg:-ml-3.5"
+        className="-ml-3.5 inline-block"
         variants={projectsVariants}
         initial="initial"
         animate="visible"
@@ -29,7 +29,7 @@ export default function ProjectsTitle({ year }: { year: string }) {
         Projects
       </motion.span>
       <motion.span
-        className="-mr-1 inline-block text-right md:-mr-2"
+        className="-mr-2 inline-block text-right"
         variants={yearVariants}
         initial="initial"
         animate="visible"

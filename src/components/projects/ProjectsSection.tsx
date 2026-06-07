@@ -16,7 +16,7 @@ export default function ProjectsSection() {
     >
       <motion.h2
         id="projects-list-heading"
-        className="pb-3 text-xs text-(--neutral-dark) md:text-sm"
+        className="pb-3 text-sm text-(--neutral-dark)"
         variants={labelVariants}
         initial="initial"
         animate="visible"
@@ -24,7 +24,7 @@ export default function ProjectsSection() {
         SELECTED WORKS
       </motion.h2>
       <motion.div
-        className="grid w-full grid-cols-1 gap-4 lg:grid-cols-12"
+        className="grid w-full grid-cols-12 gap-4"
         variants={gridVariants}
         initial="initial"
         animate="visible"

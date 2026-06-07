@@ -30,7 +30,7 @@ export default function Logo() {
       aria-label="Daniele Buser - Creative Developer"
     >
       <motion.span
-        className="text-base leading-none font-bold text-(--foreground) md:text-lg"
+        className="text-lg leading-none font-bold text-(--foreground)"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={STAGGER_FADE_UP(0)}
@@ -38,7 +38,7 @@ export default function Logo() {
         DANIELE BUSER
       </motion.span>
       <motion.p
-        className="text-xs text-(--neutral) md:text-sm"
+        className="text-sm text-(--neutral)"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={STAGGER_FADE_UP(0.1)}

@@ -12,7 +12,7 @@ export default function Footer() {
     >
       <div className="pointer-events-auto w-fit">
         <motion.p
-          className="text-xs leading-none text-(--foreground) md:text-sm"
+          className="text-sm leading-none text-(--foreground)"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={STAGGER_FADE_UP(0.8)}
@@ -20,7 +20,7 @@ export default function Footer() {
           LUGANO - <TimeDisplay />
         </motion.p>
         <motion.p
-          className="text-xs text-(--neutral) md:text-sm"
+          className="text-sm text-(--neutral)"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={STAGGER_FADE_UP(0.9)}

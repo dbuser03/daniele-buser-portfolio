@@ -56,7 +56,7 @@ export default function ProjectDetailClient({
            <HeroTitleAnimated
              id="project-detail-title"
              text={project.title}
-             className="relative z-10 -ml-1 text-[2rem] leading-none text-(--background) sm:text-[3rem] md:text-[4rem] lg:text-[5rem] xl:text-[6rem] 2xl:text-[7rem]"
+             className="relative z-10 -ml-1 text-[7rem] leading-none text-(--background)"
              ariaLabel={`${project.title} - Project heading`}
              showDot={false}
            />
@@ -68,7 +68,7 @@ export default function ProjectDetailClient({
               ease: [0.16, 1, 0.3, 1],
               delay: 0.7,
             }}
-            className="mt-2 text-2xl leading-none font-normal tracking-tight text-(--neutral-dark) sm:mt-3 sm:text-3xl md:text-4xl lg:text-3xl xl:text-4xl"
+            className="mt-3 text-4xl leading-none font-normal tracking-tight text-(--neutral-dark)"
           >
             {project.year}
           </motion.p>
@@ -82,7 +82,7 @@ export default function ProjectDetailClient({
             ease: [0.16, 1, 0.3, 1],
             delay: 0.95,
           }}
-          className="relative mt-20 aspect-video w-full overflow-hidden bg-(--neutral-dark) md:mt-28"
+          className="relative mt-28 aspect-video w-full overflow-hidden bg-(--neutral-dark)"
         >
           {project.image ? (
             <DetailImage src={project.image} alt={project.title} />
@@ -91,15 +91,15 @@ export default function ProjectDetailClient({
           )}
         </motion.div>
 
-        <div className="mt-10 grid grid-cols-1 gap-4 md:mt-14 xl:grid-cols-12">
-          <div className="flex flex-col xl:col-span-2">
-            <h2 className="text-xs tracking-wider text-(--neutral-dark) uppercase md:text-sm">
+        <div className="mt-14 grid grid-cols-12 gap-4">
+          <div className="flex flex-col col-span-2">
+            <h2 className="text-sm tracking-wider text-(--neutral-dark) uppercase">
               Obsession
             </h2>
           </div>
 
-          <div className="xl:col-span-10">
-            <div className="grid grid-cols-1 gap-8 text-xl leading-tight font-normal text-(--background) sm:text-2xl md:grid-cols-2 md:text-3xl md:leading-none lg:text-2xl xl:text-3xl 2xl:text-4xl">
+          <div className="col-span-10">
+            <div className="grid grid-cols-2 gap-8 text-4xl leading-none font-normal text-(--background)">
               <p className="break-inside-avoid">{project.descriptionCol1}</p>
               <p className="break-inside-avoid">{project.descriptionCol2}</p>
             </div>
@@ -107,12 +107,12 @@ export default function ProjectDetailClient({
         </div>
 
         <div className="mt-28 flex w-full flex-col">
-          <h2 className="text-xs tracking-wider text-(--neutral-dark) uppercase md:text-sm">
+          <h2 className="text-sm tracking-wider text-(--neutral-dark) uppercase">
             Design
           </h2>
 
           <div className="mt-4 flex w-full flex-col bg-(--background) p-4">
-            <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="grid w-full grid-cols-2 gap-4">
               <DetailPaletteCard colors={project.brandingColors} />
               <DetailTypefacesCard fonts={project.brandingFonts} />
 

@@ -22,7 +22,7 @@ function ProjectCard({ project }: ProjectCardProps) {
   const showSkeleton = !imageSrc || isLoading || hasError;
 
   return (
-    <div className="flex w-full flex-col gap-4 lg:col-span-6">
+    <div className="flex w-full flex-col gap-4 col-span-6">
       <Link
         href={`/projects/${project.id}` as Route}
         onMouseEnter={handleMouseEnter}
@@ -48,7 +48,7 @@ function ProjectCard({ project }: ProjectCardProps) {
           )}
         </div>
         <div className="mt-8 flex justify-between items-start text-(--foreground)">
-          <h3 className="text-2xl font-medium tracking-tight sm:text-3xl md:text-4xl lg:text-3xl xl:text-4xl leading-none">
+          <h3 className="text-4xl font-medium tracking-tight leading-none">
             {project.title}
           </h3>
           <div className="flex flex-col items-end gap-1.5">

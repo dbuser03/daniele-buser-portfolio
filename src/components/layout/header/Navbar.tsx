@@ -41,7 +41,7 @@ function NavItem({ href, label, delay }: NavItemProps) {
         <Link
           href={href as Route}
           className={cn(
-            "text-xs md:text-sm focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm",
+            "text-sm focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm",
             isActive ? "font-bold" : "font-normal",
           )}
           onMouseEnter={handleMouseEnter}
@@ -67,7 +67,7 @@ function NavItem({ href, label, delay }: NavItemProps) {
 export default function Navbar() {
   return (
     <nav aria-label="Main navigation">
-      <ul className="flex gap-6 sm:gap-8 md:gap-12">
+      <ul className="flex gap-12">
         {NAV_LINKS.map((link, idx) => (
           <NavItem
             key={link.href}

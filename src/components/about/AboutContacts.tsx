@@ -14,7 +14,7 @@ export default function AboutContacts() {
         <GridLines variant="dark" />
       </div>
 
-      <div className="relative z-10 flex flex-col gap-48 md:gap-64">
+      <div className="relative z-10 flex flex-col gap-64">
         <HeroTitle
           as="h2"
           text="Say Hello"

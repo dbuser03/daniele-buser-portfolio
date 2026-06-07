@@ -17,7 +17,7 @@ export default function DetailSectionCard({
       className={cn("relative flex aspect-4/3 w-full flex-col justify-between overflow-hidden bg-(--card-dark) p-4", className)}
     >
       <div>
-        <span className="text-xs tracking-wider text-(--neutral) uppercase md:text-sm">
+        <span className="text-sm tracking-wider text-(--neutral) uppercase">
           {label}
         </span>
       </div>

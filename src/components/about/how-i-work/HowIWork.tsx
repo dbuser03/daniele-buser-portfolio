@@ -64,17 +64,17 @@ export default function HowIWork() {
     >
       <motion.h2
         id="how-i-work-heading"
-        className="pb-3 text-xs text-(--neutral-dark) md:text-sm"
+        className="pb-3 text-sm text-(--neutral-dark)"
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: "easeOut", delay: baseDelay }}
       >
         HOW I WORK
       </motion.h2>
-      <div className="flex flex-col gap-8 xl:gap-10">
-        <div className="grid grid-cols-1 gap-4 xl:grid-cols-12">
+      <div className="flex flex-col gap-10">
+        <div className="grid grid-cols-12 gap-4">
           <motion.div
-            className="relative aspect-16/7 w-full overflow-hidden bg-(--neutral) xl:col-span-9"
+            className="relative aspect-16/7 w-full overflow-hidden bg-(--neutral) col-span-9"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease: "easeOut", delay: baseDelay }}
@@ -92,7 +92,7 @@ export default function HowIWork() {
           </motion.div>
 
           <motion.div
-            className="relative aspect-16/7 overflow-hidden xl:col-span-3 xl:col-start-10 xl:aspect-auto xl:h-full"
+            className="relative aspect-16/7 overflow-hidden col-span-3 col-start-10 aspect-auto h-full"
             onMouseEnter={handlePanelMouseEnter}
             onMouseLeave={handlePanelMouseLeave}
             initial={{ opacity: 0, y: 30 }}
@@ -133,8 +133,8 @@ export default function HowIWork() {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 xl:grid-cols-12 xl:gap-4">
-          <p className="text-xl leading-tight text-(--background) sm:text-2xl md:text-3xl md:leading-none xl:col-span-6 xl:text-3xl 2xl:text-4xl">
+        <div className="grid grid-cols-12 gap-4">
+          <p className="text-4xl leading-none text-(--background) col-span-6">
             Most of my time goes into the parts nobody sees — decisions,
             tradeoffs, things that get cut. What ships is what survives that
             process. I handle design and development together, which means
@@ -142,7 +142,7 @@ export default function HowIWork() {
           </p>
           <div
             ref={wordsRef}
-            className="flex flex-col gap-1 xl:col-span-3 xl:col-start-10 xl:items-start"
+            className="flex flex-col gap-1 col-span-3 col-start-10 items-start"
           >
             {HOW_I_WORK_WORDS.map((word, index) => (
               <WorkWord

@@ -19,7 +19,7 @@ export default function AboutIntro({ age }: { age: number }) {
   return (
     <motion.p
       id={ABOUT_INTRO_ID}
-      className="text-xl leading-tight text-(--background) sm:text-2xl md:text-3xl md:leading-none lg:text-2xl xl:text-3xl 2xl:text-4xl"
+      className="text-4xl leading-none text-(--background)"
       variants={introVariants}
       initial="initial"
       animate="visible"

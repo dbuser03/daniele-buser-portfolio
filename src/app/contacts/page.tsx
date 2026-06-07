@@ -18,7 +18,7 @@ export default function ContactPage() {
         className="z-1 flex w-full flex-1 flex-col justify-start gap-0 px-4 focus:outline-none"
         aria-label="Contacts page main content"
       >
-        <section className="flex min-h-screen flex-col justify-center gap-48 py-20 md:gap-64">
+        <section className="flex min-h-screen flex-col justify-center gap-64 py-20">
           <Hello />
           <Contacts />
         </section>

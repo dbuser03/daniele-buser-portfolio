@@ -31,7 +31,7 @@ export default function TechStack() {
     >
       <motion.h2
         id="tech-stack-heading"
-        className="pb-3 text-xs text-(--neutral-dark) md:text-sm"
+        className="pb-3 text-sm text-(--neutral-dark)"
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: "easeOut", delay: baseDelay }}
@@ -39,7 +39,7 @@ export default function TechStack() {
         MY TECH STACK
       </motion.h2>
 
-      <div className="grid w-full grid-cols-1 gap-0 md:grid-cols-3">
+      <div className="grid w-full grid-cols-3 gap-0">
         {TECH_STACK_FIRST_ROW_ICONS.map((icon, index) => {
           const cellId = getTechStackCellId("first", index);
           const cellIsActive = hoveredCellId === cellId;
@@ -47,7 +47,7 @@ export default function TechStack() {
             <TechStackCell
               key={cellId}
               cellId={cellId}
-              className="relative min-h-44 bg-(--foreground) lg:aspect-3/2 lg:min-h-0"
+              className="relative aspect-3/2 min-h-0 bg-(--foreground)"
               onMouseEnter={() => handleCellMouseEnter(cellId)}
               onMouseLeave={handleCellMouseLeave}
               isActive={cellIsActive}
@@ -67,7 +67,7 @@ export default function TechStack() {
         })}
       </div>
 
-      <div className="grid w-full grid-cols-2 gap-0 sm:grid-cols-4 lg:grid-cols-7">
+      <div className="grid w-full grid-cols-7 gap-0">
         {Array.from({ length: 7 }, (_, index) => {
           const cellId = getTechStackCellId("second", index);
           const icon = TECH_STACK_SECOND_ROW_ICONS.find(
