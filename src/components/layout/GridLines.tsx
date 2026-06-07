@@ -14,7 +14,7 @@ export default function GridLines({ variant = "dark" }: GridProps) {
     <div className="grid h-full w-full grid-cols-4 gap-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12">
       {Array.from({ length: 12 }).map((_, index) => {
         const visibilityIndex = Math.min(
-          Math.floor(index / 2),
+          Math.max(0, Math.floor((index - 2) / 2)),
           VISIBILITY_BREAKPOINTS.length - 1,
         );
         const visibility = VISIBILITY_BREAKPOINTS[visibilityIndex];
