@@ -76,7 +76,7 @@ export default function HowIWork() {
       <div className="mt-3 flex flex-col gap-10">
         <div className="grid grid-cols-12 gap-4">
           <motion.div
-            className="relative aspect-16/7 w-full overflow-hidden bg-(--neutral) col-span-9"
+            className="relative col-span-9 aspect-16/7 w-full overflow-hidden bg-(--neutral)"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease: "easeOut", delay: baseDelay }}
@@ -94,7 +94,7 @@ export default function HowIWork() {
           </motion.div>
 
           <motion.div
-            className="relative aspect-16/7 overflow-hidden col-span-3 col-start-10 aspect-auto h-full"
+            className="relative col-span-3 col-start-10 aspect-16/7 h-full overflow-hidden"
             onMouseEnter={handlePanelMouseEnter}
             onMouseLeave={handlePanelMouseLeave}
             initial={{ opacity: 0, y: 30 }}
@@ -136,7 +136,7 @@ export default function HowIWork() {
         </div>
 
         <div className="grid grid-cols-12 gap-4">
-          <p className="text-section text-(--background) col-span-6">
+          <p className="text-section col-span-6 text-(--background)">
             Most of my time goes into the parts nobody sees — decisions,
             tradeoffs, things that get cut. What ships is what survives that
             process. I handle design and development together, which means
@@ -144,7 +144,7 @@ export default function HowIWork() {
           </p>
           <div
             ref={wordsRef}
-            className="flex flex-col gap-1 col-span-3 col-start-10 items-start"
+            className="col-span-3 col-start-10 flex flex-col items-start gap-1"
           >
             {HOW_I_WORK_WORDS.map((word, index) => (
               <WorkWord
