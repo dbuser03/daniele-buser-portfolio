@@ -135,7 +135,7 @@ export default function LeonardoUI() {
 
       <Card
         variant="square"
-        className="group/card relative w-full border border-(--foreground)/10 bg-(--background) p-4"
+        className="group/card relative w-full border border-(--foreground)/10 p-4"
       >
         <div className="space-y-3">
           <div className="flex items-end justify-between font-mono text-xs tracking-[0.2em] text-(--neutral) uppercase">
@@ -222,7 +222,7 @@ export default function LeonardoUI() {
         <div className="grid grid-cols-2 gap-3">
           <Card
             variant="square"
-            className="group/card relative w-full border border-(--foreground)/10 bg-(--background) p-4"
+            className="group/card relative w-full border border-(--foreground)/10 p-4"
           >
             <div className="absolute top-0 right-0 p-3 font-mono text-[9px] text-(--neutral)">
               CLIENT_ENV
@@ -265,7 +265,7 @@ export default function LeonardoUI() {
 
           <Card
             variant="square"
-            className="group/card relative w-full border border-(--foreground)/10 bg-(--background) p-4"
+            className="group/card relative w-full border border-(--foreground)/10 p-4"
           >
             <div className="absolute top-0 right-0 p-3 font-mono text-[9px] text-(--neutral)">
               LOCAL_METRICS
