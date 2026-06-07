@@ -27,28 +27,28 @@ export default function AboutPage() {
         className="flex w-full flex-1 flex-col justify-start gap-0 bg-(--foreground) px-4 focus:outline-none"
         aria-label="About page main content"
       >
-      <AboutLayout contacts={<AboutContacts />}>
-        <section className="flex min-h-screen w-full flex-col justify-center py-20">
-          <div className="grid w-full grid-cols-12 gap-4">
-            <div className="relative z-10 flex flex-col gap-4 col-span-9 grid h-full grid-cols-9 content-between">
-              <div className="col-span-9">
-                <Hey />
+        <AboutLayout contacts={<AboutContacts />}>
+          <section className="flex min-h-screen w-full flex-col justify-center py-20">
+            <div className="grid w-full grid-cols-12 gap-4">
+              <div className="relative z-10 col-span-9 flex h-full grid-cols-9 flex-col content-between gap-4">
+                <div className="col-span-9">
+                  <Hey />
+                </div>
+                <div className="col-span-6">
+                  <AboutIntro age={age} />
+                </div>
               </div>
-              <div className="col-span-6">
-                <AboutIntro age={age} />
+              <div className="relative z-10 col-span-3 block">
+                <AboutPortrait />
               </div>
             </div>
-            <div className="relative z-10 col-span-3 block">
-              <AboutPortrait />
-            </div>
-          </div>
-        </section>
-        <section className="flex min-h-screen w-full flex-col justify-center gap-20 pt-0 pb-64">
-          <TechStack />
-          <HowIWork />
-        </section>
-      </AboutLayout>
-    </main>
+          </section>
+          <section className="flex min-h-screen w-full flex-col justify-center gap-20 pt-0 pb-64">
+            <TechStack />
+            <HowIWork />
+          </section>
+        </AboutLayout>
+      </main>
     </>
   );
 }

@@ -17,14 +17,10 @@ export default function Footer() {
         >
           LUGANO - <TimeDisplay />
         </motion.p>
-        <motion.p
-          className="text-sm text-(--neutral)"
-          {...FADE_UP(0.9)}
-        >
+        <motion.p className="text-sm text-(--neutral)" {...FADE_UP(0.9)}>
           46&deg; 00&apos; 13.24&quot; - 08&deg; 57&apos; 03.79&quot;
         </motion.p>
       </div>
     </footer>
   );
 }
-

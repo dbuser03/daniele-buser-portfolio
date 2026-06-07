@@ -121,25 +121,37 @@ export default function LeonardoUI() {
           <div className="col-span-5 grid h-full grid-cols-2 gap-2">
             <Badge
               variant="default"
-              className={cn("flex h-5 w-full items-center justify-center px-2", LEO_MONO_SM)}
+              className={cn(
+                "flex h-5 w-full items-center justify-center px-2",
+                LEO_MONO_SM,
+              )}
             >
               0xLEO
             </Badge>
             <Badge
               variant="outline"
-              className={cn("flex h-5 w-full items-center justify-center px-2", LEO_MONO_SM)}
+              className={cn(
+                "flex h-5 w-full items-center justify-center px-2",
+                LEO_MONO_SM,
+              )}
             >
               MLOPS
             </Badge>
             <Badge
               variant="secondary"
-              className={cn("flex h-5 w-full items-center justify-center px-2", LEO_MONO_SM)}
+              className={cn(
+                "flex h-5 w-full items-center justify-center px-2",
+                LEO_MONO_SM,
+              )}
             >
               STABLE
             </Badge>
             <Badge
               variant="destructive"
-              className={cn("flex h-5 w-full items-center justify-center px-2", LEO_MONO_SM)}
+              className={cn(
+                "flex h-5 w-full items-center justify-center px-2",
+                LEO_MONO_SM,
+              )}
             >
               ERR_0
             </Badge>

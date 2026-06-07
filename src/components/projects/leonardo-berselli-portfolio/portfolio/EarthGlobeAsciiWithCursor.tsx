@@ -7,7 +7,9 @@ interface EarthGlobeAsciiWithCursorProps {
   dark?: boolean;
 }
 
-export function EarthGlobeAsciiWithCursor({ dark }: EarthGlobeAsciiWithCursorProps) {
+export function EarthGlobeAsciiWithCursor({
+  dark,
+}: EarthGlobeAsciiWithCursorProps) {
   const { handleMouseEnter, handleMouseLeave, handleDragStart, handleDragEnd } =
     useGlobeCursorPulse();
 

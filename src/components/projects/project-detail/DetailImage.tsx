@@ -11,16 +11,15 @@ interface DetailImageProps {
   alt: string;
 }
 
-export default function DetailImage({
-  src,
-  alt,
-}: DetailImageProps) {
+export default function DetailImage({ src, alt }: DetailImageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
   return (
     <div className="relative h-full w-full">
-      {(isLoading || hasError) && <Skeleton isLoading={true} variant="on-light" />}
+      {(isLoading || hasError) && (
+        <Skeleton isLoading={true} variant="on-light" />
+      )}
       {!hasError && (
         <motion.div
           className="absolute inset-0"

@@ -3,7 +3,10 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { GLOBE_TEXTURES, GLOBE_CONFIG } from "@/components/projects/leonardo-berselli-portfolio/constants/globe";
+import {
+  GLOBE_TEXTURES,
+  GLOBE_CONFIG,
+} from "@/components/projects/leonardo-berselli-portfolio/constants/globe";
 import {
   createAsciiAtlas,
   getAsciiColorFromCSS,
@@ -42,7 +45,9 @@ export function useEarthGlobe({
     );
     camera.position.set(0, 0, GLOBE_CONFIG.cameraZ);
 
-    scene.add(new THREE.AmbientLight(0xffffff, GLOBE_CONFIG.ambientLightIntensity));
+    scene.add(
+      new THREE.AmbientLight(0xffffff, GLOBE_CONFIG.ambientLightIntensity),
+    );
     scene.add(camera);
 
     const loader = new THREE.TextureLoader();
@@ -63,10 +68,7 @@ export function useEarthGlobe({
           Math.min(window.devicePixelRatio || 1, GLOBE_CONFIG.pixelRatioMax),
       },
       resolution: {
-        value: new THREE.Vector2(
-          container.clientWidth,
-          container.clientHeight,
-        ),
+        value: new THREE.Vector2(container.clientWidth, container.clientHeight),
       },
       asciiColor: { value: getAsciiColorFromCSS(isDark) },
     };

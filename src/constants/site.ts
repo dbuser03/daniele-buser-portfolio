@@ -5,4 +5,3 @@ export const SITE_URL =
     : "https://danielebuser.com");
 export const LINKEDIN_URL = "https://linkedin.com/in/daniele-buser";
 export const GITHUB_URL = "https://github.com/dbuser03";
-

@@ -28,12 +28,9 @@ export default function DetailPaletteCard({ colors }: DetailPaletteCardProps) {
           const pantone = colorVal.pantone;
           const rgb = colorVal.rgb || hexToRgbStr(hex);
           return (
-            <div
-              key={hex}
-              className="flex flex-1 flex-col"
-            >
+            <div key={hex} className="flex flex-1 flex-col">
               <motion.span
-                className="mb-2 text-sm font-normal tracking-wider text-(--neutral-dark) -mt-5"
+                className="-mt-5 mb-2 text-sm font-normal tracking-wider text-(--neutral-dark)"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: copied === hex ? 1 : 0 }}
               >
@@ -47,10 +44,14 @@ export default function DetailPaletteCard({ colors }: DetailPaletteCardProps) {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 onClick={() => {
-                  if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+                  if (copyTimeoutRef.current)
+                    clearTimeout(copyTimeoutRef.current);
                   navigator.clipboard.writeText(hex);
                   setCopied(hex);
-                  copyTimeoutRef.current = setTimeout(() => setCopied(null), 800);
+                  copyTimeoutRef.current = setTimeout(
+                    () => setCopied(null),
+                    800,
+                  );
                 }}
               />
 

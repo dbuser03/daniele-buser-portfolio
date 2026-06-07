@@ -19,7 +19,6 @@ export const VIDEO_MAP: Record<HoverableWord, string> = {
   Ship: "/videos/cosmos_341236427.mp4",
 };
 
-/** Sequence order for auto-play rotation (may differ from display order) */
 export const HOW_I_WORK_SEQUENCE = HOW_I_WORK_WORDS;
 
 export const TECH_STACK_DEFAULT_CELL_ID = getTechStackCellId("first", 0);

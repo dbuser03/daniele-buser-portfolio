@@ -27,8 +27,7 @@ export default function DetailTypefacesCard({
   fonts,
 }: DetailTypefacesCardProps) {
   const displayFonts = fonts.length > 0 ? fonts : DEFAULT_FONTS;
-  const gridCols =
-    displayFonts.length > 1 ? "grid-cols-2" : "grid-cols-1";
+  const gridCols = displayFonts.length > 1 ? "grid-cols-2" : "grid-cols-1";
 
   return (
     <DetailSectionCard label="Typefaces">

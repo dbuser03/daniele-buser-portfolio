@@ -11,14 +11,18 @@ import { useLenis } from "lenis/react";
 export default function Logo() {
   const pathname = usePathname();
   const lenis = useLenis();
-  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("interactive");
+  const { handleMouseEnter, handleMouseLeave } =
+    useCursorInteraction("interactive");
 
-  const handleClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (pathname === "/") {
-      e.preventDefault();
-      lenis?.scrollTo(0);
-    }
-  }, [pathname, lenis]);
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (pathname === "/") {
+        e.preventDefault();
+        lenis?.scrollTo(0);
+      }
+    },
+    [pathname, lenis],
+  );
 
   return (
     <Link
@@ -35,10 +39,7 @@ export default function Logo() {
       >
         DANIELE BUSER
       </motion.span>
-      <motion.p
-        className="text-sm text-(--neutral)"
-        {...FADE_UP(0.1)}
-      >
+      <motion.p className="text-sm text-(--neutral)" {...FADE_UP(0.1)}>
         Creative Developer
       </motion.p>
     </Link>

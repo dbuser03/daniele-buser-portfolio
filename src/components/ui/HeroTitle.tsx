@@ -31,10 +31,7 @@ export default function HeroTitle({
   return (
     <MotionTag
       id={id}
-      className={cn(
-        "text-display-xl",
-        className,
-      )}
+      className={cn("text-display-xl", className)}
       variants={titleVariants}
       initial="initial"
       animate={trigger === "mount" ? "visible" : undefined}

@@ -25,24 +25,22 @@ function NavItem({ href, label, delay }: NavItemProps) {
     isActive ? "current" : "interactive",
   );
 
-  const handleClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (isActive && pathname === href) {
-      e.preventDefault();
-      lenis?.scrollTo(0);
-    }
-  }, [isActive, pathname, href, lenis]);
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (isActive && pathname === href) {
+        e.preventDefault();
+        lenis?.scrollTo(0);
+      }
+    },
+    [isActive, pathname, href, lenis],
+  );
 
   return (
     <li>
-      <motion.div
-        {...FADE_UP(delay)}
-      >
+      <motion.div {...FADE_UP(delay)}>
         <Link
           href={href as Route}
-          className={cn(
-            "text-sm",
-            isActive ? "font-bold" : "font-normal",
-          )}
+          className={cn("text-sm", isActive ? "font-bold" : "font-normal")}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onClick={handleClick}
@@ -60,11 +58,7 @@ export default function Navbar() {
     <nav aria-label="Main navigation">
       <ul className="flex gap-12">
         {NAV_LINKS.map((link, idx) => (
-          <NavItem
-            key={link.href}
-            {...link}
-            delay={0.15 + idx * 0.05}
-          />
+          <NavItem key={link.href} {...link} delay={0.15 + idx * 0.05} />
         ))}
       </ul>
     </nav>

@@ -13,7 +13,9 @@ export function useSystemInfo() {
   const [sysInfo, setSysInfo] = useState<SysInfo | null>(null);
 
   useEffect(() => {
-    const nav = navigator as unknown as { connection?: { effectiveType?: string } };
+    const nav = navigator as unknown as {
+      connection?: { effectiveType?: string };
+    };
 
     const ua = navigator.userAgent;
     let os = "Unknown OS";

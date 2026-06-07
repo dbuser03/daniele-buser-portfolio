@@ -188,10 +188,7 @@ export const personJsonLd = {
   name: "Daniele Buser",
   jobTitle: "Creative Developer & Design Engineer",
   url: SITE_URL,
-  sameAs: [
-    LINKEDIN_URL,
-    GITHUB_URL,
-  ],
+  sameAs: [LINKEDIN_URL, GITHUB_URL],
   knowsAbout: [
     "Creative Development",
     "Design Engineering",

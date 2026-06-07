@@ -18,7 +18,7 @@ export default function NotFound() {
     <main
       id="main-content"
       tabIndex={-1}
-      className="relative z-10 flex min-h-screen flex-col justify-center bg-(--background) text-(--foreground) px-4 focus:outline-none"
+      className="relative z-10 flex min-h-screen flex-col justify-center bg-(--background) px-4 text-(--foreground) focus:outline-none"
       aria-label="404 page main content"
     >
       <div
@@ -42,7 +42,7 @@ export default function NotFound() {
               variants={FADE_UP_PARAGRAPH}
               initial="initial"
               animate="visible"
-              className="text-sm text-(--neutral) tracking-wide -mt-3"
+              className="-mt-3 text-sm tracking-wide text-(--neutral)"
             >
               This page doesn&apos;t exist.
             </motion.p>
@@ -56,9 +56,12 @@ export default function NotFound() {
               href="/"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              whileHover={{ backgroundColor: CSS_VARIABLES.foreground, color: CSS_VARIABLES.background }}
+              whileHover={{
+                backgroundColor: CSS_VARIABLES.foreground,
+                color: CSS_VARIABLES.background,
+              }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="rounded-sm border border-(--foreground) bg-(--background) px-5 py-2.5 text-xs font-normal uppercase tracking-wider text-(--foreground)"
+              className="rounded-sm border border-(--foreground) bg-(--background) px-5 py-2.5 text-xs font-normal tracking-wider text-(--foreground) uppercase"
             >
               Go home
             </MotionLink>

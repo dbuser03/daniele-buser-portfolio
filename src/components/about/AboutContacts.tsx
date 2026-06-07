@@ -4,9 +4,8 @@ import GridLines from "@/components/layout/GridLines";
 
 const viewportConfig = { once: false, amount: 0.6 };
 export default function AboutContacts() {
-
   return (
-    <section className="relative -mx-4 flex min-h-screen flex-col justify-center bg-(--background) text-(--foreground) px-4 py-20">
+    <section className="relative -mx-4 flex min-h-screen flex-col justify-center bg-(--background) px-4 py-20 text-(--foreground)">
       <div
         className="pointer-events-none absolute inset-0 z-0 mx-4"
         aria-hidden="true"

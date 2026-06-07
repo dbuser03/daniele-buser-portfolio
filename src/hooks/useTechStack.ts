@@ -15,7 +15,8 @@ export function useTechStack() {
     string | null
   >(null);
 
-  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("interactive");
+  const { handleMouseEnter, handleMouseLeave } =
+    useCursorInteraction("interactive");
 
   useEffect(() => {
     if (highlightTimeoutRef.current) {
@@ -41,13 +42,16 @@ export function useTechStack() {
     setFullyHighlightedCellId(null);
   }, []);
 
-  const handleCellMouseEnter = useCallback((cellId: string) => {
-    if (leaveTimeoutRef.current) {
-      clearTimeout(leaveTimeoutRef.current);
-      leaveTimeoutRef.current = null;
-    }
-    updateHoveredCell(cellId);
-  }, [updateHoveredCell]);
+  const handleCellMouseEnter = useCallback(
+    (cellId: string) => {
+      if (leaveTimeoutRef.current) {
+        clearTimeout(leaveTimeoutRef.current);
+        leaveTimeoutRef.current = null;
+      }
+      updateHoveredCell(cellId);
+    },
+    [updateHoveredCell],
+  );
 
   const handleCellMouseLeave = useCallback(() => {
     if (leaveTimeoutRef.current) {

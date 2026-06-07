@@ -15,10 +15,5 @@ function subscribe(callback: () => void): () => void {
 }
 
 export function useCurrentTime(): string {
-  return useSyncExternalStore(
-    subscribe,
-    getTime,
-    () => "",
-  );
+  return useSyncExternalStore(subscribe, getTime, () => "");
 }
-

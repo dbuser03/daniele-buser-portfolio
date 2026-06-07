@@ -16,9 +16,7 @@ import DetailCoolShitCard from "@/components/projects/project-detail/DetailCoolS
 const UI_MAP: Record<string, ComponentType> = {
   "leonardo-berselli-portfolio": dynamic(
     () =>
-      import(
-        "@/components/projects/leonardo-berselli-portfolio/leonardo-berselli-portfolio-UI"
-      ),
+      import("@/components/projects/leonardo-berselli-portfolio/leonardo-berselli-portfolio-UI"),
     {
       loading: () => <Skeleton isLoading={true} variant="on-dark" />,
     },
@@ -28,9 +26,9 @@ const UI_MAP: Record<string, ComponentType> = {
 const COOL_SHIT_MAP: Record<string, ComponentType> = {
   "leonardo-berselli-portfolio": dynamic(
     () =>
-      import(
-        "@/components/projects/leonardo-berselli-portfolio/portfolio/EarthGlobeAsciiWithCursor"
-      ).then((m) => ({ default: m.EarthGlobeAsciiWithCursor })),
+      import("@/components/projects/leonardo-berselli-portfolio/portfolio/EarthGlobeAsciiWithCursor").then(
+        (m) => ({ default: m.EarthGlobeAsciiWithCursor }),
+      ),
     {
       loading: () => <Skeleton isLoading={true} variant="on-dark" />,
     },
@@ -54,13 +52,13 @@ export default function ProjectDetailClient({
     <div className="relative z-10 flex min-h-screen w-full flex-col pt-32 pb-48 text-(--background)">
       <div className="my-auto flex w-full flex-col">
         <div className="flex flex-col">
-           <HeroTitleAnimated
-             id="project-detail-title"
-             text={project.title}
-             className="relative z-10 -ml-1 text-display-md text-(--background)"
-             ariaLabel={`${project.title} - Project heading`}
-             showDot={false}
-           />
+          <HeroTitleAnimated
+            id="project-detail-title"
+            text={project.title}
+            className="text-display-md relative z-10 -ml-1 text-(--background)"
+            ariaLabel={`${project.title} - Project heading`}
+            showDot={false}
+          />
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -69,7 +67,7 @@ export default function ProjectDetailClient({
               ease: [0.16, 1, 0.3, 1],
               delay: 0.7,
             }}
-            className="mt-3 text-section font-normal tracking-tight text-(--neutral-dark)"
+            className="text-section mt-3 font-normal tracking-tight text-(--neutral-dark)"
           >
             {project.year}
           </motion.p>
@@ -93,14 +91,14 @@ export default function ProjectDetailClient({
         </motion.div>
 
         <div className="mt-14 grid grid-cols-12 gap-4">
-          <div className="flex flex-col col-span-2">
+          <div className="col-span-2 flex flex-col">
             <SectionLabel as="h2" tone="dark">
               Obsession
             </SectionLabel>
           </div>
 
           <div className="col-span-10">
-            <div className="grid grid-cols-2 gap-8 text-section font-normal text-(--background)">
+            <div className="text-section grid grid-cols-2 gap-8 font-normal text-(--background)">
               <p className="break-inside-avoid">{project.descriptionCol1}</p>
               <p className="break-inside-avoid">{project.descriptionCol2}</p>
             </div>

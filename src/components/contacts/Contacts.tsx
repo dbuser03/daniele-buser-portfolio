@@ -55,14 +55,19 @@ export default function Contacts({
   paragraphDelay?: number;
   linksDelay?: number;
   trigger?: "mount" | "inView";
-  viewport?: { once?: boolean; margin?: string; amount?: "some" | "all" | number };
+  viewport?: {
+    once?: boolean;
+    margin?: string;
+    amount?: "some" | "all" | number;
+  };
 } = {}) {
   const {
     handleMouseEnter: handleEmailEnter,
     handleMouseLeave: handleEmailLeave,
   } = useCursorInteraction("interactive");
 
-  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("interactive");
+  const { handleMouseEnter, handleMouseLeave } =
+    useCursorInteraction("interactive");
 
   const paragraphVariants = useMemo(
     () => createFadeUpVariants(paragraphDelay),
@@ -80,7 +85,7 @@ export default function Contacts({
       aria-labelledby="contacts-heading"
     >
       <motion.p
-        className="max-w-2xl text-section"
+        className="text-section max-w-2xl"
         variants={paragraphVariants}
         initial="initial"
         animate={trigger === "mount" ? "visible" : undefined}
@@ -109,10 +114,7 @@ export default function Contacts({
             window.open(`mailto:${EMAIL}`, "_blank");
           }}
         >
-          <h2
-            id="contacts-heading"
-            className="text-7xl text-(--foreground)"
-          >
+          <h2 id="contacts-heading" className="text-7xl text-(--foreground)">
             {EMAIL}
           </h2>
         </a>

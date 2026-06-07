@@ -1,6 +1,13 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback, useMemo, type RefObject } from "react";
+import {
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  type RefObject,
+} from "react";
 import { HOW_I_WORK_SEQUENCE } from "@/constants/about";
 import { HoverableWord } from "@/types/about";
 
@@ -17,35 +24,49 @@ export const useHowIWork = () => {
   const codeRef = useRef<HTMLVideoElement | null>(null);
   const shipRef = useRef<HTMLVideoElement | null>(null);
 
-  const videoRefs = useMemo(() => ({
-    Obsess: obsessRef,
-    Design: designRef,
-    Code: codeRef,
-    Ship: shipRef,
-  }), [obsessRef, designRef, codeRef, shipRef]);
+  const videoRefs = useMemo(
+    () => ({
+      Obsess: obsessRef,
+      Design: designRef,
+      Code: codeRef,
+      Ship: shipRef,
+    }),
+    [obsessRef, designRef, codeRef, shipRef],
+  );
 
   const [activeWord, setActiveWord] = useState<HoverableWord | null>(null);
   const [isImageHovered, setIsImageHovered] = useState(false);
   const sequenceIndexRef = useRef(0);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const playVideo = useCallback((word: HoverableWord) => {
-    getVideoRef(word, videoRefs).current?.play().catch(() => {});
-  }, [videoRefs]);
+  const playVideo = useCallback(
+    (word: HoverableWord) => {
+      getVideoRef(word, videoRefs)
+        .current?.play()
+        .catch(() => {});
+    },
+    [videoRefs],
+  );
 
-  const stopVideo = useCallback((word: HoverableWord) => {
-    const el = getVideoRef(word, videoRefs).current;
-    if (!el) return;
-    el.pause();
-    el.currentTime = 0;
-  }, [videoRefs]);
+  const stopVideo = useCallback(
+    (word: HoverableWord) => {
+      const el = getVideoRef(word, videoRefs).current;
+      if (!el) return;
+      el.pause();
+      el.currentTime = 0;
+    },
+    [videoRefs],
+  );
 
-  const resetAndPlay = useCallback((word: HoverableWord) => {
-    const el = getVideoRef(word, videoRefs).current;
-    if (!el) return;
-    el.currentTime = 0;
-    el.play().catch(() => {});
-  }, [videoRefs]);
+  const resetAndPlay = useCallback(
+    (word: HoverableWord) => {
+      const el = getVideoRef(word, videoRefs).current;
+      if (!el) return;
+      el.currentTime = 0;
+      el.play().catch(() => {});
+    },
+    [videoRefs],
+  );
 
   useEffect(() => {
     return () => {
@@ -55,31 +76,34 @@ export const useHowIWork = () => {
     };
   }, []);
 
-  const handleWordHover = useCallback((word: HoverableWord | null) => {
-    if (isImageHovered) return;
+  const handleWordHover = useCallback(
+    (word: HoverableWord | null) => {
+      if (isImageHovered) return;
 
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
-      hoverTimeoutRef.current = null;
-    }
-
-    hoverTimeoutRef.current = setTimeout(() => {
-      if (word === null) {
-        setActiveWord((prev) => {
-          if (prev) stopVideo(prev);
-          return null;
-        });
-      } else {
-        setActiveWord((prev) => {
-          if (prev && prev !== word) stopVideo(prev);
-          if (prev !== word) {
-            resetAndPlay(word);
-          }
-          return word;
-        });
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+        hoverTimeoutRef.current = null;
       }
-    }, 50);
-  }, [isImageHovered, resetAndPlay, stopVideo]);
+
+      hoverTimeoutRef.current = setTimeout(() => {
+        if (word === null) {
+          setActiveWord((prev) => {
+            if (prev) stopVideo(prev);
+            return null;
+          });
+        } else {
+          setActiveWord((prev) => {
+            if (prev && prev !== word) stopVideo(prev);
+            if (prev !== word) {
+              resetAndPlay(word);
+            }
+            return word;
+          });
+        }
+      }, 50);
+    },
+    [isImageHovered, resetAndPlay, stopVideo],
+  );
 
   const advanceSequence = () => {
     sequenceIndexRef.current =

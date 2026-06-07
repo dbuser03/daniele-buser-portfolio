@@ -65,7 +65,10 @@ export default function Error({
               onClick={reset}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              whileHover={{ backgroundColor: CSS_VARIABLES.foreground, color: CSS_VARIABLES.background }}
+              whileHover={{
+                backgroundColor: CSS_VARIABLES.foreground,
+                color: CSS_VARIABLES.background,
+              }}
               transition={{ duration: 0.3, ease: "easeOut" }}
               className="rounded-sm border border-(--foreground) bg-(--background) px-5 py-2.5 text-xs font-normal tracking-wider text-(--foreground) uppercase"
             >

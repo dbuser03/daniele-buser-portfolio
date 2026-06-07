@@ -11,12 +11,9 @@ const buttonVariants = cva(
         default: "bg-(--foreground) text-(--background) hover:opacity-90",
         outline:
           "border border-(--foreground)/20 bg-transparent text-(--foreground) hover:bg-(--foreground)/10 hover:text-(--foreground)",
-        secondary:
-          "bg-(--neutral) text-(--background) hover:opacity-90",
-        ghost:
-          "text-(--foreground) hover:bg-(--foreground)/10",
-        destructive:
-          "bg-red-500/10 text-red-500 hover:bg-red-500/20",
+        secondary: "bg-(--neutral) text-(--background) hover:opacity-90",
+        ghost: "text-(--foreground) hover:bg-(--foreground)/10",
+        destructive: "bg-red-500/10 text-red-500 hover:bg-red-500/20",
         link: "text-(--foreground) underline-offset-4 hover:underline",
       },
       size: {
@@ -26,10 +23,8 @@ const buttonVariants = cva(
         sm: "h-7 gap-1 px-2.5 text-[0.8rem] has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
         lg: "h-9 gap-1.5 px-3.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
         icon: "size-8",
-        "icon-xs":
-          "size-6 [&_svg:not([class*='size-'])]:size-3",
-        "icon-sm":
-          "size-7",
+        "icon-xs": "size-6 [&_svg:not([class*='size-'])]:size-3",
+        "icon-sm": "size-7",
         "icon-lg": "size-9",
       },
     },

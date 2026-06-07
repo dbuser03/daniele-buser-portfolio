@@ -32,9 +32,8 @@ export interface Project {
   gallery?: string[];
   brandingColors: ProjectColor[];
   brandingFonts: ProjectFont[];
-  
+
   hasCustomComponents?: boolean;
   hasCoolShit?: boolean;
   coolShitName?: string;
 }
-

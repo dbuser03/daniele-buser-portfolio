@@ -26,13 +26,11 @@ export default function TechStackCell({
       {isActive && (
         <motion.div
           layoutId="tech-stack-highlight"
-          className="absolute inset-0 z-20 pointer-events-none bg-(--background)"
+          className="pointer-events-none absolute inset-0 z-20 bg-(--background)"
           transition={TECH_CELL_SPRING_CONFIG}
         />
       )}
-      <div className="relative z-30 h-full w-full">
-        {children}
-      </div>
+      <div className="relative z-30 h-full w-full">{children}</div>
     </motion.div>
   );
 }

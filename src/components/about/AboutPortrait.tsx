@@ -3,16 +3,16 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { FADE_UP_TRANSITION, createFadeUpVariants } from "@/constants/animations";
+import {
+  FADE_UP_TRANSITION,
+  createFadeUpVariants,
+} from "@/constants/animations";
 import Skeleton from "@/components/ui/Skeleton";
 
 export default function AboutPortrait() {
   const [isLoading, setIsLoading] = useState(true);
 
-  const portraitVariants = useMemo(
-    () => createFadeUpVariants(0.65),
-    [],
-  );
+  const portraitVariants = useMemo(() => createFadeUpVariants(0.65), []);
 
   return (
     <motion.figure

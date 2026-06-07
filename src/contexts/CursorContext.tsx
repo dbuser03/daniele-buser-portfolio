@@ -70,8 +70,12 @@ export const CursorProvider = ({
     if (disabled) return;
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    document.body.addEventListener("mouseleave", handleMouseLeave, { passive: true });
-    document.body.addEventListener("mouseenter", handleMouseEnter, { passive: true });
+    document.body.addEventListener("mouseleave", handleMouseLeave, {
+      passive: true,
+    });
+    document.body.addEventListener("mouseenter", handleMouseEnter, {
+      passive: true,
+    });
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);

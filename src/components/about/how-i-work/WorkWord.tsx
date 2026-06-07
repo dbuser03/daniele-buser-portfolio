@@ -11,7 +11,7 @@ const arrowVariants = {
 
 const labelVariants = {
   rest: { x: 0 },
-  hover: { x: 76 }, // 56px arrow width + 20px spacing
+  hover: { x: 76 },
 } as const;
 
 export default function WorkWord({
@@ -40,7 +40,10 @@ export default function WorkWord({
       onBlur={() => onHover?.(null)}
       aria-label={`View video for ${word}`}
     >
-      <span className="absolute left-0 h-12 w-14 overflow-hidden" aria-hidden="true">
+      <span
+        className="absolute left-0 h-12 w-14 overflow-hidden"
+        aria-hidden="true"
+      >
         <motion.div
           className="h-full w-full bg-(--background)"
           variants={arrowVariants}

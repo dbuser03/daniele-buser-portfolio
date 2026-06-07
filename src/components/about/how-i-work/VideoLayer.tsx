@@ -5,12 +5,7 @@ import { useState, memo } from "react";
 import type { VideoLayerProps } from "@/types/about";
 import Skeleton from "@/components/ui/Skeleton";
 
-function VideoLayer({
-  src,
-  active,
-  videoRef,
-  onEnded,
-}: VideoLayerProps) {
+function VideoLayer({ src, active, videoRef, onEnded }: VideoLayerProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   return (

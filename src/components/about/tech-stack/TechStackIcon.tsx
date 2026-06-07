@@ -52,7 +52,10 @@ function TechStackIcon({
     >
       <span className="sr-only">{icon.label} (opens in new tab)</span>
       <div
-        className={cn("inline-flex items-center justify-center", icon.hoverPaddingClass ?? "p-9")}
+        className={cn(
+          "inline-flex items-center justify-center",
+          icon.hoverPaddingClass ?? "p-9",
+        )}
       >
         <motion.div
           className={icon.sizeClass}
