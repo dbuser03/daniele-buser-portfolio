@@ -273,7 +273,7 @@ export default function LeonardoUI() {
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <div className="h-2.5 w-2.5 animate-pulse rounded-[1px] bg-(--foreground)" />
-                <span className="font-mono text-[11px] tracking-wider text-(--neutral) uppercase">
+                <span className="font-mono text-[11px] tracking-wider text-(--foreground) uppercase">
                   Session Data
                 </span>
               </div>
