@@ -32,7 +32,7 @@ export default function HeroTitle({
     <MotionTag
       id={id}
       className={cn(
-        "text-[16rem] leading-none",
+        "text-display-xl",
         className,
       )}
       variants={titleVariants}

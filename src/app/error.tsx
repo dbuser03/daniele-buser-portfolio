@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { motion } from "motion/react";
 import { HeroTitleStatic } from "@/components/ui/HeroTitle";
 import GridLines from "@/components/layout/GridLines";
-import { createFadeUpVariants } from "@/constants/animations";
+import { FADE_UP_BUTTON, FADE_UP_PARAGRAPH } from "@/constants/animations";
+import { CSS_VARIABLES } from "@/constants/theme";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 
 export default function Error({
@@ -17,13 +18,6 @@ export default function Error({
   useEffect(() => {
     console.error(error);
   }, [error]);
-
-  const paragraphVariants = useMemo(
-    () => createFadeUpVariants(0.35, 20, 0.4),
-    [],
-  );
-
-  const buttonVariants = useMemo(() => createFadeUpVariants(0.5, 20, 0.4), []);
 
   const { handleMouseEnter, handleMouseLeave } =
     useCursorInteraction("current");
@@ -53,7 +47,7 @@ export default function Error({
               duration={0.8}
             />
             <motion.p
-              variants={paragraphVariants}
+              variants={FADE_UP_PARAGRAPH}
               initial="initial"
               animate="visible"
               className="-mt-3 text-sm tracking-wide text-(--neutral)"
@@ -62,19 +56,21 @@ export default function Error({
             </motion.p>
           </div>
           <motion.div
-            variants={buttonVariants}
+            variants={FADE_UP_BUTTON}
             initial="initial"
             animate="visible"
           >
-            <button
+            <motion.button
               type="button"
               onClick={reset}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              className="cursor-pointer rounded-sm border border-(--foreground) bg-(--background) px-5 py-2.5 text-xs font-normal tracking-wider text-(--foreground) uppercase transition-all duration-300 hover:border-(--foreground) hover:bg-(--foreground) hover:text-(--background) focus-visible:rounded-sm focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-(--accent)"
+              whileHover={{ backgroundColor: CSS_VARIABLES.foreground, color: CSS_VARIABLES.background }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="rounded-sm border border-(--foreground) bg-(--background) px-5 py-2.5 text-xs font-normal tracking-wider text-(--foreground) uppercase"
             >
               Try again
-            </button>
+            </motion.button>
           </motion.div>
         </div>
       </div>

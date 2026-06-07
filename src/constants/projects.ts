@@ -1,4 +1,5 @@
 import { Project } from "@/types/projects";
+import { LEONARDO_BRAND_COLORS } from "@/components/projects/leonardo-berselli-portfolio/constants/colors";
 
 export const PROJECTS: Project[] = [
   {
@@ -14,22 +15,28 @@ export const PROJECTS: Project[] = [
       "/projects/leonardo-berselli-portfolio/leonardo-berselli-portfolio.webp",
     tags: ["Next.js", "Tailwind", "Motion", "WebGL"],
     year: "2026",
-    brandingColors: [
-      { hex: "#0A0A0A", pantone: "Black 6 C" },
-      { hex: "#262626", pantone: "426 C" },
-      { hex: "#737373", pantone: "424 C" },
-      { hex: "#E5E5E5", pantone: "Cool Gray 1 C" },
-      { hex: "#F7F7F7", pantone: "7541 C" },
-    ],
+    brandingColors: LEONARDO_BRAND_COLORS,
     brandingFonts: [
       {
         name: "PP Neue Montreal",
         familyVar: "var(--font-pp-montreal)",
         type: "sans",
         weights: [
-          { name: "Light 300", value: 300, file: "pp-neue-montreal/PPNeueMontreal-Light.otf" },
-          { name: "Regular 400", value: 400, file: "pp-neue-montreal/PPNeueMontreal-Regular.otf" },
-          { name: "Semibold 600", value: 600, file: "pp-neue-montreal/PPNeueMontreal-Semibold.otf" },
+          {
+            name: "Light 300",
+            value: 300,
+            file: "pp-neue-montreal/PPNeueMontreal-Light.otf",
+          },
+          {
+            name: "Regular 400",
+            value: 400,
+            file: "pp-neue-montreal/PPNeueMontreal-Regular.otf",
+          },
+          {
+            name: "Semibold 600",
+            value: 600,
+            file: "pp-neue-montreal/PPNeueMontreal-Semibold.otf",
+          },
         ],
       },
       {
@@ -37,9 +44,21 @@ export const PROJECTS: Project[] = [
         familyVar: "var(--font-pp-montreal-mono)",
         type: "mono",
         weights: [
-          { name: "Thin 100", value: 100, file: "pp-neue-montreal-mono/PPNeueMontrealMono-Thin.otf" },
-          { name: "Book 400", value: 400, file: "pp-neue-montreal-mono/PPNeueMontrealMono-Book.otf" },
-          { name: "Bold 700", value: 700, file: "pp-neue-montreal-mono/PPNeueMontrealMono-Bold.otf" },
+          {
+            name: "Thin 100",
+            value: 100,
+            file: "pp-neue-montreal-mono/PPNeueMontrealMono-Thin.otf",
+          },
+          {
+            name: "Book 400",
+            value: 400,
+            file: "pp-neue-montreal-mono/PPNeueMontrealMono-Book.otf",
+          },
+          {
+            name: "Bold 700",
+            value: 700,
+            file: "pp-neue-montreal-mono/PPNeueMontrealMono-Bold.otf",
+          },
         ],
       },
     ],

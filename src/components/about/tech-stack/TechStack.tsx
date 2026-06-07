@@ -7,6 +7,7 @@ import {
 } from "@/constants/about";
 import { useTechStack } from "@/hooks/useTechStack";
 import { getTechStackCellId } from "@/utils/about";
+import SectionLabel from "@/components/ui/SectionLabel";
 import TechStackCell from "./TechStackCell";
 import TechStackIcon from "./TechStackIcon";
 
@@ -29,17 +30,18 @@ export default function TechStack() {
       onMouseLeave={handleMouseLeaveTechStack}
       aria-labelledby="tech-stack-heading"
     >
-      <motion.h2
+      <SectionLabel
+        as={motion.h2}
         id="tech-stack-heading"
-        className="pb-3 text-sm text-(--neutral-dark)"
+        tone="dark"
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: "easeOut", delay: baseDelay }}
       >
         MY TECH STACK
-      </motion.h2>
+      </SectionLabel>
 
-      <div className="grid w-full grid-cols-3 gap-0">
+      <div className="mt-3 grid w-full grid-cols-3 gap-0">
         {TECH_STACK_FIRST_ROW_ICONS.map((icon, index) => {
           const cellId = getTechStackCellId("first", index);
           const cellIsActive = hoveredCellId === cellId;

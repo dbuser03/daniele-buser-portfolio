@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+@source not "**/*.md";
+
+@theme {
+  --text-display-xl: 16rem;
+  --text-display-xl--line-height: 1;
+  --text-display-lg: 14rem;
+  --text-display-lg--line-height: 1;
+  --text-display-md: 7rem;
+  --text-display-md--line-height: 1;
+  --text-section: 2.25rem;
+  --text-section--line-height: 1;
+}
+
 :root {
   --background: #0a0a0a;
   --foreground: #f6f6f6;

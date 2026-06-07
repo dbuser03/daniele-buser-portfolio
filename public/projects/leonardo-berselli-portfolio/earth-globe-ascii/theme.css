@@ -55,3 +55,20 @@
   --accent: #E5E5E5;
   --foreground: #F7F7F7;
 }
+
+.leo-mono-sm {
+  @apply font-mono text-[9px];
+}
+
+.leo-mono-md {
+  @apply font-mono text-[10px];
+}
+.leo-mono-lg {
+  @apply font-mono text-[11px];
+}
+.leo-mono-button {
+  @apply font-mono text-xs uppercase;
+}
+.leo-sublabel {
+  @apply text-[7px] text-(--neutral);
+}

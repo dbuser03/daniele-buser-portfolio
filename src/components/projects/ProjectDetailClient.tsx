@@ -3,6 +3,7 @@
 import type { ComponentType } from "react";
 import type { Project } from "@/types/projects";
 import { HeroTitleAnimated } from "@/components/ui/HeroTitle";
+import SectionLabel from "@/components/ui/SectionLabel";
 import { motion } from "motion/react";
 import Skeleton from "@/components/ui/Skeleton";
 import dynamic from "next/dynamic";
@@ -56,7 +57,7 @@ export default function ProjectDetailClient({
            <HeroTitleAnimated
              id="project-detail-title"
              text={project.title}
-             className="relative z-10 -ml-1 text-[7rem] leading-none text-(--background)"
+             className="relative z-10 -ml-1 text-display-md text-(--background)"
              ariaLabel={`${project.title} - Project heading`}
              showDot={false}
            />
@@ -68,7 +69,7 @@ export default function ProjectDetailClient({
               ease: [0.16, 1, 0.3, 1],
               delay: 0.7,
             }}
-            className="mt-3 text-4xl leading-none font-normal tracking-tight text-(--neutral-dark)"
+            className="mt-3 text-section font-normal tracking-tight text-(--neutral-dark)"
           >
             {project.year}
           </motion.p>
@@ -93,13 +94,13 @@ export default function ProjectDetailClient({
 
         <div className="mt-14 grid grid-cols-12 gap-4">
           <div className="flex flex-col col-span-2">
-            <h2 className="text-sm tracking-wider text-(--neutral-dark) uppercase">
+            <SectionLabel as="h2" tone="dark">
               Obsession
-            </h2>
+            </SectionLabel>
           </div>
 
           <div className="col-span-10">
-            <div className="grid grid-cols-2 gap-8 text-4xl leading-none font-normal text-(--background)">
+            <div className="grid grid-cols-2 gap-8 text-section font-normal text-(--background)">
               <p className="break-inside-avoid">{project.descriptionCol1}</p>
               <p className="break-inside-avoid">{project.descriptionCol2}</p>
             </div>
@@ -107,11 +108,11 @@ export default function ProjectDetailClient({
         </div>
 
         <div className="mt-28 flex w-full flex-col">
-          <h2 className="text-sm tracking-wider text-(--neutral-dark) uppercase">
+          <SectionLabel as="h2" tone="dark">
             Design
-          </h2>
+          </SectionLabel>
 
-          <div className="mt-4 flex w-full flex-col bg-(--background) p-4">
+          <div className="mt-3 flex w-full flex-col bg-(--background) p-4">
             <div className="grid w-full grid-cols-2 gap-4">
               <DetailPaletteCard colors={project.brandingColors} />
               <DetailTypefacesCard fonts={project.brandingFonts} />

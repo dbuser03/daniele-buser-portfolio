@@ -6,6 +6,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import type { TechStackIconProps } from "@/types/about";
 import { TECH_CELL_SPRING_CONFIG } from "@/constants/animations";
+import { CSS_VARIABLES } from "@/constants/theme";
 import { cn } from "@/utils/cn";
 
 function TechStackIcon({
@@ -44,7 +45,7 @@ function TechStackIcon({
       href={icon.href as Route}
       target="_blank"
       rel="noopener noreferrer"
-      className="relative z-30 flex h-full w-full items-center justify-center focus-visible:z-40 focus-visible:outline focus-visible:outline-(--accent) focus-visible:-outline-offset-2"
+      className="relative z-30 flex h-full w-full items-center justify-center focus-visible:z-40 focus-visible:-outline-offset-2"
       aria-label={`Visit ${icon.label} website (opens in new tab)`}
       onFocus={onFocus}
       onBlur={onBlur}
@@ -69,8 +70,8 @@ function TechStackIcon({
           onMouseLeave={handleIconMouseLeave}
           animate={{
             backgroundColor: isActive
-              ? "var(--foreground)"
-              : "var(--background)",
+              ? CSS_VARIABLES.foreground
+              : CSS_VARIABLES.background,
           }}
           transition={{
             backgroundColor: TECH_CELL_SPRING_CONFIG,

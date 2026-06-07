@@ -9,6 +9,13 @@ import { useBasicElementsShowcase } from "./hooks/useBasicElementsShowcase";
 import { usePreloaderCard } from "./hooks/usePreloaderCard";
 import { useSystemDiagnostics } from "./hooks/useSystemDiagnostics";
 import { PRELOADER_CONSTANTS } from "./constants/preloader";
+import { cn } from "@/utils/cn";
+
+const LEO_MONO_BUTTON = "leo-mono-button";
+const LEO_MONO_LG = "leo-mono-lg";
+const LEO_MONO_MD = "leo-mono-md";
+const LEO_MONO_SM = "leo-mono-sm";
+const LEO_SUBLABEL = "leo-sublabel";
 
 export default function LeonardoUI() {
   const {
@@ -48,7 +55,7 @@ export default function LeonardoUI() {
           <Button
             variant="default"
             size="default"
-            className="px-4 font-mono text-xs uppercase"
+            className={cn("px-4", LEO_MONO_BUTTON)}
             onClick={incrementClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
@@ -58,7 +65,7 @@ export default function LeonardoUI() {
           <Button
             variant="outline"
             size="default"
-            className="px-4 font-mono text-xs uppercase"
+            className={cn("px-4", LEO_MONO_BUTTON)}
             onClick={resetClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
@@ -68,7 +75,7 @@ export default function LeonardoUI() {
           <Button
             variant="secondary"
             size="default"
-            className="px-4 font-mono text-xs uppercase"
+            className={cn("px-4", LEO_MONO_BUTTON)}
             disabled
           >
             Disabled
@@ -76,9 +83,14 @@ export default function LeonardoUI() {
         </div>
 
         <div className="grid grid-cols-12 items-stretch gap-3">
-          <div className="flex w-full items-center justify-between border border-(--neutral)/20 px-3 py-2.5 col-span-7">
+          <div className="col-span-7 flex w-full items-center justify-between border border-(--neutral)/20 px-3 py-2.5">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-[10px] leading-none tracking-widest text-(--neutral) uppercase">
+              <span
+                className={cn(
+                  LEO_MONO_MD,
+                  "leading-none tracking-wider text-(--neutral) uppercase",
+                )}
+              >
                 Engine
               </span>
               <Switch
@@ -93,39 +105,41 @@ export default function LeonardoUI() {
             </div>
             <div className="flex items-center">
               <span
-                className={`font-mono text-[10px] leading-none tracking-wider uppercase ${
+                className={cn(
+                  LEO_MONO_MD,
+                  "leading-none tracking-wider uppercase",
                   engineActive
                     ? "animate-pulse-white-neutral"
-                    : "text-(--neutral)"
-                }`}
+                    : "text-(--neutral)",
+                )}
               >
                 {engineActive ? "RUNNING" : "STABLE"}
               </span>
             </div>
           </div>
 
-          <div className="grid h-full grid-cols-2 gap-2 col-span-5">
+          <div className="col-span-5 grid h-full grid-cols-2 gap-2">
             <Badge
               variant="default"
-              className="flex h-5 w-full items-center justify-center px-2 font-mono text-[9.5px]"
+              className={cn("flex h-5 w-full items-center justify-center px-2", LEO_MONO_SM)}
             >
               0xLEO
             </Badge>
             <Badge
               variant="outline"
-              className="flex h-5 w-full items-center justify-center px-2 font-mono text-[9.5px]"
+              className={cn("flex h-5 w-full items-center justify-center px-2", LEO_MONO_SM)}
             >
               MLOPS
             </Badge>
             <Badge
               variant="secondary"
-              className="flex h-5 w-full items-center justify-center px-2 font-mono text-[9.5px]"
+              className={cn("flex h-5 w-full items-center justify-center px-2", LEO_MONO_SM)}
             >
               STABLE
             </Badge>
             <Badge
               variant="destructive"
-              className="flex h-5 w-full items-center justify-center px-2 font-mono text-[9.5px]"
+              className={cn("flex h-5 w-full items-center justify-center px-2", LEO_MONO_SM)}
             >
               ERR_0
             </Badge>
@@ -138,9 +152,9 @@ export default function LeonardoUI() {
         className="group/card relative w-full border border-(--foreground)/10 p-4"
       >
         <div className="space-y-3">
-          <div className="flex items-end justify-between font-mono text-xs tracking-[0.2em] text-(--neutral) uppercase">
-            <div className="flex items-center gap-3">
-              <div className="h-2 w-2 animate-pulse rounded-[1px] bg-(--foreground)" />
+          <div className="flex items-end justify-between font-mono text-xs tracking-wider text-(--neutral) uppercase">
+            <div>
+              <span className="mr-2 inline-block h-2 w-2 -translate-y-px animate-pulse rounded-[1px] bg-(--foreground) align-middle" />
               <span className="text-(--foreground)">System Initialization</span>
             </div>
             <div className="font-mono font-normal text-(--foreground)">
@@ -155,11 +169,15 @@ export default function LeonardoUI() {
             />
           </div>
 
-          <div className="grid w-full grid-cols-4 gap-3 pt-0.5 font-mono text-[9px] tracking-widest uppercase">
+          <div
+            className={cn(
+              "grid w-full grid-cols-4 gap-3 pt-0.5",
+              LEO_MONO_SM,
+              "tracking-wider uppercase",
+            )}
+          >
             <div className="space-y-1">
-              <div className="text-[7px] text-(--neutral)">
-                SYSTEM_STATUS
-              </div>
+              <div className={LEO_SUBLABEL}>SYSTEM_STATUS</div>
               <div>
                 <span className="text-(--neutral)">CORE_LOAD:</span>{" "}
                 <span className="text-(--foreground)">{coreLoad}%</span>
@@ -170,9 +188,7 @@ export default function LeonardoUI() {
               </div>
             </div>
             <div className="space-y-1">
-              <div className="text-[7px] text-(--neutral)">
-                NETWORK_BRIDGE
-              </div>
+              <div className={LEO_SUBLABEL}>NETWORK_BRIDGE</div>
               <div>
                 <span className="text-(--neutral)">UDP_LAT:</span>{" "}
                 <span className="text-(--foreground)">
@@ -185,7 +201,7 @@ export default function LeonardoUI() {
               </div>
             </div>
             <div className="block space-y-1">
-              <div className="text-[7px] text-(--neutral)">GEO_LOC</div>
+              <div className={LEO_SUBLABEL}>GEO_LOC</div>
               <div>
                 <span className="text-(--neutral)">LAT:</span>{" "}
                 <span className="text-(--foreground)">
@@ -199,8 +215,8 @@ export default function LeonardoUI() {
                 </span>
               </div>
             </div>
-            <div className="space-y-1 text-right">
-              <div className="text-[7px] text-(--neutral)">LICENSE</div>
+            <div className="space-y-1">
+              <div className={LEO_SUBLABEL}>LICENSE</div>
               <div>
                 <span className="text-(--neutral)">OS:</span>{" "}
                 <span className="text-(--foreground)">
@@ -224,17 +240,28 @@ export default function LeonardoUI() {
             variant="square"
             className="group/card relative w-full border border-(--foreground)/10 p-4"
           >
-            <div className="absolute top-0 right-0 p-3 font-mono text-[9px] text-(--neutral)">
+            <div
+              className={cn(
+                "absolute top-0 right-0 p-3",
+                LEO_MONO_SM,
+                "text-(--neutral)",
+              )}
+            >
               CLIENT_ENV
             </div>
             <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="h-2.5 w-2.5 rounded-[1px] bg-(--neutral-dark)" />
-                <span className="font-mono text-[11px] tracking-wider text-(--neutral) uppercase">
+              <div>
+                <span className="mr-3 inline-block h-2.5 w-2.5 translate-y-px rounded-[1px] bg-(--neutral-dark) align-middle" />
+                <span
+                  className={cn(
+                    LEO_MONO_LG,
+                    "tracking-wider text-(--neutral) uppercase",
+                  )}
+                >
                   Hardware Specs
                 </span>
               </div>
-              <div className="flex flex-col gap-2 pt-1 font-mono text-[10px]">
+              <div className={cn("flex flex-col gap-2 pt-1", LEO_MONO_MD)}>
                 <div className="flex justify-between border-b border-(--foreground)/10 pb-1">
                   <span className="text-(--neutral)">OS</span>
                   <span className="text-(--foreground)">
@@ -267,17 +294,28 @@ export default function LeonardoUI() {
             variant="square"
             className="group/card relative w-full border border-(--foreground)/10 p-4"
           >
-            <div className="absolute top-0 right-0 p-3 font-mono text-[9px] text-(--neutral)">
+            <div
+              className={cn(
+                "absolute top-0 right-0 p-3",
+                LEO_MONO_SM,
+                "text-(--neutral)",
+              )}
+            >
               LOCAL_METRICS
             </div>
             <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="h-2.5 w-2.5 animate-pulse rounded-[1px] bg-(--foreground)" />
-                <span className="font-mono text-[11px] tracking-wider text-(--foreground) uppercase">
+              <div>
+                <span className="mr-3 inline-block h-2.5 w-2.5 translate-y-px animate-pulse rounded-[1px] bg-(--foreground) align-middle" />
+                <span
+                  className={cn(
+                    LEO_MONO_LG,
+                    "tracking-wider text-(--foreground) uppercase",
+                  )}
+                >
                   Session Data
                 </span>
               </div>
-              <div className="flex flex-col gap-2 pt-1 font-mono text-[10px]">
+              <div className={cn("flex flex-col gap-2 pt-1", LEO_MONO_MD)}>
                 <div className="flex justify-between border-b border-(--foreground)/10 pb-1">
                   <span className="text-(--neutral)">IPV4_ADDR</span>
                   <span className="text-(--foreground)">

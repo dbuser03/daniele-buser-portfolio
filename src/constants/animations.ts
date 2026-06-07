@@ -25,11 +25,16 @@ export const FADE_UP_TRANSITION = {
   ease: EASE_OUT,
 } as const;
 
-export const STAGGER_FADE_UP = (delay: number) => ({
-  duration: 0.35,
-  ease: "easeOut" as const,
-  delay,
-}) as const;
+export const FADE_UP = (
+  delay: number,
+  yOffset = 20,
+  duration = 0.35,
+) =>
+  ({
+    initial: { opacity: 0, y: yOffset },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration, ease: "easeOut" as const, delay },
+  }) as const;
 
 export const createFadeUpVariants = (
   delay: number,
@@ -54,3 +59,7 @@ export const createFadeUpVariants = (
     },
   },
 } as const);
+
+export const FADE_UP_PARAGRAPH = createFadeUpVariants(0.35, 20, 0.4);
+
+export const FADE_UP_BUTTON = createFadeUpVariants(0.5, 20, 0.4);

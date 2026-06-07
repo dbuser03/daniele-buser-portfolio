@@ -2,7 +2,7 @@ import type { ProjectColor } from "@/types/projects";
 import { hexToRgbStr } from "@/utils/colors";
 import DetailSectionCard from "@/components/projects/project-detail/DetailSectionCard";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 
 interface DetailPaletteCardProps {
@@ -13,6 +13,13 @@ export default function DetailPaletteCard({ colors }: DetailPaletteCardProps) {
   const { handleMouseEnter, handleMouseLeave } =
     useCursorInteraction("current");
   const [copied, setCopied] = useState<string | null>(null);
+  const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+    };
+  }, []);
   return (
     <DetailSectionCard label="Palette">
       <div className="mt-8 flex w-full gap-4 pb-2">
@@ -24,12 +31,9 @@ export default function DetailPaletteCard({ colors }: DetailPaletteCardProps) {
             <div
               key={hex}
               className="flex flex-1 flex-col"
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
             >
               <motion.span
                 className="mb-2 text-sm font-normal tracking-wider text-(--neutral-dark) -mt-5"
-                style={{ fontFamily: "var(--font-neue-haas), sans-serif" }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: copied === hex ? 1 : 0 }}
               >
@@ -40,17 +44,17 @@ export default function DetailPaletteCard({ colors }: DetailPaletteCardProps) {
                 style={{ backgroundColor: hex }}
                 whileHover={{ scale: 0.98 }}
                 whileTap={{ scale: 0.94 }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
                 onClick={() => {
+                  if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
                   navigator.clipboard.writeText(hex);
                   setCopied(hex);
-                  setTimeout(() => setCopied(null), 800);
+                  copyTimeoutRef.current = setTimeout(() => setCopied(null), 800);
                 }}
               />
 
-              <div
-                className="mt-8 flex flex-col gap-y-1.5 text-sm leading-none font-normal text-(--foreground) uppercase"
-                style={{ fontFamily: "var(--font-neue-haas), sans-serif" }}
-              >
+              <div className="mt-8 flex flex-col gap-y-1.5 text-sm leading-none font-normal text-(--foreground) uppercase">
                 <span>{hex}</span>
                 {rgb && <span className="text-(--neutral)">RGB {rgb}</span>}
                 {pantone && (

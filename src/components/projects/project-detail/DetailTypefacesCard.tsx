@@ -39,17 +39,12 @@ export default function DetailTypefacesCard({
             className="flex flex-col items-start justify-end"
           >
             <span
-              className="text-[16rem] leading-none font-normal text-(--neutral)"
+              className="text-display-xl font-normal text-(--neutral)"
               style={{ fontFamily: getFontFamily(font) }}
             >
               {font.sampleText || "Aa"}
             </span>
-            <span
-              className="-mt-5 text-sm font-normal tracking-wider text-(--neutral-dark)"
-              style={{
-                fontFamily: "var(--font-neue-haas), sans-serif",
-              }}
-            >
+            <span className="-mt-5 text-sm font-normal tracking-wider text-(--neutral-dark)">
               {font.type}
             </span>
             <span

@@ -6,6 +6,7 @@ import { CONTACT_LINKS, EMAIL } from "@/constants/contacts";
 import { ContactLink } from "@/types/contacts";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { createFadeUpVariants } from "@/constants/animations";
+import AnimatedTextSpan from "@/components/ui/AnimatedTextSpan";
 
 function ContactLinkItem({
   link,
@@ -27,14 +28,14 @@ function ContactLinkItem({
       {...(download && {
         download: true,
       })}
-      className="text-lg text-(--neutral) focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
+      className="text-lg"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <span className="text-(--neutral) hover:text-(--foreground) transition-colors duration-300 ease-out">
+      <AnimatedTextSpan>
         {label}
         {external && <span className="sr-only"> (opens in new tab)</span>}
-      </span>
+      </AnimatedTextSpan>
     </a>
   );
 }
@@ -79,7 +80,7 @@ export default function Contacts({
       aria-labelledby="contacts-heading"
     >
       <motion.p
-        className="max-w-2xl text-4xl leading-none"
+        className="max-w-2xl text-section"
         variants={paragraphVariants}
         initial="initial"
         animate={trigger === "mount" ? "visible" : undefined}
@@ -99,7 +100,7 @@ export default function Contacts({
       >
         <a
           href={`mailto:${EMAIL}`}
-          className="block w-fit focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
+          className="block w-fit"
           onMouseEnter={handleEmailEnter}
           onMouseLeave={handleEmailLeave}
           aria-label={`Send email to ${EMAIL}`}

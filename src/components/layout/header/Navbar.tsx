@@ -9,7 +9,8 @@ import { NAV_LINKS } from "@/constants/layout";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { useLenis } from "lenis/react";
 import { cn } from "@/utils/cn";
-import { STAGGER_FADE_UP } from "@/constants/animations";
+import { FADE_UP } from "@/constants/animations";
+import AnimatedTextSpan from "@/components/ui/AnimatedTextSpan";
 import type { NavItemProps } from "@/types/layout";
 
 function NavItem({ href, label, delay }: NavItemProps) {
@@ -34,14 +35,12 @@ function NavItem({ href, label, delay }: NavItemProps) {
   return (
     <li>
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={STAGGER_FADE_UP(delay)}
+        {...FADE_UP(delay)}
       >
         <Link
           href={href as Route}
           className={cn(
-            "text-sm focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm",
+            "text-sm",
             isActive ? "font-bold" : "font-normal",
           )}
           onMouseEnter={handleMouseEnter}
@@ -49,15 +48,7 @@ function NavItem({ href, label, delay }: NavItemProps) {
           onClick={handleClick}
           aria-current={isActive ? "page" : undefined}
         >
-          <motion.span
-            animate={{
-              color: isActive ? "var(--foreground)" : "var(--neutral)",
-            }}
-            whileHover={{ color: "var(--foreground)" }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-          >
-            {label}
-          </motion.span>
+          <AnimatedTextSpan isActive={isActive}>{label}</AnimatedTextSpan>
         </Link>
       </motion.div>
     </li>

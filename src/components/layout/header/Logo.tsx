@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
-import { STAGGER_FADE_UP } from "@/constants/animations";
+import { FADE_UP } from "@/constants/animations";
 import { useLenis } from "lenis/react";
 
 export default function Logo() {
@@ -23,7 +23,7 @@ export default function Logo() {
   return (
     <Link
       href="/"
-      className="flex flex-col items-start focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
+      className="flex flex-col items-start"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
@@ -31,17 +31,13 @@ export default function Logo() {
     >
       <motion.span
         className="text-lg leading-none font-bold text-(--foreground)"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={STAGGER_FADE_UP(0)}
+        {...FADE_UP(0)}
       >
         DANIELE BUSER
       </motion.span>
       <motion.p
         className="text-sm text-(--neutral)"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={STAGGER_FADE_UP(0.1)}
+        {...FADE_UP(0.1)}
       >
         Creative Developer
       </motion.p>

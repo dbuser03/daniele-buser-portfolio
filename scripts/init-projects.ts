@@ -147,6 +147,18 @@ function traceDependencies(
   return Array.from(visited);
 }
 
+function readCustomThemeContent(themeCssPath: string, id: string): string {
+  if (!fs.existsSync(themeCssPath)) return "";
+  const existing = fs.readFileSync(themeCssPath, "utf8");
+  const blockRegex = new RegExp(
+    `\\.project-theme-${escapeRegex(id)}\\s*\\{[\\s\\S]*?\\n\\}`,
+  );
+  const match = existing.match(blockRegex);
+  if (!match || match.index === undefined) return "";
+  const customStart = match.index + match[0].length;
+  return existing.substring(customStart).trim();
+}
+
 function makeImportsRelative(
   content: string,
   fileRelativePath: string,
@@ -225,15 +237,83 @@ function extractProjectBlocks(fileContent: string): string[] {
   return blocks;
 }
 
-function parseProjectColors(block: string, id: string): ParsedColor[] {
+function findImportedArrayLiteral(
+  sourceContent: string,
+  sourceFile: string,
+  varName: string,
+): string | null {
+  const importRegex = /import\s+\{([^}]+)\}\s+from\s+["']([^"']+)["']/g;
+  let match: RegExpExecArray | null;
+  while ((match = importRegex.exec(sourceContent)) !== null) {
+    const names = match[1]
+      .split(",")
+      .map((n) => n.trim().split(/\s+as\s+/)[0]);
+    const importPath = match[2];
+    if (!names.includes(varName)) continue;
+
+    let resolvedPath = "";
+    if (importPath.startsWith("@/")) {
+      resolvedPath = path.join(process.cwd(), "src", importPath.substring(2));
+    } else if (
+      importPath.startsWith(".") ||
+      importPath.startsWith("..")
+    ) {
+      resolvedPath = path.resolve(path.dirname(sourceFile), importPath);
+    } else {
+      return null;
+    }
+
+    for (const ext of [".ts", ".tsx"]) {
+      const withExt = resolvedPath + ext;
+      if (fs.existsSync(withExt)) {
+        resolvedPath = withExt;
+        break;
+      }
+    }
+    if (!fs.existsSync(resolvedPath)) return null;
+
+    const importedContent = fs.readFileSync(resolvedPath, "utf8");
+    const exportRegex = new RegExp(
+      `export\\s+const\\s+${varName}\\b[\\s\\S]*?=\\s*\\[([\\s\\S]*?)\\]`,
+    );
+    const exportMatch = importedContent.match(exportRegex);
+    return exportMatch ? exportMatch[1] : null;
+  }
+  return null;
+}
+
+function parseProjectColors(
+  block: string,
+  id: string,
+  fileContent: string,
+  sourceFile: string,
+): ParsedColor[] {
   const colorsMatch = block.match(/brandingColors\s*:\s*\[([\s\S]*?)\]/);
-  if (!colorsMatch) {
+  let colorsContent: string | null = null;
+
+  if (colorsMatch) {
+    colorsContent = colorsMatch[1];
+  } else {
+    const varMatch = block.match(/brandingColors\s*:\s*(\w+)/);
+    if (varMatch) {
+      colorsContent = findImportedArrayLiteral(
+        fileContent,
+        sourceFile,
+        varMatch[1],
+      );
+      if (colorsContent === null) {
+        throw new Error(
+          `[init-projects] Project '${id}': Cannot resolve 'brandingColors' reference '${varMatch[1]}'.`,
+        );
+      }
+    }
+  }
+
+  if (colorsContent === null) {
     throw new Error(
       `[init-projects] Project '${id}': Missing 'brandingColors' field.`,
     );
   }
-
-  const colorsContent = colorsMatch[1];
   const colorObjects = colorsContent.match(/\{[\s\S]*?\}/g) || [];
   const parsedColors: ParsedColor[] = [];
 
@@ -471,7 +551,7 @@ function init(): void {
     if (!idMatch) continue;
     const id = idMatch[1];
 
-    const brandingColors = parseProjectColors(block, id);
+    const brandingColors = parseProjectColors(block, id, fileContent, PROJECTS_FILE);
     const brandingFonts = parseProjectFonts(block);
 
     const hasCustomComponents = /hasCustomComponents\s*:\s*true/.test(block);
@@ -495,7 +575,11 @@ function init(): void {
     if (brandingColors.length > 0) {
       const cssContent = generateThemeCss(id, brandingColors, brandingFonts);
       const themeCssPath = path.join(projectSrcDir, "theme.css");
-      fs.writeFileSync(themeCssPath, cssContent, "utf8");
+      const customContent = readCustomThemeContent(themeCssPath, id);
+      const finalContent = customContent
+        ? `${cssContent}\n${customContent}\n`
+        : cssContent;
+      fs.writeFileSync(themeCssPath, finalContent, "utf8");
       console.log(`[init-projects] Created/Updated theme.css for ${id}`);
     }
 

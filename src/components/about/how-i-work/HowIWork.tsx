@@ -8,6 +8,7 @@ import { useHowIWork } from "@/hooks/useHowIWork";
 import WorkWord from "./WorkWord";
 import VideoLayer from "./VideoLayer";
 import Skeleton from "@/components/ui/Skeleton";
+import SectionLabel from "@/components/ui/SectionLabel";
 import { SCROLL_SPRING_CONFIG } from "@/constants/animations";
 
 export default function HowIWork() {
@@ -62,16 +63,17 @@ export default function HowIWork() {
       className="relative z-10 text-(--background)"
       aria-labelledby="how-i-work-heading"
     >
-      <motion.h2
+      <SectionLabel
         id="how-i-work-heading"
-        className="pb-3 text-sm text-(--neutral-dark)"
+        as={motion.h2}
+        tone="dark"
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: "easeOut", delay: baseDelay }}
       >
         HOW I WORK
-      </motion.h2>
-      <div className="flex flex-col gap-10">
+      </SectionLabel>
+      <div className="mt-3 flex flex-col gap-10">
         <div className="grid grid-cols-12 gap-4">
           <motion.div
             className="relative aspect-16/7 w-full overflow-hidden bg-(--neutral) col-span-9"
@@ -134,7 +136,7 @@ export default function HowIWork() {
         </div>
 
         <div className="grid grid-cols-12 gap-4">
-          <p className="text-4xl leading-none text-(--background) col-span-6">
+          <p className="text-section text-(--background) col-span-6">
             Most of my time goes into the parts nobody sees — decisions,
             tradeoffs, things that get cut. What ships is what survives that
             process. I handle design and development together, which means

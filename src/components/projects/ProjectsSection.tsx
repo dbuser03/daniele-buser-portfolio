@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { PROJECTS } from "@/constants/projects";
 import ProjectCard from "./ProjectCard";
+import SectionLabel from "@/components/ui/SectionLabel";
 import { createFadeUpVariants } from "@/constants/animations";
 
 export default function ProjectsSection() {
@@ -14,17 +15,18 @@ export default function ProjectsSection() {
       className="relative z-10 flex w-full flex-col pb-64"
       aria-labelledby="projects-list-heading"
     >
-      <motion.h2
+      <SectionLabel
+        as={motion.h2}
         id="projects-list-heading"
-        className="pb-3 text-sm text-(--neutral-dark)"
+        tone="dark"
         variants={labelVariants}
         initial="initial"
         animate="visible"
       >
         SELECTED WORKS
-      </motion.h2>
+      </SectionLabel>
       <motion.div
-        className="grid w-full grid-cols-12 gap-4"
+        className="mt-3 grid w-full grid-cols-12 gap-4"
         variants={gridVariants}
         initial="initial"
         animate="visible"

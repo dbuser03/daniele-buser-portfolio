@@ -17,7 +17,7 @@ export default function ProjectsTitle({ year }: { year: string }) {
   return (
     <h1
       id={PROJECTS_TITLE_ID}
-      className="relative z-10 flex w-full items-baseline justify-between text-[14rem] leading-none text-(--background)"
+      className="relative z-10 flex w-full items-baseline justify-between text-display-lg text-(--background)"
       aria-label={`Projects ${twoDigitYear}`}
     >
       <motion.span

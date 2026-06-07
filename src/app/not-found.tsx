@@ -1,24 +1,16 @@
 "use client";
 
-import { useMemo } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { HeroTitleStatic } from "@/components/ui/HeroTitle";
 import GridLines from "@/components/layout/GridLines";
-import { createFadeUpVariants } from "@/constants/animations";
+import { FADE_UP_BUTTON, FADE_UP_PARAGRAPH } from "@/constants/animations";
+import { CSS_VARIABLES } from "@/constants/theme";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 
+const MotionLink = motion(Link);
+
 export default function NotFound() {
-  const paragraphVariants = useMemo(
-    () => createFadeUpVariants(0.35, 20, 0.4),
-    [],
-  );
-
-  const buttonVariants = useMemo(
-    () => createFadeUpVariants(0.5, 20, 0.4),
-    [],
-  );
-
   const { handleMouseEnter, handleMouseLeave } =
     useCursorInteraction("current");
 
@@ -47,7 +39,7 @@ export default function NotFound() {
               duration={0.8}
             />
             <motion.p
-              variants={paragraphVariants}
+              variants={FADE_UP_PARAGRAPH}
               initial="initial"
               animate="visible"
               className="text-sm text-(--neutral) tracking-wide -mt-3"
@@ -56,18 +48,20 @@ export default function NotFound() {
             </motion.p>
           </div>
           <motion.div
-            variants={buttonVariants}
+            variants={FADE_UP_BUTTON}
             initial="initial"
             animate="visible"
           >
-            <Link
+            <MotionLink
               href="/"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              className="cursor-pointer rounded-sm border border-(--foreground) bg-(--background) px-5 py-2.5 text-xs font-normal uppercase tracking-wider text-(--foreground) hover:bg-(--foreground) hover:text-(--background) hover:border-(--foreground) transition-all duration-300 focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
+              whileHover={{ backgroundColor: CSS_VARIABLES.foreground, color: CSS_VARIABLES.background }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="rounded-sm border border-(--foreground) bg-(--background) px-5 py-2.5 text-xs font-normal uppercase tracking-wider text-(--foreground)"
             >
               Go home
-            </Link>
+            </MotionLink>
           </motion.div>
         </div>
       </div>
