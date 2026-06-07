@@ -6,7 +6,18 @@ export const getCursorInteractionConfig = (
   type: CursorInteractionType,
 ): CursorInteractionConfig => {
   switch (type) {
-    case "header":
+    case "current":
+      return {
+        onEnter: {
+          size: CURSOR_SIZE.xs,
+          color: CSS_VARIABLES.accent,
+        },
+        onLeave: {
+          size: CURSOR_SIZE.sm,
+          color: CSS_VARIABLES.accent,
+        },
+      };
+    case "interactive":
       return {
         onEnter: {
           size: CURSOR_SIZE.xs,
@@ -17,7 +28,18 @@ export const getCursorInteractionConfig = (
           color: CSS_VARIABLES.accent,
         },
       };
-    case "footer":
+    case "pulse":
+      return {
+        onEnter: {
+          size: CURSOR_SIZE.sm,
+          color: CSS_VARIABLES.accent,
+          pulse: true,
+        },
+        onLeave: {
+          size: CURSOR_SIZE.sm,
+          color: CSS_VARIABLES.accent,
+        },
+      };
     case "default":
     default:
       return {};

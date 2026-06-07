@@ -4,7 +4,6 @@ import { useCallback } from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CURSOR_SIZE } from "@/constants/cursor";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { STAGGER_FADE_UP } from "@/constants/animations";
 import { useLenis } from "lenis/react";
@@ -12,12 +11,7 @@ import { useLenis } from "lenis/react";
 export default function Logo() {
   const pathname = usePathname();
   const lenis = useLenis();
-  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
-    "header",
-    {
-      onEnter: { size: CURSOR_SIZE.xs, color: "var(--accent)" },
-    },
-  );
+  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("interactive");
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     if (pathname === "/") {

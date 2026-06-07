@@ -2,22 +2,15 @@
 
 import { motion } from "motion/react";
 import TimeDisplay from "./TimeDisplay";
-import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { STAGGER_FADE_UP } from "@/constants/animations";
 
 export default function Footer() {
-  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("footer");
-
   return (
     <footer
       className="pointer-events-none fixed bottom-0 z-30 flex w-full flex-col p-4 mix-blend-difference"
       aria-label="Site footer with location and time"
     >
-      <div
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className="pointer-events-auto w-fit"
-      >
+      <div className="pointer-events-auto w-fit">
         <motion.p
           className="text-xs leading-none text-(--foreground) md:text-sm"
           initial={{ opacity: 0, y: 20 }}

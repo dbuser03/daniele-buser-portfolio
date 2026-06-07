@@ -1,11 +1,10 @@
 "use client";
 
-import { useMemo, useCallback } from "react";
+import { useCallback } from "react";
 import { motion } from "motion/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import type { Route } from "next";
-import { CURSOR_SIZE } from "@/constants/cursor";
 import { NAV_LINKS } from "@/constants/layout";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { useLenis } from "lenis/react";
@@ -21,16 +20,8 @@ function NavItem({ href, label, delay }: NavItemProps) {
       ? pathname === "/" || pathname.startsWith("/projects/")
       : pathname === href;
 
-  const cursorConfig = useMemo(() => isActive ? {
-    onEnter: {
-      size: CURSOR_SIZE.xs,
-      color: "var(--accent)",
-    },
-  } : undefined, [isActive]);
-
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
-    "header",
-    cursorConfig,
+    isActive ? "current" : "interactive",
   );
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {

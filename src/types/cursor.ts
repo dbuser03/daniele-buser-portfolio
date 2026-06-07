@@ -1,6 +1,10 @@
 import { MotionValue } from "motion/react";
 
-export type CursorInteractionType = "header" | "footer" | "default";
+export type CursorInteractionType =
+  | "default"
+  | "current"
+  | "interactive"
+  | "pulse";
 
 export interface CursorProps {
   smoothX: MotionValue<number>;
@@ -21,6 +25,7 @@ export interface CursorInteractionConfig {
   onEnter?: {
     size?: number;
     color?: string;
+    pulse?: boolean;
   };
   onLeave?: {
     size?: number;

@@ -17,9 +17,7 @@ function ProjectCard({ project }: ProjectCardProps) {
   const [isLoading, setIsLoading] = useState(!!imageSrc);
   const [hasError, setHasError] = useState(false);
 
-  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("header", {
-    onEnter: { color: "var(--accent)" },
-  });
+  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("current");
 
   const showSkeleton = !imageSrc || isLoading || hasError;
 

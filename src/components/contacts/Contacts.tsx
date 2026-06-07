@@ -3,8 +3,6 @@
 import { Fragment, useMemo } from "react";
 import { motion } from "motion/react";
 import { CONTACT_LINKS, EMAIL } from "@/constants/contacts";
-import { CURSOR_SIZE } from "@/constants/cursor";
-import { CSS_VARIABLES } from "@/constants/theme";
 import { ContactLink } from "@/types/contacts";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { createFadeUpVariants } from "@/constants/animations";
@@ -61,11 +59,9 @@ export default function Contacts({
   const {
     handleMouseEnter: handleEmailEnter,
     handleMouseLeave: handleEmailLeave,
-  } = useCursorInteraction("header", {
-    onEnter: { size: CURSOR_SIZE.xs, color: CSS_VARIABLES.accent },
-  });
+  } = useCursorInteraction("interactive");
 
-  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("header");
+  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("interactive");
 
   const paragraphVariants = useMemo(
     () => createFadeUpVariants(paragraphDelay),
@@ -114,7 +110,7 @@ export default function Contacts({
         >
           <h2
             id="contacts-heading"
-            className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl text-(--foreground) hover:text-(--neutral) transition-colors duration-300 ease-out"
+            className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl text-(--foreground)"
           >
             {EMAIL}
           </h2>

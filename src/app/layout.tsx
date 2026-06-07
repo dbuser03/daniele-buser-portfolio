@@ -1,5 +1,5 @@
 import "./globals.css";
-import ClientLayout from "@/components/layout/ClientLayout";
+import ClientLayout from "@/components/layout/cursor/ClientLayout";
 import { Metadata } from "next";
 import localFont from "next/font/local";
 import { baseMetadata, personJsonLd, websiteJsonLd } from "@/utils/metadata";

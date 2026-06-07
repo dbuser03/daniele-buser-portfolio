@@ -15,7 +15,7 @@ export function useTechStack() {
     string | null
   >(null);
 
-  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("header");
+  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction("interactive");
 
   useEffect(() => {
     if (highlightTimeoutRef.current) {

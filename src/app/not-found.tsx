@@ -6,6 +6,7 @@ import { motion } from "motion/react";
 import { HeroTitleStatic } from "@/components/ui/HeroTitle";
 import GridLines from "@/components/layout/GridLines";
 import { createFadeUpVariants } from "@/constants/animations";
+import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 
 export default function NotFound() {
   const paragraphVariants = useMemo(
@@ -17,6 +18,9 @@ export default function NotFound() {
     () => createFadeUpVariants(0.5, 20, 0.4),
     [],
   );
+
+  const { handleMouseEnter, handleMouseLeave } =
+    useCursorInteraction("current");
 
   return (
     <main
@@ -58,6 +62,8 @@ export default function NotFound() {
           >
             <Link
               href="/"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
               className="cursor-pointer rounded-sm border border-(--foreground) bg-(--background) px-5 py-2.5 text-xs font-normal uppercase tracking-wider text-(--foreground) hover:bg-(--foreground) hover:text-(--background) hover:border-(--foreground) transition-all duration-300 focus-visible:outline focus-visible:outline-(--accent) focus-visible:outline-offset-4 focus-visible:rounded-sm"
             >
               Go home

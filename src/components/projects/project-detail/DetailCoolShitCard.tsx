@@ -17,7 +17,7 @@ export default function DetailCoolShitCard({
   coolShitName,
 }: DetailCoolShitCardProps) {
   const { handleMouseEnter, handleMouseLeave } =
-    useCursorInteraction("header");
+    useCursorInteraction("interactive");
 
   return (
     <div className="relative flex aspect-4/3 w-full items-center justify-center overflow-hidden bg-(--card-dark)">

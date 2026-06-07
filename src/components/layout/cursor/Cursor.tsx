@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { CSS_VARIABLES } from "@/constants/theme";
 import { CursorProps } from "@/types/cursor";
 
 export default function Cursor({
@@ -8,7 +9,7 @@ export default function Cursor({
   smoothY,
   cursorSize,
   opacity,
-  color = "var(--accent)",
+  color = CSS_VARIABLES.accent,
 }: CursorProps) {
   return (
     <motion.div
