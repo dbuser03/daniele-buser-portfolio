@@ -168,7 +168,7 @@ export default function ProjectDetailClient({
             </motion.div>
           </motion.div>
 
-          <div className="mt-14 grid grid-cols-12 gap-4">
+          <div className="mt-10 grid grid-cols-12 gap-4">
             <motion.p
               className="text-section col-span-6 font-normal text-(--background)"
               initial="initial"
@@ -176,10 +176,11 @@ export default function ProjectDetailClient({
               viewport={{ once: true }}
               variants={entranceVariants(0.15, 20, motionTokens.duration.smooth)}
             >
-              A closer look at the architecture, data flow, and implementation
-              details that bring this project to life. Every component is
-              built with performance and maintainability in mind, making
-              sure the codebase stays clean and scalable over time.
+              PP Neue Montreal keeps the interface clean and readable for
+              headings, while the mono variant brings a technical edge to
+              data points. The whole thing sits on a dark theme with a
+              tight palette that feels closer to a terminal than a
+              typical portfolio.
             </motion.p>
           </div>
         </div>
