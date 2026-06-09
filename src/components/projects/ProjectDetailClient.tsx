@@ -167,6 +167,21 @@ export default function ProjectDetailClient({
               )}
             </motion.div>
           </motion.div>
+
+          <div className="mt-14 grid grid-cols-12 gap-4">
+            <motion.p
+              className="text-section col-span-6 font-normal text-(--background)"
+              initial="initial"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={entranceVariants(0.15, 20, motionTokens.duration.smooth)}
+            >
+              A closer look at the architecture, data flow, and implementation
+              details that bring this project to life. Every component is
+              built with performance and maintainability in mind, making
+              sure the codebase stays clean and scalable over time.
+            </motion.p>
+          </div>
         </div>
       </div>
     </div>
