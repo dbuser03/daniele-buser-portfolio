@@ -7,11 +7,19 @@ import { CURSOR_SIZE } from "@/constants/cursor";
 import { CursorInteractionType } from "@/types/cursor";
 import { getCursorInteractionConfig } from "@/utils/cursor";
 
+interface CursorInteractionCallbacks {
+  onEnter?: () => void;
+  onLeave?: () => void;
+}
+
 export const useCursorInteraction = (
   type: CursorInteractionType = "default",
+  callbacks?: CursorInteractionCallbacks,
 ) => {
   const { cursorSize, setColor } = useCursorContext();
   const pulseControls = useRef<ReturnType<typeof animate> | null>(null);
+  const callbacksRef = useRef(callbacks);
+  callbacksRef.current = callbacks;
 
   const config = useMemo(() => getCursorInteractionConfig(type), [type]);
 
@@ -36,6 +44,7 @@ export const useCursorInteraction = (
   }, [cursorSize, stopPulse]);
 
   const handleMouseEnter = useCallback(() => {
+    callbacksRef.current?.onEnter?.();
     const state = config.onEnter;
     if (!state) return;
     if (state.size !== undefined) cursorSize.set(state.size);
@@ -45,6 +54,7 @@ export const useCursorInteraction = (
 
   const handleMouseLeave = useCallback(() => {
     stopPulse();
+    callbacksRef.current?.onLeave?.();
     const state = config.onLeave;
     if (!state) return;
     if (state.size !== undefined) cursorSize.set(state.size);
@@ -55,5 +65,5 @@ export const useCursorInteraction = (
     return () => stopPulse();
   }, [stopPulse]);
 
-  return { handleMouseEnter, handleMouseLeave };
+  return { handleMouseEnter, handleMouseLeave, startPulse, stopPulse };
 };

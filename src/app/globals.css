@@ -9,6 +9,8 @@
   --text-display-md--line-height: 1;
   --text-section: 2.25rem;
   --text-section--line-height: 1;
+  --text-display-sm: 4.5rem;
+  --text-display-sm--line-height: 1;
 }
 
 :root {

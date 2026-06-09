@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import TimeDisplay from "./TimeDisplay";
-import { FADE_UP } from "@/constants/animations";
+import { motionTokens, entranceVariants } from "@/constants/animations";
 
 export default function Footer() {
   return (
@@ -13,11 +13,18 @@ export default function Footer() {
       <div className="pointer-events-auto w-fit">
         <motion.p
           className="text-sm leading-none text-(--foreground)"
-          {...FADE_UP(0.8)}
+          variants={entranceVariants(0.8, 20, motionTokens.duration.smooth)}
+          initial="initial"
+          animate="visible"
         >
           LUGANO - <TimeDisplay />
         </motion.p>
-        <motion.p className="text-sm text-(--neutral)" {...FADE_UP(0.9)}>
+        <motion.p
+          className="text-sm text-(--neutral)"
+          variants={entranceVariants(0.9, 20, motionTokens.duration.smooth)}
+          initial="initial"
+          animate="visible"
+        >
           46&deg; 00&apos; 13.24&quot; - 08&deg; 57&apos; 03.79&quot;
         </motion.p>
       </div>

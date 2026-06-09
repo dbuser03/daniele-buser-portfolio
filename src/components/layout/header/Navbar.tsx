@@ -9,7 +9,7 @@ import { NAV_LINKS } from "@/constants/layout";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { useLenis } from "lenis/react";
 import { cn } from "@/utils/cn";
-import { FADE_UP } from "@/constants/animations";
+import { motionTokens, entranceVariants } from "@/constants/animations";
 import AnimatedTextSpan from "@/components/ui/AnimatedTextSpan";
 import type { NavItemProps } from "@/types/layout";
 
@@ -37,7 +37,7 @@ function NavItem({ href, label, delay }: NavItemProps) {
 
   return (
     <li>
-      <motion.div {...FADE_UP(delay)}>
+      <motion.div variants={entranceVariants(delay, 20, motionTokens.duration.smooth)} initial="initial" animate="visible">
         <Link
           href={href as Route}
           className={cn("text-sm", isActive ? "font-bold" : "font-normal")}

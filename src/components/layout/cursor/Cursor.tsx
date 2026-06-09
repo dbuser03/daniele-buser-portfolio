@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { motionTokens } from "@/constants/animations";
 import { CSS_VARIABLES } from "@/constants/theme";
 import { CursorProps } from "@/types/cursor";
 
@@ -30,8 +31,8 @@ export default function Cursor({
         scale: 1,
       }}
       transition={{
-        scale: { duration: 0.2, ease: "backOut" },
-        backgroundColor: { duration: 0.25, ease: "easeOut" },
+        scale: { duration: motionTokens.duration.fast, ease: "backOut" },
+        backgroundColor: { duration: motionTokens.duration.fast, ease: motionTokens.easing.standard },
       }}
     />
   );

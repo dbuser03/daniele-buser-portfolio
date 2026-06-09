@@ -14,7 +14,7 @@ import { usePathname } from "next/navigation";
 import { CursorContextType } from "@/types/cursor";
 import { CURSOR_SIZE } from "@/constants/cursor";
 import { CSS_VARIABLES } from "@/constants/theme";
-import { CURSOR_SPRING_CONFIG } from "@/constants/animations";
+import { motionTokens } from "@/constants/animations";
 import Cursor from "@/components/layout/cursor/Cursor";
 
 const CursorContext = createContext<CursorContextType | undefined>(undefined);
@@ -37,7 +37,7 @@ export const CursorProvider = ({
   const [color, setColor] = useState<string>(CSS_VARIABLES.accent);
   const pathname = usePathname();
 
-  const cursorSize = useSpring(CURSOR_SIZE.sm, CURSOR_SPRING_CONFIG);
+  const cursorSize = useSpring(CURSOR_SIZE.sm, motionTokens.spring.cursor);
   const smoothX = useMotionValue(-100);
   const smoothY = useMotionValue(-100);
   const opacity = useMotionValue(0);

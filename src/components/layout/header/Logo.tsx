@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
-import { FADE_UP } from "@/constants/animations";
+import { motionTokens, entranceVariants } from "@/constants/animations";
 import { useLenis } from "lenis/react";
 
 export default function Logo() {
@@ -35,11 +35,18 @@ export default function Logo() {
     >
       <motion.span
         className="text-lg leading-none font-bold text-(--foreground)"
-        {...FADE_UP(0)}
+        variants={entranceVariants(0, 20, motionTokens.duration.smooth)}
+        initial="initial"
+        animate="visible"
       >
         DANIELE BUSER
       </motion.span>
-      <motion.p className="text-sm text-(--neutral)" {...FADE_UP(0.1)}>
+      <motion.p
+        className="text-sm text-(--neutral)"
+        variants={entranceVariants(0.1, 20, motionTokens.duration.smooth)}
+        initial="initial"
+        animate="visible"
+      >
         Creative Developer
       </motion.p>
     </Link>
