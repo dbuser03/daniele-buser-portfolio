@@ -1,6 +1,7 @@
 import { cn } from "@/utils/cn";
 
 import { motion, AnimatePresence } from "motion/react";
+import { motionTokens } from "@/constants/animations";
 
 type SkeletonVariant = "on-dark" | "on-light";
 
@@ -38,7 +39,7 @@ export default function Skeleton({
           }}
           exit={{ opacity: 0 }}
           transition={{
-            opacity: { duration: 0.45, ease: "easeOut" },
+            opacity: { duration: motionTokens.duration.smooth, ease: motionTokens.easing.standard },
             backgroundPosition: {
               duration: 2.8,
               ease: "easeInOut",

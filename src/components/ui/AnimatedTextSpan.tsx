@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import type { ReactNode } from "react";
 import { CSS_VARIABLES } from "@/constants/theme";
-import { EASE_OUT } from "@/constants/animations";
+import { motionTokens } from "@/constants/animations";
 
 interface AnimatedTextSpanProps {
   children: ReactNode;
@@ -26,7 +26,7 @@ export default function AnimatedTextSpan({
     <motion.span
       animate={{ color: isActive ? activeColor : inactiveColor }}
       whileHover={{ color: hoverColor }}
-      transition={{ duration: 0.3, ease: EASE_OUT }}
+      transition={{ duration: motionTokens.duration.base, ease: motionTokens.easing.standard }}
       className={className}
     >
       {children}

@@ -2,27 +2,57 @@
 
 import { useMemo } from "react";
 import { motion } from "motion/react";
-import type { HeroTitleProps } from "@/types/ui";
 import { cn } from "@/utils/cn";
-import { createFadeUpVariants } from "@/constants/animations";
+import { motionTokens, entranceVariants } from "@/constants/animations";
 
-export default function HeroTitle({
+interface HeroTitleMountProps {
+  id?: string;
+  children: React.ReactNode;
+  className?: string;
+  ariaLabel?: string;
+  showDecorativeDot?: boolean;
+  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  delay?: number;
+  duration?: number;
+  yOffset?: number;
+}
+
+interface HeroTitleInViewProps extends HeroTitleMountProps {
+  viewport?: {
+    once?: boolean;
+    margin?: string;
+    amount?: "some" | "all" | number;
+  };
+}
+
+interface HeroTitleStaticProps {
+  id?: string;
+  children: React.ReactNode;
+  className?: string;
+  ariaLabel?: string;
+  showDecorativeDot?: boolean;
+  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+}
+
+function Dot() {
+  return (
+    <span className="text-(--accent)" aria-hidden="true">.</span>
+  );
+}
+
+export function HeroTitleMount({
   id,
-  text,
   children,
   className = "",
   ariaLabel,
-  once = false,
-  yOffset = 40,
-  duration = 0.45,
-  delay = 0.35,
+  showDecorativeDot = true,
   as = "h1",
-  showDot = true,
-  trigger = "mount",
-  viewport,
-}: HeroTitleProps) {
-  const titleVariants = useMemo(
-    () => createFadeUpVariants(delay, yOffset, duration),
+  delay = 0.35,
+  duration = motionTokens.duration.smooth,
+  yOffset = 40,
+}: HeroTitleMountProps) {
+  const variants = useMemo(
+    () => entranceVariants(delay, yOffset, duration),
     [delay, yOffset, duration],
   );
 
@@ -32,27 +62,68 @@ export default function HeroTitle({
     <MotionTag
       id={id}
       className={cn("text-display-xl", className)}
-      variants={titleVariants}
+      variants={variants}
       initial="initial"
-      animate={trigger === "mount" ? "visible" : undefined}
-      whileInView={trigger === "inView" ? "visible" : undefined}
-      viewport={viewport || { once, amount: 0.2 }}
+      animate="visible"
       aria-label={ariaLabel}
     >
-      {children || text}
-      {showDot && (
-        <span className="text-(--accent)" aria-hidden="true">
-          .
-        </span>
-      )}
+      {children}
+      {showDecorativeDot && <Dot />}
     </MotionTag>
   );
 }
 
-export const HeroTitleAnimated = (props: HeroTitleProps) => (
-  <HeroTitle once={true} trigger="mount" {...props} />
-);
+export function HeroTitleInView({
+  id,
+  children,
+  className = "",
+  ariaLabel,
+  showDecorativeDot = true,
+  as = "h1",
+  delay = 0.35,
+  duration = motionTokens.duration.smooth,
+  yOffset = 40,
+  viewport,
+}: HeroTitleInViewProps) {
+  const variants = useMemo(
+    () => entranceVariants(delay, yOffset, duration),
+    [delay, yOffset, duration],
+  );
 
-export const HeroTitleStatic = (props: HeroTitleProps) => (
-  <HeroTitle once={false} {...props} />
-);
+  const MotionTag = motion[as] || motion.h1;
+
+  return (
+    <MotionTag
+      id={id}
+      className={cn("text-display-xl", className)}
+      variants={variants}
+      initial="initial"
+      whileInView="visible"
+      viewport={viewport || { once: false, amount: 0.2 }}
+      aria-label={ariaLabel}
+    >
+      {children}
+      {showDecorativeDot && <Dot />}
+    </MotionTag>
+  );
+}
+
+export function HeroTitleStatic({
+  id,
+  children,
+  className = "",
+  ariaLabel,
+  showDecorativeDot = true,
+  as: Tag = "h1",
+}: HeroTitleStaticProps) {
+  return (
+    <Tag
+      id={id}
+      className={cn("text-display-xl", className)}
+      aria-label={ariaLabel}
+    >
+      {children}
+      {showDecorativeDot && <Dot />}
+    </Tag>
+  );
+}
