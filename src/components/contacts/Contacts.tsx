@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import { CONTACT_LINKS, EMAIL } from "@/constants/contacts";
 import { ContactLink } from "@/types/contacts";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
-import { createFadeUpVariants } from "@/constants/animations";
+import { entranceVariants } from "@/constants/animations";
 import AnimatedTextSpan from "@/components/ui/AnimatedTextSpan";
 
 function ContactLinkItem({
@@ -70,12 +70,12 @@ export default function Contacts({
     useCursorInteraction("interactive");
 
   const paragraphVariants = useMemo(
-    () => createFadeUpVariants(paragraphDelay),
+    () => entranceVariants(paragraphDelay),
     [paragraphDelay],
   );
 
   const linksVariants = useMemo(
-    () => createFadeUpVariants(linksDelay),
+    () => entranceVariants(linksDelay),
     [linksDelay],
   );
 
@@ -114,7 +114,7 @@ export default function Contacts({
             window.open(`mailto:${EMAIL}`, "_blank");
           }}
         >
-          <h2 id="contacts-heading" className="text-7xl text-(--foreground)">
+          <h2 id="contacts-heading" className="text-display-sm text-(--foreground)">
             {EMAIL}
           </h2>
         </a>

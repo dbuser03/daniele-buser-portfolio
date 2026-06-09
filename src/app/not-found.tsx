@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
-import { HeroTitleStatic } from "@/components/ui/HeroTitle";
+import { HeroTitleMount } from "@/components/ui/HeroTitle";
 import GridLines from "@/components/layout/GridLines";
-import { FADE_UP_BUTTON, FADE_UP_PARAGRAPH } from "@/constants/animations";
+import { entranceVariants, motionTokens } from "@/constants/animations";
 import { CSS_VARIABLES } from "@/constants/theme";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 
@@ -25,21 +25,22 @@ export default function NotFound() {
         className="pointer-events-none absolute inset-0 z-0 mx-4"
         aria-hidden="true"
       >
-        <GridLines variant="dark" />
+        <GridLines />
       </div>
 
       <div className="relative z-10 grid w-full grid-cols-12 gap-4">
         <div className="col-span-12 flex flex-col items-center gap-10 text-center">
           <div className="flex flex-col items-center gap-0 text-center">
-            <HeroTitleStatic
-              text="404"
+            <HeroTitleMount
               className="text-(--foreground)"
               ariaLabel="404 - Page not found"
-              delay={0.2}
-              duration={0.8}
-            />
+              delay={0.35}
+              duration={motionTokens.duration.smooth}
+            >
+              404
+            </HeroTitleMount>
             <motion.p
-              variants={FADE_UP_PARAGRAPH}
+              variants={entranceVariants(0.5, 20, motionTokens.duration.smooth)}
               initial="initial"
               animate="visible"
               className="-mt-3 text-sm tracking-wide text-(--neutral)"
@@ -48,7 +49,7 @@ export default function NotFound() {
             </motion.p>
           </div>
           <motion.div
-            variants={FADE_UP_BUTTON}
+            variants={entranceVariants(0.65, 20, motionTokens.duration.smooth)}
             initial="initial"
             animate="visible"
           >
@@ -60,7 +61,7 @@ export default function NotFound() {
                 backgroundColor: CSS_VARIABLES.foreground,
                 color: CSS_VARIABLES.background,
               }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
+              transition={{ duration: motionTokens.duration.base, ease: motionTokens.easing.standard }}
               className="rounded-sm border border-(--foreground) bg-(--background) px-5 py-2.5 text-xs font-normal tracking-wider text-(--foreground) uppercase"
             >
               Go home

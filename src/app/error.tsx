@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 import { motion } from "motion/react";
-import { HeroTitleStatic } from "@/components/ui/HeroTitle";
+import { HeroTitleMount } from "@/components/ui/HeroTitle";
 import GridLines from "@/components/layout/GridLines";
-import { FADE_UP_BUTTON, FADE_UP_PARAGRAPH } from "@/constants/animations";
+import { entranceVariants, motionTokens } from "@/constants/animations";
 import { CSS_VARIABLES } from "@/constants/theme";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 
@@ -33,21 +33,22 @@ export default function Error({
         className="pointer-events-none absolute inset-0 z-0 mx-4"
         aria-hidden="true"
       >
-        <GridLines variant="dark" />
+        <GridLines />
       </div>
 
       <div className="relative z-10 grid w-full grid-cols-12 gap-4">
         <div className="col-span-12 flex flex-col items-center gap-10 text-center">
           <div className="flex flex-col items-center gap-0 text-center">
-            <HeroTitleStatic
-              text="Hell Nah"
+            <HeroTitleMount
               className="text-(--foreground)"
               ariaLabel="Hell Nah - Something went wrong"
-              delay={0.2}
-              duration={0.8}
-            />
+              delay={0.35}
+              duration={motionTokens.duration.smooth}
+            >
+              Hell Nah
+            </HeroTitleMount>
             <motion.p
-              variants={FADE_UP_PARAGRAPH}
+              variants={entranceVariants(0.5, 20, motionTokens.duration.smooth)}
               initial="initial"
               animate="visible"
               className="-mt-3 text-sm tracking-wide text-(--neutral)"
@@ -56,7 +57,7 @@ export default function Error({
             </motion.p>
           </div>
           <motion.div
-            variants={FADE_UP_BUTTON}
+            variants={entranceVariants(0.65, 20, motionTokens.duration.smooth)}
             initial="initial"
             animate="visible"
           >
@@ -69,7 +70,7 @@ export default function Error({
                 backgroundColor: CSS_VARIABLES.foreground,
                 color: CSS_VARIABLES.background,
               }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
+              transition={{ duration: motionTokens.duration.base, ease: motionTokens.easing.standard }}
               className="rounded-sm border border-(--foreground) bg-(--background) px-5 py-2.5 text-xs font-normal tracking-wider text-(--foreground) uppercase"
             >
               Try again
