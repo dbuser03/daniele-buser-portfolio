@@ -44,5 +44,3 @@ skills-lock.json
 *.tsbuildinfo
 next-env.d.ts
 
-# generated project assets
-public/projects/**/*.zip
