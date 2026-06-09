@@ -2,9 +2,10 @@
 
 import type { ComponentType } from "react";
 import type { Project } from "@/types/projects";
-import { HeroTitleAnimated } from "@/components/ui/HeroTitle";
+import { HeroTitleMount } from "@/components/ui/HeroTitle";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { motion } from "motion/react";
+import { motionTokens, entranceVariants, listVariants, fadeVariants } from "@/constants/animations";
 import Skeleton from "@/components/ui/Skeleton";
 import dynamic from "next/dynamic";
 import DetailImage from "@/components/projects/project-detail/DetailImage";
@@ -16,7 +17,11 @@ import DetailCoolShitCard from "@/components/projects/project-detail/DetailCoolS
 const UI_MAP: Record<string, ComponentType> = {
   "leonardo-berselli-portfolio": dynamic(
     () =>
-      import("@/components/projects/leonardo-berselli-portfolio/leonardo-berselli-portfolio-UI"),
+      import("@/packages/leonardo-berselli-portfolio/components/LeonardoUI").then(
+        (m) => ({
+          default: m.default,
+        }),
+      ),
     {
       loading: () => <Skeleton isLoading={true} variant="on-dark" />,
     },
@@ -26,8 +31,10 @@ const UI_MAP: Record<string, ComponentType> = {
 const COOL_SHIT_MAP: Record<string, ComponentType> = {
   "leonardo-berselli-portfolio": dynamic(
     () =>
-      import("@/components/projects/leonardo-berselli-portfolio/portfolio/EarthGlobeAsciiWithCursor").then(
-        (m) => ({ default: m.EarthGlobeAsciiWithCursor }),
+      import("@/packages/leonardo-berselli-portfolio/components/EarthGlobeAscii").then(
+        (m) => ({
+          default: m.EarthGlobeAscii,
+        }),
       ),
     {
       loading: () => <Skeleton isLoading={true} variant="on-dark" />,
@@ -46,41 +53,32 @@ export default function ProjectDetailClient({
   const CoolShitComponent = project.hasCoolShit
     ? COOL_SHIT_MAP[project.id]
     : null;
-  const coolShitName = project.coolShitName || "InteractiveDemo";
-
   return (
     <div className="relative z-10 flex min-h-screen w-full flex-col pt-32 pb-48 text-(--background)">
       <div className="my-auto flex w-full flex-col">
         <div className="flex flex-col">
-          <HeroTitleAnimated
+          <HeroTitleMount
             id="project-detail-title"
-            text={project.title}
             className="text-display-md relative z-10 -ml-1 text-(--background)"
             ariaLabel={`${project.title} - Project heading`}
-            showDot={false}
-          />
+            showDecorativeDot={false}
+          >
+            {project.title}
+          </HeroTitleMount>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.7,
-              ease: [0.16, 1, 0.3, 1],
-              delay: 0.7,
-            }}
+            variants={entranceVariants(0.5, 20, motionTokens.duration.smooth)}
+            initial="initial"
+            animate="visible"
             className="text-section mt-3 font-normal tracking-tight text-(--neutral-dark)"
           >
             {project.year}
           </motion.p>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            ease: [0.16, 1, 0.3, 1],
-            delay: 0.95,
-          }}
+          <motion.div
+            variants={entranceVariants(0.65, 20, motionTokens.duration.smooth)}
+            initial="initial"
+            animate="visible"
           className="relative mt-28 aspect-video w-full overflow-hidden bg-(--neutral-dark)"
         >
           {project.image ? (
@@ -90,47 +88,85 @@ export default function ProjectDetailClient({
           )}
         </motion.div>
 
-        <div className="mt-14 grid grid-cols-12 gap-4">
+        <motion.div
+          className="mt-14 grid grid-cols-12 gap-4"
+          initial="initial"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={entranceVariants(0, 20, motionTokens.duration.smooth)}
+        >
           <div className="col-span-2 flex flex-col">
-            <SectionLabel as="h2" tone="dark">
+            <SectionLabel
+              as={motion.h2}
+              variant="section-heading"
+              variants={entranceVariants(0, 20, motionTokens.duration.smooth)}
+            >
               Obsession
             </SectionLabel>
           </div>
 
           <div className="col-span-10">
-            <div className="text-section grid grid-cols-2 gap-8 font-normal text-(--background)">
+            <motion.div
+              className="text-section grid grid-cols-2 gap-8 font-normal text-(--background)"
+              initial="initial"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={entranceVariants(0.15, 20, motionTokens.duration.smooth)}
+            >
               <p className="break-inside-avoid">{project.descriptionCol1}</p>
               <p className="break-inside-avoid">{project.descriptionCol2}</p>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         <div className="mt-28 flex w-full flex-col">
-          <SectionLabel as="h2" tone="dark">
+          <SectionLabel
+            as={motion.h2}
+            variant="section-heading"
+            initial="initial"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={entranceVariants(0, 20, motionTokens.duration.smooth)}
+          >
             Design
           </SectionLabel>
 
-          <div className="mt-3 flex w-full flex-col bg-(--background) p-4">
-            <div className="grid w-full grid-cols-2 gap-4">
-              <DetailPaletteCard colors={project.brandingColors} />
-              <DetailTypefacesCard fonts={project.brandingFonts} />
+          <motion.div
+            className="mt-3 flex w-full flex-col bg-(--background) p-4"
+            initial="initial"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={entranceVariants(0.15, 20, motionTokens.duration.smooth)}
+          >
+            <motion.div
+              className="grid w-full grid-cols-2 gap-4"
+              variants={listVariants(0.15, 0.08)}
+            >
+              <motion.div key="palette" variants={fadeVariants}>
+                <DetailPaletteCard colors={project.brandingColors} />
+              </motion.div>
+              <motion.div key="typefaces" variants={fadeVariants}>
+                <DetailTypefacesCard fonts={project.brandingFonts} />
+              </motion.div>
 
               {project.hasCustomComponents && (
-                <DetailCustomComponentsCard
-                  projectId={project.id}
-                  CustomComponents={CustomComponents}
-                />
+                <motion.div key="components" variants={fadeVariants}>
+                  <DetailCustomComponentsCard
+                    projectId={project.id}
+                    CustomComponents={CustomComponents}
+                  />
+                </motion.div>
               )}
 
               {CoolShitComponent && (
-                <DetailCoolShitCard
-                  CoolShitComponent={CoolShitComponent}
-                  projectId={project.id}
-                  coolShitName={coolShitName}
-                />
+                <motion.div key="cool-shit" variants={fadeVariants}>
+                  <DetailCoolShitCard
+                    CoolShitComponent={CoolShitComponent}
+                  />
+                </motion.div>
               )}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </div>

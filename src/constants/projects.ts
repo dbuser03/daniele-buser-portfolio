@@ -1,5 +1,5 @@
-import { Project } from "@/types/projects";
-import { LEONARDO_BRAND_COLORS } from "@/components/projects/leonardo-berselli-portfolio/constants/colors";
+import type { Project } from "@/types/projects";
+import { LEONARDO_BRAND_COLORS } from "@/packages/leonardo-berselli-portfolio/constants/colors";
 
 export const PROJECTS: Project[] = [
   {
@@ -11,6 +11,8 @@ export const PROJECTS: Project[] = [
       "Leonardo Berselli is a Machine Learning Engineer. His portfolio features a highly interactive, techy aesthetic inspired by the world of informatics.",
     descriptionCol2:
       "The main site is built using Next.js, Tailwind, and Motion, with custom Three.js WebGL and Matter.js physics integrated as refined interactive details.",
+    image:
+      "/projects/leonardo-berselli-portfolio/leonardo-berselli-portfolio.webp",
     cardImage:
       "/projects/leonardo-berselli-portfolio/leonardo-berselli-portfolio.webp",
     tags: ["Next.js", "Tailwind", "Motion", "WebGL"],

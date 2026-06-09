@@ -1,5 +1,3 @@
-@import "tailwindcss";
-
 @font-face {
   font-family: 'PP Neue Montreal';
   src: url('/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal/PPNeueMontreal-Light.otf') format('opentype');
@@ -49,26 +47,10 @@
 }
 
 .project-theme-leonardo-berselli-portfolio {
-  --background: #0A0A0A;
+  --background: #0a0a0a;
   --neutral-dark: #262626;
   --neutral: #737373;
-  --accent: #E5E5E5;
-  --foreground: #F7F7F7;
-}
-
-.leo-mono-sm {
-  @apply font-mono text-[9px];
-}
-
-.leo-mono-md {
-  @apply font-mono text-[10px];
-}
-.leo-mono-lg {
-  @apply font-mono text-[11px];
-}
-.leo-mono-button {
-  @apply font-mono text-xs uppercase;
-}
-.leo-sublabel {
-  @apply text-[7px] text-(--neutral);
+  --accent: #e5e5e5;
+  --foreground: #f7f7f7;
+  --destructive: #ef4444;
 }

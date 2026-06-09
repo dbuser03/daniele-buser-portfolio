@@ -1,13 +1,5 @@
 import { useState, useEffect } from "react";
-
-export interface SysInfo {
-  cores: number | string;
-  gpu: string;
-  os: string;
-  network: string;
-  res: string;
-  ip: string;
-}
+import type { SysInfo } from "../types";
 
 export function useSystemInfo() {
   const [sysInfo, setSysInfo] = useState<SysInfo | null>(null);
@@ -19,10 +11,10 @@ export function useSystemInfo() {
 
     const ua = navigator.userAgent;
     let os = "Unknown OS";
-    if (ua.indexOf("Win") !== -1) os = "Windows";
-    if (ua.indexOf("Mac") !== -1) os = "MacOS";
-    if (ua.indexOf("X11") !== -1) os = "UNIX";
-    if (ua.indexOf("Linux") !== -1) os = "Linux";
+    if (ua.includes("Win")) os = "Windows";
+    if (ua.includes("Mac")) os = "MacOS";
+    if (ua.includes("X11")) os = "UNIX";
+    if (ua.includes("Linux")) os = "Linux";
 
     let gpu = "N/A";
     try {
@@ -37,22 +29,19 @@ export function useSystemInfo() {
           gpu = (gl as WebGLRenderingContext).getParameter(
             debugInfo.UNMASKED_RENDERER_WEBGL,
           );
-          gpu = gpu
-            .replace(/ANGLE \((.*)\)/, "$1")
-            .split(",")[0]
-            .trim();
+          gpu = gpu.replace(/ANGLE \((.*)\)/, "$1").split(",")[0].trim();
           if (gpu.length > 25) gpu = gpu.substring(0, 22) + "...";
         }
       }
-    } catch (e) {
-      console.error("GPU fetch failed", e);
+    } catch {
+      gpu = "N/A";
     }
 
     setTimeout(() => {
       setSysInfo({
         cores: navigator.hardwareConcurrency || "N/A",
-        gpu: gpu,
-        os: os,
+        gpu,
+        os,
         network: nav.connection
           ? `${nav.connection.effectiveType || "active"}`
           : "N/A",

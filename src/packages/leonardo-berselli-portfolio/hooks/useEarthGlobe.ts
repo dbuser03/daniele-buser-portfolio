@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { GLOBE_TEXTURES, GLOBE_CONFIG } from "../constants/globe";
+import { GLOBE_CONFIG } from "../constants/globe";
 import {
   createAsciiAtlas,
   getAsciiColorFromCSS,
@@ -34,24 +34,21 @@ export function useEarthGlobe({
       darkProp ?? window.matchMedia("(prefers-color-scheme: dark)").matches;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
-      GLOBE_CONFIG.cameraFov,
-      1,
-      0.1,
-      100,
-    );
+    const camera = new THREE.PerspectiveCamera(GLOBE_CONFIG.cameraFov, 1, 0.1, 100);
     camera.position.set(0, 0, GLOBE_CONFIG.cameraZ);
 
-    scene.add(new THREE.AmbientLight(0xffffff, GLOBE_CONFIG.ambientLightIntensity));
+    scene.add(
+      new THREE.AmbientLight(0xffffff, GLOBE_CONFIG.ambientLightIntensity),
+    );
     scene.add(camera);
 
     const loader = new THREE.TextureLoader();
 
-    const dayTexture = loader.load(GLOBE_TEXTURES.earthDay);
+    const dayTexture = loader.load("/projects/leonardo-berselli-portfolio/textures/earth_atmos_2048.jpg");
     dayTexture.colorSpace = THREE.SRGBColorSpace;
 
-    const normalTexture = loader.load(GLOBE_TEXTURES.earthNormal);
-    const specularTexture = loader.load(GLOBE_TEXTURES.earthSpecular);
+    const normalTexture = loader.load("/projects/leonardo-berselli-portfolio/textures/earth_normal_2048.jpg");
+    const specularTexture = loader.load("/projects/leonardo-berselli-portfolio/textures/earth_specular_2048.jpg");
 
     const asciiTexture = createAsciiAtlas();
 
@@ -63,10 +60,7 @@ export function useEarthGlobe({
           Math.min(window.devicePixelRatio || 1, GLOBE_CONFIG.pixelRatioMax),
       },
       resolution: {
-        value: new THREE.Vector2(
-          container.clientWidth,
-          container.clientHeight,
-        ),
+        value: new THREE.Vector2(container.clientWidth, container.clientHeight),
       },
       asciiColor: { value: getAsciiColorFromCSS(isDark) },
     };
@@ -101,12 +95,10 @@ export function useEarthGlobe({
     let isInteracting = false;
 
     controls.addEventListener("start", () => {
-      container.style.cursor = "grabbing";
       isInteracting = true;
       onDragStart?.();
     });
     controls.addEventListener("end", () => {
-      container.style.cursor = "default";
       isInteracting = false;
       onDragEnd?.();
     });
@@ -170,10 +162,7 @@ export function useEarthGlobe({
       }
       sphereGeometry.dispose();
       globeMaterial.dispose();
-      dayTexture.dispose();
-      normalTexture.dispose();
-      specularTexture.dispose();
-      if (asciiTexture) asciiTexture.dispose();
+      asciiTexture?.dispose();
       asciiColorRef.current = null;
     };
   }, [containerRef, darkProp, onDragStart, onDragEnd]);

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSystemInfo } from "./use-system-info";
+import { useSystemInfo } from "./useSystemInfo";
 
 export function useSystemDiagnostics() {
   const sysInfo = useSystemInfo();

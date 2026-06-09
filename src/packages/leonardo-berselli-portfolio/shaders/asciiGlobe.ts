@@ -1,10 +1,8 @@
 import * as THREE from "three";
 
 export function getAsciiColorFromCSS(isDark: boolean): THREE.Color {
-  const root = document.documentElement;
-  const cssVar = isDark ? "--ascii-color-dark" : "--ascii-color-light";
-  const value = getComputedStyle(root).getPropertyValue(cssVar).trim();
-  return new THREE.Color(value || (isDark ? "#c8c8c8" : "#0a0a0a"));
+  const value = isDark ? "#c8c8c8" : "#0a0a0a";
+  return new THREE.Color(value);
 }
 
 export function createAsciiAtlas(): THREE.CanvasTexture | null {
