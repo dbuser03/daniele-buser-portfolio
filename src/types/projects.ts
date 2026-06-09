@@ -25,7 +25,7 @@ export interface Project {
   description: string;
   descriptionCol1: string;
   descriptionCol2: string;
-  image?: string;
+  image: string;
   cardImage?: string;
   tags: [string, string, string, string];
   year: string;
