@@ -15,7 +15,7 @@ export function useTechStack() {
     string | null
   >(null);
 
-  const { handleMouseEnter, handleMouseLeave } =
+  const { handleMouseEnter: onCursorEnter, handleMouseLeave: onCursorLeave } =
     useCursorInteraction("interactive");
 
   useEffect(() => {
@@ -59,9 +59,9 @@ export function useTechStack() {
     }
     leaveTimeoutRef.current = setTimeout(() => {
       updateHoveredCell(TECH_STACK_DEFAULT_CELL_ID);
-      handleMouseLeave();
+      onCursorLeave();
     }, 50);
-  }, [updateHoveredCell, handleMouseLeave]);
+  }, [updateHoveredCell, onCursorLeave]);
 
   const handleMouseLeaveTechStack = useCallback(() => {
     if (leaveTimeoutRef.current) {
@@ -69,8 +69,8 @@ export function useTechStack() {
       leaveTimeoutRef.current = null;
     }
     updateHoveredCell(TECH_STACK_DEFAULT_CELL_ID);
-    handleMouseLeave();
-  }, [updateHoveredCell, handleMouseLeave]);
+    onCursorLeave();
+  }, [updateHoveredCell, onCursorLeave]);
 
   return {
     hoveredCellId,
@@ -78,7 +78,7 @@ export function useTechStack() {
     handleCellMouseEnter,
     handleCellMouseLeave,
     handleMouseLeaveTechStack,
-    handleMouseEnter,
-    handleMouseLeave,
+    onCursorEnter,
+    onCursorLeave,
   };
 }

@@ -1,8 +1,18 @@
 "use client";
 
-import { motion, useTransform } from "motion/react";
-import type { WorkWordProps } from "@/types/about";
-import { EASE_OUT } from "@/constants/animations";
+import { motion, useTransform, MotionValue } from "motion/react";
+import type { HoverableWord } from "@/types/about";
+import { motionTokens } from "@/constants/animations";
+
+interface WorkWordProps {
+  word: HoverableWord;
+  index: number;
+  scrollProgress: MotionValue<number>;
+  isActive?: boolean;
+  onHover?: (word: HoverableWord | null) => void;
+  className?: string;
+}
+import { cn } from "@/utils/cn";
 
 const arrowVariants = {
   rest: { x: -56, opacity: 0 },
@@ -20,17 +30,18 @@ export default function WorkWord({
   scrollProgress,
   isActive = false,
   onHover,
+  className,
 }: WorkWordProps) {
   const start = index * 0.1;
   const end = start + 0.16;
   const progress = useTransform(scrollProgress, [start, end], [0, 1]);
   const opacity = useTransform(progress, [0, 1], [0.2, 1]);
-  const y = useTransform(progress, [0, 1], [22, 0]);
+  const y = useTransform(progress, [0, 1], [20, 0]);
 
   return (
     <motion.button
       type="button"
-      className="relative flex items-center overflow-visible border-none bg-transparent p-0 text-left text-7xl font-medium"
+      className={cn("relative flex items-center overflow-visible border-none bg-transparent p-0 text-left text-display-sm font-medium", className)}
       style={{ opacity, y, color: "inherit", fontFamily: "inherit" }}
       initial="rest"
       animate={isActive ? "hover" : "rest"}
@@ -47,7 +58,7 @@ export default function WorkWord({
         <motion.div
           className="h-full w-full bg-(--background)"
           variants={arrowVariants}
-          transition={{ duration: 0.3, ease: EASE_OUT }}
+          transition={{ duration: motionTokens.duration.base, ease: motionTokens.easing.standard }}
           style={{
             WebkitMaskImage: "url(/icons/right-arrow.svg)",
             maskImage: "url(/icons/right-arrow.svg)",
@@ -63,7 +74,7 @@ export default function WorkWord({
       <motion.span
         className="inline-block"
         variants={labelVariants}
-        transition={{ duration: 0.3, ease: EASE_OUT }}
+        transition={{ duration: motionTokens.duration.base, ease: motionTokens.easing.standard }}
       >
         {word}
       </motion.span>

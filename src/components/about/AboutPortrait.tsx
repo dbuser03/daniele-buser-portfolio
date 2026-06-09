@@ -3,16 +3,13 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
-import {
-  FADE_UP_TRANSITION,
-  createFadeUpVariants,
-} from "@/constants/animations";
+import { motionTokens, entranceVariants } from "@/constants/animations";
 import Skeleton from "@/components/ui/Skeleton";
 
 export default function AboutPortrait() {
   const [isLoading, setIsLoading] = useState(true);
 
-  const portraitVariants = useMemo(() => createFadeUpVariants(0.65), []);
+  const portraitVariants = useMemo(() => entranceVariants(0.65, 20, motionTokens.duration.smooth), []);
 
   return (
     <motion.figure
@@ -24,7 +21,7 @@ export default function AboutPortrait() {
       <motion.div
         className="relative h-full w-full"
         whileHover={{ scale: 1.08, y: -12 }}
-        transition={FADE_UP_TRANSITION}
+        transition={{ duration: motionTokens.duration.smooth, ease: motionTokens.easing.standard }}
       >
         <Skeleton isLoading={isLoading} variant="on-light" />
         <Image

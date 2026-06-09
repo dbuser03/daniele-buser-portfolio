@@ -1,8 +1,17 @@
 "use client";
 
 import { motion } from "motion/react";
-import type { TechStackCellProps } from "@/types/about";
-import { TECH_CELL_SPRING_CONFIG } from "@/constants/animations";
+import { motionTokens, itemVariants } from "@/constants/animations";
+
+interface TechStackCellProps {
+  children: React.ReactNode;
+  cellId: string;
+  className?: string;
+  cellRef?: (node: HTMLDivElement | null) => void;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+  isActive: boolean;
+}
 
 export default function TechStackCell({
   children,
@@ -11,23 +20,20 @@ export default function TechStackCell({
   onMouseEnter,
   onMouseLeave,
   isActive,
-  delay = 0,
-}: TechStackCellProps & { delay?: number }) {
+}: TechStackCellProps) {
   return (
     <motion.div
       ref={cellRef}
       className={className}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      initial={{ opacity: 0, y: 25 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut", delay }}
+      variants={itemVariants}
     >
       {isActive && (
         <motion.div
           layoutId="tech-stack-highlight"
           className="pointer-events-none absolute inset-0 z-20 bg-(--background)"
-          transition={TECH_CELL_SPRING_CONFIG}
+          transition={motionTokens.spring.cell}
         />
       )}
       <div className="relative z-30 h-full w-full">{children}</div>

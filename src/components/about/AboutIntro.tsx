@@ -3,12 +3,12 @@
 import { useMemo } from "react";
 import { motion } from "motion/react";
 
-import { createFadeUpVariants } from "@/constants/animations";
+import { motionTokens, entranceVariants } from "@/constants/animations";
 
 export const ABOUT_INTRO_ID = "about-intro-paragraph";
 
 export default function AboutIntro({ age }: { age: number }) {
-  const introVariants = useMemo(() => createFadeUpVariants(0.5), []);
+  const introVariants = useMemo(() => entranceVariants(0.5, 20, motionTokens.duration.smooth), []);
 
   return (
     <motion.p

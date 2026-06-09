@@ -30,11 +30,11 @@ export default function AboutPage() {
         <AboutLayout contacts={<AboutContacts />}>
           <section className="flex min-h-screen w-full flex-col justify-center py-20">
             <div className="grid w-full grid-cols-12 gap-4">
-              <div className="relative z-10 col-span-9 flex h-full grid-cols-9 flex-col content-between gap-4">
+              <div className="relative z-10 col-span-9 grid h-full grid-cols-9 content-between gap-4">
                 <div className="col-span-9">
                   <Hey />
                 </div>
-                <div className="col-span-6">
+                <div className="col-span-6 self-end">
                   <AboutIntro age={age} />
                 </div>
               </div>

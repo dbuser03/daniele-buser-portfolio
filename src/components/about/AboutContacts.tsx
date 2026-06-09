@@ -1,4 +1,4 @@
-import HeroTitle from "@/components/ui/HeroTitle";
+import { HeroTitleInView } from "@/components/ui/HeroTitle";
 import Contacts from "@/components/contacts/Contacts";
 import GridLines from "@/components/layout/GridLines";
 
@@ -14,20 +14,19 @@ export default function AboutContacts() {
       </div>
 
       <div className="relative z-10 flex flex-col gap-64">
-        <HeroTitle
+        <HeroTitleInView
           as="h2"
-          text="Say Hello"
           className="text-(--foreground)"
           ariaLabel="Say Hello - Contact section heading"
           yOffset={40}
-          duration={0.45}
-          delay={0.2}
-          trigger="inView"
+          delay={0}
           viewport={viewportConfig}
-        />
+        >
+          Say Hello
+        </HeroTitleInView>
         <Contacts
-          paragraphDelay={0.3}
-          linksDelay={0.4}
+          paragraphDelay={0.15}
+          linksDelay={0.3}
           trigger="inView"
           viewport={viewportConfig}
         />

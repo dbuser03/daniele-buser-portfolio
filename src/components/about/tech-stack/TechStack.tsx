@@ -10,6 +10,7 @@ import { getTechStackCellId } from "@/utils/about";
 import SectionLabel from "@/components/ui/SectionLabel";
 import TechStackCell from "./TechStackCell";
 import TechStackIcon from "./TechStackIcon";
+import { motionTokens, entranceVariants, listVariants } from "@/constants/animations";
 
 export default function TechStack() {
   const {
@@ -18,11 +19,9 @@ export default function TechStack() {
     handleCellMouseEnter,
     handleCellMouseLeave,
     handleMouseLeaveTechStack,
-    handleMouseEnter,
-    handleMouseLeave,
+    onCursorEnter,
+    onCursorLeave,
   } = useTechStack();
-
-  const baseDelay = 0.95;
 
   return (
     <section
@@ -33,15 +32,22 @@ export default function TechStack() {
       <SectionLabel
         as={motion.h2}
         id="tech-stack-heading"
-        tone="dark"
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: "easeOut", delay: baseDelay }}
+        variant="section-heading"
+        initial="initial"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={entranceVariants(0, 20, motionTokens.duration.smooth)}
       >
         MY TECH STACK
       </SectionLabel>
 
-      <div className="mt-3 grid w-full grid-cols-3 gap-0">
+      <motion.div
+        className="mt-3 grid w-full grid-cols-3 gap-0"
+        variants={listVariants(0.15, 0.08)}
+        initial="initial"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
         {TECH_STACK_FIRST_ROW_ICONS.map((icon, index) => {
           const cellId = getTechStackCellId("first", index);
           const cellIsActive = hoveredCellId === cellId;
@@ -53,23 +59,28 @@ export default function TechStack() {
               onMouseEnter={() => handleCellMouseEnter(cellId)}
               onMouseLeave={handleCellMouseLeave}
               isActive={cellIsActive}
-              delay={baseDelay + index * 0.08}
             >
               <TechStackIcon
                 icon={icon}
                 isActive={cellIsActive}
                 isFullyActive={fullyHighlightedCellId === cellId}
-                handleMouseEnter={handleMouseEnter}
-                handleMouseLeave={handleMouseLeave}
+                onMouseEnter={onCursorEnter}
+                onMouseLeave={onCursorLeave}
                 onFocus={() => handleCellMouseEnter(cellId)}
                 onBlur={handleCellMouseLeave}
               />
             </TechStackCell>
           );
         })}
-      </div>
+      </motion.div>
 
-      <div className="grid w-full grid-cols-7 gap-0">
+      <motion.div
+        className="grid w-full grid-cols-7 gap-0"
+        variants={listVariants(0.15, 0.05)}
+        initial="initial"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
         {Array.from({ length: 7 }, (_, index) => {
           const cellId = getTechStackCellId("second", index);
           const icon = TECH_STACK_SECOND_ROW_ICONS.find(
@@ -88,21 +99,20 @@ export default function TechStack() {
               onMouseEnter={() => handleCellMouseEnter(cellId)}
               onMouseLeave={handleCellMouseLeave}
               isActive={cellIsActive}
-              delay={baseDelay + index * 0.05}
             >
               <TechStackIcon
                 icon={icon}
                 isActive={cellIsActive}
                 isFullyActive={fullyHighlightedCellId === cellId}
-                handleMouseEnter={handleMouseEnter}
-                handleMouseLeave={handleMouseLeave}
+                onMouseEnter={onCursorEnter}
+                onMouseLeave={onCursorLeave}
                 onFocus={() => handleCellMouseEnter(cellId)}
                 onBlur={handleCellMouseLeave}
               />
             </TechStackCell>
           );
         })}
-      </div>
+      </motion.div>
     </section>
   );
 }

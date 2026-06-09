@@ -4,48 +4,60 @@ import { useEffect, useRef, memo } from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import type { Route } from "next";
-import type { TechStackIconProps } from "@/types/about";
-import { TECH_CELL_SPRING_CONFIG } from "@/constants/animations";
+import type { TechStackIconConfig } from "@/types/about";
+import { motionTokens } from "@/constants/animations";
 import { CSS_VARIABLES } from "@/constants/theme";
 import { cn } from "@/utils/cn";
+
+interface TechStackIconProps {
+  icon: TechStackIconConfig;
+  isActive: boolean;
+  isFullyActive: boolean;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  className?: string;
+}
 
 function TechStackIcon({
   icon,
   isActive,
   isFullyActive,
-  handleMouseEnter,
-  handleMouseLeave,
+  onMouseEnter,
+  onMouseLeave,
   onFocus,
   onBlur,
+  className,
 }: TechStackIconProps) {
   const isMouseOverRef = useRef(false);
 
   const handleIconMouseEnter = () => {
     isMouseOverRef.current = true;
-    if (isFullyActive) handleMouseEnter();
+    if (isFullyActive) onMouseEnter();
   };
 
   const handleIconMouseLeave = () => {
     isMouseOverRef.current = false;
-    handleMouseLeave();
+    onMouseLeave();
   };
 
   useEffect(() => {
     if (isMouseOverRef.current) {
       if (isFullyActive) {
-        handleMouseEnter();
+        onMouseEnter();
       } else {
-        handleMouseLeave();
+        onMouseLeave();
       }
     }
-  }, [isFullyActive, handleMouseEnter, handleMouseLeave]);
+  }, [isFullyActive, onMouseEnter, onMouseLeave]);
 
   return (
     <Link
       href={icon.href as Route}
       target="_blank"
       rel="noopener noreferrer"
-      className="relative z-30 flex h-full w-full items-center justify-center focus-visible:z-40 focus-visible:-outline-offset-2"
+      className={cn("relative z-30 flex h-full w-full items-center justify-center focus-visible:z-40 focus-visible:-outline-offset-2", className)}
       aria-label={`Visit ${icon.label} website (opens in new tab)`}
       onFocus={onFocus}
       onBlur={onBlur}
@@ -77,7 +89,7 @@ function TechStackIcon({
               : CSS_VARIABLES.background,
           }}
           transition={{
-            backgroundColor: TECH_CELL_SPRING_CONFIG,
+            backgroundColor: motionTokens.spring.cell,
           }}
           aria-hidden="true"
         />

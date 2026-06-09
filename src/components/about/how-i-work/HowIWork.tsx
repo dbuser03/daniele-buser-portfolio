@@ -9,7 +9,7 @@ import WorkWord from "./WorkWord";
 import VideoLayer from "./VideoLayer";
 import Skeleton from "@/components/ui/Skeleton";
 import SectionLabel from "@/components/ui/SectionLabel";
-import { SCROLL_SPRING_CONFIG } from "@/constants/animations";
+import { entranceVariants, motionTokens } from "@/constants/animations";
 
 export default function HowIWork() {
   const wordsRef = useRef<HTMLDivElement | null>(null);
@@ -31,7 +31,7 @@ export default function HowIWork() {
     offset: ["start 85%", "start 30%"],
   });
 
-  const smoothProgress = useSpring(scrollYProgress, SCROLL_SPRING_CONFIG);
+  const smoothProgress = useSpring(scrollYProgress, motionTokens.spring.scroll);
 
   const playVideoRef = useRef(playVideo);
   const advanceSequenceRef = useRef(advanceSequence);
@@ -56,8 +56,6 @@ export default function HowIWork() {
     return map;
   }, [isImageHovered, activeWord]);
 
-  const baseDelay = 0.95;
-
   return (
     <section
       className="relative z-10 text-(--background)"
@@ -66,10 +64,11 @@ export default function HowIWork() {
       <SectionLabel
         id="how-i-work-heading"
         as={motion.h2}
-        tone="dark"
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: "easeOut", delay: baseDelay }}
+        variant="section-heading"
+        initial="initial"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={entranceVariants(0, 20, motionTokens.duration.smooth)}
       >
         HOW I WORK
       </SectionLabel>
@@ -77,9 +76,10 @@ export default function HowIWork() {
         <div className="grid grid-cols-12 gap-4">
           <motion.div
             className="relative col-span-9 aspect-16/7 w-full overflow-hidden bg-(--neutral)"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: "easeOut", delay: baseDelay }}
+            initial="initial"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={entranceVariants(0.15, 20, motionTokens.duration.smooth)}
           >
             <Skeleton isLoading={isHeroLoading} variant="on-light" />
             <Image
@@ -94,22 +94,19 @@ export default function HowIWork() {
           </motion.div>
 
           <motion.div
-            className="relative col-span-3 col-start-10 aspect-16/7 h-full overflow-hidden"
+            className="relative col-span-3 col-start-10 h-full overflow-hidden"
             onMouseEnter={handlePanelMouseEnter}
             onMouseLeave={handlePanelMouseLeave}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.45,
-              ease: "easeOut",
-              delay: baseDelay + 0.08,
-            }}
+            initial="initial"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={entranceVariants(0.3, 20, motionTokens.duration.smooth)}
           >
             <motion.div
               className="absolute inset-0"
               initial={{ opacity: 1 }}
               animate={{ opacity: activeWord ? 0 : 1 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
+              transition={{ duration: motionTokens.duration.smooth, ease: motionTokens.easing.standard }}
             >
               <Skeleton isLoading={isPanelLoading} variant="on-light" />
               <Image
@@ -127,7 +124,7 @@ export default function HowIWork() {
               <VideoLayer
                 key={word}
                 src={VIDEO_MAP[word]}
-                active={activeWord === word}
+                isActive={activeWord === word}
                 videoRef={videoRefs[word]}
                 onEnded={onEndedMap[word]}
               />

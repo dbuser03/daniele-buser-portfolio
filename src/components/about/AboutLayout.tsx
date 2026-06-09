@@ -1,6 +1,7 @@
 "use client";
 
 import { useElementHeight } from "@/hooks/useElementHeight";
+import GridLines from "@/components/layout/GridLines";
 
 export default function AboutLayout({
   children,
@@ -20,7 +21,13 @@ export default function AboutLayout({
           top: bodyHeight ? `calc(100vh - ${bodyHeight}px)` : "auto",
         }}
       >
-        {children}
+        <div
+          className="pointer-events-none absolute inset-0 z-0"
+          aria-hidden="true"
+        >
+          <GridLines variant="light" />
+        </div>
+        <div className="relative z-10">{children}</div>
       </div>
       {contacts}
     </>
