@@ -114,7 +114,7 @@ export default function Contacts({
             window.open(`mailto:${EMAIL}`, "_blank");
           }}
         >
-          <h2 id="contacts-heading" className="text-display-sm text-(--foreground)">
+          <h2 id="contacts-heading" className="text-7xl text-(--foreground)">
             {EMAIL}
           </h2>
         </a>

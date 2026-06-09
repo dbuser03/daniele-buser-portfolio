@@ -41,7 +41,7 @@ export default function WorkWord({
   return (
     <motion.button
       type="button"
-      className={cn("relative flex items-center overflow-visible border-none bg-transparent p-0 text-left text-display-sm font-medium", className)}
+      className={cn("relative flex items-center overflow-visible border-none bg-transparent p-0 text-left text-7xl font-medium", className)}
       style={{ opacity, y, color: "inherit", fontFamily: "inherit" }}
       initial="rest"
       animate={isActive ? "hover" : "rest"}
