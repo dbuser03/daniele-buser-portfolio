@@ -1,6 +1,6 @@
 import type { ProjectColor } from "@/types/projects";
 import { hexToRgbStr } from "@/utils/colors";
-import DetailSectionCard from "@/components/projects/project-detail/DetailSectionCard";
+import DetailDesignCard from "@/components/projects/project-details/design/DetailDesignCard";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
@@ -24,7 +24,7 @@ export default function DetailPaletteCard({ colors, className }: DetailPaletteCa
     };
   }, []);
   return (
-    <DetailSectionCard label="Palette" className={cn(className)}>
+    <DetailDesignCard label="Palette" className={cn(className)}>
       <div className="mt-8 flex w-full gap-4 pb-2">
         {colors.map((colorVal) => {
           const hex = colorVal.hex;
@@ -71,6 +71,6 @@ export default function DetailPaletteCard({ colors, className }: DetailPaletteCa
           );
         })}
       </div>
-    </DetailSectionCard>
+    </DetailDesignCard>
   );
 }

@@ -1,9 +1,11 @@
 import { Metadata } from "next";
 import { PROJECTS } from "@/constants/projects";
 import { notFound } from "next/navigation";
-import ProjectDetailClient from "@/components/projects/ProjectDetailClient";
+import ProjectDetailsClient from "@/components/projects/project-details/ProjectDetailsClient";
 import AboutLayout from "@/components/about/AboutLayout";
 import AboutContacts from "@/components/about/AboutContacts";
+import fs from "fs";
+import path from "path";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -44,6 +46,35 @@ export default async function ProjectPage({ params }: PageProps) {
     return notFound();
   }
 
+  const implementationsCode: Record<string, string> = {};
+  if (project.showcaseFiles) {
+    for (const [treePath, pkgRelativePath] of Object.entries(project.showcaseFiles)) {
+      try {
+        const fullPath = path.join(
+          process.cwd(),
+          "src/packages",
+          project.id,
+          pkgRelativePath
+        );
+        const code = fs.readFileSync(fullPath, "utf-8");
+        implementationsCode[treePath] = code;
+      } catch (err) {
+        console.error(`Failed to read showcase file ${pkgRelativePath} for project ${project.id}:`, err);
+      }
+    }
+  }
+
+  let fallbackCode = "";
+  try {
+    const fallbackPath = path.join(
+      process.cwd(),
+      "src/components/ui/CodePlaceholder.tsx"
+    );
+    fallbackCode = fs.readFileSync(fallbackPath, "utf-8");
+  } catch (err) {
+    console.error("Failed to read fallback code:", err);
+  }
+
   return (
     <main
       id="main-content"
@@ -52,7 +83,11 @@ export default async function ProjectPage({ params }: PageProps) {
       aria-label={`${project.title} project page main content`}
     >
       <AboutLayout contacts={<AboutContacts />}>
-        <ProjectDetailClient project={project} />
+        <ProjectDetailsClient
+          project={project}
+          implementationsCode={implementationsCode}
+          fallbackCode={fallbackCode}
+        />
       </AboutLayout>
     </main>
   );

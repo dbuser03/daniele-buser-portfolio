@@ -19,7 +19,9 @@ export const useCursorInteraction = (
   const { cursorSize, setColor } = useCursorContext();
   const pulseControls = useRef<ReturnType<typeof animate> | null>(null);
   const callbacksRef = useRef(callbacks);
-  callbacksRef.current = callbacks;
+  useEffect(() => {
+    callbacksRef.current = callbacks;
+  }, [callbacks]);
 
   const config = useMemo(() => getCursorInteractionConfig(type), [type]);
 

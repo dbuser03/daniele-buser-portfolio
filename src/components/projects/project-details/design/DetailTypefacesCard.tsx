@@ -1,6 +1,6 @@
 import { cn } from "@/utils/cn";
 import type { ProjectFont } from "@/types/projects";
-import DetailSectionCard from "@/components/projects/project-detail/DetailSectionCard";
+import DetailDesignCard from "@/components/projects/project-details/design/DetailDesignCard";
 
 const DEFAULT_FONTS: ProjectFont[] = [
   {
@@ -32,7 +32,7 @@ export default function DetailTypefacesCard({
   const gridCols = displayFonts.length > 1 ? "grid-cols-2" : "grid-cols-1";
 
   return (
-    <DetailSectionCard label="Typefaces" className={cn(className)}>
+    <DetailDesignCard label="Typefaces" className={cn(className)}>
       <div className={cn("grid w-full gap-4 pb-2 pl-2", gridCols)}>
         {displayFonts.map((font) => (
           <div
@@ -40,7 +40,7 @@ export default function DetailTypefacesCard({
             className="flex flex-col items-start justify-end"
           >
             <span
-              className="text-display-xl font-normal text-(--neutral)"
+              className="select-none text-display-xl font-normal text-(--neutral)"
               style={{ fontFamily: getFontFamily(font) }}
             >
               {font.sampleText || "Aa"}
@@ -73,6 +73,6 @@ export default function DetailTypefacesCard({
           </div>
         ))}
       </div>
-    </DetailSectionCard>
+    </DetailDesignCard>
   );
 }

@@ -19,6 +19,19 @@ export interface ProjectFont {
   sampleText?: string;
 }
 
+export interface TreeNode {
+  name: string;
+  type: "dir" | "file";
+  children?: TreeNode[];
+}
+
+export interface TechToken {
+  text: string;
+  isKeyword?: boolean;
+  id?: string;
+  href?: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -33,7 +46,18 @@ export interface Project {
   brandingColors: ProjectColor[];
   brandingFonts: ProjectFont[];
 
+  architectureTree?: TreeNode[];
+  showcaseFiles?: Record<string, string>;
+  architectureDescriptions?: Record<string, string>;
+  codeTechnologiesText?: string[];
+  codeTechnologiesDescription?: string;
+  codeTechnologiesTokens?: TechToken[];
+
   hasCustomComponents?: boolean;
   hasCoolShit?: boolean;
   coolShitName?: string;
+  shipImage1?: string;
+  shipImage2?: string;
+  shipText1?: string;
+  shipText2?: string;
 }

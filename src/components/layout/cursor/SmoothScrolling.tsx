@@ -29,7 +29,7 @@ export default function SmoothScrolling({
   }
 
   return (
-    <ReactLenis root options={{ lerp: 0.05, duration: 1.2, smoothWheel: true }}>
+    <ReactLenis root options={{ lerp: 0.05, duration: 1.2, smoothWheel: true, allowNestedScroll: true }}>
       <ScrollReset />
       {children}
     </ReactLenis>

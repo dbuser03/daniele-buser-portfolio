@@ -11,15 +11,13 @@ interface CardProps {
 }
 
 export function Card({
-  variant = "default",
   className,
   children,
 }: CardProps) {
   return (
     <motion.div
       className={cn(
-        "flex flex-col overflow-hidden border border-(--foreground)/10 bg-transparent",
-        variant === "default" ? "rounded-xl" : "rounded-none",
+        "flex flex-col overflow-hidden border border-(--foreground)/10 bg-transparent rounded-none",
         className,
       )}
       variants={{

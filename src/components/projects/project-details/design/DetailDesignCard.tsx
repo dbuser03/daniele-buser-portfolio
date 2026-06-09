@@ -2,17 +2,17 @@ import { cn } from "@/utils/cn";
 import SectionLabel from "@/components/ui/SectionLabel";
 import type { ReactNode } from "react";
 
-interface DetailSectionCardProps {
+interface DetailDesignCardProps {
   label: string;
   children: ReactNode;
   className?: string;
 }
 
-export default function DetailSectionCard({
+export default function DetailDesignCard({
   label,
   children,
   className = "",
-}: DetailSectionCardProps) {
+}: DetailDesignCardProps) {
   return (
     <div
       className={cn(
