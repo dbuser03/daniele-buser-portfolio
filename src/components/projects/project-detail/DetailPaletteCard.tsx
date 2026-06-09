@@ -4,12 +4,15 @@ import DetailSectionCard from "@/components/projects/project-detail/DetailSectio
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
+import { cn } from "@/utils/cn";
+import { motionTokens } from "@/constants/animations";
 
 interface DetailPaletteCardProps {
   colors: ProjectColor[];
+  className?: string;
 }
 
-export default function DetailPaletteCard({ colors }: DetailPaletteCardProps) {
+export default function DetailPaletteCard({ colors, className }: DetailPaletteCardProps) {
   const { handleMouseEnter, handleMouseLeave } =
     useCursorInteraction("current");
   const [copied, setCopied] = useState<string | null>(null);
@@ -21,7 +24,7 @@ export default function DetailPaletteCard({ colors }: DetailPaletteCardProps) {
     };
   }, []);
   return (
-    <DetailSectionCard label="Palette">
+    <DetailSectionCard label="Palette" className={cn(className)}>
       <div className="mt-8 flex w-full gap-4 pb-2">
         {colors.map((colorVal) => {
           const hex = colorVal.hex;
@@ -33,6 +36,7 @@ export default function DetailPaletteCard({ colors }: DetailPaletteCardProps) {
                 className="-mt-5 mb-2 text-sm font-normal tracking-wider text-(--neutral-dark)"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: copied === hex ? 1 : 0 }}
+                transition={{ duration: motionTokens.duration.fast, ease: motionTokens.easing.standard }}
               >
                 (copied)
               </motion.span>
@@ -41,6 +45,7 @@ export default function DetailPaletteCard({ colors }: DetailPaletteCardProps) {
                 style={{ backgroundColor: hex }}
                 whileHover={{ scale: 0.98 }}
                 whileTap={{ scale: 0.94 }}
+                transition={{ duration: motionTokens.duration.base, ease: motionTokens.easing.standard }}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 onClick={() => {

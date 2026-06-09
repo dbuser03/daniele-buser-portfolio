@@ -2,17 +2,17 @@
 
 import { useMemo } from "react";
 import { motion } from "motion/react";
-import { createFadeUpVariants } from "@/constants/animations";
+import { motionTokens, entranceVariants } from "@/constants/animations";
 
 export const PROJECTS_TITLE_ID = "projects-title";
 
 export default function ProjectsTitle({ year }: { year: string }) {
   const twoDigitYear = year;
   const projectsVariants = useMemo(
-    () => createFadeUpVariants(0.35, 40, 0.45),
-    [],
+    () => entranceVariants(0.35, 40, motionTokens.duration.smooth),
+    []
   );
-  const yearVariants = useMemo(() => createFadeUpVariants(0.5, 40, 0.45), []);
+  const yearVariants = useMemo(() => entranceVariants(0.35, 40, motionTokens.duration.smooth), []);
 
   return (
     <h1

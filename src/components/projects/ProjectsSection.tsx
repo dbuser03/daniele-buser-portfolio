@@ -4,11 +4,10 @@ import { motion } from "motion/react";
 import { PROJECTS } from "@/constants/projects";
 import ProjectCard from "./ProjectCard";
 import SectionLabel from "@/components/ui/SectionLabel";
-import { createFadeUpVariants } from "@/constants/animations";
+import { motionTokens, entranceVariants, listVariants } from "@/constants/animations";
 
 export default function ProjectsSection() {
-  const gridVariants = createFadeUpVariants(0.65);
-  const labelVariants = createFadeUpVariants(0.5, 15, 0.4);
+  const labelVariants = entranceVariants(0.5, 20, motionTokens.duration.smooth);
 
   return (
     <section
@@ -18,7 +17,7 @@ export default function ProjectsSection() {
       <SectionLabel
         as={motion.h2}
         id="projects-list-heading"
-        tone="dark"
+        variant="section-heading"
         variants={labelVariants}
         initial="initial"
         animate="visible"
@@ -27,7 +26,7 @@ export default function ProjectsSection() {
       </SectionLabel>
       <motion.div
         className="mt-3 grid w-full grid-cols-12 gap-4"
-        variants={gridVariants}
+        variants={listVariants(0.65, 0.1)}
         initial="initial"
         animate="visible"
       >

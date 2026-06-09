@@ -21,16 +21,18 @@ const getFontFamily = (font: ProjectFont) =>
 
 interface DetailTypefacesCardProps {
   fonts: ProjectFont[];
+  className?: string;
 }
 
 export default function DetailTypefacesCard({
   fonts,
+  className,
 }: DetailTypefacesCardProps) {
   const displayFonts = fonts.length > 0 ? fonts : DEFAULT_FONTS;
   const gridCols = displayFonts.length > 1 ? "grid-cols-2" : "grid-cols-1";
 
   return (
-    <DetailSectionCard label="Typefaces">
+    <DetailSectionCard label="Typefaces" className={cn(className)}>
       <div className={cn("grid w-full gap-4 pb-2 pl-2", gridCols)}>
         {displayFonts.map((font) => (
           <div
@@ -47,7 +49,7 @@ export default function DetailTypefacesCard({
               {font.type}
             </span>
             <span
-              className="mt-1 text-4xl leading-[0.95] font-normal whitespace-nowrap text-(--foreground)"
+              className="mt-1 text-section leading-[0.95] font-normal whitespace-nowrap text-(--foreground)"
               style={{
                 fontFamily: getFontFamily(font),
                 letterSpacing: font.type === "mono" ? "-0.05em" : "-0.02em",
