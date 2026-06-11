@@ -14,7 +14,7 @@ import { usePathname } from "next/navigation";
 import { CursorContextType } from "@/types/cursor";
 import { CURSOR_SIZE } from "@/constants/cursor";
 import { CSS_VARIABLES } from "@/constants/theme";
-import { motionTokens } from "@/constants/animations";
+import { motionTokens } from "@/utils/motion";
 import Cursor from "@/components/layout/cursor/Cursor";
 
 const CursorContext = createContext<CursorContextType | undefined>(undefined);
@@ -69,6 +69,8 @@ export const CursorProvider = ({
   useEffect(() => {
     if (disabled) return;
 
+    document.documentElement.classList.add("has-custom-cursor");
+
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     document.body.addEventListener("mouseleave", handleMouseLeave, {
       passive: true,
@@ -78,6 +80,7 @@ export const CursorProvider = ({
     });
 
     return () => {
+      document.documentElement.classList.remove("has-custom-cursor");
       window.removeEventListener("mousemove", handleMouseMove);
       document.body.removeEventListener("mouseleave", handleMouseLeave);
       document.body.removeEventListener("mouseenter", handleMouseEnter);

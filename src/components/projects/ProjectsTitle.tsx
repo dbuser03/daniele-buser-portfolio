@@ -1,18 +1,23 @@
 "use client";
 
 import { useMemo } from "react";
-import { motion } from "motion/react";
-import { motionTokens, entranceVariants } from "@/constants/animations";
+import { m } from "motion/react";
+import { motionTokens, useAnimations } from "@/utils/motion";
 
 export const PROJECTS_TITLE_ID = "projects-title";
 
 export default function ProjectsTitle({ year }: { year: string }) {
+  const { entranceVariants } = useAnimations();
+
   const twoDigitYear = year;
   const projectsVariants = useMemo(
     () => entranceVariants(0.35, 40, motionTokens.duration.smooth),
-    []
+    [entranceVariants],
   );
-  const yearVariants = useMemo(() => entranceVariants(0.35, 40, motionTokens.duration.smooth), []);
+  const yearVariants = useMemo(
+    () => entranceVariants(0.35, 40, motionTokens.duration.smooth),
+    [entranceVariants],
+  );
 
   return (
     <h1
@@ -20,15 +25,15 @@ export default function ProjectsTitle({ year }: { year: string }) {
       className="text-display-lg relative z-10 flex w-full items-baseline justify-between text-(--background)"
       aria-label={`Projects ${twoDigitYear}`}
     >
-      <motion.span
+      <m.span
         className="-ml-3.5 inline-block"
         variants={projectsVariants}
         initial="initial"
         animate="visible"
       >
         Projects
-      </motion.span>
-      <motion.span
+      </m.span>
+      <m.span
         className="-mr-2 inline-block text-right"
         variants={yearVariants}
         initial="initial"
@@ -36,7 +41,7 @@ export default function ProjectsTitle({ year }: { year: string }) {
       >
         <span className="text-(--accent)">&apos;</span>
         {twoDigitYear}
-      </motion.span>
+      </m.span>
     </h1>
   );
 }

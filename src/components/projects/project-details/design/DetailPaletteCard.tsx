@@ -3,16 +3,19 @@ import { hexToRgbStr } from "@/utils/colors";
 import DetailDesignCard from "@/components/projects/project-details/design/DetailDesignCard";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { useEffect, useRef, useState } from "react";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { cn } from "@/utils/cn";
-import { motionTokens } from "@/constants/animations";
+import { motionTokens } from "@/utils/motion";
 
 interface DetailPaletteCardProps {
   colors: ProjectColor[];
   className?: string;
 }
 
-export default function DetailPaletteCard({ colors, className }: DetailPaletteCardProps) {
+export default function DetailPaletteCard({
+  colors,
+  className,
+}: DetailPaletteCardProps) {
   const { handleMouseEnter, handleMouseLeave } =
     useCursorInteraction("current");
   const [copied, setCopied] = useState<string | null>(null);
@@ -32,20 +35,26 @@ export default function DetailPaletteCard({ colors, className }: DetailPaletteCa
           const rgb = colorVal.rgb || hexToRgbStr(hex);
           return (
             <div key={hex} className="flex flex-1 flex-col">
-              <motion.span
+              <m.span
                 className="-mt-5 mb-2 text-sm font-normal tracking-wider text-(--neutral-dark)"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: copied === hex ? 1 : 0 }}
-                transition={{ duration: motionTokens.duration.fast, ease: motionTokens.easing.standard }}
+                transition={{
+                  duration: motionTokens.duration.fast,
+                  ease: motionTokens.easing.standard,
+                }}
               >
                 (copied)
-              </motion.span>
-              <motion.div
+              </m.span>
+              <m.div
                 className="h-66 w-full border border-(--foreground)/10"
                 style={{ backgroundColor: hex }}
                 whileHover={{ scale: 0.98 }}
                 whileTap={{ scale: 0.94 }}
-                transition={{ duration: motionTokens.duration.base, ease: motionTokens.easing.standard }}
+                transition={{
+                  duration: motionTokens.duration.base,
+                  ease: motionTokens.easing.standard,
+                }}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 onClick={() => {

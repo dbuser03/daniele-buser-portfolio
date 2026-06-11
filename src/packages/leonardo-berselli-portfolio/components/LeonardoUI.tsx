@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "motion/react";
-import { cn } from "../utils/cn";
+import { m } from "motion/react";
+import { cn } from "@/utils/cn";
 import { useBasicElementsShowcase } from "../hooks/useBasicElementsShowcase";
 import { usePreloaderCard } from "../hooks/usePreloaderCard";
 import { useSystemDiagnostics } from "../hooks/useSystemDiagnostics";
@@ -10,7 +10,7 @@ import { Button } from "./Button";
 import { Badge } from "./Badge";
 import { Switch } from "./Switch";
 import { Card } from "./Card";
-import { enginePulseVariants } from "../lib/motion";
+import { enginePulseVariants } from "../utils/motion";
 import "../styles.css";
 
 export default function LeonardoUI() {
@@ -69,7 +69,7 @@ export default function LeonardoUI() {
               />
             </div>
             <div className="flex items-center">
-              <motion.span
+              <m.span
                 className={cn(
                   "font-mono text-[10px] leading-none tracking-wider uppercase",
                   isEngineActive ? "text-(--foreground)" : "text-(--neutral)",
@@ -78,7 +78,7 @@ export default function LeonardoUI() {
                 animate={isEngineActive ? "pulse" : "idle"}
               >
                 {isEngineActive ? "RUNNING" : "STABLE"}
-              </motion.span>
+              </m.span>
             </div>
           </div>
 

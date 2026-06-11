@@ -1,13 +1,13 @@
 export const PACKAGE_MOTION = {
   duration: {
-    tap:     0.1,
-    switch:  0.15,
-    card:    0.4,
-    engine:  1.5,
+    tap: 0.1,
+    switch: 0.15,
+    card: 0.4,
+    engine: 1.5,
   },
   easing: {
     standard: "easeOut" as const,
-    pulse:    "easeInOut" as const,
+    pulse: "easeInOut" as const,
   },
   yOffset: {
     card: 12,

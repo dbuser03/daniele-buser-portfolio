@@ -4,13 +4,8 @@ import { type ComponentType, useState } from "react";
 import type { Project } from "@/types/projects";
 import { HeroTitleMount } from "@/components/ui/HeroTitle";
 import SectionLabel from "@/components/ui/SectionLabel";
-import { motion } from "motion/react";
-import {
-  motionTokens,
-  entranceVariants,
-  listVariants,
-  fadeVariants,
-} from "@/constants/animations";
+import { m } from "motion/react";
+import { motionTokens, useAnimations } from "@/utils/motion";
 import Skeleton from "@/components/ui/Skeleton";
 import ImageWithSkeleton from "@/components/ui/ImageWithSkeleton";
 import dynamic from "next/dynamic";
@@ -61,6 +56,8 @@ export default function ProjectDetailsClient({
   implementationsCode = {},
   fallbackCode = "",
 }: ProjectDetailsClientProps) {
+  const { entranceVariants, listVariants, itemVariants } = useAnimations();
+
   const CustomComponents = UI_MAP[project.id];
   const CoolShitComponent = project.hasCoolShit
     ? COOL_SHIT_MAP[project.id]
@@ -80,27 +77,27 @@ export default function ProjectDetailsClient({
           >
             {project.title}
           </HeroTitleMount>
-          <motion.p
+          <m.p
             variants={entranceVariants(0.5, 20, motionTokens.duration.smooth)}
             initial="initial"
             animate="visible"
             className="text-section mt-3 font-normal tracking-tight text-(--neutral-dark)"
           >
             {project.year}
-          </motion.p>
+          </m.p>
         </div>
 
         <div className="flex flex-col gap-10">
-          <motion.div
+          <m.div
             variants={entranceVariants(0.65, 20, motionTokens.duration.smooth)}
             initial="initial"
             animate="visible"
             className="relative aspect-video w-full overflow-hidden bg-(--neutral-dark)"
           >
             <Skeleton isLoading={true} variant="on-light" />
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             className="grid grid-cols-12 gap-4"
             initial="initial"
             whileInView="visible"
@@ -109,7 +106,7 @@ export default function ProjectDetailsClient({
           >
             <div className="col-span-2 flex flex-col">
               <SectionLabel
-                as={motion.h2}
+                as={m.h2}
                 variant="section-heading"
                 variants={entranceVariants(0, 20, motionTokens.duration.smooth)}
               >
@@ -118,7 +115,7 @@ export default function ProjectDetailsClient({
             </div>
 
             <div className="col-span-10">
-              <motion.div
+              <m.div
                 className="text-section grid grid-cols-2 gap-8 font-normal text-(--background)"
                 initial="initial"
                 whileInView="visible"
@@ -131,14 +128,14 @@ export default function ProjectDetailsClient({
               >
                 <p className="break-inside-avoid">{project.descriptionCol1}</p>
                 <p className="break-inside-avoid">{project.descriptionCol2}</p>
-              </motion.div>
+              </m.div>
             </div>
-          </motion.div>
+          </m.div>
         </div>
 
         <div className="flex w-full flex-col">
           <SectionLabel
-            as={motion.h2}
+            as={m.h2}
             variant="section-heading"
             initial="initial"
             whileInView="visible"
@@ -148,45 +145,45 @@ export default function ProjectDetailsClient({
             Design
           </SectionLabel>
 
-          <motion.div
+          <m.div
             className="mt-3 flex w-full flex-col bg-(--background) p-4"
             initial="initial"
             whileInView="visible"
             viewport={{ once: true }}
             variants={entranceVariants(0.15, 20, motionTokens.duration.smooth)}
           >
-            <motion.div
+            <m.div
               className="grid w-full grid-cols-2 gap-4"
-              variants={listVariants(0.15, 0.08)}
+              variants={listVariants(0.15, motionTokens.stagger.base)}
             >
-              <motion.div key="palette" variants={fadeVariants}>
+              <m.div key="palette" variants={itemVariants}>
                 <DetailPaletteCard colors={project.brandingColors} />
-              </motion.div>
-              <motion.div key="typefaces" variants={fadeVariants}>
+              </m.div>
+              <m.div key="typefaces" variants={itemVariants}>
                 <DetailTypefacesCard fonts={project.brandingFonts} />
-              </motion.div>
+              </m.div>
 
               {project.hasCustomComponents && (
-                <motion.div key="components" variants={fadeVariants}>
+                <m.div key="components" variants={itemVariants}>
                   <DetailCustomComponentsCard
                     projectId={project.id}
                     CustomComponents={CustomComponents}
                   />
-                </motion.div>
+                </m.div>
               )}
 
               {CoolShitComponent && (
-                <motion.div key="cool-shit" variants={fadeVariants}>
+                <m.div key="cool-shit" variants={itemVariants}>
                   <DetailCoolShitCard CoolShitComponent={CoolShitComponent} />
-                </motion.div>
+                </m.div>
               )}
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
 
         <div className="flex w-full flex-col">
           <SectionLabel
-            as={motion.h2}
+            as={m.h2}
             variant="section-heading"
             initial="initial"
             whileInView="visible"
@@ -196,61 +193,56 @@ export default function ProjectDetailsClient({
             Code
           </SectionLabel>
 
-          <motion.div
+          <m.div
             className="mt-3 flex w-full flex-col bg-(--background) p-4"
             initial="initial"
             whileInView="visible"
             viewport={{ once: true }}
             variants={entranceVariants(0.15, 20, motionTokens.duration.smooth)}
           >
-            <motion.div
+            <m.div
               className="grid grid-cols-12 gap-4"
-              variants={entranceVariants(0.15, 20, motionTokens.duration.smooth)}
+              variants={listVariants(0, motionTokens.stagger.base)}
             >
-              <motion.div
-                className="col-span-4"
-                variants={entranceVariants(0.15, 20, motionTokens.duration.smooth)}
-              >
+              <m.div className="col-span-4" variants={itemVariants}>
                 <DetailTechCard project={project} />
-              </motion.div>
-              <motion.div
-                className="col-span-4"
-                variants={entranceVariants(0.3, 20, motionTokens.duration.smooth)}
-              >
+              </m.div>
+              <m.div className="col-span-4" variants={itemVariants}>
                 <DetailArchitectureCard
                   project={project}
                   selectedFile={selectedFile}
                   onFileSelect={setSelectedFile}
                 />
-              </motion.div>
-              <motion.div
-                className="col-span-4"
-                variants={entranceVariants(0.45, 20, motionTokens.duration.smooth)}
-              >
+              </m.div>
+              <m.div className="col-span-4" variants={itemVariants}>
                 <DetailImplementationCard
                   selectedFile={selectedFile}
                   implementationsCode={implementationsCode}
                   fallbackCode={fallbackCode}
                 />
-              </motion.div>
-            </motion.div>
-          </motion.div>
+              </m.div>
+            </m.div>
+          </m.div>
           <div className="mt-4">
-            <motion.div
+            <m.div
               className="relative aspect-video w-full overflow-hidden bg-(--neutral-dark)"
               initial="initial"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={entranceVariants(0.15, 20, motionTokens.duration.smooth)}
+              variants={entranceVariants(
+                0.15,
+                20,
+                motionTokens.duration.smooth,
+              )}
             >
               <Skeleton isLoading={true} variant="on-light" />
-            </motion.div>
+            </m.div>
           </div>
         </div>
 
         <div className="flex w-full flex-col">
           <SectionLabel
-            as={motion.h2}
+            as={m.h2}
             variant="section-heading"
             initial="initial"
             whileInView="visible"
@@ -260,17 +252,17 @@ export default function ProjectDetailsClient({
             Ship
           </SectionLabel>
 
-          <motion.div
+          <m.div
             className="mt-3 flex flex-col gap-4"
             initial="initial"
             whileInView="visible"
             viewport={{ once: true }}
-            variants={entranceVariants(0.15, 20, motionTokens.duration.smooth)}
+            variants={listVariants(0.15, motionTokens.stagger.base)}
           >
             <div className="grid grid-cols-12 gap-4">
-              <motion.div
+              <m.div
                 className="relative col-span-6 aspect-4/3 w-full overflow-hidden bg-(--neutral-dark)"
-                variants={entranceVariants(0.15, 20, motionTokens.duration.smooth)}
+                variants={itemVariants}
               >
                 <ImageWithSkeleton
                   src={project.shipImage1}
@@ -278,10 +270,10 @@ export default function ProjectDetailsClient({
                   sizes="(max-width: 1280px) 100vw, 50vw"
                   skeletonVariant="on-light"
                 />
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 className="relative col-span-6 aspect-4/3 w-full overflow-hidden bg-(--neutral-dark)"
-                variants={entranceVariants(0.3, 20, motionTokens.duration.smooth)}
+                variants={itemVariants}
               >
                 <ImageWithSkeleton
                   src={project.shipImage2}
@@ -289,23 +281,23 @@ export default function ProjectDetailsClient({
                   sizes="(max-width: 1280px) 100vw, 50vw"
                   skeletonVariant="on-light"
                 />
-              </motion.div>
+              </m.div>
             </div>
             <div className="grid grid-cols-12 gap-4">
-              <motion.p
+              <m.p
                 className="text-section col-span-5 font-normal text-(--background)"
-                variants={entranceVariants(0.15, 20, motionTokens.duration.smooth)}
+                variants={itemVariants}
               >
                 {project.shipText1}
-              </motion.p>
-              <motion.p
+              </m.p>
+              <m.p
                 className="text-section col-span-5 col-start-7 font-normal text-(--background)"
-                variants={entranceVariants(0.3, 20, motionTokens.duration.smooth)}
+                variants={itemVariants}
               >
                 {project.shipText2}
-              </motion.p>
+              </m.p>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </div>

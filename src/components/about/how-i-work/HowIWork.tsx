@@ -2,16 +2,18 @@
 
 import Image from "next/image";
 import { useRef, useState, useMemo, useEffect } from "react";
-import { motion, useScroll, useSpring } from "motion/react";
+import { m, useScroll, useSpring } from "motion/react";
 import { HOW_I_WORK_WORDS, VIDEO_MAP } from "@/constants/about";
 import { useHowIWork } from "@/hooks/useHowIWork";
 import WorkWord from "./WorkWord";
 import VideoLayer from "./VideoLayer";
 import Skeleton from "@/components/ui/Skeleton";
 import SectionLabel from "@/components/ui/SectionLabel";
-import { entranceVariants, motionTokens } from "@/constants/animations";
+import { motionTokens, useAnimations } from "@/utils/motion";
 
 export default function HowIWork() {
+  const { entranceVariants } = useAnimations();
+
   const wordsRef = useRef<HTMLDivElement | null>(null);
   const [isHeroLoading, setIsHeroLoading] = useState(true);
   const [isPanelLoading, setIsPanelLoading] = useState(true);
@@ -63,7 +65,7 @@ export default function HowIWork() {
     >
       <SectionLabel
         id="how-i-work-heading"
-        as={motion.h2}
+        as={m.h2}
         variant="section-heading"
         initial="initial"
         whileInView="visible"
@@ -74,7 +76,7 @@ export default function HowIWork() {
       </SectionLabel>
       <div className="mt-3 flex flex-col gap-10">
         <div className="grid grid-cols-12 gap-4">
-          <motion.div
+          <m.div
             className="relative col-span-9 aspect-16/7 w-full overflow-hidden bg-(--neutral)"
             initial="initial"
             whileInView="visible"
@@ -91,9 +93,9 @@ export default function HowIWork() {
               aria-hidden="true"
               onLoad={() => setIsHeroLoading(false)}
             />
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             className="relative col-span-3 col-start-10 h-full overflow-hidden"
             onMouseEnter={handlePanelMouseEnter}
             onMouseLeave={handlePanelMouseLeave}
@@ -102,11 +104,14 @@ export default function HowIWork() {
             viewport={{ once: true }}
             variants={entranceVariants(0.3, 20, motionTokens.duration.smooth)}
           >
-            <motion.div
+            <m.div
               className="absolute inset-0"
               initial={{ opacity: 1 }}
               animate={{ opacity: activeWord ? 0 : 1 }}
-              transition={{ duration: motionTokens.duration.smooth, ease: motionTokens.easing.standard }}
+              transition={{
+                duration: motionTokens.duration.smooth,
+                ease: motionTokens.easing.standard,
+              }}
             >
               <Skeleton isLoading={isPanelLoading} variant="on-light" />
               <Image
@@ -118,7 +123,7 @@ export default function HowIWork() {
                 aria-hidden="true"
                 onLoad={() => setIsPanelLoading(false)}
               />
-            </motion.div>
+            </m.div>
 
             {HOW_I_WORK_WORDS.map((word) => (
               <VideoLayer
@@ -129,7 +134,7 @@ export default function HowIWork() {
                 onEnded={onEndedMap[word]}
               />
             ))}
-          </motion.div>
+          </m.div>
         </div>
 
         <div className="grid grid-cols-12 gap-4">

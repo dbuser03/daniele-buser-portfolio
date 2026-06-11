@@ -40,7 +40,7 @@ export default function DetailTypefacesCard({
             className="flex flex-col items-start justify-end"
           >
             <span
-              className="select-none text-display-xl font-normal text-(--neutral)"
+              className="text-display-xl font-normal text-(--neutral) select-none"
               style={{ fontFamily: getFontFamily(font) }}
             >
               {font.sampleText || "Aa"}
@@ -49,7 +49,7 @@ export default function DetailTypefacesCard({
               {font.type}
             </span>
             <span
-              className="mt-1 text-section leading-[0.95] font-normal whitespace-nowrap text-(--foreground)"
+              className="text-section mt-1 leading-[0.95] font-normal whitespace-nowrap text-(--foreground)"
               style={{
                 fontFamily: getFontFamily(font),
                 letterSpacing: font.type === "mono" ? "-0.05em" : "-0.02em",

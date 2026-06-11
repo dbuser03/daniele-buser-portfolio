@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, useTransform, MotionValue } from "motion/react";
+import { m, useTransform, MotionValue } from "motion/react";
 import type { HoverableWord } from "@/types/about";
-import { motionTokens } from "@/constants/animations";
+import { motionTokens } from "@/utils/motion";
 
 interface WorkWordProps {
   word: HoverableWord;
@@ -39,9 +39,12 @@ export default function WorkWord({
   const y = useTransform(progress, [0, 1], [20, 0]);
 
   return (
-    <motion.button
+    <m.button
       type="button"
-      className={cn("relative flex items-center overflow-visible border-none bg-transparent p-0 text-left text-7xl font-medium", className)}
+      className={cn(
+        "relative flex items-center overflow-visible border-none bg-transparent p-0 text-left text-7xl font-medium",
+        className,
+      )}
       style={{ opacity, y, color: "inherit", fontFamily: "inherit" }}
       initial="rest"
       animate={isActive ? "hover" : "rest"}
@@ -55,10 +58,13 @@ export default function WorkWord({
         className="absolute left-0 h-12 w-14 overflow-hidden"
         aria-hidden="true"
       >
-        <motion.div
+        <m.div
           className="h-full w-full bg-(--background)"
           variants={arrowVariants}
-          transition={{ duration: motionTokens.duration.base, ease: motionTokens.easing.standard }}
+          transition={{
+            duration: motionTokens.duration.base,
+            ease: motionTokens.easing.standard,
+          }}
           style={{
             WebkitMaskImage: "url(/icons/right-arrow.svg)",
             maskImage: "url(/icons/right-arrow.svg)",
@@ -71,13 +77,16 @@ export default function WorkWord({
           }}
         />
       </span>
-      <motion.span
+      <m.span
         className="inline-block"
         variants={labelVariants}
-        transition={{ duration: motionTokens.duration.base, ease: motionTokens.easing.standard }}
+        transition={{
+          duration: motionTokens.duration.base,
+          ease: motionTokens.easing.standard,
+        }}
       >
         {word}
-      </motion.span>
-    </motion.button>
+      </m.span>
+    </m.button>
   );
 }

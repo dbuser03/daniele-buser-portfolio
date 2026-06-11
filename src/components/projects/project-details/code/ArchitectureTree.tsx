@@ -8,8 +8,8 @@ import {
   ChevronRight,
   ChevronDown,
 } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
-import { motionTokens } from "@/constants/animations";
+import { m, AnimatePresence } from "motion/react";
+import { motionTokens } from "@/utils/motion";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { cn } from "@/utils/cn";
 
@@ -240,22 +240,25 @@ export default function ArchitectureTree({
     };
   }, []);
 
-  const handleToggle = useCallback((path: string) => {
-    const isClosing = expandedPaths.has(path);
-    setExpandedPaths((prev) => {
-      const next = new Set(prev);
-      if (isClosing) {
-        next.delete(path);
-      } else {
-        next.add(path);
-      }
-      return next;
-    });
+  const handleToggle = useCallback(
+    (path: string) => {
+      const isClosing = expandedPaths.has(path);
+      setExpandedPaths((prev) => {
+        const next = new Set(prev);
+        if (isClosing) {
+          next.delete(path);
+        } else {
+          next.add(path);
+        }
+        return next;
+      });
 
-    if (isClosing && selectedFile && selectedFile.startsWith(path + "/")) {
-      onFileSelect?.(null);
-    }
-  }, [expandedPaths, selectedFile, onFileSelect]);
+      if (isClosing && selectedFile && selectedFile.startsWith(path + "/")) {
+        onFileSelect?.(null);
+      }
+    },
+    [expandedPaths, selectedFile, onFileSelect],
+  );
 
   return (
     <div
@@ -351,7 +354,7 @@ function TreeBranch({
   if (node.type === "file") {
     if (isClickable) {
       return (
-        <motion.button
+        <m.button
           onClick={() => onFileSelect?.(currentPath)}
           onMouseEnter={fileCursor.handleMouseEnter}
           onMouseLeave={fileCursor.handleMouseLeave}
@@ -359,13 +362,13 @@ function TreeBranch({
           whileHover="hover"
           animate={isSelected ? "hover" : "rest"}
           className={cn(
-            "flex w-full items-center gap-1.5 py-0.5 text-left transition-colors duration-150 rounded-none",
-            isSelected ? "bg-(--neutral)/15" : ""
+            "flex w-full items-center gap-1.5 rounded-none py-0.5 text-left transition-colors duration-150",
+            isSelected ? "bg-(--neutral)/15" : "",
           )}
           style={{ paddingLeft: filePadding }}
         >
           <File size={FILE_ICON_SIZE} className="shrink-0 text-(--accent)" />
-          <motion.span
+          <m.span
             variants={{
               rest: { color: "var(--neutral)" },
               hover: { color: "var(--foreground)" },
@@ -377,8 +380,8 @@ function TreeBranch({
             className="text-sm font-medium"
           >
             {node.name}
-          </motion.span>
-        </motion.button>
+          </m.span>
+        </m.button>
       );
     }
     return (
@@ -386,10 +389,7 @@ function TreeBranch({
         className="flex items-center gap-1.5 py-0.5"
         style={{ paddingLeft: filePadding }}
       >
-        <File
-          size={FILE_ICON_SIZE}
-          className="shrink-0 text-(--neutral)"
-        />
+        <File size={FILE_ICON_SIZE} className="shrink-0 text-(--neutral)" />
         <span className="text-sm text-(--neutral)">{node.name}</span>
       </div>
     );
@@ -421,10 +421,7 @@ function TreeBranch({
             className="shrink-0 text-(--neutral)"
           />
         ) : (
-          <Folder
-            size={DIR_ICON_SIZE}
-            className="shrink-0 text-(--neutral)"
-          />
+          <Folder size={DIR_ICON_SIZE} className="shrink-0 text-(--neutral)" />
         )}
         <span className="text-sm font-normal text-(--foreground)">
           {node.name}/
@@ -432,7 +429,7 @@ function TreeBranch({
       </button>
       <AnimatePresence initial={false}>
         {isExpanded && node.children && (
-          <motion.div
+          <m.div
             key={currentPath}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
@@ -465,7 +462,7 @@ function TreeBranch({
                 ))}
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

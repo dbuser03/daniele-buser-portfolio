@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { animate } from "motion/react";
-import { useCursorContext } from "@/contexts/CursorContext";
+import { useCursorContext } from "@/components/layout/cursor/CursorContext";
 import { CURSOR_SIZE } from "@/constants/cursor";
 import { CursorInteractionType } from "@/types/cursor";
 import { getCursorInteractionConfig } from "@/utils/cursor";

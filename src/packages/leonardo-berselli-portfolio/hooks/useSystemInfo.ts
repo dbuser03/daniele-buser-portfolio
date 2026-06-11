@@ -1,5 +1,13 @@
 import { useState, useEffect } from "react";
-import type { SysInfo } from "../types";
+
+export interface SysInfo {
+  cores: number | string;
+  gpu: string;
+  os: string;
+  network: string;
+  res: string;
+  ip: string;
+}
 
 export function useSystemInfo() {
   const [sysInfo, setSysInfo] = useState<SysInfo | null>(null);
@@ -29,7 +37,10 @@ export function useSystemInfo() {
           gpu = (gl as WebGLRenderingContext).getParameter(
             debugInfo.UNMASKED_RENDERER_WEBGL,
           );
-          gpu = gpu.replace(/ANGLE \((.*)\)/, "$1").split(",")[0].trim();
+          gpu = gpu
+            .replace(/ANGLE \((.*)\)/, "$1")
+            .split(",")[0]
+            .trim();
           if (gpu.length > 25) gpu = gpu.substring(0, 22) + "...";
         }
       }

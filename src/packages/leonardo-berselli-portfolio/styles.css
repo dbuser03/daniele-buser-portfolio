@@ -1,46 +1,52 @@
 @font-face {
-  font-family: 'PP Neue Montreal';
-  src: url('/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal/PPNeueMontreal-Light.otf') format('opentype');
+  font-family: "PP Neue Montreal";
+  src: url("/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal/PPNeueMontreal-Light.otf")
+    format("opentype");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'PP Neue Montreal';
-  src: url('/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal/PPNeueMontreal-Regular.otf') format('opentype');
+  font-family: "PP Neue Montreal";
+  src: url("/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal/PPNeueMontreal-Regular.otf")
+    format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'PP Neue Montreal';
-  src: url('/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal/PPNeueMontreal-Semibold.otf') format('opentype');
+  font-family: "PP Neue Montreal";
+  src: url("/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal/PPNeueMontreal-Semibold.otf")
+    format("opentype");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'PP Neue Montreal Mono';
-  src: url('/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal-mono/PPNeueMontrealMono-Thin.otf') format('opentype');
+  font-family: "PP Neue Montreal Mono";
+  src: url("/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal-mono/PPNeueMontrealMono-Thin.otf")
+    format("opentype");
   font-weight: 100;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'PP Neue Montreal Mono';
-  src: url('/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal-mono/PPNeueMontrealMono-Book.otf') format('opentype');
+  font-family: "PP Neue Montreal Mono";
+  src: url("/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal-mono/PPNeueMontrealMono-Book.otf")
+    format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'PP Neue Montreal Mono';
-  src: url('/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal-mono/PPNeueMontrealMono-Bold.otf') format('opentype');
+  font-family: "PP Neue Montreal Mono";
+  src: url("/projects/leonardo-berselli-portfolio/fonts/pp-neue-montreal-mono/PPNeueMontrealMono-Bold.otf")
+    format("opentype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;

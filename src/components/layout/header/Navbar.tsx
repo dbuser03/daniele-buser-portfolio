@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback } from "react";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import type { Route } from "next";
@@ -9,11 +9,13 @@ import { NAV_LINKS } from "@/constants/layout";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { useLenis } from "lenis/react";
 import { cn } from "@/utils/cn";
-import { motionTokens, entranceVariants } from "@/constants/animations";
+import { motionTokens, useAnimations } from "@/utils/motion";
 import AnimatedTextSpan from "@/components/ui/AnimatedTextSpan";
 import type { NavItemProps } from "@/types/layout";
 
 function NavItem({ href, label, delay }: NavItemProps) {
+  const { entranceVariants } = useAnimations();
+
   const pathname = usePathname();
   const lenis = useLenis();
   const isActive =
@@ -37,7 +39,11 @@ function NavItem({ href, label, delay }: NavItemProps) {
 
   return (
     <li>
-      <motion.div variants={entranceVariants(delay, 20, motionTokens.duration.smooth)} initial="initial" animate="visible">
+      <m.div
+        variants={entranceVariants(delay, 20, motionTokens.duration.smooth)}
+        initial="initial"
+        animate="visible"
+      >
         <Link
           href={href as Route}
           className={cn("text-sm", isActive ? "font-bold" : "font-normal")}
@@ -48,7 +54,7 @@ function NavItem({ href, label, delay }: NavItemProps) {
         >
           <AnimatedTextSpan isActive={isActive}>{label}</AnimatedTextSpan>
         </Link>
-      </motion.div>
+      </m.div>
     </li>
   );
 }

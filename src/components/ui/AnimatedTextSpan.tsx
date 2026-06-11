@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import type { ReactNode } from "react";
 import { CSS_VARIABLES } from "@/constants/theme";
-import { motionTokens } from "@/constants/animations";
+import { motionTokens } from "@/utils/motion";
 
 interface AnimatedTextSpanProps {
   children: ReactNode;
@@ -23,13 +23,16 @@ export default function AnimatedTextSpan({
   className,
 }: AnimatedTextSpanProps) {
   return (
-    <motion.span
+    <m.span
       animate={{ color: isActive ? activeColor : inactiveColor }}
       whileHover={{ color: hoverColor }}
-      transition={{ duration: motionTokens.duration.base, ease: motionTokens.easing.standard }}
+      transition={{
+        duration: motionTokens.duration.base,
+        ease: motionTokens.easing.standard,
+      }}
       className={className}
     >
       {children}
-    </motion.span>
+    </m.span>
   );
 }

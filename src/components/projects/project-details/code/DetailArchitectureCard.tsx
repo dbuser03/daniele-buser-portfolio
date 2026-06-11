@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import type { Project } from "@/types/projects";
 import DetailCodeCard from "./DetailCodeCard";
 import ArchitectureTree from "./ArchitectureTree";
@@ -21,8 +21,8 @@ export default function DetailArchitectureCard({
   const [hoveredArchPath, setHoveredArchPath] = useState<string | null>(null);
 
   const archDescription = hoveredArchPath
-    ? project.architectureDescriptions?.[hoveredArchPath] ??
-      "Click or hover on a folder to explore the project structure."
+    ? (project.architectureDescriptions?.[hoveredArchPath] ??
+      "Click or hover on a folder to explore the project structure.")
     : "Click or hover on a folder to explore the project structure.";
 
   return (

@@ -1,12 +1,14 @@
 "use client";
 
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { PROJECTS } from "@/constants/projects";
 import ProjectCard from "./ProjectCard";
 import SectionLabel from "@/components/ui/SectionLabel";
-import { motionTokens, entranceVariants, listVariants } from "@/constants/animations";
+import { motionTokens, useAnimations } from "@/utils/motion";
 
 export default function ProjectsSection() {
+  const { entranceVariants, listVariants } = useAnimations();
+
   const labelVariants = entranceVariants(0.5, 20, motionTokens.duration.smooth);
 
   return (
@@ -15,7 +17,7 @@ export default function ProjectsSection() {
       aria-labelledby="projects-list-heading"
     >
       <SectionLabel
-        as={motion.h2}
+        as={m.h2}
         id="projects-list-heading"
         variant="section-heading"
         variants={labelVariants}
@@ -24,16 +26,20 @@ export default function ProjectsSection() {
       >
         SELECTED WORKS
       </SectionLabel>
-      <motion.div
+      <m.div
         className="mt-3 grid w-full grid-cols-12 gap-4"
-        variants={listVariants(0.65, 0.1)}
+        variants={listVariants(0.65, motionTokens.stagger.loose)}
         initial="initial"
         animate="visible"
       >
-        {PROJECTS.map((project) => (
-          <ProjectCard key={project.id} project={project} />
+        {PROJECTS.map((project, index) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            priority={index === 0}
+          />
         ))}
-      </motion.div>
+      </m.div>
     </section>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "motion/react";
-import { motionTokens, itemVariants } from "@/constants/animations";
+import { m } from "motion/react";
+import { motionTokens, useAnimations } from "@/utils/motion";
 
 interface TechStackCellProps {
   children: React.ReactNode;
@@ -21,8 +21,10 @@ export default function TechStackCell({
   onMouseLeave,
   isActive,
 }: TechStackCellProps) {
+  const { itemVariants } = useAnimations();
+
   return (
-    <motion.div
+    <m.div
       ref={cellRef}
       className={className}
       onMouseEnter={onMouseEnter}
@@ -30,13 +32,13 @@ export default function TechStackCell({
       variants={itemVariants}
     >
       {isActive && (
-        <motion.div
+        <m.div
           layoutId="tech-stack-highlight"
           className="pointer-events-none absolute inset-0 z-20 bg-(--background)"
           transition={motionTokens.spring.cell}
         />
       )}
       <div className="relative z-30 h-full w-full">{children}</div>
-    </motion.div>
+    </m.div>
   );
 }

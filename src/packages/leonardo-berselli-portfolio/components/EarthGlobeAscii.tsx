@@ -3,7 +3,7 @@
 import { useRef, useCallback } from "react";
 import { useEarthGlobe } from "../hooks/useEarthGlobe";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
-import { useCursorContext } from "@/contexts/CursorContext";
+import { useCursorContext } from "@/components/layout/cursor/CursorContext";
 import { CURSOR_SIZE } from "@/constants/cursor";
 
 interface EarthGlobeAsciiProps {

@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect } from "react";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { HeroTitleMount } from "@/components/ui/HeroTitle";
 import GridLines from "@/components/layout/GridLines";
-import { entranceVariants, motionTokens } from "@/constants/animations";
+import { motionTokens, useAnimations } from "@/utils/motion";
 import { CSS_VARIABLES } from "@/constants/theme";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 
@@ -21,6 +21,8 @@ export default function Error({
 
   const { handleMouseEnter, handleMouseLeave } =
     useCursorInteraction("current");
+
+  const { entranceVariants } = useAnimations();
 
   return (
     <main
@@ -47,21 +49,21 @@ export default function Error({
             >
               Hell Nah
             </HeroTitleMount>
-            <motion.p
+            <m.p
               variants={entranceVariants(0.5, 20, motionTokens.duration.smooth)}
               initial="initial"
               animate="visible"
               className="-mt-3 text-sm tracking-wide text-(--neutral)"
             >
               Something went wrong
-            </motion.p>
+            </m.p>
           </div>
-          <motion.div
+          <m.div
             variants={entranceVariants(0.65, 20, motionTokens.duration.smooth)}
             initial="initial"
             animate="visible"
           >
-            <motion.button
+            <m.button
               type="button"
               onClick={reset}
               onMouseEnter={handleMouseEnter}
@@ -70,12 +72,15 @@ export default function Error({
                 backgroundColor: CSS_VARIABLES.foreground,
                 color: CSS_VARIABLES.background,
               }}
-              transition={{ duration: motionTokens.duration.base, ease: motionTokens.easing.standard }}
+              transition={{
+                duration: motionTokens.duration.base,
+                ease: motionTokens.easing.standard,
+              }}
               className="rounded-sm border border-(--foreground) bg-(--background) px-5 py-2.5 text-xs font-normal tracking-wider text-(--foreground) uppercase"
             >
               Try again
-            </motion.button>
-          </motion.div>
+            </m.button>
+          </m.div>
         </div>
       </div>
     </main>

@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useRef, memo } from "react";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import Link from "next/link";
 import type { Route } from "next";
 import type { TechStackIconConfig } from "@/types/about";
-import { motionTokens } from "@/constants/animations";
+import { motionTokens } from "@/utils/motion";
 import { CSS_VARIABLES } from "@/constants/theme";
 import { cn } from "@/utils/cn";
 
@@ -57,7 +57,10 @@ function TechStackIcon({
       href={icon.href as Route}
       target="_blank"
       rel="noopener noreferrer"
-      className={cn("relative z-30 flex h-full w-full items-center justify-center focus-visible:z-40 focus-visible:-outline-offset-2", className)}
+      className={cn(
+        "relative z-30 flex h-full w-full items-center justify-center focus-visible:z-40 focus-visible:-outline-offset-2",
+        className,
+      )}
       aria-label={`Visit ${icon.label} website (opens in new tab)`}
       onFocus={onFocus}
       onBlur={onBlur}
@@ -69,7 +72,7 @@ function TechStackIcon({
           icon.hoverPaddingClass ?? "p-9",
         )}
       >
-        <motion.div
+        <m.div
           className={icon.sizeClass}
           style={{
             WebkitMaskImage: `url(${icon.path})`,

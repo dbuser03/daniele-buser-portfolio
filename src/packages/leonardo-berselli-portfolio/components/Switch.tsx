@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "motion/react";
-import { cn } from "../utils/cn";
+import { m } from "motion/react";
+import { cn } from "@/utils/cn";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
-import { PACKAGE_MOTION, SWITCH_THUMB } from "../lib/motion";
+import { PACKAGE_MOTION, SWITCH_THUMB } from "../utils/motion";
 
 interface SwitchProps {
   checked: boolean;
@@ -46,7 +46,7 @@ export function Switch({
         className,
       )}
     >
-      <motion.span
+      <m.span
         className={cn(
           "pointer-events-none block rounded-full",
           checked ? "bg-(--neutral-dark)" : "bg-(--neutral)",
@@ -59,7 +59,10 @@ export function Switch({
               : SWITCH_THUMB.offsetCheckedSm
             : SWITCH_THUMB.offsetUnchecked,
         }}
-        transition={{ duration: PACKAGE_MOTION.duration.switch, ease: PACKAGE_MOTION.easing.standard }}
+        transition={{
+          duration: PACKAGE_MOTION.duration.switch,
+          ease: PACKAGE_MOTION.easing.standard,
+        }}
       />
     </button>
   );

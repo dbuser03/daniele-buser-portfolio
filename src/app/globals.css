@@ -42,7 +42,7 @@ body {
 }
 
 @media (pointer: fine) {
-  * {
+  html.has-custom-cursor * {
     cursor: none !important;
   }
 }

@@ -48,18 +48,23 @@ export default async function ProjectPage({ params }: PageProps) {
 
   const implementationsCode: Record<string, string> = {};
   if (project.showcaseFiles) {
-    for (const [treePath, pkgRelativePath] of Object.entries(project.showcaseFiles)) {
+    for (const [treePath, pkgRelativePath] of Object.entries(
+      project.showcaseFiles,
+    )) {
       try {
         const fullPath = path.join(
           process.cwd(),
           "src/packages",
           project.id,
-          pkgRelativePath
+          pkgRelativePath,
         );
         const code = fs.readFileSync(fullPath, "utf-8");
         implementationsCode[treePath] = code;
       } catch (err) {
-        console.error(`Failed to read showcase file ${pkgRelativePath} for project ${project.id}:`, err);
+        console.error(
+          `Failed to read showcase file ${pkgRelativePath} for project ${project.id}:`,
+          err,
+        );
       }
     }
   }
@@ -68,7 +73,7 @@ export default async function ProjectPage({ params }: PageProps) {
   try {
     const fallbackPath = path.join(
       process.cwd(),
-      "src/components/ui/CodePlaceholder.tsx"
+      "src/components/ui/CodePlaceholder.tsx",
     );
     fallbackCode = fs.readFileSync(fallbackPath, "utf-8");
   } catch (err) {

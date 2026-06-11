@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "motion/react";
+import { m, AnimatePresence } from "motion/react";
 import Skeleton from "@/components/ui/Skeleton";
 import { cn } from "@/utils/cn";
-import { motionTokens } from "@/constants/animations";
+import { motionTokens } from "@/utils/motion";
 
 interface ImageWithSkeletonProps {
   src?: string;
@@ -34,12 +34,15 @@ export default function ImageWithSkeleton({
       <Skeleton isLoading={showSkeleton} variant={skeletonVariant} />
       <AnimatePresence>
         {src && !hasError && (
-          <motion.div
+          <m.div
             className="absolute inset-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: isLoading ? 0 : 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: motionTokens.duration.smooth, ease: motionTokens.easing.standard }}
+            transition={{
+              duration: motionTokens.duration.smooth,
+              ease: motionTokens.easing.standard,
+            }}
           >
             <Image
               src={src}
@@ -54,7 +57,7 @@ export default function ImageWithSkeleton({
                 setIsLoading(false);
               }}
             />
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

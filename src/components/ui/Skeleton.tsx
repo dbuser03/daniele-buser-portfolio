@@ -1,7 +1,7 @@
 import { cn } from "@/utils/cn";
 
-import { motion, AnimatePresence } from "motion/react";
-import { motionTokens } from "@/constants/animations";
+import { m, AnimatePresence } from "motion/react";
+import { motionTokens } from "@/utils/motion";
 
 type SkeletonVariant = "on-dark" | "on-light";
 
@@ -26,7 +26,7 @@ export default function Skeleton({
   return (
     <AnimatePresence>
       {isLoading && (
-        <motion.div
+        <m.div
           className={cn("absolute inset-0 z-10", className)}
           style={{
             background: SHIMMER_GRADIENTS[variant],
@@ -39,7 +39,10 @@ export default function Skeleton({
           }}
           exit={{ opacity: 0 }}
           transition={{
-            opacity: { duration: motionTokens.duration.smooth, ease: motionTokens.easing.standard },
+            opacity: {
+              duration: motionTokens.duration.smooth,
+              ease: motionTokens.easing.standard,
+            },
             backgroundPosition: {
               duration: 2.8,
               ease: "easeInOut",

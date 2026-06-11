@@ -1,11 +1,11 @@
 "use client";
 
 import { Fragment, useMemo } from "react";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { CONTACT_LINKS, EMAIL } from "@/constants/contacts";
 import { ContactLink } from "@/types/contacts";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
-import { entranceVariants } from "@/constants/animations";
+import { useAnimations } from "@/utils/motion";
 import AnimatedTextSpan from "@/components/ui/AnimatedTextSpan";
 
 function ContactLinkItem({
@@ -61,6 +61,8 @@ export default function Contacts({
     amount?: "some" | "all" | number;
   };
 } = {}) {
+  const { entranceVariants } = useAnimations();
+
   const {
     handleMouseEnter: handleEmailEnter,
     handleMouseLeave: handleEmailLeave,
@@ -71,12 +73,12 @@ export default function Contacts({
 
   const paragraphVariants = useMemo(
     () => entranceVariants(paragraphDelay),
-    [paragraphDelay],
+    [paragraphDelay, entranceVariants],
   );
 
   const linksVariants = useMemo(
     () => entranceVariants(linksDelay),
-    [linksDelay],
+    [linksDelay, entranceVariants],
   );
 
   return (
@@ -84,7 +86,7 @@ export default function Contacts({
       className="flex flex-row items-center justify-between gap-12 text-(--foreground)"
       aria-labelledby="contacts-heading"
     >
-      <motion.p
+      <m.p
         className="text-section max-w-2xl"
         variants={paragraphVariants}
         initial="initial"
@@ -94,9 +96,9 @@ export default function Contacts({
       >
         If you have a project in mind, feel free to reach out - I&apos;d be glad
         to help bring your vision to life.
-      </motion.p>
+      </m.p>
 
-      <motion.div
+      <m.div
         variants={linksVariants}
         initial="initial"
         animate={trigger === "mount" ? "visible" : undefined}
@@ -134,7 +136,7 @@ export default function Contacts({
             </Fragment>
           ))}
         </nav>
-      </motion.div>
+      </m.div>
     </section>
   );
 }

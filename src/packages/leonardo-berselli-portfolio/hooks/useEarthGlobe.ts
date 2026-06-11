@@ -9,7 +9,7 @@ import {
   getAsciiColorFromCSS,
   patchGlobeShader,
   type AsciiUniforms,
-} from "../shaders/asciiGlobe";
+} from "../utils/asciiGlobe";
 
 interface UseEarthGlobeOptions {
   containerRef: React.RefObject<HTMLDivElement | null>;
@@ -34,7 +34,12 @@ export function useEarthGlobe({
       darkProp ?? window.matchMedia("(prefers-color-scheme: dark)").matches;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(GLOBE_CONFIG.cameraFov, 1, 0.1, 100);
+    const camera = new THREE.PerspectiveCamera(
+      GLOBE_CONFIG.cameraFov,
+      1,
+      0.1,
+      100,
+    );
     camera.position.set(0, 0, GLOBE_CONFIG.cameraZ);
 
     scene.add(
@@ -44,11 +49,17 @@ export function useEarthGlobe({
 
     const loader = new THREE.TextureLoader();
 
-    const dayTexture = loader.load("/projects/leonardo-berselli-portfolio/textures/earth_atmos_2048.jpg");
+    const dayTexture = loader.load(
+      "/projects/leonardo-berselli-portfolio/textures/earth_atmos_2048.jpg",
+    );
     dayTexture.colorSpace = THREE.SRGBColorSpace;
 
-    const normalTexture = loader.load("/projects/leonardo-berselli-portfolio/textures/earth_normal_2048.jpg");
-    const specularTexture = loader.load("/projects/leonardo-berselli-portfolio/textures/earth_specular_2048.jpg");
+    const normalTexture = loader.load(
+      "/projects/leonardo-berselli-portfolio/textures/earth_normal_2048.jpg",
+    );
+    const specularTexture = loader.load(
+      "/projects/leonardo-berselli-portfolio/textures/earth_specular_2048.jpg",
+    );
 
     const asciiTexture = createAsciiAtlas();
 

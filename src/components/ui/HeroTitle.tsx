@@ -1,9 +1,9 @@
 "use client";
 
 import { useMemo } from "react";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { cn } from "@/utils/cn";
-import { motionTokens, entranceVariants } from "@/constants/animations";
+import { motionTokens, useAnimations } from "@/utils/motion";
 
 interface HeroTitleMountProps {
   id?: string;
@@ -36,7 +36,9 @@ interface HeroTitleStaticProps {
 
 function Dot() {
   return (
-    <span className="text-(--accent)" aria-hidden="true">.</span>
+    <span className="text-(--accent)" aria-hidden="true">
+      .
+    </span>
   );
 }
 
@@ -51,12 +53,14 @@ export function HeroTitleMount({
   duration = motionTokens.duration.smooth,
   yOffset = 40,
 }: HeroTitleMountProps) {
+  const { entranceVariants } = useAnimations();
+
   const variants = useMemo(
     () => entranceVariants(delay, yOffset, duration),
-    [delay, yOffset, duration],
+    [delay, yOffset, duration, entranceVariants],
   );
 
-  const MotionTag = motion[as] || motion.h1;
+  const MotionTag = m[as] || m.h1;
 
   return (
     <MotionTag
@@ -85,12 +89,14 @@ export function HeroTitleInView({
   yOffset = 40,
   viewport,
 }: HeroTitleInViewProps) {
+  const { entranceVariants } = useAnimations();
+
   const variants = useMemo(
     () => entranceVariants(delay, yOffset, duration),
-    [delay, yOffset, duration],
+    [delay, yOffset, duration, entranceVariants],
   );
 
-  const MotionTag = motion[as] || motion.h1;
+  const MotionTag = m[as] || m.h1;
 
   return (
     <MotionTag

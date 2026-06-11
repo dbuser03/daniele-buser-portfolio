@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import type { Route } from "next";
 import type { Project } from "@/types/projects";
@@ -13,23 +13,33 @@ interface DetailTechCardProps {
   className?: string;
 }
 
-export default function DetailTechCard({ project, className }: DetailTechCardProps) {
+export default function DetailTechCard({
+  project,
+  className,
+}: DetailTechCardProps) {
   const [hoveredKeyword, setHoveredKeyword] = useState<string | null>(null);
   const techCursor = useCursorInteraction("interactive");
 
   return (
     <DetailCodeCard
       label="Technologies"
-      description={project.codeTechnologiesDescription || "Mostly pnpm install and good intentions."}
+      description={
+        project.codeTechnologiesDescription ||
+        "Mostly pnpm install and good intentions."
+      }
       className={className}
     >
-      <div className="text-section font-normal text-(--foreground) tracking-tight">
+      <div className="text-section font-normal tracking-tight text-(--foreground)">
         {(() => {
           const sentence = project.codeTechnologiesText?.[0] || "";
           const tokens = project.codeTechnologiesTokens || [];
           if (tokens.length > 0) {
-            const escapeRegExp = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-            const regex = new RegExp(`(${tokens.map((t) => escapeRegExp(t.text)).join("|")})`, "g");
+            const escapeRegExp = (str: string) =>
+              str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            const regex = new RegExp(
+              `(${tokens.map((t) => escapeRegExp(t.text)).join("|")})`,
+              "g",
+            );
             const parts = sentence.split(regex);
             return (
               <p className="leading-none">
@@ -59,11 +69,12 @@ export default function DetailTechCard({ project, className }: DetailTechCardPro
                           techCursor.handleMouseLeave();
                         }}
                         className={cn(
-                          "transition-colors duration-200 cursor-none",
-                          colorClass
+                          "cursor-none transition-colors duration-200",
+                          colorClass,
                         )}
                       >
                         {part}
+                        <span className="sr-only"> (opens in new tab)</span>
                       </Link>
                     );
                   }
@@ -73,7 +84,7 @@ export default function DetailTechCard({ project, className }: DetailTechCardPro
                       key={idx}
                       className={cn(
                         "transition-colors duration-200",
-                        colorClass
+                        colorClass,
                       )}
                     >
                       {part}

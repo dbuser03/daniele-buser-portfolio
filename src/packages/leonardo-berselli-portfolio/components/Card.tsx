@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "motion/react";
-import { cn } from "../utils/cn";
-import { PACKAGE_MOTION } from "../lib/motion";
+import { m } from "motion/react";
+import { cn } from "@/utils/cn";
+import { PACKAGE_MOTION } from "../utils/motion";
 
 interface CardProps {
   variant?: "default" | "square";
@@ -10,24 +10,28 @@ interface CardProps {
   children: React.ReactNode;
 }
 
-export function Card({
-  className,
-  children,
-}: CardProps) {
+export function Card({ className, children }: CardProps) {
   return (
-    <motion.div
+    <m.div
       className={cn(
-        "flex flex-col overflow-hidden border border-(--foreground)/10 bg-transparent rounded-none",
+        "flex flex-col overflow-hidden rounded-none border border-(--foreground)/10 bg-transparent",
         className,
       )}
       variants={{
         initial: { opacity: 0, y: PACKAGE_MOTION.yOffset.card },
-        visible: { opacity: 1, y: 0, transition: { duration: PACKAGE_MOTION.duration.card, ease: PACKAGE_MOTION.easing.standard } },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: {
+            duration: PACKAGE_MOTION.duration.card,
+            ease: PACKAGE_MOTION.easing.standard,
+          },
+        },
       }}
       initial="initial"
       animate="visible"
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

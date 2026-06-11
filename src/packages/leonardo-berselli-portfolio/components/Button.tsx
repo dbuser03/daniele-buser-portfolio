@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "motion/react";
-import { cn } from "../utils/cn";
+import { m } from "motion/react";
+import { cn } from "@/utils/cn";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
-import { PACKAGE_MOTION } from "../lib/motion";
+import { PACKAGE_MOTION } from "../utils/motion";
 
 type ButtonVariant = "default" | "outline" | "secondary" | "destructive";
 type ButtonSize = "sm" | "md" | "lg";
@@ -21,8 +21,7 @@ const variantClasses: Record<ButtonVariant, string> = {
   default: "bg-(--foreground) text-(--background) hover:opacity-90",
   outline:
     "border border-(--foreground)/20 bg-transparent text-(--foreground) hover:bg-(--foreground)/10",
-  secondary:
-    "bg-(--neutral) text-(--background) hover:opacity-90",
+  secondary: "bg-(--neutral) text-(--background) hover:opacity-90",
   destructive:
     "bg-(--destructive)/10 text-(--destructive) hover:bg-(--destructive)/20",
 };
@@ -45,11 +44,11 @@ export function Button({
     useCursorInteraction("interactive");
 
   return (
-    <motion.button
+    <m.button
       className={cn(
         "group/button inline-flex shrink-0 items-center justify-center border border-transparent",
-        "font-mono text-xs font-medium uppercase tracking-wider",
-        "outline-none transition-all select-none",
+        "font-mono text-xs font-medium tracking-wider uppercase",
+        "transition-all outline-none select-none",
         "focus-visible:border-(--accent) focus-visible:ring-3 focus-visible:ring-(--accent)/50",
         "active:translate-y-px disabled:pointer-events-none disabled:opacity-50",
         variantClasses[variant],
@@ -57,13 +56,16 @@ export function Button({
         className,
       )}
       whileTap={{ scale: 0.99 }}
-      transition={{ duration: PACKAGE_MOTION.duration.tap, ease: PACKAGE_MOTION.easing.standard }}
+      transition={{
+        duration: PACKAGE_MOTION.duration.tap,
+        ease: PACKAGE_MOTION.easing.standard,
+      }}
       disabled={disabled}
       onClick={onClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       {children}
-    </motion.button>
+    </m.button>
   );
 }

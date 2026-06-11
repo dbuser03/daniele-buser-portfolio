@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useRef, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { useCursorContext } from "@/contexts/CursorContext";
+import { m, AnimatePresence } from "motion/react";
+import { useCursorContext } from "@/components/layout/cursor/CursorContext";
 import { CURSOR_SIZE } from "@/constants/cursor";
 import { CSS_VARIABLES } from "@/constants/theme";
 import DetailCodeCard from "./DetailCodeCard";
@@ -76,8 +76,12 @@ export default function DetailImplementationCard({
     [cursorSize, setColor],
   );
 
-  const displayFile = selectedFile && implementationsCode[selectedFile] ? selectedFile : "CodePlaceholder.tsx";
-  const impl = (selectedFile && implementationsCode[selectedFile]) || fallbackCode;
+  const displayFile =
+    selectedFile && implementationsCode[selectedFile]
+      ? selectedFile
+      : "CodePlaceholder.tsx";
+  const impl =
+    (selectedFile && implementationsCode[selectedFile]) || fallbackCode;
   const lines = impl ? impl.split("\n") : [];
 
   return (
@@ -87,7 +91,7 @@ export default function DetailImplementationCard({
       className={className}
     >
       <AnimatePresence mode="wait">
-        <motion.div
+        <m.div
           key={displayFile}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -97,24 +101,24 @@ export default function DetailImplementationCard({
         >
           {lines.length > 0 && (
             <>
-              <div className="text-right text-(--neutral) text-[10px] leading-relaxed pr-2 shrink-0 select-none">
+              <div className="shrink-0 pr-2 text-right text-[10px] leading-relaxed text-(--neutral) select-none">
                 {lines.map((_, i) => (
                   <div key={i}>{i + 1}</div>
                 ))}
               </div>
-              <div className="border-l border-(--neutral)/30 mr-2" />
+              <div className="mr-2 border-l border-(--neutral)/30" />
             </>
           )}
           <div
             ref={codeScrollRef}
             onMouseDown={handleCodeMouseDown}
-            className="overflow-x-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden flex-1 select-none"
+            className="flex-1 scrollbar-none overflow-x-auto select-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           >
-            <pre className="text-[10px] text-(--neutral) leading-relaxed whitespace-pre w-fit min-w-full">
+            <pre className="w-fit min-w-full text-[10px] leading-relaxed whitespace-pre text-(--neutral)">
               {impl}
             </pre>
           </div>
-        </motion.div>
+        </m.div>
       </AnimatePresence>
     </DetailCodeCard>
   );

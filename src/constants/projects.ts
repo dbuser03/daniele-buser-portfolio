@@ -184,22 +184,30 @@ export const PROJECTS: Project[] = [
       "components/ui/Badge.tsx": "components/Badge.tsx",
       "components/ui/Switch.tsx": "components/Switch.tsx",
       "components/ui/Card.tsx": "components/Card.tsx",
-      "components/visuals/EarthGlobeAscii.tsx": "components/EarthGlobeAscii.tsx",
+      "components/visuals/EarthGlobeAscii.tsx":
+        "components/EarthGlobeAscii.tsx",
       "hooks/usePreloaderCard.ts": "hooks/usePreloaderCard.ts",
       "hooks/useSystemDiagnostics.ts": "hooks/useSystemDiagnostics.ts",
-      "types/index.ts": "types/index.ts",
+      "hooks/useSystemInfo.ts": "hooks/useSystemInfo.ts",
     },
     architectureDescriptions: {
       app: "Entry point — pages, layout, global styles, and app icon.",
       components: "Reusable UI building blocks organized by responsibility.",
-      "components/layout": "Layout-level components — navigation, system diagnostics, theme toggle.",
-      "components/providers": "React context providers for smooth scrolling and theming.",
-      "components/sections": "Top-level page sections — about, skills, projects, contact.",
-      "components/sections/skills": "Skill display components — cards and interactive tree view.",
-      "components/ui": "Primitive UI components — badge, button, card, tabs, textarea.",
-      "components/visuals": "Visual effects — WebGL globe, ASCII globe, physics tags, preloader.",
+      "components/layout":
+        "Layout-level components — navigation, system diagnostics, theme toggle.",
+      "components/providers":
+        "React context providers for smooth scrolling and theming.",
+      "components/sections":
+        "Top-level page sections — about, skills, projects, contact.",
+      "components/sections/skills":
+        "Skill display components — cards and interactive tree view.",
+      "components/ui":
+        "Primitive UI components — badge, button, card, tabs, textarea.",
+      "components/visuals":
+        "Visual effects — WebGL globe, ASCII globe, physics tags, preloader.",
       constants: "Shared constants — animations, contact, navigation, visuals.",
-      hooks: "Custom React hooks — typewriter, preloader, scroll observer, contact form.",
+      hooks:
+        "Custom React hooks — typewriter, preloader, scroll observer, contact form.",
       lib: "Utility functions and helpers.",
       types: "TypeScript type definitions.",
     },
@@ -208,9 +216,17 @@ export const PROJECTS: Project[] = [
     ],
     codeTechnologiesTokens: [
       { text: "Next.js", id: "next-js", href: "https://nextjs.org" },
-      { text: "Tailwind CSS", id: "tailwind-css", href: "https://tailwindcss.com" },
+      {
+        text: "Tailwind CSS",
+        id: "tailwind-css",
+        href: "https://tailwindcss.com",
+      },
       { text: "Motion", id: "motion", href: "https://motion.dev" },
-      { text: "WebGL", id: "webgl", href: "https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API" },
+      {
+        text: "WebGL",
+        id: "webgl",
+        href: "https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API",
+      },
     ],
     codeTechnologiesDescription: "Mostly pnpm install and good intentions.",
     hasCustomComponents: true,

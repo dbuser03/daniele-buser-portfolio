@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import {
   TECH_STACK_FIRST_ROW_ICONS,
   TECH_STACK_SECOND_ROW_ICONS,
@@ -10,9 +10,11 @@ import { getTechStackCellId } from "@/utils/about";
 import SectionLabel from "@/components/ui/SectionLabel";
 import TechStackCell from "./TechStackCell";
 import TechStackIcon from "./TechStackIcon";
-import { motionTokens, entranceVariants, listVariants } from "@/constants/animations";
+import { motionTokens, useAnimations } from "@/utils/motion";
 
 export default function TechStack() {
+  const { entranceVariants, listVariants } = useAnimations();
+
   const {
     hoveredCellId,
     fullyHighlightedCellId,
@@ -30,7 +32,7 @@ export default function TechStack() {
       aria-labelledby="tech-stack-heading"
     >
       <SectionLabel
-        as={motion.h2}
+        as={m.h2}
         id="tech-stack-heading"
         variant="section-heading"
         initial="initial"
@@ -41,9 +43,9 @@ export default function TechStack() {
         MY TECH STACK
       </SectionLabel>
 
-      <motion.div
+      <m.div
         className="mt-3 grid w-full grid-cols-3 gap-0"
-        variants={listVariants(0.15, 0.08)}
+        variants={listVariants(0.15, motionTokens.stagger.base)}
         initial="initial"
         whileInView="visible"
         viewport={{ once: true }}
@@ -72,11 +74,11 @@ export default function TechStack() {
             </TechStackCell>
           );
         })}
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         className="grid w-full grid-cols-7 gap-0"
-        variants={listVariants(0.15, 0.05)}
+        variants={listVariants(0.15, motionTokens.stagger.tight)}
         initial="initial"
         whileInView="visible"
         viewport={{ once: true }}
@@ -112,7 +114,7 @@ export default function TechStack() {
             </TechStackCell>
           );
         })}
-      </motion.div>
+      </m.div>
     </section>
   );
 }

@@ -1,14 +1,16 @@
 "use client";
 
 import { useCallback } from "react";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
-import { motionTokens, entranceVariants } from "@/constants/animations";
+import { motionTokens, useAnimations } from "@/utils/motion";
 import { useLenis } from "lenis/react";
 
 export default function Logo() {
+  const { entranceVariants } = useAnimations();
+
   const pathname = usePathname();
   const lenis = useLenis();
   const { handleMouseEnter, handleMouseLeave } =
@@ -33,22 +35,22 @@ export default function Logo() {
       onClick={handleClick}
       aria-label="Daniele Buser - Creative Developer"
     >
-      <motion.span
+      <m.span
         className="text-lg leading-none font-bold text-(--foreground)"
         variants={entranceVariants(0, 20, motionTokens.duration.smooth)}
         initial="initial"
         animate="visible"
       >
         DANIELE BUSER
-      </motion.span>
-      <motion.p
+      </m.span>
+      <m.p
         className="text-sm text-(--neutral)"
         variants={entranceVariants(0.1, 20, motionTokens.duration.smooth)}
         initial="initial"
         animate="visible"
       >
         Creative Developer
-      </motion.p>
+      </m.p>
     </Link>
   );
 }

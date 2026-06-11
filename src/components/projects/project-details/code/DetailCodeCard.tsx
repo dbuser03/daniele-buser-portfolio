@@ -28,12 +28,12 @@ export default function DetailCodeCard({
         </div>
       )}
       {children && (
-        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex min-h-0 flex-1 scrollbar-none flex-col overflow-y-auto [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           <div className="mt-auto mb-auto">{children}</div>
         </div>
       )}
       {description && (
-        <p className="text-sm leading-snug text-(--neutral) shrink-0">
+        <p className="shrink-0 text-sm leading-snug text-(--neutral)">
           {description}
         </p>
       )}

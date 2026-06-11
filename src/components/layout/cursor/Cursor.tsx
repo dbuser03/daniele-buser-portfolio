@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "motion/react";
-import { motionTokens } from "@/constants/animations";
+import { m } from "motion/react";
+import { motionTokens } from "@/utils/motion";
 import { CSS_VARIABLES } from "@/constants/theme";
 import { CursorProps } from "@/types/cursor";
 
@@ -13,7 +13,7 @@ export default function Cursor({
   color = CSS_VARIABLES.accent,
 }: CursorProps) {
   return (
-    <motion.div
+    <m.div
       className="pointer-events-none fixed z-40 hidden rounded-full pointer-fine:block"
       aria-hidden="true"
       style={{
@@ -32,7 +32,10 @@ export default function Cursor({
       }}
       transition={{
         scale: { duration: motionTokens.duration.fast, ease: "backOut" },
-        backgroundColor: { duration: motionTokens.duration.fast, ease: motionTokens.easing.standard },
+        backgroundColor: {
+          duration: motionTokens.duration.fast,
+          ease: motionTokens.easing.standard,
+        },
       }}
     />
   );

@@ -3,31 +3,40 @@
 import { useState, memo } from "react";
 import Link from "next/link";
 import type { Route } from "next";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { Project } from "@/types/projects";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import SectionLabel from "@/components/ui/SectionLabel";
-import { motionTokens, itemVariants } from "@/constants/animations";
+import { motionTokens, useAnimations } from "@/utils/motion";
 import { cn } from "@/utils/cn";
 import ImageWithSkeleton from "@/components/ui/ImageWithSkeleton";
 
 interface ProjectCardProps {
   project: Project;
   className?: string;
+  priority?: boolean;
 }
 
-function ProjectCard({ project, className }: ProjectCardProps) {
+function ProjectCard({
+  project,
+  className,
+  priority = false,
+}: ProjectCardProps) {
+  const { itemVariants } = useAnimations();
+
   const imageSrc = project.cardImage || project.image;
   const [isHovered, setIsHovered] = useState(false);
 
-  const { handleMouseEnter, handleMouseLeave } =
-    useCursorInteraction("current", {
+  const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
+    "current",
+    {
       onEnter: () => setIsHovered(true),
       onLeave: () => setIsHovered(false),
-    });
+    },
+  );
 
   return (
-    <motion.div
+    <m.div
       variants={itemVariants}
       className={cn("col-span-6 flex w-full flex-col gap-4", className)}
     >
@@ -39,7 +48,7 @@ function ProjectCard({ project, className }: ProjectCardProps) {
         aria-label={`Project card: ${project.title}`}
       >
         <div className="relative aspect-4/3 w-full overflow-hidden bg-(--neutral-dark)">
-          <motion.div
+          <m.div
             className="absolute inset-0"
             initial={{ scale: 1.1, filter: "blur(0px)" }}
             animate={
@@ -47,15 +56,19 @@ function ProjectCard({ project, className }: ProjectCardProps) {
                 ? { scale: 1.04, filter: "blur(4px)" }
                 : { scale: 1.1, filter: "blur(0px)" }
             }
-            transition={{ duration: motionTokens.duration.base, ease: motionTokens.easing.standard }}
+            transition={{
+              duration: motionTokens.duration.base,
+              ease: motionTokens.easing.standard,
+            }}
           >
             <ImageWithSkeleton
               src={imageSrc}
               alt={project.title}
               skeletonVariant="on-dark"
               sizes="(min-width: 1024px) 50vw, 100vw"
+              priority={priority}
             />
-          </motion.div>
+          </m.div>
         </div>
         <div className="mt-8 flex items-start justify-between text-(--foreground)">
           <h3 className="text-section font-medium tracking-tight">
@@ -68,7 +81,7 @@ function ProjectCard({ project, className }: ProjectCardProps) {
           </div>
         </div>
       </Link>
-    </motion.div>
+    </m.div>
   );
 }
 

@@ -1,10 +1,10 @@
 "use client";
 
-import { motion, AnimatePresence } from "motion/react";
+import { m, AnimatePresence } from "motion/react";
 import { useState, memo, RefObject } from "react";
 import Skeleton from "@/components/ui/Skeleton";
 import { cn } from "@/utils/cn";
-import { motionTokens } from "@/constants/animations";
+import { motionTokens } from "@/utils/motion";
 
 interface VideoLayerProps {
   src: string;
@@ -14,26 +14,38 @@ interface VideoLayerProps {
   className?: string;
 }
 
-function VideoLayer({ src, isActive, videoRef, onEnded, className }: VideoLayerProps) {
+function VideoLayer({
+  src,
+  isActive,
+  videoRef,
+  onEnded,
+  className,
+}: VideoLayerProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <motion.div
+    <m.div
       className={cn("absolute inset-0 overflow-hidden", className)}
       initial={{ opacity: 0 }}
       animate={{ opacity: isActive ? 1 : 0 }}
-      transition={{ duration: motionTokens.duration.smooth, ease: motionTokens.easing.standard }}
+      transition={{
+        duration: motionTokens.duration.smooth,
+        ease: motionTokens.easing.standard,
+      }}
     >
       <AnimatePresence>
         {isActive && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: motionTokens.duration.fast, ease: motionTokens.easing.standard }}
+            transition={{
+              duration: motionTokens.duration.fast,
+              ease: motionTokens.easing.standard,
+            }}
           >
             <Skeleton isLoading={isLoading} variant="on-light" />
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
       <video
@@ -49,7 +61,7 @@ function VideoLayer({ src, isActive, videoRef, onEnded, className }: VideoLayerP
         className="h-full w-full object-cover"
         aria-hidden="true"
       />
-    </motion.div>
+    </m.div>
   );
 }
 

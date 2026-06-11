@@ -1,17 +1,22 @@
 "use client";
 
 import { useMemo } from "react";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 
-import { motionTokens, entranceVariants } from "@/constants/animations";
+import { motionTokens, useAnimations } from "@/utils/motion";
 
 export const ABOUT_INTRO_ID = "about-intro-paragraph";
 
 export default function AboutIntro({ age }: { age: number }) {
-  const introVariants = useMemo(() => entranceVariants(0.5, 20, motionTokens.duration.smooth), []);
+  const { entranceVariants } = useAnimations();
+
+  const introVariants = useMemo(
+    () => entranceVariants(0.5, 20, motionTokens.duration.smooth),
+    [entranceVariants],
+  );
 
   return (
-    <motion.p
+    <m.p
       id={ABOUT_INTRO_ID}
       className="text-section text-(--background)"
       variants={introVariants}
@@ -21,6 +26,6 @@ export default function AboutIntro({ age }: { age: number }) {
       I&apos;m a {age ?? "..."}-year-old Swiss creative developer, who crafts
       web and mobile products where design and code work as one. I enjoy taking
       the lead on projects because, honestly, someone has to.
-    </motion.p>
+    </m.p>
   );
 }

@@ -2,26 +2,34 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
-import { motionTokens, entranceVariants } from "@/constants/animations";
+import { m } from "motion/react";
+import { motionTokens, useAnimations } from "@/utils/motion";
 import Skeleton from "@/components/ui/Skeleton";
 
 export default function AboutPortrait() {
+  const { entranceVariants } = useAnimations();
+
   const [isLoading, setIsLoading] = useState(true);
 
-  const portraitVariants = useMemo(() => entranceVariants(0.65, 20, motionTokens.duration.smooth), []);
+  const portraitVariants = useMemo(
+    () => entranceVariants(0.65, 20, motionTokens.duration.smooth),
+    [entranceVariants],
+  );
 
   return (
-    <motion.figure
+    <m.figure
       className="relative aspect-3/4 w-full overflow-hidden"
       variants={portraitVariants}
       initial="initial"
       animate="visible"
     >
-      <motion.div
+      <m.div
         className="relative h-full w-full"
         whileHover={{ scale: 1.08, y: -12 }}
-        transition={{ duration: motionTokens.duration.smooth, ease: motionTokens.easing.standard }}
+        transition={{
+          duration: motionTokens.duration.smooth,
+          ease: motionTokens.easing.standard,
+        }}
       >
         <Skeleton isLoading={isLoading} variant="on-light" />
         <Image
@@ -33,7 +41,7 @@ export default function AboutPortrait() {
           priority
           onLoad={() => setIsLoading(false)}
         />
-      </motion.div>
-    </motion.figure>
+      </m.div>
+    </m.figure>
   );
 }

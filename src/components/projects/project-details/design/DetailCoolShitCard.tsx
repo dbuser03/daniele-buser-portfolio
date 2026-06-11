@@ -13,7 +13,12 @@ export default function DetailCoolShitCard({
   className,
 }: DetailCoolShitCardProps) {
   return (
-    <div className={cn("relative flex aspect-4/3 w-full items-center justify-center overflow-hidden bg-(--card-dark)", className)}>
+    <div
+      className={cn(
+        "relative flex aspect-4/3 w-full items-center justify-center overflow-hidden bg-(--card-dark)",
+        className,
+      )}
+    >
       <SectionLabel className="absolute top-4 left-4 z-10">
         Cool S***t
       </SectionLabel>

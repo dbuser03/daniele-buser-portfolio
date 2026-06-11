@@ -1,16 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { HeroTitleMount } from "@/components/ui/HeroTitle";
 import GridLines from "@/components/layout/GridLines";
-import { entranceVariants, motionTokens } from "@/constants/animations";
+import { motionTokens, useAnimations } from "@/utils/motion";
 import { CSS_VARIABLES } from "@/constants/theme";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 
-const MotionLink = motion(Link);
+const MotionLink = m(Link);
 
 export default function NotFound() {
+  const { entranceVariants } = useAnimations();
+
   const { handleMouseEnter, handleMouseLeave } =
     useCursorInteraction("current");
 
@@ -39,16 +41,16 @@ export default function NotFound() {
             >
               404
             </HeroTitleMount>
-            <motion.p
+            <m.p
               variants={entranceVariants(0.5, 20, motionTokens.duration.smooth)}
               initial="initial"
               animate="visible"
               className="-mt-3 text-sm tracking-wide text-(--neutral)"
             >
               This page doesn&apos;t exist.
-            </motion.p>
+            </m.p>
           </div>
-          <motion.div
+          <m.div
             variants={entranceVariants(0.65, 20, motionTokens.duration.smooth)}
             initial="initial"
             animate="visible"
@@ -61,12 +63,15 @@ export default function NotFound() {
                 backgroundColor: CSS_VARIABLES.foreground,
                 color: CSS_VARIABLES.background,
               }}
-              transition={{ duration: motionTokens.duration.base, ease: motionTokens.easing.standard }}
+              transition={{
+                duration: motionTokens.duration.base,
+                ease: motionTokens.easing.standard,
+              }}
               className="rounded-sm border border-(--foreground) bg-(--background) px-5 py-2.5 text-xs font-normal tracking-wider text-(--foreground) uppercase"
             >
               Go home
             </MotionLink>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </main>
