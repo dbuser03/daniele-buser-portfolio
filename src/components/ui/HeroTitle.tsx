@@ -36,7 +36,7 @@ interface HeroTitleStaticProps {
 
 function Dot() {
   return (
-    <span className="text-(--accent)" aria-hidden="true">
+    <span className="text-accent" aria-hidden="true">
       .
     </span>
   );
@@ -49,9 +49,9 @@ export function HeroTitleMount({
   ariaLabel,
   showDecorativeDot = true,
   as = "h1",
-  delay = 0.35,
+  delay = motionTokens.delay.base,
   duration = motionTokens.duration.smooth,
-  yOffset = 40,
+  yOffset = motionTokens.distance.hero,
 }: HeroTitleMountProps) {
   const { entranceVariants } = useAnimations();
 
@@ -84,9 +84,9 @@ export function HeroTitleInView({
   ariaLabel,
   showDecorativeDot = true,
   as = "h1",
-  delay = 0.35,
+  delay = motionTokens.delay.base,
   duration = motionTokens.duration.smooth,
-  yOffset = 40,
+  yOffset = motionTokens.distance.hero,
   viewport,
 }: HeroTitleInViewProps) {
   const { entranceVariants } = useAnimations();

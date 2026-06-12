@@ -8,6 +8,18 @@ export const motionTokens = {
     slow: 0.6,
     slower: 0.8,
   },
+  delay: {
+    none: 0,
+    short: 0.15,
+    base: 0.3,
+    long: 0.45,
+    longer: 0.6,
+  },
+  distance: {
+    base: 24,
+    hero: 48,
+    hover: 16,
+  },
   easing: {
     standard: "easeOut" as const,
   },
@@ -75,6 +87,25 @@ export const useAnimations = () => {
       tap: { scale: shouldReduceMotion ? 1 : 0.98 },
     } as const,
 
+    imageHoverVariants: {
+      initial: {
+        scale: 1.1,
+        filter: "blur(0px)",
+        transition: {
+          duration: dur(motionTokens.duration.base),
+          ease: motionTokens.easing.standard,
+        },
+      },
+      hover: {
+        scale: shouldReduceMotion ? 1.1 : 1.04,
+        filter: shouldReduceMotion ? "blur(0px)" : "blur(4px)",
+        transition: {
+          duration: dur(motionTokens.duration.base),
+          ease: motionTokens.easing.standard,
+        },
+      },
+    } as const,
+
     listVariants: (
       delayChildren = 0,
       staggerChildren: number = motionTokens.stagger.base,
@@ -83,14 +114,14 @@ export const useAnimations = () => {
         initial: {},
         visible: {
           transition: {
-            delayChildren: dur(delayChildren),
-            staggerChildren: dur(staggerChildren),
+            delayChildren: shouldReduceMotion ? 0 : delayChildren,
+            staggerChildren: shouldReduceMotion ? 0 : staggerChildren,
           },
         },
       }) as const,
 
     itemVariants: {
-      initial: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
+      initial: { opacity: 0, y: shouldReduceMotion ? 0 : motionTokens.distance.base },
       visible: {
         opacity: 1,
         y: 0,

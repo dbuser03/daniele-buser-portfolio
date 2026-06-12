@@ -18,7 +18,7 @@ export default function Home() {
       <main
         id="main-content"
         tabIndex={-1}
-        className="flex w-full flex-1 flex-col bg-(--foreground) px-4 focus:outline-none"
+        className="flex w-full flex-1 flex-col bg-foreground px-4 focus:outline-none"
         aria-label="Projects page main content"
       >
         <AboutLayout contacts={<AboutContacts />}>

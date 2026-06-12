@@ -5,7 +5,7 @@ import { m } from "motion/react";
 import { CONTACT_LINKS, EMAIL } from "@/constants/contacts";
 import { ContactLink } from "@/types/contacts";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
-import { useAnimations } from "@/utils/motion";
+import { useAnimations, motionTokens } from "@/utils/motion";
 import AnimatedTextSpan from "@/components/ui/AnimatedTextSpan";
 
 function ContactLinkItem({
@@ -28,7 +28,7 @@ function ContactLinkItem({
       {...(download && {
         download: true,
       })}
-      className="text-lg"
+      className="text-body-lg"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -41,14 +41,14 @@ function ContactLinkItem({
 }
 
 function Separator() {
-  return <span className="text-(--neutral)">|</span>;
+  return <span className="text-neutral">|</span>;
 }
 
 const DEFAULT_VIEWPORT = { once: false, amount: 0.1 };
 
 export default function Contacts({
-  paragraphDelay = 0.5,
-  linksDelay = 0.65,
+  paragraphDelay = motionTokens.delay.long,
+  linksDelay = motionTokens.delay.longer,
   trigger = "mount",
   viewport,
 }: {
@@ -83,11 +83,11 @@ export default function Contacts({
 
   return (
     <section
-      className="flex flex-row items-center justify-between gap-12 text-(--foreground)"
+      className="grid w-full items-center gap-12 text-foreground grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12"
       aria-labelledby="contacts-heading"
     >
       <m.p
-        className="text-section max-w-2xl"
+        className="text-section max-w-2xl col-span-4 sm:col-span-6 md:col-span-4 lg:col-span-5 xl:col-span-5"
         variants={paragraphVariants}
         initial="initial"
         animate={trigger === "mount" ? "visible" : undefined}
@@ -99,6 +99,7 @@ export default function Contacts({
       </m.p>
 
       <m.div
+        className="col-span-4 sm:col-span-6 md:col-span-4 md:col-start-5 lg:col-span-5 lg:col-start-6 xl:col-span-5 xl:col-start-8 justify-self-start md:justify-self-end"
         variants={linksVariants}
         initial="initial"
         animate={trigger === "mount" ? "visible" : undefined}
@@ -116,7 +117,7 @@ export default function Contacts({
             window.open(`mailto:${EMAIL}`, "_blank");
           }}
         >
-          <h2 id="contacts-heading" className="text-7xl text-(--foreground)">
+          <h2 id="contacts-heading" className="text-display-sm text-foreground">
             {EMAIL}
           </h2>
         </a>

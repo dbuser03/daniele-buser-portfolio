@@ -3,9 +3,9 @@ import { cn } from "@/utils/cn";
 import type { ReactNode, ElementType } from "react";
 
 const variantColors = {
-  "section-heading": "text-(--neutral-dark)",
-  "card-label": "text-(--neutral)",
-  inline: "text-(--neutral)",
+  "section-heading": "text-neutral-dark",
+  "card-label": "text-neutral",
+  inline: "text-neutral",
 } as const;
 
 interface SectionLabelProps extends MotionProps {
@@ -25,7 +25,7 @@ export default function SectionLabel({
 }: SectionLabelProps) {
   return (
     <Tag
-      className={cn("text-sm uppercase", variantColors[variant], className)}
+      className={cn("text-body uppercase", variantColors[variant], className)}
       {...motionProps}
     >
       {children}
