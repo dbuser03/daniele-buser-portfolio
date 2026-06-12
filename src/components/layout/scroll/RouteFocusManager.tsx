@@ -2,16 +2,26 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { useLenis } from "lenis/react";
 
 export default function RouteFocusManager() {
   const pathname = usePathname();
+  const lenis = useLenis();
 
   useEffect(() => {
-    // Small timeout ensures the new page has mounted and the DOM is updated
+    if (lenis) {
+      lenis.stop();
+    }
+
     const timeout = setTimeout(() => {
+      window.scrollTo(0, 0);
+      if (lenis) {
+        lenis.scrollTo(0, { immediate: true });
+        lenis.start();
+      }
+      
       const mainContent = document.getElementById("main-content");
       if (mainContent) {
-        // Prevent scroll to top if Lenis handles scroll restoration differently
         mainContent.focus({ preventScroll: true });
       }
     }, 100);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { animate } from "motion/react";
 import { useCursorContext } from "@/components/layout/cursor/CursorContext";
 import { CURSOR_SIZE } from "@/constants/cursor";
@@ -23,14 +23,14 @@ export const useCursorInteraction = (
     callbacksRef.current = callbacks;
   }, [callbacks]);
 
-  const config = useMemo(() => getCursorInteractionConfig(type), [type]);
+  const config = getCursorInteractionConfig(type);
 
-  const stopPulse = useCallback(() => {
+  const stopPulse = () => {
     pulseControls.current?.stop();
     pulseControls.current = null;
-  }, []);
+  };
 
-  const startPulse = useCallback(() => {
+  const startPulse = () => {
     stopPulse();
     cursorSize.set(CURSOR_SIZE.sm);
     pulseControls.current = animate(
@@ -43,25 +43,25 @@ export const useCursorInteraction = (
         repeatType: "reverse",
       },
     );
-  }, [cursorSize, stopPulse]);
+  };
 
-  const handleMouseEnter = useCallback(() => {
+  const handleMouseEnter = () => {
     callbacksRef.current?.onEnter?.();
     const state = config.onEnter;
     if (!state) return;
     if (state.size !== undefined) cursorSize.set(state.size);
     if (state.color) setColor(state.color);
     if (state.pulse) startPulse();
-  }, [config.onEnter, cursorSize, setColor, startPulse]);
+  };
 
-  const handleMouseLeave = useCallback(() => {
+  const handleMouseLeave = () => {
     stopPulse();
     callbacksRef.current?.onLeave?.();
     const state = config.onLeave;
     if (!state) return;
     if (state.size !== undefined) cursorSize.set(state.size);
     if (state.color) setColor(state.color);
-  }, [config.onLeave, cursorSize, setColor, stopPulse]);
+  };
 
   useEffect(() => {
     return () => stopPulse();

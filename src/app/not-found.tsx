@@ -20,7 +20,7 @@ export default function NotFound() {
     <main
       id="main-content"
       tabIndex={-1}
-      className="relative z-10 flex min-h-screen flex-col justify-center bg-(--background) px-4 text-(--foreground) focus:outline-none"
+      className="relative z-10 flex min-h-screen flex-col justify-center bg-background px-4 text-foreground focus:outline-none"
       aria-label="404 page main content"
     >
       <div
@@ -34,24 +34,24 @@ export default function NotFound() {
         <div className="col-span-12 flex flex-col items-center gap-10 text-center">
           <div className="flex flex-col items-center gap-0 text-center">
             <HeroTitleMount
-              className="text-(--foreground)"
+              className="text-foreground"
               ariaLabel="404 - Page not found"
-              delay={0.35}
+              delay={motionTokens.delay.base}
               duration={motionTokens.duration.smooth}
             >
               404
             </HeroTitleMount>
             <m.p
-              variants={entranceVariants(0.5, 20, motionTokens.duration.smooth)}
+              variants={entranceVariants(motionTokens.delay.long, motionTokens.distance.base, motionTokens.duration.smooth)}
               initial="initial"
               animate="visible"
-              className="-mt-3 text-sm tracking-wide text-(--neutral)"
+              className="-mt-3 text-body text-neutral"
             >
               This page doesn&apos;t exist.
             </m.p>
           </div>
           <m.div
-            variants={entranceVariants(0.65, 20, motionTokens.duration.smooth)}
+            variants={entranceVariants(motionTokens.delay.longer, motionTokens.distance.base, motionTokens.duration.smooth)}
             initial="initial"
             animate="visible"
           >
@@ -67,7 +67,7 @@ export default function NotFound() {
                 duration: motionTokens.duration.base,
                 ease: motionTokens.easing.standard,
               }}
-              className="rounded-sm border border-(--foreground) bg-(--background) px-5 py-2.5 text-xs font-normal tracking-wider text-(--foreground) uppercase"
+              className="rounded-sm border border-foreground bg-background px-5 py-2.5 text-caption font-normal text-foreground uppercase"
             >
               Go home
             </MotionLink>

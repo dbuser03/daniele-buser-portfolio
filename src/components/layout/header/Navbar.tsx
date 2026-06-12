@@ -1,6 +1,5 @@
 "use client";
 
-import { useCallback } from "react";
 import { m } from "motion/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -27,26 +26,23 @@ function NavItem({ href, label, delay }: NavItemProps) {
     isActive ? "current" : "interactive",
   );
 
-  const handleClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>) => {
-      if (isActive && pathname === href) {
-        e.preventDefault();
-        lenis?.scrollTo(0);
-      }
-    },
-    [isActive, pathname, href, lenis],
-  );
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isActive && pathname === href) {
+      e.preventDefault();
+      lenis?.scrollTo(0);
+    }
+  };
 
   return (
     <li>
       <m.div
-        variants={entranceVariants(delay, 20, motionTokens.duration.smooth)}
+        variants={entranceVariants(delay, motionTokens.distance.base, motionTokens.duration.smooth)}
         initial="initial"
         animate="visible"
       >
         <Link
           href={href as Route}
-          className={cn("text-sm", isActive ? "font-bold" : "font-normal")}
+          className={cn("text-body", isActive ? "font-bold" : "font-normal")}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onClick={handleClick}
@@ -61,10 +57,10 @@ function NavItem({ href, label, delay }: NavItemProps) {
 
 export default function Navbar() {
   return (
-    <nav aria-label="Main navigation">
-      <ul className="flex gap-12">
+    <nav aria-label="Main navigation" className="w-full select-none">
+      <ul className="flex w-full justify-between">
         {NAV_LINKS.map((link, idx) => (
-          <NavItem key={link.href} {...link} delay={0.15 + idx * 0.05} />
+          <NavItem key={link.href} {...link} delay={motionTokens.delay.short + idx * motionTokens.stagger.tight} />
         ))}
       </ul>
     </nav>

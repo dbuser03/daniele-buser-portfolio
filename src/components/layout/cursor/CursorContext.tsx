@@ -4,9 +4,7 @@ import {
   createContext,
   use,
   useState,
-  useCallback,
   useEffect,
-  useMemo,
 } from "react";
 import type { ReactNode } from "react";
 import { useMotionValue, useSpring } from "motion/react";
@@ -48,23 +46,20 @@ export const CursorProvider = ({
     return () => clearTimeout(id);
   }, [pathname, cursorSize]);
 
-  const handleMouseMove = useCallback(
-    (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      smoothX.set(clientX);
-      smoothY.set(clientY);
-      opacity.set(1);
-    },
-    [smoothX, smoothY, opacity],
-  );
-
-  const handleMouseLeave = useCallback(() => {
-    opacity.set(0);
-  }, [opacity]);
-
-  const handleMouseEnter = useCallback(() => {
+  const handleMouseMove = (e: MouseEvent) => {
+    const { clientX, clientY } = e;
+    smoothX.set(clientX);
+    smoothY.set(clientY);
     opacity.set(1);
-  }, [opacity]);
+  };
+
+  const handleMouseLeave = () => {
+    opacity.set(0);
+  };
+
+  const handleMouseEnter = () => {
+    opacity.set(1);
+  };
 
   useEffect(() => {
     if (disabled) return;
@@ -85,17 +80,14 @@ export const CursorProvider = ({
       document.body.removeEventListener("mouseleave", handleMouseLeave);
       document.body.removeEventListener("mouseenter", handleMouseEnter);
     };
-  }, [disabled, handleMouseMove, handleMouseLeave, handleMouseEnter]);
+  }, [disabled]);
 
-  const contextValue = useMemo(
-    () => ({
-      cursorSize,
-      smoothX,
-      smoothY,
-      setColor,
-    }),
-    [cursorSize, smoothX, smoothY],
-  );
+  const contextValue = {
+    cursorSize,
+    smoothX,
+    smoothY,
+    setColor,
+  };
 
   return (
     <CursorContext.Provider value={contextValue}>

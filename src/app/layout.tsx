@@ -1,6 +1,8 @@
 import "./globals.css";
-import ClientLayout from "@/components/layout/cursor/ClientLayout";
+import ClientLayout from "@/components/layout/ClientLayout";
 import { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import localFont from "next/font/local";
 import { baseMetadata, personJsonLd, websiteJsonLd } from "@/utils/metadata";
 
@@ -23,6 +25,8 @@ const neueHaasGrotesk = localFont({
     },
   ],
   variable: "--font-neue-haas",
+  display: "swap",
+  adjustFontFallback: "Arial",
 });
 
 export const metadata: Metadata = baseMetadata;
@@ -43,13 +47,9 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-sm focus:bg-(--accent) focus:px-4 focus:py-2 focus:text-(--foreground) focus:outline-none"
-        >
-          Skip to content
-        </a>
         <ClientLayout>{children}</ClientLayout>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
