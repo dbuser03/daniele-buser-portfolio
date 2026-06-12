@@ -62,17 +62,7 @@
   --destructive: #ef4444;
 }
 
-.project-theme-leonardo-berselli-portfolio .caption-lg {
-  font-size: 10px;
-  line-height: 1.5;
-}
-
-.project-theme-leonardo-berselli-portfolio .caption-sm {
-  font-size: 10px;
-  line-height: 1.5;
-}
-
-.project-theme-leonardo-berselli-portfolio .caption-micro {
+.project-theme-leonardo-berselli-portfolio .caption {
   font-size: 10px;
   line-height: 1.5;
 }

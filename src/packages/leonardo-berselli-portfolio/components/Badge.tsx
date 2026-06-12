@@ -29,7 +29,7 @@ export function Badge({
       className={cn(
         "group/badge inline-flex h-5 w-fit shrink-0 items-center justify-center gap-1",
         "overflow-hidden border border-transparent px-2 py-0.5",
-        "font-mono caption-sm font-normal uppercase",
+        "font-mono caption font-normal uppercase",
         "transition-all",
         "has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5",
         "[&>svg]:pointer-events-none [&>svg]:size-3",
