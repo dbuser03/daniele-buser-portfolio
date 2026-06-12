@@ -72,7 +72,7 @@ function ProjectCard({
           <h3 className="text-section font-normal">
             {project.title}
           </h3>
-          <div className="flex flex-col items-end">
+          <div className="flex flex-col items-end gap-1">
             {project.tags.map((tag) => (
               <SectionLabel key={tag}>{tag}</SectionLabel>
             ))}
