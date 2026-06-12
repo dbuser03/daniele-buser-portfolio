@@ -18,7 +18,7 @@ export default function DetailCodeCard({
   return (
     <div
       className={cn(
-        "relative flex aspect-3/4 w-full flex-col gap-4 bg-(--card-dark) p-4",
+        "relative flex aspect-3/4 w-full flex-col gap-4 bg-card-dark p-4",
         className,
       )}
     >
@@ -33,7 +33,7 @@ export default function DetailCodeCard({
         </div>
       )}
       {description && (
-        <p className="shrink-0 text-sm leading-snug text-(--neutral)">
+        <p className="shrink-0 text-body text-neutral">
           {description}
         </p>
       )}

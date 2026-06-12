@@ -9,7 +9,10 @@ import { motionTokens, useAnimations } from "@/utils/motion";
 export default function ProjectsSection() {
   const { entranceVariants, listVariants } = useAnimations();
 
-  const labelVariants = entranceVariants(0.5, 20, motionTokens.duration.smooth);
+  const labelDelay = motionTokens.delay.long;
+  const cardsDelay = motionTokens.delay.base + motionTokens.duration.base;
+
+  const labelVariants = entranceVariants(labelDelay, motionTokens.distance.base, motionTokens.duration.smooth);
 
   return (
     <section
@@ -28,7 +31,7 @@ export default function ProjectsSection() {
       </SectionLabel>
       <m.div
         className="mt-3 grid w-full grid-cols-12 gap-4"
-        variants={listVariants(0.65, motionTokens.stagger.loose)}
+        variants={listVariants(cardsDelay, motionTokens.stagger.loose)}
         initial="initial"
         animate="visible"
       >

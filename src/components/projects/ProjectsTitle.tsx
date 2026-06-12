@@ -11,18 +11,18 @@ export default function ProjectsTitle({ year }: { year: string }) {
 
   const twoDigitYear = year;
   const projectsVariants = useMemo(
-    () => entranceVariants(0.35, 40, motionTokens.duration.smooth),
+    () => entranceVariants(motionTokens.delay.base, motionTokens.distance.hero, motionTokens.duration.smooth),
     [entranceVariants],
   );
   const yearVariants = useMemo(
-    () => entranceVariants(0.35, 40, motionTokens.duration.smooth),
+    () => entranceVariants(motionTokens.delay.base, motionTokens.distance.hero, motionTokens.duration.smooth),
     [entranceVariants],
   );
 
   return (
     <h1
       id={PROJECTS_TITLE_ID}
-      className="text-display-lg relative z-10 flex w-full items-baseline justify-between text-(--background)"
+      className="text-display-xl relative z-10 flex w-full items-baseline justify-between text-background"
       aria-label={`Projects ${twoDigitYear}`}
     >
       <m.span
@@ -39,7 +39,7 @@ export default function ProjectsTitle({ year }: { year: string }) {
         initial="initial"
         animate="visible"
       >
-        <span className="text-(--accent)">&apos;</span>
+        <span className="text-accent">&apos;</span>
         {twoDigitYear}
       </m.span>
     </h1>

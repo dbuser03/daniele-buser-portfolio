@@ -53,10 +53,26 @@
 }
 
 .project-theme-leonardo-berselli-portfolio {
+  --font-mono: "PP Neue Montreal Mono", monospace;
   --background: #0a0a0a;
   --neutral-dark: #262626;
   --neutral: #737373;
   --accent: #e5e5e5;
   --foreground: #f7f7f7;
   --destructive: #ef4444;
+}
+
+.project-theme-leonardo-berselli-portfolio .caption-lg {
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.project-theme-leonardo-berselli-portfolio .caption-sm {
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.project-theme-leonardo-berselli-portfolio .caption-micro {
+  font-size: 9px;
+  line-height: 1.5;
 }

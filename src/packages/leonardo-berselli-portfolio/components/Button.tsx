@@ -47,7 +47,7 @@ export function Button({
     <m.button
       className={cn(
         "group/button inline-flex shrink-0 items-center justify-center border border-transparent",
-        "font-mono text-xs font-medium tracking-wider uppercase",
+        "font-mono text-xs font-normal uppercase",
         "transition-all outline-none select-none",
         "focus-visible:border-(--accent) focus-visible:ring-3 focus-visible:ring-(--accent)/50",
         "active:translate-y-px disabled:pointer-events-none disabled:opacity-50",

@@ -42,7 +42,7 @@ export function Switch({
         "focus-visible:border-(--accent) focus-visible:ring-3 focus-visible:ring-(--accent)/50",
         "data-checked:bg-(--foreground) data-unchecked:bg-(--neutral)/40",
         "data-disabled:cursor-not-allowed data-disabled:opacity-50",
-        size === "md" ? "h-[18px] w-8" : "h-3.5 w-6",
+        size === "md" ? "h-4.5 w-8" : "h-3.5 w-6",
         className,
       )}
     >

@@ -37,7 +37,7 @@ export function EarthGlobeAscii({ dark }: EarthGlobeAsciiProps) {
     <div className="absolute inset-0 overflow-hidden">
       <div
         ref={containerRef}
-        className="h-full w-full"
+        className="size-full"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       />

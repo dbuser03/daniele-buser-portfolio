@@ -1,15 +1,15 @@
 "use client";
 
-import { useState, memo } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import type { Route } from "next";
 import { m } from "motion/react";
 import { Project } from "@/types/projects";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import SectionLabel from "@/components/ui/SectionLabel";
-import { motionTokens, useAnimations } from "@/utils/motion";
+import { useAnimations } from "@/utils/motion";
 import { cn } from "@/utils/cn";
-import ImageWithSkeleton from "@/components/ui/ImageWithSkeleton";
+import Image from "next/image";
 
 interface ProjectCardProps {
   project: Project;
@@ -22,10 +22,12 @@ function ProjectCard({
   className,
   priority = false,
 }: ProjectCardProps) {
-  const { itemVariants } = useAnimations();
+  const { itemVariants, imageHoverVariants } = useAnimations();
 
   const imageSrc = project.cardImage || project.image;
   const [isHovered, setIsHovered] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const isActive = isHovered || isFocused;
 
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
     "current",
@@ -44,34 +46,30 @@ function ProjectCard({
         href={`/projects/${project.id}` as Route}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="group flex w-full flex-col bg-(--card-dark) p-4 pb-8"
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        className="group flex w-full flex-col bg-card-dark p-4 pb-8 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
         aria-label={`Project card: ${project.title}`}
       >
-        <div className="relative aspect-4/3 w-full overflow-hidden bg-(--neutral-dark)">
+        <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-dark">
           <m.div
             className="absolute inset-0"
-            initial={{ scale: 1.1, filter: "blur(0px)" }}
-            animate={
-              isHovered
-                ? { scale: 1.04, filter: "blur(4px)" }
-                : { scale: 1.1, filter: "blur(0px)" }
-            }
-            transition={{
-              duration: motionTokens.duration.base,
-              ease: motionTokens.easing.standard,
-            }}
+            variants={imageHoverVariants}
+            initial="initial"
+            animate={isActive ? "hover" : "initial"}
           >
-            <ImageWithSkeleton
+            <Image
               src={imageSrc}
               alt={project.title}
-              skeletonVariant="on-dark"
+              fill
+              className="object-cover"
               sizes="(min-width: 1024px) 50vw, 100vw"
               priority={priority}
             />
           </m.div>
         </div>
-        <div className="mt-8 flex items-start justify-between text-(--foreground)">
-          <h3 className="text-section font-medium tracking-tight">
+        <div className="mt-8 flex items-start justify-between text-foreground">
+          <h3 className="text-section font-normal">
             {project.title}
           </h3>
           <div className="flex flex-col items-end">
@@ -85,4 +83,4 @@ function ProjectCard({
   );
 }
 
-export default memo(ProjectCard);
+export default ProjectCard;

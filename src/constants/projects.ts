@@ -10,7 +10,7 @@ export const PROJECTS: Project[] = [
     descriptionCol1:
       "Leonardo Berselli is a Machine Learning Engineer. His portfolio features a highly interactive, techy aesthetic inspired by the world of informatics.",
     descriptionCol2:
-      "The main site is built using Next.js, Tailwind, and Motion, with custom Three.js WebGL and Matter.js physics integrated as refined interactive details.",
+      "The main site is built using Next.js, Tailwind, and Motion, with custom Three.js WebGL integrated as refined interactive details.",
     image:
       "/projects/leonardo-berselli-portfolio/leonardo-berselli-portfolio.webp",
     cardImage:
@@ -235,8 +235,8 @@ export const PROJECTS: Project[] = [
     shipImage1: "",
     shipImage2: "",
     shipText1:
-      "The site ships as a single Next.js app — responsive, performant, accessible. Every micro-interaction and WebGL detail was tuned to load without friction.",
+      "Vercel provides the ideal hosting environment for Next.js portfolios. The source code resides on GitHub, utilizing GitHub Actions to manage the CI/CD pipeline and automate every deployment.",
     shipText2:
-      "Built so Leonardo can maintain it himself. Content updates don't require touching code, and deploys run automatically on push.",
+      "The portfolio seamlessly integrates with GitHub to manage projects. Each case study directly links back to its corresponding repository, allowing visitors to easily dive into the actual source code.",
   },
 ];

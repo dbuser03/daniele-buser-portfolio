@@ -84,7 +84,7 @@ export default async function ProjectPage({ params }: PageProps) {
     <main
       id="main-content"
       tabIndex={-1}
-      className="flex w-full flex-1 flex-col justify-start gap-0 bg-(--foreground) px-4 focus:outline-none"
+      className="flex w-full flex-1 flex-col justify-start gap-0 bg-foreground px-4 focus:outline-none"
       aria-label={`${project.title} project page main content`}
     >
       <AboutLayout contacts={<AboutContacts />}>

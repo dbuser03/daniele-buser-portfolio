@@ -29,7 +29,7 @@ export default function DetailTechCard({
       }
       className={className}
     >
-      <div className="text-section font-normal tracking-tight text-(--foreground)">
+      <div className="text-section font-normal text-foreground">
         {(() => {
           const sentence = project.codeTechnologiesText?.[0] || "";
           const tokens = project.codeTechnologiesTokens || [];
@@ -42,16 +42,16 @@ export default function DetailTechCard({
             );
             const parts = sentence.split(regex);
             return (
-              <p className="leading-none">
+              <p>
                 {parts.map((part, idx) => {
                   const matchingToken = tokens.find((t) => t.text === part);
                   const isHovered = hoveredKeyword === matchingToken?.id;
                   const hasHovered = hoveredKeyword !== null;
                   const colorClass = hasHovered
                     ? isHovered
-                      ? "text-(--foreground)"
-                      : "text-(--neutral)"
-                    : "text-(--foreground)";
+                      ? "text-foreground"
+                      : "text-neutral"
+                    : "text-foreground";
 
                   if (matchingToken) {
                     return (

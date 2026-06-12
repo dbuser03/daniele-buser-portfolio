@@ -16,7 +16,7 @@ export default function DetailDesignCard({
   return (
     <div
       className={cn(
-        "relative flex aspect-4/3 w-full flex-col justify-between overflow-hidden bg-(--card-dark) p-4",
+        "relative flex aspect-4/3 w-full flex-col justify-between overflow-hidden bg-card-dark p-4",
         className,
       )}
     >

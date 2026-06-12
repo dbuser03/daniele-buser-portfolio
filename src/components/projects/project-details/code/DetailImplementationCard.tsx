@@ -1,10 +1,8 @@
 "use client";
 
-import React, { useRef, useEffect, useCallback } from "react";
+import React from "react";
 import { m, AnimatePresence } from "motion/react";
-import { useCursorContext } from "@/components/layout/cursor/CursorContext";
-import { CURSOR_SIZE } from "@/constants/cursor";
-import { CSS_VARIABLES } from "@/constants/theme";
+import { useDraggableScroll } from "@/hooks/useDraggableScroll";
 import DetailCodeCard from "./DetailCodeCard";
 
 interface DetailImplementationCardProps {
@@ -20,61 +18,7 @@ export default function DetailImplementationCard({
   fallbackCode,
   className,
 }: DetailImplementationCardProps) {
-  const { cursorSize, setColor } = useCursorContext();
-  const codeScrollRef = useRef<HTMLDivElement>(null);
-  const dragRef = useRef({
-    isDragging: false,
-    startX: 0,
-    scrollLeft: 0,
-  });
-
-  useEffect(() => {
-    const drag = dragRef.current;
-    const onMouseMove = (e: MouseEvent) => {
-      if (!drag.isDragging) return;
-      const dx = e.clientX - drag.startX;
-      if (codeScrollRef.current) {
-        codeScrollRef.current.scrollLeft = drag.scrollLeft - dx;
-      }
-    };
-    const onMouseUp = () => {
-      if (drag.isDragging) {
-        drag.isDragging = false;
-        cursorSize.set(CURSOR_SIZE.sm);
-        setColor(CSS_VARIABLES.accent);
-      }
-    };
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseup", onMouseUp);
-    return () => {
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseup", onMouseUp);
-    };
-  }, [cursorSize, setColor]);
-
-  useEffect(() => {
-    if (codeScrollRef.current) {
-      codeScrollRef.current.scrollLeft = 0;
-    }
-  }, [selectedFile]);
-
-  const handleCodeMouseDown = useCallback(
-    (e: React.MouseEvent) => {
-      const container = codeScrollRef.current;
-      if (!container) return;
-
-      const isScrollable = container.scrollWidth > container.clientWidth;
-      if (!isScrollable) return;
-
-      const drag = dragRef.current;
-      drag.isDragging = true;
-      drag.startX = e.clientX;
-      drag.scrollLeft = container.scrollLeft;
-      cursorSize.set(CURSOR_SIZE.xs);
-      setColor(CSS_VARIABLES.accent);
-    },
-    [cursorSize, setColor],
-  );
+  const { scrollRef, handleMouseDown } = useDraggableScroll(selectedFile);
 
   const displayFile =
     selectedFile && implementationsCode[selectedFile]
@@ -101,20 +45,20 @@ export default function DetailImplementationCard({
         >
           {lines.length > 0 && (
             <>
-              <div className="shrink-0 pr-2 text-right text-[10px] leading-relaxed text-(--neutral) select-none">
+              <div className="shrink-0 pr-2 text-right text-caption leading-tight text-neutral select-none">
                 {lines.map((_, i) => (
                   <div key={i}>{i + 1}</div>
                 ))}
               </div>
-              <div className="mr-2 border-l border-(--neutral)/30" />
+              <div className="mr-2 border-l border-neutral/30" />
             </>
           )}
           <div
-            ref={codeScrollRef}
-            onMouseDown={handleCodeMouseDown}
+            ref={scrollRef}
+            onMouseDown={handleMouseDown}
             className="flex-1 scrollbar-none overflow-x-auto select-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           >
-            <pre className="w-fit min-w-full text-[10px] leading-relaxed whitespace-pre text-(--neutral)">
+            <pre className="w-fit min-w-full text-caption leading-tight whitespace-pre text-neutral">
               {impl}
             </pre>
           </div>

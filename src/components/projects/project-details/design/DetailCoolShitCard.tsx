@@ -15,14 +15,14 @@ export default function DetailCoolShitCard({
   return (
     <div
       className={cn(
-        "relative flex aspect-4/3 w-full items-center justify-center overflow-hidden bg-(--card-dark)",
+        "relative flex aspect-4/3 w-full items-center justify-center overflow-hidden bg-card-dark",
         className,
       )}
     >
       <SectionLabel className="absolute top-4 left-4 z-10">
         Cool S***t
       </SectionLabel>
-      <div className="flex h-full w-full items-center justify-center">
+      <div className="flex size-full items-center justify-center">
         <CoolShitComponent />
       </div>
     </div>

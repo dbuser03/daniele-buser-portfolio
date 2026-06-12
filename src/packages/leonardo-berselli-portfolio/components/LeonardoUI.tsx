@@ -27,7 +27,7 @@ export default function LeonardoUI() {
 
   return (
     <div className="project-theme-leonardo-berselli-portfolio flex w-full flex-col gap-3 text-left">
-      <div className="w-full space-y-3 text-(--foreground)">
+      <div className="w-full space-y-3 text-foreground">
         <div className="flex flex-wrap items-center gap-2">
           <Button
             variant="default"
@@ -56,9 +56,9 @@ export default function LeonardoUI() {
         </div>
 
         <div className="grid grid-cols-12 items-stretch gap-3">
-          <div className="col-span-7 flex w-full items-center justify-between border border-(--neutral)/20 px-3 py-2.5">
+          <div className="col-span-7 flex w-full items-center justify-between border border-neutral/20 px-3 py-2.5">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-[10px] leading-none tracking-wider text-(--neutral) uppercase">
+              <span className="font-mono caption-sm text-neutral uppercase">
                 Engine
               </span>
               <Switch
@@ -71,8 +71,8 @@ export default function LeonardoUI() {
             <div className="flex items-center">
               <m.span
                 className={cn(
-                  "font-mono text-[10px] leading-none tracking-wider uppercase",
-                  isEngineActive ? "text-(--foreground)" : "text-(--neutral)",
+                  "font-mono caption-sm uppercase",
+                  isEngineActive ? "text-foreground" : "text-neutral",
                 )}
                 variants={enginePulseVariants}
                 animate={isEngineActive ? "pulse" : "idle"}
@@ -85,25 +85,25 @@ export default function LeonardoUI() {
           <div className="col-span-5 grid h-full grid-cols-2 gap-2">
             <Badge
               variant="default"
-              className="flex h-5 w-full items-center justify-center px-2 font-mono text-[9px]"
+              className="flex h-5 w-full items-center justify-center px-2 font-mono caption-micro"
             >
               0xLEO
             </Badge>
             <Badge
               variant="outline"
-              className="flex h-5 w-full items-center justify-center px-2 font-mono text-[9px]"
+              className="flex h-5 w-full items-center justify-center px-2 font-mono caption-micro"
             >
               MLOPS
             </Badge>
             <Badge
               variant="secondary"
-              className="flex h-5 w-full items-center justify-center px-2 font-mono text-[9px]"
+              className="flex h-5 w-full items-center justify-center px-2 font-mono caption-micro"
             >
               STABLE
             </Badge>
             <Badge
               variant="destructive"
-              className="flex h-5 w-full items-center justify-center px-2 font-mono text-[9px]"
+              className="flex h-5 w-full items-center justify-center px-2 font-mono caption-micro"
             >
               ERR_0
             </Badge>
@@ -113,77 +113,77 @@ export default function LeonardoUI() {
 
       <Card
         variant="square"
-        className="group/card relative w-full border border-(--foreground)/10 p-4"
+        className="group/card relative w-full border border-foreground/10 p-4"
       >
         <div className="space-y-3">
-          <div className="flex items-end justify-between font-mono text-xs tracking-wider text-(--neutral) uppercase">
+          <div className="flex items-end justify-between font-mono text-xs text-neutral uppercase">
             <div>
-              <span className="mr-2 inline-block h-2 w-2 -translate-y-px animate-pulse rounded-[1px] bg-(--foreground) align-middle" />
-              <span className="text-(--foreground)">System Initialization</span>
+              <span className="mr-2 inline-block size-2 -translate-y-px animate-pulse bg-foreground align-middle" />
+              <span className="text-foreground">System Initialization</span>
             </div>
-            <div className="font-mono font-normal text-(--foreground)">
+            <div className="font-mono font-normal text-foreground">
               {Math.round(progress).toString().padStart(3, "0")}%
             </div>
           </div>
 
-          <div className="relative h-px w-full overflow-hidden bg-(--foreground)/10">
+          <div className="relative h-px w-full overflow-hidden bg-foreground/10">
             <div
-              className="absolute inset-y-0 left-0 bg-(--foreground) transition-all duration-100"
+              className="absolute inset-y-0 left-0 bg-foreground transition-all duration-100"
               style={{ width: `${progress}%` }}
             />
           </div>
 
-          <div className="grid w-full grid-cols-4 gap-3 pt-0.5 font-mono text-[9px] tracking-wider uppercase">
+          <div className="grid w-full grid-cols-4 gap-3 pt-0.5 font-mono caption-micro uppercase">
             <div className="space-y-1">
-              <div className="text-[7px] text-(--neutral)">SYSTEM_STATUS</div>
+              <div className="caption-micro text-neutral">SYSTEM_STATUS</div>
               <div>
-                <span className="text-(--neutral)">CORE_LOAD:</span>{" "}
-                <span className="text-(--foreground)">{coreLoad}%</span>
+                <span className="text-neutral">CORE_LOAD:</span>{" "}
+                <span className="text-foreground">{coreLoad}%</span>
               </div>
               <div>
-                <span className="text-(--neutral)">MEM_ALLOC:</span>{" "}
-                <span className="text-(--foreground)">OK</span>
+                <span className="text-neutral">MEM_ALLOC:</span>{" "}
+                <span className="text-foreground">OK</span>
               </div>
             </div>
             <div className="space-y-1">
-              <div className="text-[7px] text-(--neutral)">NETWORK_BRIDGE</div>
+              <div className="caption-micro text-neutral">NETWORK_BRIDGE</div>
               <div>
-                <span className="text-(--neutral)">UDP_LAT:</span>{" "}
-                <span className="text-(--foreground)">
+                <span className="text-neutral">UDP_LAT:</span>{" "}
+                <span className="text-foreground">
                   {PRELOADER_CONSTANTS.UDP_LATENCY}
                 </span>
               </div>
               <div>
-                <span className="text-(--neutral)">TCP_SYNC:</span>{" "}
-                <span className="text-(--foreground)">ACTIVE</span>
+                <span className="text-neutral">TCP_SYNC:</span>{" "}
+                <span className="text-foreground">ACTIVE</span>
               </div>
             </div>
             <div className="block space-y-1">
-              <div className="text-[7px] text-(--neutral)">GEO_LOC</div>
+              <div className="caption-micro text-neutral">GEO_LOC</div>
               <div>
-                <span className="text-(--neutral)">LAT:</span>{" "}
-                <span className="text-(--foreground)">
+                <span className="text-neutral">LAT:</span>{" "}
+                <span className="text-foreground">
                   {PRELOADER_CONSTANTS.GEO_LATITUDE}
                 </span>
               </div>
               <div>
-                <span className="text-(--neutral)">LON:</span>{" "}
-                <span className="text-(--foreground)">
+                <span className="text-neutral">LON:</span>{" "}
+                <span className="text-foreground">
                   {PRELOADER_CONSTANTS.GEO_LONGITUDE}
                 </span>
               </div>
             </div>
             <div className="space-y-1">
-              <div className="text-[7px] text-(--neutral)">LICENSE</div>
+              <div className="caption-micro text-neutral">LICENSE</div>
               <div>
-                <span className="text-(--neutral)">OS:</span>{" "}
-                <span className="text-(--foreground)">
+                <span className="text-neutral">OS:</span>{" "}
+                <span className="text-foreground">
                   {PRELOADER_CONSTANTS.OS_NAME}
                 </span>
               </div>
               <div>
-                <span className="text-(--neutral)">BUILD:</span>{" "}
-                <span className="text-(--foreground)">
+                <span className="text-neutral">BUILD:</span>{" "}
+                <span className="text-foreground">
                   {PRELOADER_CONSTANTS.BUILD_YEAR}
                 </span>
               </div>
@@ -196,40 +196,40 @@ export default function LeonardoUI() {
         <div className="grid grid-cols-2 gap-3">
           <Card
             variant="square"
-            className="group/card relative w-full border border-(--foreground)/10 p-4"
+            className="group/card relative w-full border border-foreground/10 p-4"
           >
-            <div className="absolute top-0 right-0 p-3 font-mono text-[9px] text-(--neutral)">
+            <div className="absolute top-0 right-0 p-3 font-mono caption-micro text-neutral">
               CLIENT_ENV
             </div>
             <div className="space-y-3">
               <div>
-                <span className="mr-3 inline-block h-2.5 w-2.5 translate-y-px rounded-[1px] bg-(--neutral-dark) align-middle" />
-                <span className="font-mono text-[11px] tracking-wider text-(--neutral) uppercase">
+                <span className="mr-3 inline-block size-2.5 translate-y-px bg-neutral-dark align-middle" />
+                <span className="font-mono caption-lg text-neutral uppercase">
                   Hardware Specs
                 </span>
               </div>
-              <div className="flex flex-col gap-2 pt-1 font-mono text-[10px]">
-                <div className="flex justify-between border-b border-(--foreground)/10 pb-1">
-                  <span className="text-(--neutral)">OS</span>
-                  <span className="text-(--foreground)">
+              <div className="flex flex-col gap-2 pt-1 font-mono caption-sm">
+                <div className="flex justify-between border-b border-foreground/10 pb-1">
+                  <span className="text-neutral">OS</span>
+                  <span className="text-foreground">
                     {sysInfo?.os || "---"}
                   </span>
                 </div>
-                <div className="flex justify-between border-b border-(--foreground)/10 pb-1">
-                  <span className="text-(--neutral)">CORES</span>
-                  <span className="text-(--foreground)">
+                <div className="flex justify-between border-b border-foreground/10 pb-1">
+                  <span className="text-neutral">CORES</span>
+                  <span className="text-foreground">
                     {sysInfo?.cores || "---"}
                   </span>
                 </div>
-                <div className="flex justify-between border-b border-(--foreground)/10 pb-1">
-                  <span className="text-(--neutral)">GPU_UNIT</span>
-                  <span className="text-(--foreground)">
+                <div className="flex justify-between border-b border-foreground/10 pb-1">
+                  <span className="text-neutral">GPU_UNIT</span>
+                  <span className="text-foreground">
                     {sysInfo?.gpu || "---"}
                   </span>
                 </div>
                 <div className="flex justify-between pb-1">
-                  <span className="text-(--neutral)">VIEWPORT</span>
-                  <span className="text-(--foreground)">
+                  <span className="text-neutral">VIEWPORT</span>
+                  <span className="text-foreground">
                     {sysInfo?.res || "---"}
                   </span>
                 </div>
@@ -239,42 +239,42 @@ export default function LeonardoUI() {
 
           <Card
             variant="square"
-            className="group/card relative w-full border border-(--foreground)/10 p-4"
+            className="group/card relative w-full border border-foreground/10 p-4"
           >
-            <div className="absolute top-0 right-0 p-3 font-mono text-[9px] text-(--neutral)">
+            <div className="absolute top-0 right-0 p-3 font-mono caption-micro text-neutral">
               LOCAL_METRICS
             </div>
             <div className="space-y-3">
               <div>
-                <span className="mr-3 inline-block h-2.5 w-2.5 translate-y-px animate-pulse rounded-[1px] bg-(--foreground) align-middle" />
-                <span className="font-mono text-[11px] tracking-wider text-(--foreground) uppercase">
+                <span className="mr-3 inline-block size-2.5 translate-y-px animate-pulse bg-foreground align-middle" />
+                <span className="font-mono caption-lg text-foreground uppercase">
                   Session Data
                 </span>
               </div>
-              <div className="flex flex-col gap-2 pt-1 font-mono text-[10px]">
-                <div className="flex justify-between border-b border-(--foreground)/10 pb-1">
-                  <span className="text-(--neutral)">IPV4_ADDR</span>
-                  <span className="text-(--foreground)">
+              <div className="flex flex-col gap-2 pt-1 font-mono caption-sm">
+                <div className="flex justify-between border-b border-foreground/10 pb-1">
+                  <span className="text-neutral">IPV4_ADDR</span>
+                  <span className="text-foreground">
                     {sysInfo?.ip || "---"}
                   </span>
                 </div>
-                <div className="flex justify-between border-b border-(--foreground)/10 pb-1">
-                  <span className="text-(--neutral)">LANGUAGE</span>
-                  <span className="text-(--foreground)">
+                <div className="flex justify-between border-b border-foreground/10 pb-1">
+                  <span className="text-neutral">LANGUAGE</span>
+                  <span className="text-foreground">
                     {typeof navigator !== "undefined"
                       ? navigator.language
                       : "---"}
                   </span>
                 </div>
-                <div className="flex justify-between border-b border-(--foreground)/10 pb-1">
-                  <span className="text-(--neutral)">UPTIME</span>
-                  <span className="text-(--foreground)">
+                <div className="flex justify-between border-b border-foreground/10 pb-1">
+                  <span className="text-neutral">UPTIME</span>
+                  <span className="text-foreground">
                     {formatUptime(uptime)}
                   </span>
                 </div>
                 <div className="flex justify-between pb-1">
-                  <span className="text-(--neutral)">CONNECTION</span>
-                  <span className="text-(--foreground)">SECURE</span>
+                  <span className="text-neutral">CONNECTION</span>
+                  <span className="text-foreground">SECURE</span>
                 </div>
               </div>
             </div>

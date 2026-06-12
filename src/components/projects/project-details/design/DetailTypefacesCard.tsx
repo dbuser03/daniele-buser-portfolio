@@ -40,16 +40,16 @@ export default function DetailTypefacesCard({
             className="flex flex-col items-start justify-end"
           >
             <span
-              className="text-display-xl font-normal text-(--neutral) select-none"
+              className="text-display-xl font-normal text-neutral select-none"
               style={{ fontFamily: getFontFamily(font) }}
             >
               {font.sampleText || "Aa"}
             </span>
-            <span className="-mt-5 text-sm font-normal tracking-wider text-(--neutral-dark)">
+            <span className="-mt-5 text-body font-normal text-neutral-dark">
               {font.type}
             </span>
             <span
-              className="text-section mt-1 leading-[0.95] font-normal whitespace-nowrap text-(--foreground)"
+              className="text-section mt-1 font-normal whitespace-nowrap text-foreground"
               style={{
                 fontFamily: getFontFamily(font),
                 letterSpacing: font.type === "mono" ? "-0.05em" : "-0.02em",
@@ -57,7 +57,7 @@ export default function DetailTypefacesCard({
             >
               {font.name}
             </span>
-            <div className="mt-8 flex flex-col gap-y-1.5 text-sm leading-none text-(--foreground)">
+            <div className="mt-8 flex flex-col gap-y-1.5 text-body text-foreground">
               {(font.weights || []).map((weight) => (
                 <span
                   key={weight.name}

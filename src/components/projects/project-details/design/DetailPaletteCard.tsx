@@ -36,7 +36,7 @@ export default function DetailPaletteCard({
           return (
             <div key={hex} className="flex flex-1 flex-col">
               <m.span
-                className="-mt-5 mb-2 text-sm font-normal tracking-wider text-(--neutral-dark)"
+                className="-mt-5 mb-2 text-body font-normal text-neutral-dark"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: copied === hex ? 1 : 0 }}
                 transition={{
@@ -47,7 +47,7 @@ export default function DetailPaletteCard({
                 (copied)
               </m.span>
               <m.div
-                className="h-66 w-full border border-(--foreground)/10"
+                className="h-66 w-full border border-foreground/10"
                 style={{ backgroundColor: hex }}
                 whileHover={{ scale: 0.98 }}
                 whileTap={{ scale: 0.94 }}
@@ -69,11 +69,11 @@ export default function DetailPaletteCard({
                 }}
               />
 
-              <div className="mt-8 flex flex-col gap-y-1.5 text-sm leading-none font-normal text-(--foreground) uppercase">
+              <div className="mt-8 flex flex-col gap-y-1.5 text-body font-normal text-foreground uppercase">
                 <span>{hex}</span>
-                {rgb && <span className="text-(--neutral)">RGB {rgb}</span>}
+                {rgb && <span className="text-neutral">RGB {rgb}</span>}
                 {pantone && (
-                  <span className="text-(--neutral)">PMS {pantone}</span>
+                  <span className="text-neutral">PMS {pantone}</span>
                 )}
               </div>
             </div>
