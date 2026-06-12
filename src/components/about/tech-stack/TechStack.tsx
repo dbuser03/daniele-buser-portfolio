@@ -38,7 +38,7 @@ export default function TechStack() {
         initial="initial"
         whileInView="visible"
         viewport={{ once: true }}
-        variants={entranceVariants(0, 20, motionTokens.duration.smooth)}
+        variants={entranceVariants(motionTokens.delay.none, motionTokens.distance.base, motionTokens.duration.smooth)}
       >
         MY TECH STACK
       </SectionLabel>
@@ -57,7 +57,7 @@ export default function TechStack() {
             <TechStackCell
               key={cellId}
               cellId={cellId}
-              className="relative aspect-3/2 min-h-0 bg-(--foreground)"
+              className="relative aspect-3/2 min-h-0 bg-foreground"
               onMouseEnter={() => handleCellMouseEnter(cellId)}
               onMouseLeave={handleCellMouseLeave}
               isActive={cellIsActive}
@@ -97,7 +97,7 @@ export default function TechStack() {
             <TechStackCell
               key={cellId}
               cellId={cellId}
-              className="relative aspect-square bg-(--foreground)"
+              className="relative aspect-square bg-foreground"
               onMouseEnter={() => handleCellMouseEnter(cellId)}
               onMouseLeave={handleCellMouseLeave}
               isActive={cellIsActive}

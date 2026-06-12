@@ -1,8 +1,7 @@
 "use client";
 
-import { m, AnimatePresence } from "motion/react";
-import { useState, memo, RefObject } from "react";
-import Skeleton from "@/components/ui/Skeleton";
+import { m } from "motion/react";
+import { memo, RefObject } from "react";
 import { cn } from "@/utils/cn";
 import { motionTokens } from "@/utils/motion";
 
@@ -21,8 +20,6 @@ function VideoLayer({
   onEnded,
   className,
 }: VideoLayerProps) {
-  const [isLoading, setIsLoading] = useState(true);
-
   return (
     <m.div
       className={cn("absolute inset-0 overflow-hidden", className)}
@@ -33,21 +30,7 @@ function VideoLayer({
         ease: motionTokens.easing.standard,
       }}
     >
-      <AnimatePresence>
-        {isActive && (
-          <m.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{
-              duration: motionTokens.duration.fast,
-              ease: motionTokens.easing.standard,
-            }}
-          >
-            <Skeleton isLoading={isLoading} variant="on-light" />
-          </m.div>
-        )}
-      </AnimatePresence>
+
       <video
         ref={videoRef}
         src={src}
@@ -56,9 +39,7 @@ function VideoLayer({
         autoPlay={isActive}
         preload="none"
         onEnded={onEnded}
-        onLoadStart={() => setIsLoading(true)}
-        onLoadedData={() => setIsLoading(false)}
-        className="h-full w-full object-cover"
+        className="size-full object-cover"
         aria-hidden="true"
       />
     </m.div>

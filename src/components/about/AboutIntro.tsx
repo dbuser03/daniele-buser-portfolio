@@ -11,14 +11,14 @@ export default function AboutIntro({ age }: { age: number }) {
   const { entranceVariants } = useAnimations();
 
   const introVariants = useMemo(
-    () => entranceVariants(0.5, 20, motionTokens.duration.smooth),
+    () => entranceVariants(motionTokens.delay.long, motionTokens.distance.base, motionTokens.duration.smooth),
     [entranceVariants],
   );
 
   return (
     <m.p
       id={ABOUT_INTRO_ID}
-      className="text-section text-(--background)"
+      className="text-section text-background"
       variants={introVariants}
       initial="initial"
       animate="visible"

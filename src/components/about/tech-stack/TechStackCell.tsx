@@ -34,11 +34,11 @@ export default function TechStackCell({
       {isActive && (
         <m.div
           layoutId="tech-stack-highlight"
-          className="pointer-events-none absolute inset-0 z-20 bg-(--background)"
+          className="pointer-events-none absolute inset-0 z-20 bg-background"
           transition={motionTokens.spring.cell}
         />
       )}
-      <div className="relative z-30 h-full w-full">{children}</div>
+      <div className="relative z-30 size-full">{children}</div>
     </m.div>
   );
 }

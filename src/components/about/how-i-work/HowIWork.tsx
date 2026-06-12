@@ -1,66 +1,32 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState, useMemo, useEffect } from "react";
-import { m, useScroll, useSpring } from "motion/react";
+
+import { m } from "motion/react";
 import { HOW_I_WORK_WORDS, VIDEO_MAP } from "@/constants/about";
 import { useHowIWork } from "@/hooks/useHowIWork";
 import WorkWord from "./WorkWord";
 import VideoLayer from "./VideoLayer";
-import Skeleton from "@/components/ui/Skeleton";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { motionTokens, useAnimations } from "@/utils/motion";
 
 export default function HowIWork() {
   const { entranceVariants } = useAnimations();
 
-  const wordsRef = useRef<HTMLDivElement | null>(null);
-  const [isHeroLoading, setIsHeroLoading] = useState(true);
-  const [isPanelLoading, setIsPanelLoading] = useState(true);
   const {
+    wordsRef,
     activeWord,
-    isImageHovered,
     videoRefs,
     handleWordHover,
     handlePanelMouseEnter,
     handlePanelMouseLeave,
-    advanceSequence,
-    playVideo,
+    progressToUse,
+    onEndedMap,
   } = useHowIWork();
-
-  const { scrollYProgress } = useScroll({
-    target: wordsRef,
-    offset: ["start 85%", "start 30%"],
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, motionTokens.spring.scroll);
-
-  const playVideoRef = useRef(playVideo);
-  const advanceSequenceRef = useRef(advanceSequence);
-  useEffect(() => {
-    playVideoRef.current = playVideo;
-  });
-  useEffect(() => {
-    advanceSequenceRef.current = advanceSequence;
-  });
-
-  const onEndedMap = useMemo(() => {
-    const map: Record<string, () => void> = {};
-    HOW_I_WORK_WORDS.forEach((w) => {
-      map[w] = () => {
-        if (isImageHovered) {
-          advanceSequenceRef.current();
-        } else if (activeWord === w) {
-          playVideoRef.current(w);
-        }
-      };
-    });
-    return map;
-  }, [isImageHovered, activeWord]);
 
   return (
     <section
-      className="relative z-10 text-(--background)"
+      className="relative z-10 text-background"
       aria-labelledby="how-i-work-heading"
     >
       <SectionLabel
@@ -70,28 +36,34 @@ export default function HowIWork() {
         initial="initial"
         whileInView="visible"
         viewport={{ once: true }}
-        variants={entranceVariants(0, 20, motionTokens.duration.smooth)}
+        variants={entranceVariants(
+          motionTokens.delay.none,
+          motionTokens.distance.base,
+          motionTokens.duration.smooth,
+        )}
       >
         HOW I WORK
       </SectionLabel>
       <div className="mt-3 flex flex-col gap-10">
         <div className="grid grid-cols-12 gap-4">
           <m.div
-            className="relative col-span-9 aspect-16/7 w-full overflow-hidden bg-(--neutral)"
+            className="relative col-span-9 aspect-16/7 w-full overflow-hidden bg-neutral"
             initial="initial"
             whileInView="visible"
             viewport={{ once: true }}
-            variants={entranceVariants(0.15, 20, motionTokens.duration.smooth)}
+            variants={entranceVariants(
+              motionTokens.delay.short,
+              motionTokens.distance.base,
+              motionTokens.duration.smooth,
+            )}
           >
-            <Skeleton isLoading={isHeroLoading} variant="on-light" />
             <Image
               src="/how-i-work-hero.webp"
               alt=""
               fill
-              sizes="(max-width: 1280px) 100vw, 75vw"
+              sizes="(min-width: 1280px) 75vw, 100vw"
               className="object-cover"
               aria-hidden="true"
-              onLoad={() => setIsHeroLoading(false)}
             />
           </m.div>
 
@@ -102,7 +74,11 @@ export default function HowIWork() {
             initial="initial"
             whileInView="visible"
             viewport={{ once: true }}
-            variants={entranceVariants(0.3, 20, motionTokens.duration.smooth)}
+            variants={entranceVariants(
+              motionTokens.delay.base,
+              motionTokens.distance.base,
+              motionTokens.duration.smooth,
+            )}
           >
             <m.div
               className="absolute inset-0"
@@ -113,15 +89,13 @@ export default function HowIWork() {
                 ease: motionTokens.easing.standard,
               }}
             >
-              <Skeleton isLoading={isPanelLoading} variant="on-light" />
               <Image
                 src="/how-i-work-panel.webp"
                 alt=""
                 fill
-                sizes="(max-width: 1280px) 100vw, 25vw"
+                sizes="(min-width: 1280px) 25vw, 100vw"
                 className="object-cover"
                 aria-hidden="true"
-                onLoad={() => setIsPanelLoading(false)}
               />
             </m.div>
 
@@ -138,7 +112,7 @@ export default function HowIWork() {
         </div>
 
         <div className="grid grid-cols-12 gap-4">
-          <p className="text-section col-span-6 text-(--background)">
+          <p className="text-section col-span-6 text-background">
             Most of my time goes into the parts nobody sees — decisions,
             tradeoffs, things that get cut. What ships is what survives that
             process. I handle design and development together, which means
@@ -153,7 +127,7 @@ export default function HowIWork() {
                 key={word}
                 word={word}
                 index={index}
-                scrollProgress={smoothProgress}
+                scrollProgress={progressToUse}
                 isActive={activeWord === word}
                 onHover={handleWordHover}
               />

@@ -4,15 +4,12 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import { m } from "motion/react";
 import { motionTokens, useAnimations } from "@/utils/motion";
-import Skeleton from "@/components/ui/Skeleton";
 
 export default function AboutPortrait() {
   const { entranceVariants } = useAnimations();
 
-  const [isLoading, setIsLoading] = useState(true);
-
   const portraitVariants = useMemo(
-    () => entranceVariants(0.65, 20, motionTokens.duration.smooth),
+    () => entranceVariants(motionTokens.delay.longer, motionTokens.distance.base, motionTokens.duration.smooth),
     [entranceVariants],
   );
 
@@ -24,14 +21,13 @@ export default function AboutPortrait() {
       animate="visible"
     >
       <m.div
-        className="relative h-full w-full"
-        whileHover={{ scale: 1.08, y: -12 }}
+        className="relative size-full"
+        whileHover={{ scale: 1.08, y: -motionTokens.distance.hover }}
         transition={{
           duration: motionTokens.duration.smooth,
           ease: motionTokens.easing.standard,
         }}
       >
-        <Skeleton isLoading={isLoading} variant="on-light" />
         <Image
           src="/portrait.webp"
           alt="Portrait of Daniele Buser"
@@ -39,7 +35,6 @@ export default function AboutPortrait() {
           className="object-cover"
           sizes="(min-width: 1024px) 33vw, 0px"
           priority
-          onLoad={() => setIsLoading(false)}
         />
       </m.div>
     </m.figure>

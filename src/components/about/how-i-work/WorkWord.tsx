@@ -42,7 +42,7 @@ export default function WorkWord({
     <m.button
       type="button"
       className={cn(
-        "relative flex items-center overflow-visible border-none bg-transparent p-0 text-left text-7xl font-medium",
+        "relative flex items-center overflow-visible border-none bg-transparent p-0 text-left text-display-sm font-normal",
         className,
       )}
       style={{ opacity, y, color: "inherit", fontFamily: "inherit" }}
@@ -59,7 +59,7 @@ export default function WorkWord({
         aria-hidden="true"
       >
         <m.div
-          className="h-full w-full bg-(--background)"
+          className="size-full bg-background"
           variants={arrowVariants}
           transition={{
             duration: motionTokens.duration.base,

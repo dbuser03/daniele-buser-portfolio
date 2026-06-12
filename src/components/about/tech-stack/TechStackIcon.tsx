@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, memo } from "react";
+import { useEffect, useRef } from "react";
 import { m } from "motion/react";
 import Link from "next/link";
 import type { Route } from "next";
@@ -58,7 +58,7 @@ function TechStackIcon({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "relative z-30 flex h-full w-full items-center justify-center focus-visible:z-40 focus-visible:-outline-offset-2",
+        "relative z-30 flex size-full items-center justify-center focus-visible:z-40 focus-visible:-outline-offset-2",
         className,
       )}
       aria-label={`Visit ${icon.label} website (opens in new tab)`}
@@ -101,4 +101,4 @@ function TechStackIcon({
   );
 }
 
-export default memo(TechStackIcon);
+export default TechStackIcon;

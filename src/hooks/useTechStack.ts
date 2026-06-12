@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useCallback, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { TECH_STACK_DEFAULT_CELL_ID } from "@/constants/about";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 
@@ -37,23 +37,20 @@ export function useTechStack() {
     };
   }, [hoveredCellId]);
 
-  const updateHoveredCell = useCallback((cellId: string) => {
+  const updateHoveredCell = (cellId: string) => {
     setHoveredCellId(cellId);
     setFullyHighlightedCellId(null);
-  }, []);
+  };
 
-  const handleCellMouseEnter = useCallback(
-    (cellId: string) => {
-      if (leaveTimeoutRef.current) {
-        clearTimeout(leaveTimeoutRef.current);
-        leaveTimeoutRef.current = null;
-      }
-      updateHoveredCell(cellId);
-    },
-    [updateHoveredCell],
-  );
+  const handleCellMouseEnter = (cellId: string) => {
+    if (leaveTimeoutRef.current) {
+      clearTimeout(leaveTimeoutRef.current);
+      leaveTimeoutRef.current = null;
+    }
+    updateHoveredCell(cellId);
+  };
 
-  const handleCellMouseLeave = useCallback(() => {
+  const handleCellMouseLeave = () => {
     if (leaveTimeoutRef.current) {
       clearTimeout(leaveTimeoutRef.current);
     }
@@ -61,16 +58,16 @@ export function useTechStack() {
       updateHoveredCell(TECH_STACK_DEFAULT_CELL_ID);
       onCursorLeave();
     }, 50);
-  }, [updateHoveredCell, onCursorLeave]);
+  };
 
-  const handleMouseLeaveTechStack = useCallback(() => {
+  const handleMouseLeaveTechStack = () => {
     if (leaveTimeoutRef.current) {
       clearTimeout(leaveTimeoutRef.current);
       leaveTimeoutRef.current = null;
     }
     updateHoveredCell(TECH_STACK_DEFAULT_CELL_ID);
     onCursorLeave();
-  }, [updateHoveredCell, onCursorLeave]);
+  };
 
   return {
     hoveredCellId,
