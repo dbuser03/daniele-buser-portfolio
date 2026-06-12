@@ -42,7 +42,7 @@ function NavItem({ href, label, delay }: NavItemProps) {
       >
         <Link
           href={href as Route}
-          className={cn("text-body", isActive ? "font-bold" : "font-normal")}
+          className={cn("text-body uppercase", isActive ? "font-bold" : "font-normal")}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onClick={handleClick}
