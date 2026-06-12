@@ -4,8 +4,9 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLOBE_CONFIG } from "../constants/globe";
+import { frame, cancelFrame } from "motion/react";
 import {
-  createAsciiAtlas,
+  getGlobalAsciiAtlas,
   getAsciiColorFromCSS,
   patchGlobeShader,
   type AsciiUniforms,
@@ -61,7 +62,7 @@ export function useEarthGlobe({
       "/projects/leonardo-berselli-portfolio/textures/earth_specular_2048.jpg",
     );
 
-    const asciiTexture = createAsciiAtlas();
+    const asciiTexture = getGlobalAsciiAtlas();
 
     const uniforms: AsciiUniforms = {
       asciiAtlas: { value: asciiTexture },
@@ -128,7 +129,6 @@ export function useEarthGlobe({
     };
 
     let renderer: THREE.WebGLRenderer | null = null;
-    let animationId: number | null = null;
     let disposed = false;
 
     const animate = () => {
@@ -137,7 +137,6 @@ export function useEarthGlobe({
       }
       controls.update();
       renderer?.render(scene, camera);
-      animationId = window.requestAnimationFrame(animate);
     };
 
     const setup = () => {
@@ -156,7 +155,7 @@ export function useEarthGlobe({
 
       onResize();
       window.addEventListener("resize", onResize);
-      animate();
+      frame.update(animate, true);
     };
 
     setup();
@@ -165,7 +164,7 @@ export function useEarthGlobe({
       disposed = true;
       window.removeEventListener("resize", onResize);
 
-      if (animationId !== null) window.cancelAnimationFrame(animationId);
+      cancelFrame(animate);
       controls.dispose();
       renderer?.dispose();
       if (renderer?.domElement.parentElement === container) {
@@ -173,8 +172,13 @@ export function useEarthGlobe({
       }
       sphereGeometry.dispose();
       globeMaterial.dispose();
-      asciiTexture?.dispose();
+      dayTexture.dispose();
+      normalTexture.dispose();
+      specularTexture.dispose();
+      renderer?.forceContextLoss();
+      renderer = null;
       asciiColorRef.current = null;
+      scene.clear();
     };
   }, [containerRef, darkProp, onDragStart, onDragEnd]);
 }

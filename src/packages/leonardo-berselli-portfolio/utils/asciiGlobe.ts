@@ -5,7 +5,11 @@ export function getAsciiColorFromCSS(isDark: boolean): THREE.Color {
   return new THREE.Color(value);
 }
 
-export function createAsciiAtlas(): THREE.CanvasTexture | null {
+let globalAsciiAtlas: THREE.CanvasTexture | null = null;
+
+export function getGlobalAsciiAtlas(): THREE.CanvasTexture | null {
+  if (globalAsciiAtlas) return globalAsciiAtlas;
+
   const canvas = document.createElement("canvas");
   const waterChars = " .',-~:;=+";
   const landChars = "*coOa&8%#@";
@@ -33,6 +37,7 @@ export function createAsciiAtlas(): THREE.CanvasTexture | null {
   const texture = new THREE.CanvasTexture(canvas);
   texture.minFilter = THREE.LinearFilter;
   texture.magFilter = THREE.LinearFilter;
+  globalAsciiAtlas = texture;
   return texture;
 }
 

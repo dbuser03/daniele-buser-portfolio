@@ -43,6 +43,12 @@ export function useSystemInfo() {
             .trim();
           if (gpu.length > 25) gpu = gpu.substring(0, 22) + "...";
         }
+        const loseContextExt = (gl as WebGLRenderingContext).getExtension(
+          "WEBGL_lose_context",
+        );
+        if (loseContextExt) {
+          loseContextExt.loseContext();
+        }
       }
     } catch {
       gpu = "N/A";
