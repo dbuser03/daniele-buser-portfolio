@@ -5,6 +5,15 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
 
   typedRoutes: true,
+  async redirects() {
+    return [
+      {
+        source: "/about",
+        destination: "/",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
