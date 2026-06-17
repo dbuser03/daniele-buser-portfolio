@@ -54,11 +54,11 @@ export default async function ProjectPage({ params }: PageProps) {
       try {
         const fullPath = path.join(
           process.cwd(),
-          "src/packages",
+          "packages",
           project.id,
           pkgRelativePath,
         );
-        const code = fs.readFileSync(fullPath, "utf-8");
+        const code = await fs.promises.readFile(fullPath, "utf-8");
         implementationsCode[treePath] = code;
       } catch (err) {
         console.error(
@@ -75,7 +75,7 @@ export default async function ProjectPage({ params }: PageProps) {
       process.cwd(),
       "src/components/ui/CodePlaceholder.tsx",
     );
-    fallbackCode = fs.readFileSync(fallbackPath, "utf-8");
+    fallbackCode = await fs.promises.readFile(fallbackPath, "utf-8");
   } catch (err) {
     console.error("Failed to read fallback code:", err);
   }
