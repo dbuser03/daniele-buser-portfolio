@@ -1,5 +1,7 @@
 import "./globals.css";
 import ClientLayout from "@/components/layout/ClientLayout";
+import Header from "@/components/layout/header/Header";
+import Footer from "@/components/layout/footer/Footer";
 import { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -47,7 +49,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
-        <ClientLayout>{children}</ClientLayout>
+        <ClientLayout>
+          <Header />
+          {children}
+          <Footer />
+        </ClientLayout>
         <Analytics />
         <SpeedInsights />
       </body>

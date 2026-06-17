@@ -1,7 +1,5 @@
 "use client";
 
-import Header from "@/components/layout/header/Header";
-import Footer from "@/components/layout/footer/Footer";
 import SmoothScrolling from "@/components/layout/scroll/SmoothScrolling";
 import { LazyMotion, domMax } from "motion/react";
 import RouteFocusManager from "@/components/layout/scroll/RouteFocusManager";
@@ -43,9 +41,7 @@ export default function ClientLayout({
         <RouteFocusManager />
         <CursorProvider>
           <div className="flex min-h-screen flex-col">
-            <Header />
             {children}
-            <Footer />
           </div>
         </CursorProvider>
       </SmoothScrolling>
