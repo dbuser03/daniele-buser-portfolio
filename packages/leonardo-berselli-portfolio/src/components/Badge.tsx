@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/utils/cn";
+import { cn } from "../utils/cn";
 
 type BadgeVariant = "default" | "outline" | "secondary" | "destructive";
 

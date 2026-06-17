@@ -2,9 +2,7 @@
 
 import { useRef, useCallback } from "react";
 import { useEarthGlobe } from "../hooks/useEarthGlobe";
-import { useCursorInteraction } from "@/hooks/useCursorInteraction";
-import { useCursorContext } from "@/components/layout/cursor/CursorContext";
-import { CURSOR_SIZE } from "@/constants/cursor";
+import { useInteraction } from "../context/InteractionProvider";
 
 interface EarthGlobeAsciiProps {
   dark?: boolean;
@@ -12,19 +10,15 @@ interface EarthGlobeAsciiProps {
 
 export function EarthGlobeAscii({ dark }: EarthGlobeAsciiProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { handleMouseEnter, handleMouseLeave, startPulse, stopPulse } =
-    useCursorInteraction("pulse");
-  const { cursorSize, setColor } = useCursorContext();
+  const { onHoverStart, onHoverEnd, onDragStart, onDragEnd } = useInteraction();
 
   const handleDragStart = useCallback(() => {
-    stopPulse();
-    cursorSize.set(CURSOR_SIZE.xs);
-    setColor("var(--accent)");
-  }, [cursorSize, setColor, stopPulse]);
+    onDragStart();
+  }, [onDragStart]);
 
   const handleDragEnd = useCallback(() => {
-    startPulse();
-  }, [startPulse]);
+    onDragEnd();
+  }, [onDragEnd]);
 
   useEarthGlobe({
     containerRef,
@@ -38,8 +32,8 @@ export function EarthGlobeAscii({ dark }: EarthGlobeAsciiProps) {
       <div
         ref={containerRef}
         className="size-full"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        onMouseEnter={() => onHoverStart("pulse")}
+        onMouseLeave={onHoverEnd}
       />
     </div>
   );

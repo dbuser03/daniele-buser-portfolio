@@ -1,7 +1,7 @@
 "use client";
 
 import { m } from "motion/react";
-import { cn } from "@/utils/cn";
+import { cn } from "../utils/cn";
 import { useBasicElementsShowcase } from "../hooks/useBasicElementsShowcase";
 import { usePreloaderCard } from "../hooks/usePreloaderCard";
 import { useSystemDiagnostics } from "../hooks/useSystemDiagnostics";

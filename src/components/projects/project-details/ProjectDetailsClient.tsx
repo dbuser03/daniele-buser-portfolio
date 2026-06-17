@@ -16,11 +16,12 @@ import DetailCoolShitCard from "@/components/projects/project-details/design/Det
 import DetailTechCard from "@/components/projects/project-details/code/DetailTechCard";
 import DetailArchitectureCard from "@/components/projects/project-details/code/DetailArchitectureCard";
 import DetailImplementationCard from "@/components/projects/project-details/code/DetailImplementationCard";
+import { ProjectInteractionWrapper } from "@/components/projects/project-details/ProjectInteractionWrapper";
 
 const UI_MAP: Record<string, ComponentType> = {
   "leonardo-berselli-portfolio": dynamic(
     () =>
-      import("@/packages/leonardo-berselli-portfolio/components/LeonardoUI").then(
+      import("@case-studies/leonardo-berselli/src/components/LeonardoUI").then(
         (m) => ({
           default: m.default,
         }),
@@ -35,7 +36,7 @@ const UI_MAP: Record<string, ComponentType> = {
 const COOL_SHIT_MAP: Record<string, ComponentType> = {
   "leonardo-berselli-portfolio": dynamic(
     () =>
-      import("@/packages/leonardo-berselli-portfolio/components/EarthGlobeAscii").then(
+      import("@case-studies/leonardo-berselli/src/components/EarthGlobeAscii").then(
         (m) => ({
           default: m.EarthGlobeAscii,
         }),
@@ -167,16 +168,20 @@ export default function ProjectDetailsClient({
 
               {project.hasCustomComponents && (
                 <m.div key="components" variants={itemVariants}>
-                  <DetailCustomComponentsCard
-                    projectId={project.id}
-                    CustomComponents={CustomComponents}
-                  />
+                  <ProjectInteractionWrapper>
+                    <DetailCustomComponentsCard
+                      projectId={project.id}
+                      CustomComponents={CustomComponents}
+                    />
+                  </ProjectInteractionWrapper>
                 </m.div>
               )}
 
               {CoolShitComponent && (
                 <m.div key="cool-shit" variants={itemVariants}>
-                  <DetailCoolShitCard CoolShitComponent={CoolShitComponent} />
+                  <ProjectInteractionWrapper>
+                    <DetailCoolShitCard CoolShitComponent={CoolShitComponent} />
+                  </ProjectInteractionWrapper>
                 </m.div>
               )}
             </m.div>

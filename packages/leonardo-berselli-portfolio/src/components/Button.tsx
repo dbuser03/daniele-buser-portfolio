@@ -1,8 +1,8 @@
 "use client";
 
 import { m } from "motion/react";
-import { cn } from "@/utils/cn";
-import { useCursorInteraction } from "@/hooks/useCursorInteraction";
+import { cn } from "../utils/cn";
+import { useInteraction } from "../context/InteractionProvider";
 import { PACKAGE_MOTION } from "../utils/motion";
 
 type ButtonVariant = "default" | "outline" | "secondary" | "destructive";
@@ -40,8 +40,7 @@ export function Button({
   disabled,
   onClick,
 }: ButtonProps) {
-  const { handleMouseEnter, handleMouseLeave } =
-    useCursorInteraction("interactive");
+  const { onHoverStart, onHoverEnd } = useInteraction();
 
   return (
     <m.button
@@ -62,8 +61,8 @@ export function Button({
       }}
       disabled={disabled}
       onClick={onClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => onHoverStart("interactive")}
+      onMouseLeave={onHoverEnd}
     >
       {children}
     </m.button>

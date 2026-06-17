@@ -1,7 +1,7 @@
 "use client";
 
 import { m } from "motion/react";
-import { cn } from "@/utils/cn";
+import { cn } from "../utils/cn";
 import { PACKAGE_MOTION } from "../utils/motion";
 
 interface CardProps {

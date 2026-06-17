@@ -1,8 +1,8 @@
 "use client";
 
 import { m } from "motion/react";
-import { cn } from "@/utils/cn";
-import { useCursorInteraction } from "@/hooks/useCursorInteraction";
+import { cn } from "../utils/cn";
+import { useInteraction } from "../context/InteractionProvider";
 import { PACKAGE_MOTION, SWITCH_THUMB } from "../utils/motion";
 
 interface SwitchProps {
@@ -22,8 +22,7 @@ export function Switch({
   className,
   "aria-label": ariaLabel,
 }: SwitchProps) {
-  const { handleMouseEnter, handleMouseLeave } =
-    useCursorInteraction("interactive");
+  const { onHoverStart, onHoverEnd } = useInteraction();
 
   return (
     <button
@@ -32,8 +31,8 @@ export function Switch({
       aria-label={ariaLabel}
       disabled={disabled}
       onClick={() => onCheckedChange(!checked)}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => onHoverStart("interactive")}
+      onMouseLeave={onHoverEnd}
       data-checked={checked ? "" : undefined}
       data-unchecked={!checked ? "" : undefined}
       className={cn(

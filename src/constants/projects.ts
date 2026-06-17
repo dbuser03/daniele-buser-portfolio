@@ -1,5 +1,4 @@
 import type { Project } from "@/types/projects";
-import { LEONARDO_BRAND_COLORS } from "@/packages/leonardo-berselli-portfolio/constants/colors";
 
 export const PROJECTS: Project[] = [
   {
@@ -17,7 +16,13 @@ export const PROJECTS: Project[] = [
       "/projects/leonardo-berselli-portfolio/leonardo-berselli-portfolio.webp",
     tags: ["Next.js", "Tailwind", "Motion", "WebGL"],
     year: "2026",
-    brandingColors: LEONARDO_BRAND_COLORS,
+    brandingColors: [
+      { hex: "#0a0a0a", pantone: "Black 6 C" },
+      { hex: "#262626", pantone: "426 C" },
+      { hex: "#737373", pantone: "424 C" },
+      { hex: "#e5e5e5", pantone: "663 C" },
+      { hex: "#f7f7f7", pantone: "7436 C" },
+    ],
     brandingFonts: [
       {
         name: "PP Neue Montreal",
@@ -180,15 +185,15 @@ export const PROJECTS: Project[] = [
       },
     ],
     showcaseFiles: {
-      "components/ui/Button.tsx": "components/Button.tsx",
-      "components/ui/Badge.tsx": "components/Badge.tsx",
-      "components/ui/Switch.tsx": "components/Switch.tsx",
-      "components/ui/Card.tsx": "components/Card.tsx",
+      "components/ui/Button.tsx": "src/components/Button.tsx",
+      "components/ui/Badge.tsx": "src/components/Badge.tsx",
+      "components/ui/Switch.tsx": "src/components/Switch.tsx",
+      "components/ui/Card.tsx": "src/components/Card.tsx",
       "components/visuals/EarthGlobeAscii.tsx":
-        "components/EarthGlobeAscii.tsx",
-      "hooks/usePreloaderCard.ts": "hooks/usePreloaderCard.ts",
-      "hooks/useSystemDiagnostics.ts": "hooks/useSystemDiagnostics.ts",
-      "hooks/useSystemInfo.ts": "hooks/useSystemInfo.ts",
+        "src/components/EarthGlobeAscii.tsx",
+      "hooks/usePreloaderCard.ts": "src/hooks/usePreloaderCard.ts",
+      "hooks/useSystemDiagnostics.ts": "src/hooks/useSystemDiagnostics.ts",
+      "hooks/useSystemInfo.ts": "src/hooks/useSystemInfo.ts",
     },
     architectureDescriptions: {
       app: "Entry point — pages, layout, global styles, and app icon.",
