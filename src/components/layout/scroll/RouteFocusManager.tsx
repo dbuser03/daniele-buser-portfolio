@@ -27,7 +27,7 @@ export default function RouteFocusManager() {
     }, 100);
 
     return () => clearTimeout(timeout);
-  }, [pathname]);
+  }, [pathname, lenis]);
 
   return null;
 }

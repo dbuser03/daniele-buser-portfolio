@@ -5,7 +5,6 @@ import { m } from "motion/react";
 import { HeroTitleMount } from "@/components/ui/HeroTitle";
 import GridLines from "@/components/layout/GridLines";
 import { motionTokens, useAnimations } from "@/utils/motion";
-import { CSS_VARIABLES } from "@/constants/theme";
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 
 export default function Error({

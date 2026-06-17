@@ -5,6 +5,7 @@ import {
   use,
   useState,
   useEffect,
+  useCallback,
 } from "react";
 import type { ReactNode } from "react";
 import { useMotionValue, useSpring } from "motion/react";
@@ -46,20 +47,20 @@ export const CursorProvider = ({
     return () => clearTimeout(id);
   }, [pathname, cursorSize]);
 
-  const handleMouseMove = (e: MouseEvent) => {
+  const handleMouseMove = useCallback((e: MouseEvent) => {
     const { clientX, clientY } = e;
     smoothX.set(clientX);
     smoothY.set(clientY);
     opacity.set(1);
-  };
+  }, [smoothX, smoothY, opacity]);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     opacity.set(0);
-  };
+  }, [opacity]);
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = useCallback(() => {
     opacity.set(1);
-  };
+  }, [opacity]);
 
   useEffect(() => {
     if (disabled) return;
@@ -80,7 +81,7 @@ export const CursorProvider = ({
       document.body.removeEventListener("mouseleave", handleMouseLeave);
       document.body.removeEventListener("mouseenter", handleMouseEnter);
     };
-  }, [disabled]);
+  }, [disabled, handleMouseEnter, handleMouseLeave, handleMouseMove]);
 
   const contextValue = {
     cursorSize,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import Image from "next/image";
 import { m } from "motion/react";
 import { motionTokens, useAnimations } from "@/utils/motion";

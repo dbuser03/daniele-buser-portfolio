@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { animate } from "motion/react";
 import { useCursorContext } from "@/components/layout/cursor/CursorContext";
 import { CURSOR_SIZE } from "@/constants/cursor";
@@ -25,12 +25,12 @@ export const useCursorInteraction = (
 
   const config = getCursorInteractionConfig(type);
 
-  const stopPulse = () => {
+  const stopPulse = useCallback(() => {
     pulseControls.current?.stop();
     pulseControls.current = null;
-  };
+  }, []);
 
-  const startPulse = () => {
+  const startPulse = useCallback(() => {
     stopPulse();
     cursorSize.set(CURSOR_SIZE.sm);
     pulseControls.current = animate(
@@ -43,7 +43,7 @@ export const useCursorInteraction = (
         repeatType: "reverse",
       },
     );
-  };
+  }, [cursorSize, stopPulse]);
 
   const handleMouseEnter = () => {
     callbacksRef.current?.onEnter?.();
