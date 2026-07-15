@@ -18,8 +18,8 @@ function NavItem({ href, label, delay }: NavItemProps) {
   const pathname = usePathname();
   const lenis = useLenis();
   const isActive =
-    href === "/"
-      ? pathname === "/" || pathname.startsWith("/projects/")
+    href === "/projects"
+      ? pathname === href || pathname.startsWith("/projects/")
       : pathname === href;
 
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(

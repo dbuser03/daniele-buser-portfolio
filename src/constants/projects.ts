@@ -244,4 +244,27 @@ export const PROJECTS: Project[] = [
     shipText2:
       "The portfolio seamlessly integrates with GitHub to manage projects. Each case study directly links back to its corresponding repository, allowing visitors to easily dive into the actual source code.",
   },
+  {
+    id: "non-ce-budget-pt2",
+    title: "Non c'è Budget Pt.2 — Tirana",
+    description: "Il viaggio per il mio compleanno. Questa è la pagina ufficiale con tutte le informazioni sul volo.",
+    descriptionCol1: "Questa è la pagina di riferimento che ho creato per facilitare l'organizzazione del nostro prossimo viaggio a Tirana in occasione del mio compleanno.",
+    descriptionCol2: "Qui trovate raccolte in modo pratico tutte le informazioni necessarie per la partenza: i dettagli del volo, l'alloggio e le note sull'itinerario.",
+    image: "/projects/non-ce-budget-pt-2/tirana-intro.webp",
+    cardImage: "/projects/non-ce-budget-pt-2/non-ce-budget-pt-2.webp",
+    tags: ["Travel", "Tirana", "Adventure", "Organization"],
+    year: "2026",
+    brandingColors: [],
+    brandingFonts: [],
+    isHidden: true,
+    labels: {
+      intro: "Intro",
+      design: "Voli",
+      code: "Dati Base",
+      ship: "Organizzazione"
+    },
+    hasCustomDesignSection: true,
+    hasCustomCodeSection: true,
+    hasCustomShipSection: true,
+  },
 ];

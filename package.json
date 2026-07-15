@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@case-studies/leonardo-berselli": "workspace:*",
+    "@case-studies/non-ce-budget-pt2": "workspace:*",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "clsx": "^2.1.1",
@@ -18,8 +20,7 @@
     "next": "16.2.5",
     "react": "19.2.6",
     "react-dom": "19.2.6",
-    "tailwind-merge": "^3.6.0",
-    "@case-studies/leonardo-berselli": "workspace:*"
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",

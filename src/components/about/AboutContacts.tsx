@@ -6,7 +6,7 @@ import { motionTokens } from "@/utils/motion";
 const viewportConfig = { once: false, amount: 0.6 };
 export default function AboutContacts() {
   return (
-    <section className="relative -mx-4 flex min-h-screen flex-col justify-center bg-background px-4 text-foreground">
+    <section className="relative -mx-4 flex min-h-screen flex-col justify-center bg-background px-4 text-foreground before:absolute before:bottom-full before:left-0 before:w-full before:h-0.5 before:bg-background">
       <ContactSectionWrapper>
         <HeroTitleInView
           as="h2"

@@ -58,14 +58,16 @@ function ProjectCard({
             initial="initial"
             animate={isActive ? "hover" : "initial"}
           >
-            <Image
-              src={imageSrc}
-              alt={project.title}
-              fill
-              className="object-cover"
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              priority={priority}
-            />
+            {imageSrc ? (
+              <Image
+                src={imageSrc}
+                alt={project.title}
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                priority={priority}
+              />
+            ) : null}
           </m.div>
         </div>
         <div className="mt-8 flex items-start justify-between text-foreground">

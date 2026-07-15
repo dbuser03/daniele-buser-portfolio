@@ -13,8 +13,8 @@ export function useElementHeight<T extends HTMLElement>() {
 
     setHeight(node.getBoundingClientRect().height);
 
-    observerRef.current = new ResizeObserver(([entry]) => {
-      setHeight(entry.contentRect.height);
+    observerRef.current = new ResizeObserver(() => {
+      if (node) setHeight(node.getBoundingClientRect().height);
     });
     observerRef.current.observe(node);
   };
