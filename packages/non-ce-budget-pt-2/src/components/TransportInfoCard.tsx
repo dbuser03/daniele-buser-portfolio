@@ -7,12 +7,12 @@ export default function TransportInfoCard() {
       <div className="flex w-full flex-col overflow-hidden rounded-xl border border-neutral/20 bg-card-dark">
         
         <div className="flex flex-col p-5 sm:p-6 pb-6 sm:pb-8 w-full">
-          <div className="flex items-center justify-between pb-2 w-full gap-2">
-             <div className="flex items-center gap-3 text-foreground min-w-0">
-               <BusFront className="h-6 w-6 text-neutral shrink-0" strokeWidth={1.5} />
-               <span className="text-section font-normal truncate">LU-NA Shuttle</span>
+          <div className="flex flex-col sm:flex-row sm:items-center pb-2 w-full gap-1 sm:gap-3">
+             <BusFront className="h-6 w-6 text-neutral shrink-0" strokeWidth={1.5} />
+             <div className="flex items-center justify-between w-full sm:flex-1 gap-2">
+               <span className="text-section font-normal text-foreground truncate">LU-NA Shuttle</span>
+               <span className="text-body font-normal text-foreground shrink-0">400 L <span className="text-neutral">/ tratta</span></span>
              </div>
-             <span className="text-body font-normal text-foreground shrink-0">400 L <span className="text-neutral">/ tratta</span></span>
           </div>
           
           <div className="mt-4 sm:mt-8 flex w-full items-center justify-between rounded-lg bg-card-light p-4 sm:p-5">
