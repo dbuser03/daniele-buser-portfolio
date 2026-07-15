@@ -13,7 +13,7 @@ importers:
         version: link:packages/leonardo-berselli-portfolio
       '@case-studies/non-ce-budget-pt2':
         specifier: workspace:*
-        version: link:packages/non-ce-budget-pt2
+        version: link:packages/non-ce-budget-pt-2
       '@vercel/analytics':
         specifier: ^2.0.1
         version: 2.0.1(next@16.2.5(@babel/core@7.29.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
@@ -113,7 +113,7 @@ importers:
         specifier: ^0.184.1
         version: 0.184.1
 
-  packages/non-ce-budget-pt2:
+  packages/non-ce-budget-pt-2:
     dependencies:
       clsx:
         specifier: ^2.0.0
