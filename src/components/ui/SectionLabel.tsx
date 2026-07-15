@@ -25,7 +25,7 @@ export default function SectionLabel({
 }: SectionLabelProps) {
   return (
     <Tag
-      className={cn("text-body uppercase", variantColors[variant], className)}
+      className={cn("text-caption md:text-body uppercase", variantColors[variant], className)}
       {...motionProps}
     >
       {children}

@@ -2,7 +2,7 @@ import { BusFront, CarTaxiFront, KeyRound, ArrowRightLeft } from "lucide-react";
 
 export default function TransportInfoCard() {
   return (
-    <div className="flex flex-col gap-10 sm:gap-12 pt-0 pb-4 w-full h-full">
+    <div className="flex flex-col gap-6 sm:gap-12 pt-0 pb-4 w-full h-full">
       
       <div className="flex w-full flex-col overflow-hidden rounded-xl border border-neutral/20 bg-card-dark">
         
@@ -15,7 +15,7 @@ export default function TransportInfoCard() {
              <span className="text-body font-normal text-foreground shrink-0">400 L <span className="text-neutral">/ tratta</span></span>
           </div>
           
-          <div className="mt-8 flex w-full items-center justify-between rounded-lg bg-card-light p-4 sm:p-5">
+          <div className="mt-4 sm:mt-8 flex w-full items-center justify-between rounded-lg bg-card-light p-4 sm:p-5">
             <div className="flex w-[35%] sm:w-[40%] flex-col gap-1 text-center min-w-0">
               <span className="text-body font-normal leading-none text-background truncate">TIA</span>
               <span className="text-caption uppercase tracking-wider text-neutral-dark truncate">Aeroporto</span>
@@ -39,7 +39,7 @@ export default function TransportInfoCard() {
             <span className="text-section font-normal text-foreground truncate">Urban Pass</span>
             <span className="text-body font-normal text-foreground shrink-0">40 L <span className="text-neutral">/ corsa</span></span>
           </div>
-          <div className="grid grid-cols-2 gap-x-3 sm:gap-x-4 gap-y-3 pt-6 sm:pt-8 w-full">
+          <div className="grid grid-cols-2 gap-x-3 sm:gap-x-4 gap-y-3 pt-4 sm:pt-8 w-full">
             <div className="flex items-center gap-3 min-w-0">
               <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-md border border-neutral/50 text-sm font-normal text-foreground">11</div>
               <span className="text-body font-normal text-neutral truncate">Porcelan</span>

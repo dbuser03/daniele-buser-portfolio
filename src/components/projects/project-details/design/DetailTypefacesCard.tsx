@@ -45,11 +45,11 @@ export default function DetailTypefacesCard({
             >
               {font.sampleText || "Aa"}
             </span>
-            <span className="-mt-5 text-body font-normal text-neutral-dark">
+            <span className="-mt-5 text-caption md:text-body font-normal text-neutral-dark">
               {font.type}
             </span>
             <span
-              className="text-section mt-1 font-normal whitespace-nowrap text-foreground"
+              className="text-heading md:text-section mt-1 font-normal whitespace-nowrap text-foreground"
               style={{
                 fontFamily: getFontFamily(font),
                 letterSpacing: font.type === "mono" ? "-0.05em" : "-0.02em",
@@ -57,7 +57,7 @@ export default function DetailTypefacesCard({
             >
               {font.name}
             </span>
-            <div className="mt-8 flex flex-col gap-y-1.5 text-body text-foreground">
+            <div className="mt-8 flex flex-col gap-y-1.5 text-caption md:text-body text-foreground">
               {(font.weights || []).map((weight) => (
                 <span
                   key={weight.name}

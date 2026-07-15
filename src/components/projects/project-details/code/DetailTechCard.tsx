@@ -29,7 +29,7 @@ export default function DetailTechCard({
       }
       className={className}
     >
-      <div className="text-section font-normal text-foreground">
+      <div className="text-heading md:text-section font-normal text-foreground">
         {(() => {
           const sentence = project.codeTechnologiesText?.[0] || "";
           const tokens = project.codeTechnologiesTokens || [];

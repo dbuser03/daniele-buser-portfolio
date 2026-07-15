@@ -15,7 +15,21 @@ export default function Footer() {
 
   useEffect(() => {
     setMounted(true);
-    setIsAdmin(localStorage.getItem("admin") === "true");
+    const isHashAdmin = window.location.hash === "#admin";
+    const isHashLogout = window.location.hash === "#logout";
+    const isLocalAdmin = localStorage.getItem("admin") === "true";
+
+    if (isHashLogout) {
+      localStorage.removeItem("admin");
+      window.history.replaceState(null, "", window.location.pathname);
+      setIsAdmin(false);
+    } else if (isHashAdmin) {
+      localStorage.setItem("admin", "true");
+      window.history.replaceState(null, "", window.location.pathname);
+      setIsAdmin(true);
+    } else if (isLocalAdmin) {
+      setIsAdmin(true);
+    }
   }, []);
 
   const isProjectPage = pathname.startsWith("/projects/");
@@ -31,7 +45,7 @@ export default function Footer() {
     >
       <div className={`w-fit select-none ${isHiddenForNonAdmin ? "pointer-events-none" : "pointer-events-auto"}`}>
         <m.p
-          className="text-body leading-tight text-foreground"
+          className="text-caption md:text-body leading-tight text-foreground"
           variants={entranceVariants(0.8, motionTokens.distance.base, motionTokens.duration.smooth)}
           initial="initial"
           animate="visible"
@@ -39,7 +53,7 @@ export default function Footer() {
           LUGANO - <TimeDisplay />
         </m.p>
         <m.p
-          className="text-body text-neutral"
+          className="text-caption md:text-body text-neutral"
           variants={entranceVariants(0.9, motionTokens.distance.base, motionTokens.duration.smooth)}
           initial="initial"
           animate="visible"

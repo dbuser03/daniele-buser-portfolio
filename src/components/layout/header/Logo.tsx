@@ -32,7 +32,7 @@ export default function Logo() {
       aria-label="Daniele Buser - Creative Developer"
     >
       <m.span
-        className="text-body-lg leading-tight font-bold text-foreground"
+        className="text-body md:text-body-lg leading-tight font-bold text-foreground"
         variants={entranceVariants(motionTokens.delay.none, motionTokens.distance.base, motionTokens.duration.smooth)}
         initial="initial"
         animate="visible"
@@ -40,7 +40,7 @@ export default function Logo() {
         DANIELE BUSER
       </m.span>
       <m.p
-        className="text-body text-neutral"
+        className="text-caption md:text-body text-neutral"
         variants={entranceVariants(0.1, motionTokens.distance.base, motionTokens.duration.smooth)}
         initial="initial"
         animate="visible"

@@ -258,25 +258,25 @@ function TransportNode({ transport }: { transport: Transport }) {
   };
 
   return (
-    <div className="relative flex w-full">
+    <div className="relative flex w-full gap-4 sm:gap-6">
       <div className="relative flex flex-col items-center w-12 sm:w-16 shrink-0">
         <div className="absolute top-0 bottom-0 w-px border-l-[1.5px] border-dashed border-neutral"></div>
       </div>
       
-      <div className="flex flex-wrap items-center gap-2 sm:gap-3 py-1.5 pr-2 sm:pr-4 flex-1 min-w-0">
-        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-transparent border border-neutral text-caption font-normal text-neutral shrink-0">
+      <div className="flex flex-nowrap items-center gap-2 sm:gap-3 py-1.5 pr-2 sm:pr-4 flex-1 min-w-0">
+        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-transparent border border-neutral text-[10px] md:text-caption font-normal text-neutral shrink-0">
           {getIcon()}
           <span>{transport.duration}</span>
         </div>
         
         {transport.details && (
-          <span className="text-body text-sm font-normal text-neutral truncate max-w-[200px] sm:max-w-[300px]">
+          <span className="font-normal text-neutral truncate max-w-[200px] sm:max-w-[300px] text-xs md:text-sm">
             {transport.details}
           </span>
         )}
         
         {transport.price && (
-          <div className="ml-auto flex items-center gap-1 text-caption font-normal text-neutral px-2 py-0.5 rounded border border-neutral shrink-0">
+          <div className="ml-auto flex items-center gap-1 font-normal text-neutral px-2 py-0.5 rounded border border-neutral shrink-0 text-[10px] md:text-caption">
             <Coins className="w-3 h-3 text-neutral" />
             <span>{transport.price}</span>
           </div>
@@ -294,7 +294,7 @@ function ActivityNode({ activity }: { activity: Activity }) {
   }
 
   return (
-    <div className="relative flex w-full group min-h-[4rem]">
+    <div className="relative flex w-full gap-4 sm:gap-6 group min-h-[4rem]">
       <div className="relative flex flex-col items-center w-12 sm:w-16 shrink-0">
         <div className="absolute top-6 bottom-0 w-px bg-neutral"></div>
         <div className="relative z-10 flex w-10 h-10 items-center justify-center rounded-full bg-card-light text-background mt-3 shrink-0 [&>svg]:w-4 [&>svg]:h-4">
@@ -304,13 +304,13 @@ function ActivityNode({ activity }: { activity: Activity }) {
       
       <div className="flex flex-col flex-1 min-w-0 py-2 pr-2 sm:pr-4">
         <div className="flex flex-col w-full bg-card-light rounded-2xl p-4 sm:p-5 transition-colors">
-          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-2">
+          <div className="flex flex-row items-start justify-between gap-3 mb-2">
             <div className="flex flex-col gap-1 min-w-0">
-              <span className="text-caption font-normal text-accent uppercase">
+              <span className="text-[10px] md:text-caption font-normal text-accent uppercase">
                 {activity.time}
               </span>
               <div className="flex items-center gap-2 min-w-0">
-                <span className="text-body-lg font-normal text-background truncate">{activity.title}</span>
+                <span className="text-body md:text-body-lg font-normal text-background truncate">{activity.title}</span>
                 {activity.warning && (
                   <AlertCircle className="w-4 h-4 text-accent shrink-0" strokeWidth={2} />
                 )}
@@ -318,7 +318,7 @@ function ActivityNode({ activity }: { activity: Activity }) {
             </div>
             
             {activity.price && (
-              <div className="flex shrink-0 items-center gap-1.5 text-caption font-normal text-neutral-dark bg-foreground px-2.5 py-1 rounded-lg border border-neutral-dark w-fit">
+              <div className="flex shrink-0 items-center gap-1.5 font-normal text-neutral-dark bg-foreground px-2.5 py-1 rounded-lg border border-neutral-dark w-fit text-[10px] md:text-caption">
                 <Coins className="w-3.5 h-3.5 text-neutral-dark" />
                 <span>{activity.price}</span>
               </div>
@@ -326,7 +326,7 @@ function ActivityNode({ activity }: { activity: Activity }) {
           </div>
           
           {activity.note && (
-             <span className="text-body text-sm font-normal text-neutral-dark truncate">{activity.note}</span>
+             <span className="font-normal text-neutral-dark truncate text-xs md:text-sm">{activity.note}</span>
           )}
           
           {activity.link && (
@@ -334,7 +334,7 @@ function ActivityNode({ activity }: { activity: Activity }) {
               href={activity.link} 
               target="_blank" 
               rel="noreferrer" 
-              className="text-body text-sm font-normal uppercase truncate inline-block w-fit mt-2"
+              className="text-xs md:text-sm font-normal uppercase truncate inline-block w-fit mt-2"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
@@ -369,7 +369,7 @@ function TimelinePart({ part, autoOpenPhase }: { part: typeof ITINERARY[0]['part
         onClick={() => setIsOpen(!isOpen)}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="flex w-full relative items-center gap-3 sm:gap-5 text-left group outline-none"
+        className="flex w-full relative items-center gap-6 sm:gap-8 text-left group outline-none"
       >
         <div className="relative flex flex-col items-center justify-center w-12 sm:w-16 shrink-0 self-stretch">
           {isOpen && <div className="absolute top-1/2 -bottom-6 w-px bg-gradient-to-b from-transparent to-neutral"></div>}
@@ -378,7 +378,7 @@ function TimelinePart({ part, autoOpenPhase }: { part: typeof ITINERARY[0]['part
           </div>
         </div>
         <div className="flex items-center flex-1 pr-2 sm:pr-4">
-          <h3 className="text-display-sm font-normal text-background leading-none -mt-2 flex-1">{part.title}</h3>
+          <h3 className="text-section md:text-display-sm font-normal text-background leading-none -mt-2 flex-1">{part.title}</h3>
           <m.div
             animate={{ rotate: isOpen ? 180 : 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
@@ -447,8 +447,8 @@ export default function ItineraryTimeline() {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const adjustedX = clientX - offset;
-    const x = Math.max(0, Math.min(adjustedX - rect.left - 24, rect.width - 48));
-    const newProgress = x / (rect.width - 48);
+    const x = Math.max(0, Math.min(adjustedX - rect.left - 40, rect.width - 80));
+    const newProgress = x / (rect.width - 80);
     setProgress(newProgress);
   }, []);
 
@@ -522,12 +522,12 @@ export default function ItineraryTimeline() {
           className="relative w-full h-8 flex items-center cursor-pointer group"
         >
           {/* Hairline Track */}
-          <div className="absolute left-[24px] right-[24px] h-px bg-neutral" />
+          <div className="absolute left-[40px] right-[40px] h-px bg-neutral" />
           
           {/* Active Hairline */}
           <div 
-            className="absolute left-[24px] h-px bg-background pointer-events-none"
-            style={{ width: `calc(${progress} * (100% - 48px))` }}
+            className="absolute left-[40px] h-px bg-background pointer-events-none"
+            style={{ width: `calc(${progress} * (100% - 80px))` }}
           />
 
           {/* Ticks and Dates */}
@@ -539,18 +539,13 @@ export default function ItineraryTimeline() {
                 key={i} 
                 className="absolute top-1/2 flex flex-col items-center pointer-events-none"
                 style={{ 
-                  left: `calc(24px + ${(i / TOTAL_DAYS)} * (100% - 48px))`,
+                  left: `calc(40px + ${(i / TOTAL_DAYS)} * (100% - 80px))`,
                 }}
               >
                 <div className={`absolute -translate-y-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-colors duration-300 ${isPassed ? 'bg-background' : 'bg-neutral'}`} />
                 {!isLast && (
                   <span 
-                    className={`absolute top-6 sm:top-8 text-[9px] sm:text-[10px] font-normal uppercase whitespace-nowrap transition-colors duration-300 ${isPassed ? 'text-background' : 'text-neutral'}`}
-                    style={{
-                      left: i === 0 ? '-24px' : 'auto',
-                      right: i === TOTAL_DAYS ? '-24px' : 'auto',
-                      transform: (i > 0 && i < TOTAL_DAYS) ? 'translateX(-50%)' : 'none'
-                    }}
+                    className={`absolute left-1/2 -translate-x-1/2 top-6 sm:top-8 text-[11px] sm:text-xs font-normal uppercase whitespace-nowrap transition-colors duration-300 ${isPassed ? 'text-background' : 'text-neutral'}`}
                   >
                     {24 + i} Set
                   </span>
@@ -564,13 +559,13 @@ export default function ItineraryTimeline() {
             id="timeline-thumb"
             className="absolute top-1/2 z-20 flex items-center justify-center -translate-y-1/2 -translate-x-1/2 cursor-none"
             style={{ 
-              left: `calc(24px + ${progress} * (100% - 48px))`
+              left: `calc(40px + ${progress} * (100% - 80px))`
             }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <div className="w-8 h-8 bg-foreground border-[2.5px] border-accent rounded-full" />
-            <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-neutral-dark text-[10px] sm:text-[11px] font-normal whitespace-nowrap pointer-events-none">
+            <div className="w-6 h-6 bg-foreground border-2 border-accent rounded-full" />
+            <div className="absolute -top-10 left-1/2 -translate-x-1/2 text-neutral-dark text-xs sm:text-sm font-normal whitespace-nowrap pointer-events-none">
               {(() => {
                 const totalH = progress * (TOTAL_DAYS * 24);
                 const day = 24 + Math.floor(totalH / 24);
@@ -583,7 +578,7 @@ export default function ItineraryTimeline() {
         </div>
       </div>
 
-        <div className="flex flex-col w-full relative min-h-[1000px] sm:min-h-[1400px]">
+        <div className="flex flex-col w-full relative min-h-[400px] sm:min-h-[500px]">
           {ITINERARY[activeDay].parts.map((part) => (
             <TimelinePart key={part.id} part={part} autoOpenPhase={autoOpenPhase} />
           ))}

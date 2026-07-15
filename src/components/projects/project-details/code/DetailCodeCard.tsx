@@ -18,7 +18,7 @@ export default function DetailCodeCard({
   return (
     <div
       className={cn(
-        "relative flex aspect-3/4 w-full flex-col gap-12 bg-card-dark p-4",
+        "relative flex aspect-auto md:aspect-3/4 w-full flex-col gap-12 bg-card-dark p-4",
         className,
       )}
     >
@@ -28,8 +28,8 @@ export default function DetailCodeCard({
         </div>
       )}
       {children && (
-        <div className="flex min-h-0 flex-1 scrollbar-none flex-col overflow-y-auto [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          <div className="flex flex-col w-full min-h-full">{children}</div>
+        <div className="flex flex-none md:flex-1 md:min-h-0 scrollbar-none flex-col overflow-visible md:overflow-y-auto [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <div className="flex flex-col w-full h-full">{children}</div>
         </div>
       )}
       {description && (

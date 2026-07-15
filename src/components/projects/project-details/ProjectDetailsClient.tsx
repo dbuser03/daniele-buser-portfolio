@@ -82,7 +82,7 @@ export default function ProjectDetailsClient({
         <div className="flex flex-col">
           <HeroTitleMount
             id="project-detail-title"
-            className="text-display-md relative z-10 -ml-1 text-background"
+            className="text-display-sm md:text-display-md relative z-10 -ml-1 text-background"
             ariaLabel={`${project.title} - Project heading`}
             showDecorativeDot={false}
           >
@@ -92,7 +92,7 @@ export default function ProjectDetailsClient({
             variants={entranceVariants(motionTokens.delay.long, motionTokens.distance.base, motionTokens.duration.smooth)}
             initial="initial"
             animate="visible"
-            className="text-section mt-3 font-normal text-neutral-dark"
+            className="text-heading md:text-section mt-3 font-normal text-neutral-dark"
           >
             {project.year}
           </m.p>
@@ -103,7 +103,7 @@ export default function ProjectDetailsClient({
             variants={entranceVariants(motionTokens.delay.longer, motionTokens.distance.base, motionTokens.duration.smooth)}
             initial="initial"
             animate="visible"
-            className="relative aspect-21/9 w-full overflow-hidden bg-neutral-dark"
+            className="relative aspect-4/5 md:aspect-21/9 w-full overflow-hidden bg-neutral-dark"
           >
             {project.image && project.id !== "leonardo-berselli-portfolio" ? (
               <Image
@@ -126,7 +126,7 @@ export default function ProjectDetailsClient({
             viewport={{ once: true }}
             variants={entranceVariants(motionTokens.delay.none, motionTokens.distance.base, motionTokens.duration.smooth)}
           >
-            <div className="col-span-2 flex flex-col">
+            <div className="col-span-12 md:col-span-2 flex flex-col">
               <SectionLabel
                 as={m.h2}
                 variant="section-heading"
@@ -136,9 +136,9 @@ export default function ProjectDetailsClient({
               </SectionLabel>
             </div>
 
-            <div className="col-span-10">
+            <div className="col-span-12 md:col-span-10">
               <m.div
-                className="text-section grid grid-cols-2 gap-8 font-normal text-background"
+                className="text-heading md:text-section grid grid-cols-1 md:grid-cols-2 gap-8 font-normal text-background"
                 initial="initial"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -175,14 +175,14 @@ export default function ProjectDetailsClient({
             variants={entranceVariants(motionTokens.delay.short, motionTokens.distance.base, motionTokens.duration.smooth)}
           >
             <m.div
-              className="grid w-full grid-cols-2 gap-4"
+              className="grid w-full grid-cols-1 md:grid-cols-2 gap-4"
               variants={listVariants(0.15, motionTokens.stagger.base)}
             >
               {project.hasCustomDesignSection ? (
                 <>
-                  <m.div key="ticket-out" className="col-span-2 xl:col-span-1" variants={itemVariants}>
+                  <m.div key="ticket-out" className="col-span-1 md:col-span-2 xl:col-span-1" variants={itemVariants}>
                     <DetailDesignCard label="Andata" className="w-full">
-                      <div className="mt-8 flex w-full flex-col gap-4">
+                      <div className="mt-4 md:mt-8 flex w-full flex-col gap-2 md:gap-4">
                         <FlightTicket
                           flightNumber="W4 5024"
                           date="24 SET 2026"
@@ -195,9 +195,9 @@ export default function ProjectDetailsClient({
                       </div>
                     </DetailDesignCard>
                   </m.div>
-                  <m.div key="ticket-in" className="col-span-2 xl:col-span-1" variants={itemVariants}>
+                  <m.div key="ticket-in" className="col-span-1 md:col-span-2 xl:col-span-1" variants={itemVariants}>
                     <DetailDesignCard label="Ritorno" className="w-full">
-                      <div className="mt-8 flex w-full flex-col gap-4">
+                      <div className="mt-4 md:mt-8 flex w-full flex-col gap-2 md:gap-4">
                         <FlightTicket
                           flightNumber="W4 5027"
                           date="28 SET 2026"
@@ -222,17 +222,17 @@ export default function ProjectDetailsClient({
                 </>
               ) : (
                 <>
-                  <m.div key="palette" className="col-span-2 lg:col-span-1" variants={itemVariants}>
+                  <m.div key="palette" className="col-span-1 md:col-span-2 lg:col-span-1" variants={itemVariants}>
                     <DetailPaletteCard colors={project.brandingColors} />
                   </m.div>
-                  <m.div key="typefaces" className="col-span-2 lg:col-span-1" variants={itemVariants}>
+                  <m.div key="typefaces" className="col-span-1 md:col-span-2 lg:col-span-1" variants={itemVariants}>
                     <DetailTypefacesCard fonts={project.brandingFonts} />
                   </m.div>
                 </>
               )}
 
               {project.hasCustomComponents && (
-                <m.div key="components" variants={itemVariants}>
+                <m.div key="components" className="col-span-1 md:col-span-2" variants={itemVariants}>
                   <ProjectInteractionWrapper>
                     <DetailCustomComponentsCard
                       projectId={project.id}
@@ -243,7 +243,7 @@ export default function ProjectDetailsClient({
               )}
 
               {CoolShitComponent && (
-                <m.div key="cool-shit" variants={itemVariants}>
+                <m.div key="cool-shit" className="col-span-1 md:col-span-2" variants={itemVariants}>
                   <ProjectInteractionWrapper>
                     <DetailCoolShitCard CoolShitComponent={CoolShitComponent} />
                   </ProjectInteractionWrapper>
@@ -284,7 +284,7 @@ export default function ProjectDetailsClient({
                 </m.div>
 
                 <m.div className="col-span-12 md:col-span-4" variants={itemVariants}>
-                  <DetailCodeCard label="Trasporti">
+                  <DetailCodeCard label="Trasporti" className="!aspect-auto md:!aspect-3/4">
                     <TransportInfoCard />
                   </DetailCodeCard>
                 </m.div>
@@ -303,17 +303,17 @@ export default function ProjectDetailsClient({
                 className="grid grid-cols-12 gap-4"
                 variants={listVariants(0, motionTokens.stagger.base)}
               >
-                <m.div className="col-span-4" variants={itemVariants}>
+                <m.div className="col-span-12 md:col-span-4" variants={itemVariants}>
                   <DetailTechCard project={project} />
                 </m.div>
-                <m.div className="col-span-4" variants={itemVariants}>
+                <m.div className="col-span-12 md:col-span-4" variants={itemVariants}>
                   <DetailArchitectureCard
                     project={project}
                     selectedFile={selectedFile}
                     onFileSelect={setSelectedFile}
                   />
                 </m.div>
-                <m.div className="col-span-4" variants={itemVariants}>
+                <m.div className="col-span-12 md:col-span-4" variants={itemVariants}>
                   <DetailImplementationCard
                     selectedFile={selectedFile}
                     implementationsCode={implementationsCode}
@@ -349,14 +349,14 @@ export default function ProjectDetailsClient({
               variants={listVariants(0.15, motionTokens.stagger.base)}
             >
             {project.hasCustomShipSection ? (
-              <m.div className="w-full mt-4" variants={itemVariants}>
+              <m.div className="w-full mt-16 md:mt-24" variants={itemVariants}>
                 <ItineraryTimeline />
               </m.div>
             ) : (
               <>
                 <div className="grid grid-cols-12 gap-4">
                   <m.div
-                    className="relative col-span-6 aspect-4/3 w-full overflow-hidden bg-neutral-dark"
+                    className="relative col-span-12 md:col-span-6 aspect-4/3 w-full overflow-hidden bg-neutral-dark"
                     variants={itemVariants}
                   >
                     {project.shipImage1 ? (
@@ -372,7 +372,7 @@ export default function ProjectDetailsClient({
                     )}
                   </m.div>
                   <m.div
-                    className="relative col-span-6 aspect-4/3 w-full overflow-hidden bg-neutral-dark"
+                    className="relative col-span-12 md:col-span-6 aspect-4/3 w-full overflow-hidden bg-neutral-dark"
                     variants={itemVariants}
                   >
                     {project.shipImage2 ? (
@@ -390,13 +390,13 @@ export default function ProjectDetailsClient({
                 </div>
                 <div className="grid grid-cols-12 gap-4">
                   <m.p
-                    className="text-section col-span-5 font-normal text-background"
+                    className="text-heading md:text-section col-span-12 md:col-span-5 font-normal text-background"
                     variants={itemVariants}
                   >
                     {project.shipText1}
                   </m.p>
                   <m.p
-                    className="text-section col-span-5 col-start-7 font-normal text-background"
+                    className="text-heading md:text-section col-span-12 md:col-span-5 md:col-start-7 font-normal text-background"
                     variants={itemVariants}
                   >
                     {project.shipText2}

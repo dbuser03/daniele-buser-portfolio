@@ -36,7 +36,7 @@ export default function DetailPaletteCard({
           return (
             <div key={hex} className="flex flex-1 flex-col">
               <m.span
-                className="-mt-5 mb-2 text-body font-normal text-neutral-dark"
+                className="-mt-5 mb-2 text-caption md:text-body font-normal text-neutral-dark"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: copied === hex ? 1 : 0 }}
                 transition={{
@@ -69,7 +69,7 @@ export default function DetailPaletteCard({
                 }}
               />
 
-              <div className="mt-8 flex flex-col gap-y-1.5 text-body font-normal text-foreground uppercase">
+              <div className="mt-8 flex flex-col gap-y-1.5 text-caption md:text-body font-normal text-foreground uppercase">
                 <span>{hex}</span>
                 {rgb && <span className="text-neutral">RGB {rgb}</span>}
                 {pantone && (

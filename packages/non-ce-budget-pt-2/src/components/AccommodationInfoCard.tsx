@@ -27,9 +27,9 @@ export default function AccommodationInfoCard({
         <div className="absolute inset-0 bg-linear-to-t from-card-dark from-15% via-card-dark/80 via-50% to-transparent" />
       </div>
       
-      <div className="relative z-10 flex mt-auto flex-col gap-8 pb-2">
+      <div className="relative z-10 flex pt-[200px] md:pt-0 mt-auto flex-col gap-6 px-4 pb-4 sm:gap-8 sm:px-8 sm:pb-6">
         <div className="flex flex-col gap-1">
-          <span className="text-display-sm font-normal leading-none text-foreground">{name}</span>
+          <span className="text-section md:text-display-sm font-normal leading-none text-foreground whitespace-nowrap">{name}</span>
           <div className="flex items-center gap-1.5 text-neutral mt-2">
             <MapPin className="h-4 w-4 shrink-0" strokeWidth={1} />
             <span className="text-body text-sm font-normal">{address}</span>
