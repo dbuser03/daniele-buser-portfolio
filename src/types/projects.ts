@@ -53,7 +53,6 @@ export interface Project {
   codeTechnologiesDescription?: string;
   codeTechnologiesTokens?: TechToken[];
 
-  isHidden?: boolean;
   hasCustomComponents?: boolean;
   hasCoolShit?: boolean;
   coolShitName?: string;
@@ -62,13 +61,4 @@ export interface Project {
   shipText1?: string;
   shipText2?: string;
 
-  labels?: {
-    intro?: string;
-    design?: string;
-    code?: string;
-    ship?: string;
-  };
-  hasCustomDesignSection?: boolean;
-  hasCustomCodeSection?: boolean;
-  hasCustomShipSection?: boolean;
 }

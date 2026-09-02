@@ -6,25 +6,17 @@ import { HeroTitleMount } from "@/components/ui/HeroTitle";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { m } from "motion/react";
 import { motionTokens, useAnimations } from "@/utils/motion";
-import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import Skeleton from "@/components/ui/Skeleton";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import DetailPaletteCard from "@/components/projects/project-details/design/DetailPaletteCard";
 import DetailTypefacesCard from "@/components/projects/project-details/design/DetailTypefacesCard";
-import DetailDesignCard from "@/components/projects/project-details/design/DetailDesignCard";
 import DetailCustomComponentsCard from "@/components/projects/project-details/design/DetailCustomComponentsCard";
 import DetailCoolShitCard from "@/components/projects/project-details/design/DetailCoolShitCard";
 import DetailTechCard from "@/components/projects/project-details/code/DetailTechCard";
 import DetailArchitectureCard from "@/components/projects/project-details/code/DetailArchitectureCard";
 import DetailImplementationCard from "@/components/projects/project-details/code/DetailImplementationCard";
-import DetailCodeCard from "@/components/projects/project-details/code/DetailCodeCard";
 import { ProjectInteractionWrapper } from "@/components/projects/project-details/ProjectInteractionWrapper";
-import FlightTicket from "../../../../packages/non-ce-budget-pt-2/src/components/FlightTicketCard";
-import AccommodationInfoCard from "../../../../packages/non-ce-budget-pt-2/src/components/AccommodationInfoCard";
-import TransportInfoCard from "../../../../packages/non-ce-budget-pt-2/src/components/TransportInfoCard";
-import BudgetInfoCard from "../../../../packages/non-ce-budget-pt-2/src/components/BudgetInfoCard";
-import ItineraryTimeline from "../../../../packages/non-ce-budget-pt-2/src/components/ItineraryTimeline";
 const UI_MAP: Record<string, ComponentType> = {
   "leonardo-berselli-portfolio": dynamic(
     () =>
@@ -67,8 +59,6 @@ export default function ProjectDetailsClient({
   fallbackCode = "",
 }: ProjectDetailsClientProps) {
   const { entranceVariants, listVariants, itemVariants } = useAnimations();
-  const inputCursor = useCursorInteraction("interactive");
-
   const CustomComponents = UI_MAP[project.id];
   const CoolShitComponent = project.hasCoolShit
     ? COOL_SHIT_MAP[project.id]
@@ -132,7 +122,7 @@ export default function ProjectDetailsClient({
                 variant="section-heading"
                 variants={entranceVariants(motionTokens.delay.none, motionTokens.distance.base, motionTokens.duration.smooth)}
               >
-                {project.labels?.intro || "Obsess"}
+                Obsess
               </SectionLabel>
             </div>
 
@@ -164,7 +154,7 @@ export default function ProjectDetailsClient({
             viewport={{ once: true }}
             variants={entranceVariants(motionTokens.delay.none, motionTokens.distance.base, motionTokens.duration.smooth)}
           >
-            {project.labels?.design || "Design"}
+            Design
           </SectionLabel>
 
           <m.div
@@ -178,58 +168,12 @@ export default function ProjectDetailsClient({
               className="grid w-full grid-cols-2 gap-4"
               variants={listVariants(0.15, motionTokens.stagger.base)}
             >
-              {project.hasCustomDesignSection ? (
-                <>
-                  <m.div key="ticket-out" className="col-span-2 xl:col-span-1" variants={itemVariants}>
-                    <DetailDesignCard label="Andata" className="w-full">
-                      <div className="mt-8 flex w-full flex-col gap-4">
-                        <FlightTicket
-                          flightNumber="W4 5024"
-                          date="24 SET 2026"
-                          boardingTime="08:05"
-                          departure={{ city: "MILANO (MXP)", code: "MXP", time: "08:45" }}
-                          arrival={{ city: "TIRANA (TIA)", code: "TIA", time: "10:40" }}
-                          passenger="GRUPPO PRINCIPALE"
-                          seat="-"
-                        />
-                      </div>
-                    </DetailDesignCard>
-                  </m.div>
-                  <m.div key="ticket-in" className="col-span-2 xl:col-span-1" variants={itemVariants}>
-                    <DetailDesignCard label="Ritorno" className="w-full">
-                      <div className="mt-8 flex w-full flex-col gap-4">
-                        <FlightTicket
-                          flightNumber="W4 5027"
-                          date="28 SET 2026"
-                          boardingTime="18:30"
-                          departure={{ city: "TIRANA (TIA)", code: "TIA", time: "19:10" }}
-                          arrival={{ city: "MILANO (MXP)", code: "MXP", time: "21:15" }}
-                          passenger="GRUPPO MXP"
-                          seat="-"
-                        />
-                        <FlightTicket
-                          flightNumber="W4 5019"
-                          date="28 SET 2026"
-                          boardingTime="19:25"
-                          departure={{ city: "TIRANA (TIA)", code: "TIA", time: "20:05" }}
-                          arrival={{ city: "MILANO (BGY)", code: "BGY", time: "22:00" }}
-                          passenger="GRUPPO BGY"
-                          seat="-"
-                        />
-                      </div>
-                    </DetailDesignCard>
-                  </m.div>
-                </>
-              ) : (
-                <>
-                  <m.div key="palette" className="col-span-2 lg:col-span-1" variants={itemVariants}>
-                    <DetailPaletteCard colors={project.brandingColors} />
-                  </m.div>
-                  <m.div key="typefaces" className="col-span-2 lg:col-span-1" variants={itemVariants}>
-                    <DetailTypefacesCard fonts={project.brandingFonts} />
-                  </m.div>
-                </>
-              )}
+              <m.div key="palette" className="col-span-2 lg:col-span-1" variants={itemVariants}>
+                <DetailPaletteCard colors={project.brandingColors} />
+              </m.div>
+              <m.div key="typefaces" className="col-span-2 lg:col-span-1" variants={itemVariants}>
+                <DetailTypefacesCard fonts={project.brandingFonts} />
+              </m.div>
 
               {project.hasCustomComponents && (
                 <m.div key="components" variants={itemVariants}>
@@ -262,7 +206,7 @@ export default function ProjectDetailsClient({
             viewport={{ once: true }}
             variants={entranceVariants(motionTokens.delay.none, motionTokens.distance.base, motionTokens.duration.smooth)}
           >
-            {project.labels?.code || "Code"}
+            Code
           </SectionLabel>
 
           <m.div
@@ -272,56 +216,28 @@ export default function ProjectDetailsClient({
             viewport={{ once: true }}
             variants={entranceVariants(motionTokens.delay.short, motionTokens.distance.base, motionTokens.duration.smooth)}
           >
-            {project.hasCustomCodeSection ? (
-              <m.div
-                className="grid grid-cols-12 gap-4"
-                variants={listVariants(0, motionTokens.stagger.base)}
-              >
-                <m.div className="col-span-12 md:col-span-4" variants={itemVariants}>
-                  <DetailCodeCard label="Alloggio">
-                    <AccommodationInfoCard />
-                  </DetailCodeCard>
-                </m.div>
-
-                <m.div className="col-span-12 md:col-span-4" variants={itemVariants}>
-                  <DetailCodeCard label="Trasporti">
-                    <TransportInfoCard />
-                  </DetailCodeCard>
-                </m.div>
-
-                <m.div className="col-span-12 md:col-span-4" variants={itemVariants}>
-                  <DetailCodeCard label="Valuta & Costi">
-                    <BudgetInfoCard 
-                      onInputFocus={inputCursor.handleMouseEnter}
-                      onInputBlur={inputCursor.handleMouseLeave}
-                    />
-                  </DetailCodeCard>
-                </m.div>
+            <m.div
+              className="grid grid-cols-12 gap-4"
+              variants={listVariants(0, motionTokens.stagger.base)}
+            >
+              <m.div className="col-span-4" variants={itemVariants}>
+                <DetailTechCard project={project} />
               </m.div>
-            ) : (
-              <m.div
-                className="grid grid-cols-12 gap-4"
-                variants={listVariants(0, motionTokens.stagger.base)}
-              >
-                <m.div className="col-span-4" variants={itemVariants}>
-                  <DetailTechCard project={project} />
-                </m.div>
-                <m.div className="col-span-4" variants={itemVariants}>
-                  <DetailArchitectureCard
-                    project={project}
-                    selectedFile={selectedFile}
-                    onFileSelect={setSelectedFile}
-                  />
-                </m.div>
-                <m.div className="col-span-4" variants={itemVariants}>
-                  <DetailImplementationCard
-                    selectedFile={selectedFile}
-                    implementationsCode={implementationsCode}
-                    fallbackCode={fallbackCode}
-                  />
-                </m.div>
+              <m.div className="col-span-4" variants={itemVariants}>
+                <DetailArchitectureCard
+                  project={project}
+                  selectedFile={selectedFile}
+                  onFileSelect={setSelectedFile}
+                />
               </m.div>
-            )}
+              <m.div className="col-span-4" variants={itemVariants}>
+                <DetailImplementationCard
+                  selectedFile={selectedFile}
+                  implementationsCode={implementationsCode}
+                  fallbackCode={fallbackCode}
+                />
+              </m.div>
+            </m.div>
           </m.div>
 
         </div>
@@ -333,27 +249,22 @@ export default function ProjectDetailsClient({
           viewport={{ once: true }}
           variants={entranceVariants(motionTokens.delay.none, motionTokens.distance.base, motionTokens.duration.smooth)}
         >
-          <div className={`col-span-12 lg:col-span-2 flex flex-col ${project.hasCustomShipSection ? "lg:pt-9" : ""}`}>
+          <div className="col-span-12 lg:col-span-2 flex flex-col">
             <SectionLabel
               as={m.h2}
               variant="section-heading"
               variants={entranceVariants(motionTokens.delay.none, motionTokens.distance.base, motionTokens.duration.smooth)}
             >
-              {project.labels?.ship || "Ship"}
+              Ship
             </SectionLabel>
           </div>
 
-          <div className={project.hasCustomShipSection ? "col-span-12 lg:col-span-6 lg:col-start-4" : "col-span-12 lg:col-span-10"}>
+          <div className="col-span-12 lg:col-span-10">
             <m.div
               className="mt-3 flex flex-col gap-4"
               variants={listVariants(0.15, motionTokens.stagger.base)}
             >
-            {project.hasCustomShipSection ? (
-              <m.div className="w-full mt-4" variants={itemVariants}>
-                <ItineraryTimeline />
-              </m.div>
-            ) : (
-              <>
+            <>
                 <div className="grid grid-cols-12 gap-4">
                   <m.div
                     className="relative col-span-6 aspect-4/3 w-full overflow-hidden bg-neutral-dark"
@@ -402,8 +313,7 @@ export default function ProjectDetailsClient({
                     {project.shipText2}
                   </m.p>
                 </div>
-              </>
-            )}
+            </>
             </m.div>
           </div>
         </m.div>
