@@ -17,6 +17,7 @@ import DetailTechCard from "@/components/projects/project-details/code/DetailTec
 import DetailArchitectureCard from "@/components/projects/project-details/code/DetailArchitectureCard";
 import DetailImplementationCard from "@/components/projects/project-details/code/DetailImplementationCard";
 import { ProjectInteractionWrapper } from "@/components/projects/project-details/ProjectInteractionWrapper";
+import { cn } from "@/utils/cn";
 const UI_MAP: Record<string, ComponentType> = {
   "leonardo-berselli-portfolio": dynamic(
     () =>
@@ -91,7 +92,7 @@ export default function ProjectDetailsClient({
             animate="visible"
             className="relative aspect-21/9 w-full overflow-hidden bg-neutral-dark"
           >
-            {project.image && project.id !== "leonardo-berselli-portfolio" ? (
+            {project.image ? (
               <Image
                 src={project.image}
                 alt={`${project.title} Hero Image`}
@@ -261,40 +262,44 @@ export default function ProjectDetailsClient({
               variants={listVariants(0.15, motionTokens.stagger.base)}
             >
             <>
-                <div className="grid grid-cols-12 gap-4">
-                  <m.div
-                    className="relative col-span-6 aspect-4/3 w-full overflow-hidden bg-neutral-dark"
-                    variants={itemVariants}
-                  >
-                    {project.shipImage1 ? (
-                      <Image
-                        src={project.shipImage1}
-                        alt=""
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 1280px) 100vw, 50vw"
-                      />
-                    ) : (
-                      <Skeleton isLoading={true} variant="on-light" />
+                {(project.shipImage1 || project.shipImage2) && (
+                  <div className="grid grid-cols-12 gap-4">
+                    {project.shipImage1 && (
+                      <m.div
+                        className={cn(
+                          "relative aspect-4/3 w-full overflow-hidden bg-neutral-dark",
+                          project.shipImage2 ? "col-span-6" : "col-span-12",
+                        )}
+                        variants={itemVariants}
+                      >
+                        <Image
+                          src={project.shipImage1}
+                          alt={`${project.title} Preview 1`}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 1280px) 100vw, 50vw"
+                        />
+                      </m.div>
                     )}
-                  </m.div>
-                  <m.div
-                    className="relative col-span-6 aspect-4/3 w-full overflow-hidden bg-neutral-dark"
-                    variants={itemVariants}
-                  >
-                    {project.shipImage2 ? (
-                      <Image
-                        src={project.shipImage2}
-                        alt=""
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 1280px) 100vw, 50vw"
-                      />
-                    ) : (
-                      <Skeleton isLoading={true} variant="on-light" />
+                    {project.shipImage2 && (
+                      <m.div
+                        className={cn(
+                          "relative aspect-4/3 w-full overflow-hidden bg-neutral-dark",
+                          project.shipImage1 ? "col-span-6" : "col-span-12",
+                        )}
+                        variants={itemVariants}
+                      >
+                        <Image
+                          src={project.shipImage2}
+                          alt={`${project.title} Preview 2`}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 1280px) 100vw, 50vw"
+                        />
+                      </m.div>
                     )}
-                  </m.div>
-                </div>
+                  </div>
+                )}
                 <div className="grid grid-cols-12 gap-4">
                   <m.p
                     className="text-section col-span-5 font-normal text-background"
