@@ -33,7 +33,7 @@ export default function AboutPortrait() {
           alt="Portrait of Daniele Buser"
           fill
           className="object-cover"
-          sizes="(min-width: 1024px) 33vw, 0px"
+          sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 100vw"
           priority
         />
       </m.div>
