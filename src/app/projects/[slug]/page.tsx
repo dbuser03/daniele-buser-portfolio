@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import { PROJECTS } from "@/constants/projects";
 import { notFound } from "next/navigation";
 import ProjectDetailsClient from "@/components/projects/project-details/ProjectDetailsClient";
-import AboutLayout from "@/components/about/AboutLayout";
-import AboutContacts from "@/components/about/AboutContacts";
+import StickyPageLayout from "@/components/layout/StickyPageLayout";
+import BottomContactSection from "@/components/layout/BottomContactSection";
 import fs from "fs";
 import path from "path";
 
@@ -87,13 +87,13 @@ export default async function ProjectPage({ params }: PageProps) {
       className="flex w-full flex-1 flex-col justify-start gap-0 bg-foreground px-4 focus:outline-none"
       aria-label={`${project.title} project page main content`}
     >
-      <AboutLayout contacts={<AboutContacts />}>
+      <StickyPageLayout contacts={<BottomContactSection />}>
         <ProjectDetailsClient
           project={project}
           implementationsCode={implementationsCode}
           fallbackCode={fallbackCode}
         />
-      </AboutLayout>
+      </StickyPageLayout>
     </main>
   );
 }

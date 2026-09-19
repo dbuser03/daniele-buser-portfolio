@@ -3,13 +3,15 @@
 import { useElementHeight } from "@/hooks/useElementHeight";
 import GridLines from "@/components/layout/GridLines";
 
-export default function AboutLayout({
+interface StickyPageLayoutProps {
+  children: React.ReactNode;
+  contacts?: React.ReactNode;
+}
+
+export default function StickyPageLayout({
   children,
   contacts,
-}: {
-  children: React.ReactNode;
-  contacts: React.ReactNode;
-}) {
+}: StickyPageLayoutProps) {
   const [bodyRef, bodyHeight] = useElementHeight<HTMLDivElement>();
 
   return (

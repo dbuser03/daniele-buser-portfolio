@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { projectsMetadata, projectsPageJsonLd } from "@/utils/metadata";
 import ProjectsTitle from "@/components/projects/ProjectsTitle";
 import ProjectsSection from "@/components/projects/ProjectsSection";
-import AboutLayout from "@/components/about/AboutLayout";
-import AboutContacts from "@/components/about/AboutContacts";
+import StickyPageLayout from "@/components/layout/StickyPageLayout";
+import BottomContactSection from "@/components/layout/BottomContactSection";
 
 export const metadata: Metadata = projectsMetadata;
 
-export default function Home() {
+export default function ProjectsPage() {
   const twoDigitYear = new Date().getFullYear().toString().slice(-2);
   return (
     <>
@@ -21,12 +21,12 @@ export default function Home() {
         className="flex w-full flex-1 flex-col bg-foreground px-4 focus:outline-none"
         aria-label="Projects page main content"
       >
-        <AboutLayout contacts={<AboutContacts />}>
+        <StickyPageLayout contacts={<BottomContactSection />}>
           <section className="flex min-h-[65vh] w-full flex-col justify-center">
             <ProjectsTitle year={twoDigitYear} />
           </section>
           <ProjectsSection />
-        </AboutLayout>
+        </StickyPageLayout>
       </main>
     </>
   );
