@@ -104,7 +104,7 @@ export const CursorProvider = ({
   );
 
   return (
-    <CursorContext.Provider value={contextValue}>
+    <CursorContext value={contextValue}>
       {!disabled && (
         <Cursor
           smoothX={smoothX}
@@ -115,6 +115,6 @@ export const CursorProvider = ({
         />
       )}
       {children}
-    </CursorContext.Provider>
+    </CursorContext>
   );
 };

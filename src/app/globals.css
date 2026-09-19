@@ -18,6 +18,8 @@
   --color-grid-line-light: #e8e8e8;
   --color-card-dark: #1e1e1e;
   --color-card-light: #e6e6e6;
+
+  --font-sans: var(--font-neue-haas), sans-serif;
 }
 
 html {

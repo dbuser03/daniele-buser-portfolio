@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, ReactNode } from "react";
+import { createContext, use, ReactNode } from "react";
 
 export type InteractionType = "interactive" | "pulse" | "text" | "default";
 
@@ -28,12 +28,12 @@ export function InteractionProvider({
   value?: InteractionContextType;
 }) {
   return (
-    <InteractionContext.Provider value={value || defaultContext}>
+    <InteractionContext value={value || defaultContext}>
       {children}
-    </InteractionContext.Provider>
+    </InteractionContext>
   );
 }
 
 export function useInteraction() {
-  return useContext(InteractionContext);
+  return use(InteractionContext);
 }
