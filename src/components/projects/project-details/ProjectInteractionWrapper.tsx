@@ -3,7 +3,7 @@
 import { useCursorInteraction } from "@/hooks/useCursorInteraction";
 import { useCursorContext } from "@/components/layout/cursor/CursorContext";
 import { CURSOR_SIZE } from "@/constants/cursor";
-import { InteractionProvider, type InteractionType } from "@case-studies/leonardo-berselli/src/context/InteractionProvider";
+import { InteractionProvider, type InteractionType } from "@case-studies/leonardo-berselli";
 
 export function ProjectInteractionWrapper({ children }: { children: React.ReactNode }) {
   const interactiveCursor = useCursorInteraction("interactive");

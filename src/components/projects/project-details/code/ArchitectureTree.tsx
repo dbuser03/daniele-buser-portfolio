@@ -22,6 +22,7 @@ interface TreeNode {
 import { ARCHITECTURE_TREE_CONSTANTS } from "@/constants/architecture";
 
 interface ArchitectureTreeProps {
+  rootName?: string;
   selectedFile?: string | null;
   tree?: TreeNode[];
   showcaseFiles?: Record<string, string>;
@@ -30,6 +31,7 @@ interface ArchitectureTreeProps {
 }
 
 export default function ArchitectureTree({
+  rootName = "project-root/",
   selectedFile,
   tree,
   showcaseFiles,
@@ -40,6 +42,8 @@ export default function ArchitectureTree({
     useArchitectureTree({ selectedFile, onHover, onFileSelect });
 
   const rootCursor = useCursorInteraction("interactive");
+
+  const formattedRootName = rootName.endsWith("/") ? rootName : `${rootName}/`;
 
   return (
     <div
@@ -60,7 +64,7 @@ export default function ArchitectureTree({
               className="shrink-0 text-neutral"
             />
             <span className="text-body font-normal leading-tight text-foreground">
-              leonardo-berselli-portfolio/
+              {formattedRootName}
             </span>
           </button>
         </div>

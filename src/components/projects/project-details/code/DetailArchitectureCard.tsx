@@ -32,6 +32,7 @@ export default function DetailArchitectureCard({
       className={className}
     >
       <ArchitectureTree
+        rootName={`${project.id}/`}
         selectedFile={selectedFile}
         tree={project.architectureTree}
         showcaseFiles={project.showcaseFiles}

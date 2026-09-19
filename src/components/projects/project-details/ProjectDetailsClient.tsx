@@ -20,11 +20,9 @@ import { ProjectInteractionWrapper } from "@/components/projects/project-details
 const UI_MAP: Record<string, ComponentType> = {
   "leonardo-berselli-portfolio": dynamic(
     () =>
-      import("@case-studies/leonardo-berselli/src/components/LeonardoUI").then(
-        (m) => ({
-          default: m.default,
-        }),
-      ),
+      import("@case-studies/leonardo-berselli").then((m) => ({
+        default: m.LeonardoUI,
+      })),
     {
       loading: () => <Skeleton isLoading={true} variant="on-dark" />,
       ssr: false,
@@ -35,11 +33,9 @@ const UI_MAP: Record<string, ComponentType> = {
 const COOL_SHIT_MAP: Record<string, ComponentType> = {
   "leonardo-berselli-portfolio": dynamic(
     () =>
-      import("@case-studies/leonardo-berselli/src/components/EarthGlobeAscii").then(
-        (m) => ({
-          default: m.EarthGlobeAscii,
-        }),
-      ),
+      import("@case-studies/leonardo-berselli").then((m) => ({
+        default: m.EarthGlobeAscii,
+      })),
     {
       loading: () => <Skeleton isLoading={true} variant="on-dark" />,
       ssr: false,
