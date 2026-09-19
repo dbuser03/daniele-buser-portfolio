@@ -192,7 +192,6 @@ export const personJsonLd = {
   sameAs: [LINKEDIN_URL, GITHUB_URL],
   knowsAbout: [
     "Creative Development",
-    "ing",
     "Front-end Engineering",
     "Next.js",
     "React",
@@ -210,7 +209,7 @@ export const personJsonLd = {
 export const projectsPageJsonLd = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "@id": `${SITE_URL}/#webpage`,
+  "@id": `${SITE_URL}/projects#webpage`,
   url: `${SITE_URL}/projects`,
   name: "Projects | Daniele Buser — Creative Developer",
   description:
@@ -220,33 +219,7 @@ export const projectsPageJsonLd = {
   inLanguage: "en-US",
   breadcrumb: {
     "@type": "BreadcrumbList",
-    "@id": `${SITE_URL}/#breadcrumb`,
-    name: "Breadcrumbs",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: SITE_URL,
-      },
-    ],
-  },
-};
-
-export const aboutPageJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "AboutPage",
-  "@id": `${SITE_URL}/about#webpage`,
-  url: `${SITE_URL}`,
-  name: "Daniele Buser | Creative Developer",
-  description:
-    "Daniele Buser is a Creative Developer bridging the gap between design and code with interactive, high-performance web experiences.",
-  isPartOf: { "@id": `${SITE_URL}/#website` },
-  about: { "@id": `${SITE_URL}/#person` },
-  inLanguage: "en-US",
-  breadcrumb: {
-    "@type": "BreadcrumbList",
-    "@id": `${SITE_URL}/about#breadcrumb`,
+    "@id": `${SITE_URL}/projects#breadcrumb`,
     name: "Breadcrumbs",
     itemListElement: [
       {
@@ -258,8 +231,34 @@ export const aboutPageJsonLd = {
       {
         "@type": "ListItem",
         position: 2,
-        name: "About",
-        item: `${SITE_URL}/about`,
+        name: "Projects",
+        item: `${SITE_URL}/projects`,
+      },
+    ],
+  },
+};
+
+export const aboutPageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "@id": `${SITE_URL}/#about-webpage`,
+  url: SITE_URL,
+  name: "Daniele Buser | Creative Developer",
+  description:
+    "Daniele Buser is a Creative Developer bridging the gap between design and code with interactive, high-performance web experiences.",
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  about: { "@id": `${SITE_URL}/#person` },
+  inLanguage: "en-US",
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    "@id": `${SITE_URL}/#breadcrumb`,
+    name: "Breadcrumbs",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_URL,
       },
     ],
   },

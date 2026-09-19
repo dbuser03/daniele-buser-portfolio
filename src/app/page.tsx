@@ -11,7 +11,7 @@ import { BIRTH_DATE } from "@/constants/about";
 import { getAgeFromBirthDate } from "@/utils/date";
 
 export const metadata: Metadata = aboutMetadata;
-export const dynamic = "force-dynamic";
+export const revalidate = 86400;
 
 export default function AboutPage() {
   const age = getAgeFromBirthDate(BIRTH_DATE);
