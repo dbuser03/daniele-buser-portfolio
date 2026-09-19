@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from "react";
 import { useReducedMotion } from "motion/react";
 
 export const motionTokens = {
@@ -40,12 +41,65 @@ export const motionTokens = {
   },
 } as const;
 
+export const staticHoverVariants = {
+  rest: { scale: 1 },
+  hover: { scale: 1.04 },
+  tap: { scale: 0.98 },
+} as const;
+
+export const staticReducedHoverVariants = {
+  rest: { scale: 1 },
+  hover: { scale: 1 },
+  tap: { scale: 1 },
+} as const;
+
+export const staticImageHoverVariants = {
+  initial: {
+    scale: 1.1,
+    filter: "blur(0px)",
+    transition: {
+      duration: motionTokens.duration.base,
+      ease: motionTokens.easing.standard,
+    },
+  },
+  hover: {
+    scale: 1.04,
+    filter: "blur(4px)",
+    transition: {
+      duration: motionTokens.duration.base,
+      ease: motionTokens.easing.standard,
+    },
+  },
+} as const;
+
+export const staticReducedImageHoverVariants = {
+  initial: {
+    scale: 1.1,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.01,
+      ease: motionTokens.easing.standard,
+    },
+  },
+  hover: {
+    scale: 1.1,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.01,
+      ease: motionTokens.easing.standard,
+    },
+  },
+} as const;
+
 export const useAnimations = () => {
   const shouldReduceMotion = useReducedMotion();
-  const dur = (d: number) => (shouldReduceMotion ? 0.01 : d);
+  const dur = useCallback(
+    (d: number) => (shouldReduceMotion ? 0.01 : d),
+    [shouldReduceMotion],
+  );
 
-  return {
-    entranceVariants: (
+  const entranceVariants = useCallback(
+    (
       delay = 0,
       yOffset = 20,
       duration: number = motionTokens.duration.smooth,
@@ -62,51 +116,11 @@ export const useAnimations = () => {
           },
         },
       }) as const,
+    [shouldReduceMotion, dur],
+  );
 
-    fadeVariants: {
-      initial: { opacity: 0 },
-      visible: {
-        opacity: 1,
-        transition: {
-          duration: dur(motionTokens.duration.smooth),
-          ease: motionTokens.easing.standard,
-        },
-      },
-      exit: {
-        opacity: 0,
-        transition: {
-          duration: dur(motionTokens.duration.fast),
-          ease: motionTokens.easing.standard,
-        },
-      },
-    } as const,
-
-    hoverVariants: {
-      rest: { scale: 1 },
-      hover: { scale: shouldReduceMotion ? 1 : 1.04 },
-      tap: { scale: shouldReduceMotion ? 1 : 0.98 },
-    } as const,
-
-    imageHoverVariants: {
-      initial: {
-        scale: 1.1,
-        filter: "blur(0px)",
-        transition: {
-          duration: dur(motionTokens.duration.base),
-          ease: motionTokens.easing.standard,
-        },
-      },
-      hover: {
-        scale: shouldReduceMotion ? 1.1 : 1.04,
-        filter: shouldReduceMotion ? "blur(0px)" : "blur(4px)",
-        transition: {
-          duration: dur(motionTokens.duration.base),
-          ease: motionTokens.easing.standard,
-        },
-      },
-    } as const,
-
-    listVariants: (
+  const listVariants = useCallback(
+    (
       delayChildren = 0,
       staggerChildren: number = motionTokens.stagger.base,
     ) =>
@@ -119,17 +133,64 @@ export const useAnimations = () => {
           },
         },
       }) as const,
+    [shouldReduceMotion],
+  );
 
-    itemVariants: {
-      initial: { opacity: 0, y: shouldReduceMotion ? 0 : motionTokens.distance.base },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          duration: dur(motionTokens.duration.smooth),
-          ease: motionTokens.easing.standard,
+  const fadeVariants = useMemo(
+    () =>
+      ({
+        initial: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: {
+            duration: dur(motionTokens.duration.smooth),
+            ease: motionTokens.easing.standard,
+          },
         },
-      },
-    } as const,
+        exit: {
+          opacity: 0,
+          transition: {
+            duration: dur(motionTokens.duration.fast),
+            ease: motionTokens.easing.standard,
+          },
+        },
+      }) as const,
+    [dur],
+  );
+
+  const hoverVariants = shouldReduceMotion
+    ? staticReducedHoverVariants
+    : staticHoverVariants;
+
+  const imageHoverVariants = shouldReduceMotion
+    ? staticReducedImageHoverVariants
+    : staticImageHoverVariants;
+
+  const itemVariants = useMemo(
+    () =>
+      ({
+        initial: {
+          opacity: 0,
+          y: shouldReduceMotion ? 0 : motionTokens.distance.base,
+        },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: {
+            duration: dur(motionTokens.duration.smooth),
+            ease: motionTokens.easing.standard,
+          },
+        },
+      }) as const,
+    [shouldReduceMotion, dur],
+  );
+
+  return {
+    entranceVariants,
+    fadeVariants,
+    hoverVariants,
+    imageHoverVariants,
+    listVariants,
+    itemVariants,
   };
 };

@@ -55,7 +55,10 @@ export default function ArchitectureTree({
         <div className="sticky top-0 z-10 bg-card-dark">
           <button
             onClick={resetPaths}
-            onMouseEnter={rootCursor.handleMouseEnter}
+            onMouseEnter={() => {
+              rootCursor.handleMouseEnter();
+              onHover?.(null);
+            }}
             onMouseLeave={rootCursor.handleMouseLeave}
             className="flex w-full items-center gap-1.5 py-0.5 text-left"
           >
@@ -135,7 +138,10 @@ function TreeBranch({
       return (
         <m.button
           onClick={() => onFileSelect?.(currentPath)}
-          onMouseEnter={fileCursor.handleMouseEnter}
+          onMouseEnter={() => {
+            fileCursor.handleMouseEnter();
+            onHover?.(currentPath);
+          }}
           onMouseLeave={fileCursor.handleMouseLeave}
           initial="rest"
           whileHover="hover"
@@ -167,6 +173,7 @@ function TreeBranch({
       <div
         className="flex items-center gap-1.5 py-0.5"
         style={{ paddingLeft: filePadding }}
+        onMouseEnter={() => onHover?.(currentPath)}
       >
         <File size={ARCHITECTURE_TREE_CONSTANTS.FILE_ICON_SIZE} className="shrink-0 text-neutral" />
         <span className="text-body leading-tight text-neutral">{node.name}</span>
@@ -178,7 +185,10 @@ function TreeBranch({
     <div data-path={currentPath}>
       <button
         onClick={() => onToggle(currentPath)}
-        onMouseEnter={cursor.handleMouseEnter}
+        onMouseEnter={() => {
+          cursor.handleMouseEnter();
+          onHover?.(currentPath);
+        }}
         onMouseLeave={cursor.handleMouseLeave}
         className="flex w-full items-center gap-1.5 py-0.5 text-left"
         style={{ paddingLeft: buttonPadding }}

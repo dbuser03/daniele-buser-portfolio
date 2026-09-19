@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { useCursorContext } from "@/components/layout/cursor/CursorContext";
 import { CURSOR_SIZE } from "@/constants/cursor";
 import { CSS_VARIABLES } from "@/constants/theme";
@@ -14,32 +14,13 @@ export function useDraggableScroll(resetTrigger?: unknown) {
     scrollLeft: 0,
   });
 
+  const cleanupListenersRef = useRef<(() => void) | null>(null);
+
   useEffect(() => {
-    const drag = dragRef.current;
-    const onMouseMove = (e: MouseEvent) => {
-      if (!drag.isDragging) return;
-      const dx = e.clientX - drag.startX;
-      if (scrollRef.current) {
-        scrollRef.current.scrollLeft = drag.scrollLeft - dx;
-      }
-    };
-    
-    const onMouseUp = () => {
-      if (drag.isDragging) {
-        drag.isDragging = false;
-        cursorSize.set(CURSOR_SIZE.sm);
-        setColor(CSS_VARIABLES.accent);
-      }
-    };
-    
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseup", onMouseUp);
-    
     return () => {
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseup", onMouseUp);
+      cleanupListenersRef.current?.();
     };
-  }, [cursorSize, setColor]);
+  }, []);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -47,21 +28,51 @@ export function useDraggableScroll(resetTrigger?: unknown) {
     }
   }, [resetTrigger]);
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    const container = scrollRef.current;
-    if (!container) return;
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      const container = scrollRef.current;
+      if (!container) return;
 
-    const isScrollable = container.scrollWidth > container.clientWidth;
-    if (!isScrollable) return;
+      const isScrollable = container.scrollWidth > container.clientWidth;
+      if (!isScrollable) return;
 
-    const drag = dragRef.current;
-    drag.isDragging = true;
-    drag.startX = e.clientX;
-    drag.scrollLeft = container.scrollLeft;
-    
-    cursorSize.set(CURSOR_SIZE.xs);
-    setColor(CSS_VARIABLES.accent);
-  };
+      const drag = dragRef.current;
+      drag.isDragging = true;
+      drag.startX = e.clientX;
+      drag.scrollLeft = container.scrollLeft;
+
+      cursorSize.set(CURSOR_SIZE.xs);
+      setColor(CSS_VARIABLES.accent);
+
+      const onMouseMove = (moveEvent: MouseEvent) => {
+        if (!drag.isDragging) return;
+        const dx = moveEvent.clientX - drag.startX;
+        if (scrollRef.current) {
+          scrollRef.current.scrollLeft = drag.scrollLeft - dx;
+        }
+      };
+
+      const onMouseUp = () => {
+        if (drag.isDragging) {
+          drag.isDragging = false;
+          cursorSize.set(CURSOR_SIZE.sm);
+          setColor(CSS_VARIABLES.accent);
+        }
+        window.removeEventListener("mousemove", onMouseMove);
+        window.removeEventListener("mouseup", onMouseUp);
+        cleanupListenersRef.current = null;
+      };
+
+      cleanupListenersRef.current = () => {
+        window.removeEventListener("mousemove", onMouseMove);
+        window.removeEventListener("mouseup", onMouseUp);
+      };
+
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("mouseup", onMouseUp);
+    },
+    [cursorSize, setColor],
+  );
 
   return {
     scrollRef,
