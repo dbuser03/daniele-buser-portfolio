@@ -3,9 +3,9 @@
 import {
   createContext,
   use,
-  useState,
   useEffect,
   useCallback,
+  useMemo,
 } from "react";
 import type { ReactNode } from "react";
 import { useMotionValue, useSpring } from "motion/react";
@@ -33,19 +33,25 @@ export const CursorProvider = ({
   children: ReactNode;
   disabled?: boolean;
 }) => {
-  const [color, setColor] = useState<string>(CSS_VARIABLES.accent);
   const pathname = usePathname();
 
   const cursorSize = useSpring(CURSOR_SIZE.sm, motionTokens.spring.cursor);
   const smoothX = useMotionValue(-100);
   const smoothY = useMotionValue(-100);
   const opacity = useMotionValue(0);
+  const cursorColor = useMotionValue<string>(CSS_VARIABLES.accent);
+
+  const setColor = useCallback(
+    (newColor: string) => {
+      cursorColor.set(newColor);
+    },
+    [cursorColor],
+  );
 
   useEffect(() => {
     cursorSize.set(CURSOR_SIZE.sm);
-    const id = setTimeout(() => setColor(CSS_VARIABLES.accent), 0);
-    return () => clearTimeout(id);
-  }, [pathname, cursorSize]);
+    cursorColor.set(CSS_VARIABLES.accent);
+  }, [pathname, cursorSize, cursorColor]);
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     const { clientX, clientY } = e;
@@ -65,6 +71,9 @@ export const CursorProvider = ({
   useEffect(() => {
     if (disabled) return;
 
+    const isPointerFine = window.matchMedia("(pointer: fine)").matches;
+    if (!isPointerFine) return;
+
     document.documentElement.classList.add("has-custom-cursor");
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -83,12 +92,16 @@ export const CursorProvider = ({
     };
   }, [disabled, handleMouseEnter, handleMouseLeave, handleMouseMove]);
 
-  const contextValue = {
-    cursorSize,
-    smoothX,
-    smoothY,
-    setColor,
-  };
+  const contextValue = useMemo(
+    () => ({
+      cursorSize,
+      smoothX,
+      smoothY,
+      cursorColor,
+      setColor,
+    }),
+    [cursorSize, smoothX, smoothY, cursorColor, setColor],
+  );
 
   return (
     <CursorContext.Provider value={contextValue}>
@@ -98,7 +111,7 @@ export const CursorProvider = ({
           smoothY={smoothY}
           cursorSize={cursorSize}
           opacity={opacity}
-          color={color}
+          color={cursorColor}
         />
       )}
       {children}

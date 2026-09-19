@@ -2,7 +2,6 @@
 
 import { m } from "motion/react";
 import { motionTokens } from "@/utils/motion";
-import { CSS_VARIABLES } from "@/constants/theme";
 import { CursorProps } from "@/types/cursor";
 
 export default function Cursor({
@@ -10,7 +9,7 @@ export default function Cursor({
   smoothY,
   cursorSize,
   opacity,
-  color = CSS_VARIABLES.accent,
+  color,
 }: CursorProps) {
   return (
     <m.div
@@ -32,10 +31,6 @@ export default function Cursor({
       }}
       transition={{
         scale: { duration: motionTokens.duration.fast, ease: "backOut" },
-        backgroundColor: {
-          duration: motionTokens.duration.fast,
-          ease: motionTokens.easing.standard,
-        },
       }}
     />
   );

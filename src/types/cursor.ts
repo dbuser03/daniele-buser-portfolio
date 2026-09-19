@@ -11,13 +11,14 @@ export interface CursorProps {
   smoothY: MotionValue<number>;
   cursorSize: MotionValue<number>;
   opacity: MotionValue<number>;
-  color?: string;
+  color: MotionValue<string>;
 }
 
 export interface CursorContextType {
   cursorSize: MotionValue<number>;
   smoothX: MotionValue<number>;
   smoothY: MotionValue<number>;
+  cursorColor: MotionValue<string>;
   setColor: (color: string) => void;
 }
 
