@@ -27,13 +27,28 @@ export async function generateMetadata({
     return {};
   }
 
+  const projectImages = project.cardImage
+    ? [{ url: project.cardImage, alt: project.title }]
+    : [{ url: "/og-image.png", alt: project.title }];
+
   return {
     title: project.title,
     description: project.description,
+    alternates: {
+      canonical: `/projects/${project.id}`,
+    },
     openGraph: {
       title: `${project.title} | Daniele Buser — Creative Developer`,
       description: project.description,
-      ...(project.cardImage ? { images: [{ url: project.cardImage }] } : {}),
+      url: `/projects/${project.id}`,
+      type: "website",
+      images: projectImages,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | Daniele Buser — Creative Developer`,
+      description: project.description,
+      images: projectImages.map((img) => img.url),
     },
   };
 }
