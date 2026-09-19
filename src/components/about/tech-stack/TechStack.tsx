@@ -83,14 +83,8 @@ export default function TechStack() {
         whileInView="visible"
         viewport={{ once: true }}
       >
-        {Array.from({ length: 7 }, (_, index) => {
-          const cellId = getTechStackCellId("second", index);
-          const icon = TECH_STACK_SECOND_ROW_ICONS.find(
-            (item) => item.cellIndex === index,
-          )?.icon;
-
-          if (!icon) return null;
-
+        {TECH_STACK_SECOND_ROW_ICONS.map(({ cellIndex, icon }) => {
+          const cellId = getTechStackCellId("second", cellIndex);
           const cellIsActive = hoveredCellId === cellId;
 
           return (
