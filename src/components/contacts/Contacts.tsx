@@ -112,10 +112,6 @@ export default function Contacts({
           onMouseEnter={handleEmailEnter}
           onMouseLeave={handleEmailLeave}
           aria-label={`Send email to ${EMAIL}`}
-          onClick={(e) => {
-            e.preventDefault();
-            window.open(`mailto:${EMAIL}`, "_blank");
-          }}
         >
           <h2 id="contacts-heading" className="text-display-sm text-foreground">
             {EMAIL}

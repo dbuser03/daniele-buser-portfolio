@@ -129,8 +129,16 @@ export const useHowIWork = () => {
   const wordsRef = useRef<HTMLDivElement | null>(null);
 
   const scrollYProgress = useMotionValue(0);
+  const shouldReduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      scrollYProgress.set(1);
+    }
+  }, [shouldReduceMotion, scrollYProgress]);
 
   useLenis(() => {
+    if (shouldReduceMotion) return;
     if (!wordsRef.current) return;
     const rect = wordsRef.current.getBoundingClientRect();
     const windowHeight = window.innerHeight;
@@ -143,7 +151,6 @@ export const useHowIWork = () => {
   });
 
   const smoothProgress = useSpring(scrollYProgress, motionTokens.spring.scroll);
-  const shouldReduceMotion = useReducedMotion();
   const progressToUse = shouldReduceMotion ? scrollYProgress : smoothProgress;
 
   const playVideoRef = useRef(playVideo);

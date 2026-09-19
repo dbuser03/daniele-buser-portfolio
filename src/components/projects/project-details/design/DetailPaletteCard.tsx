@@ -26,9 +26,13 @@ export default function DetailPaletteCard({
       if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
     };
   }, []);
+
   return (
     <DetailDesignCard label="Palette" className={cn(className)}>
       <div className="mt-8 flex w-full gap-4 pb-2">
+        <span className="sr-only" role="status" aria-live="polite">
+          {copied ? `Copied ${copied} to clipboard` : ""}
+        </span>
         {colors.map((colorVal) => {
           const hex = colorVal.hex;
           const pantone = colorVal.pantone;
@@ -43,11 +47,14 @@ export default function DetailPaletteCard({
                   duration: motionTokens.duration.fast,
                   ease: motionTokens.easing.standard,
                 }}
+                aria-hidden="true"
               >
                 (copied)
               </m.span>
-              <m.div
-                className="h-66 w-full border border-foreground/10"
+              <m.button
+                type="button"
+                aria-label={`Copy color ${hex} to clipboard`}
+                className="h-66 w-full cursor-pointer border border-foreground/10 focus-visible:outline-2 focus-visible:outline-accent"
                 style={{ backgroundColor: hex }}
                 whileHover={{ scale: 0.98 }}
                 whileTap={{ scale: 0.94 }}
