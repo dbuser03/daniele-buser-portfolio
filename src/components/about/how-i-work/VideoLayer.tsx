@@ -37,7 +37,7 @@ function VideoLayer({
         muted
         playsInline
         autoPlay={isActive}
-        preload="auto"
+        preload="none"
         onEnded={onEnded}
         className="size-full object-cover"
         aria-hidden="true"

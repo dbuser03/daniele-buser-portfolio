@@ -3,14 +3,16 @@
 import { useSyncExternalStore } from "react";
 
 function getTime(): string {
-  return new Date().toLocaleTimeString([], {
+  return new Date().toLocaleTimeString("en-GB", {
+    timeZone: "Europe/Zurich",
     hour: "2-digit",
     minute: "2-digit",
+    hour12: false,
   });
 }
 
 function subscribe(callback: () => void): () => void {
-  const id = setInterval(callback, 60000);
+  const id = setInterval(callback, 10000);
   return () => clearInterval(id);
 }
 
