@@ -18,9 +18,9 @@ function NavItem({ href, label, delay }: NavItemProps) {
   const pathname = usePathname();
   const lenis = useLenis();
   const isActive =
-    href === "/projects"
-      ? pathname === href || pathname.startsWith("/projects/")
-      : pathname === href;
+    href === "/"
+      ? pathname === "/" || pathname.startsWith("/projects")
+      : pathname === href || pathname.startsWith(`${href}/`);
 
   const { handleMouseEnter, handleMouseLeave } = useCursorInteraction(
     isActive ? "current" : "interactive",
