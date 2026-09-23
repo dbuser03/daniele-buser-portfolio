@@ -14,6 +14,10 @@ export const PROJECTS: Project[] = [
       "/projects/leonardo-berselli-portfolio/leonardo-berselli-portfolio.webp",
     cardImage:
       "/projects/leonardo-berselli-portfolio/leonardo-berselli-portfolio.webp",
+    video:
+      "/projects/leonardo-berselli-portfolio/leonardo-berselli-showcase.mp4",
+    cardVideo:
+      "/projects/leonardo-berselli-portfolio/leonardo-berselli-showcase.mp4",
     tags: ["Next.js", "Tailwind", "Motion", "WebGL"],
     year: "2026",
     brandingColors: [
@@ -237,8 +241,16 @@ export const PROJECTS: Project[] = [
     hasCustomComponents: true,
     hasCoolShit: true,
     coolShitName: "EarthGlobeAscii",
-    shipImage1: "",
-    shipImage2: "",
+    verticalImage1:
+      "/projects/leonardo-berselli-portfolio/leonardo-berselli-vertical-1.webp",
+    verticalImage2:
+      "/projects/leonardo-berselli-portfolio/leonardo-berselli-vertical-2.webp",
+    verticalImage3:
+      "/projects/leonardo-berselli-portfolio/leonardo-berselli-vertical-3.webp",
+    shipImage1:
+      "/projects/leonardo-berselli-portfolio/leonardo-berselli-ship-1.webp",
+    shipImage2:
+      "/projects/leonardo-berselli-portfolio/leonardo-berselli-ship-2-v2.webp",
     shipText1:
       "Vercel provides the ideal hosting environment for Next.js portfolios. The source code resides on GitHub, utilizing GitHub Actions to manage the CI/CD pipeline and automate every deployment.",
     shipText2:

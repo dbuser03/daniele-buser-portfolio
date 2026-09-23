@@ -40,6 +40,8 @@ export interface Project {
   descriptionCol2: string;
   image: string;
   cardImage?: string;
+  video?: string;
+  cardVideo?: string;
   tags: [string, string, string, string];
   year: string;
   gallery?: string[];
@@ -56,6 +58,9 @@ export interface Project {
   hasCustomComponents?: boolean;
   hasCoolShit?: boolean;
   coolShitName?: string;
+  verticalImage1?: string;
+  verticalImage2?: string;
+  verticalImage3?: string;
   shipImage1?: string;
   shipImage2?: string;
   shipText1?: string;
