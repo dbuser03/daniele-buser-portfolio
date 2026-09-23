@@ -47,7 +47,7 @@ export default function HowIWork() {
       <div className="mt-3 flex flex-col gap-10">
         <div className="grid grid-cols-12 gap-4">
           <m.div
-            className="relative col-span-9 aspect-16/7 w-full overflow-hidden bg-neutral"
+            className="relative col-span-9 aspect-16/7 w-full overflow-hidden"
             initial="initial"
             whileInView="visible"
             viewport={{ once: true }}
@@ -62,7 +62,7 @@ export default function HowIWork() {
               alt=""
               fill
               sizes="(min-width: 1280px) 75vw, 100vw"
-              className="object-cover"
+              className="scale-[1.01] object-cover"
               aria-hidden="true"
             />
           </m.div>
@@ -94,7 +94,7 @@ export default function HowIWork() {
                 alt=""
                 fill
                 sizes="(min-width: 1280px) 25vw, 100vw"
-                className="object-cover"
+                className="scale-[1.01] object-cover"
                 aria-hidden="true"
               />
             </m.div>

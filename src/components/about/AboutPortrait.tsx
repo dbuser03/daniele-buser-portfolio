@@ -32,7 +32,7 @@ export default function AboutPortrait() {
           src="/portrait.webp"
           alt="Portrait of Daniele Buser"
           fill
-          className="object-cover"
+          className="scale-[1.01] object-cover"
           sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 100vw"
           priority
         />
