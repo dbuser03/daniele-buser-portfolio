@@ -95,22 +95,24 @@ export const baseMetadata: Metadata = {
 };
 
 export const projectsMetadata: Metadata = {
-  title: "Projects",
+  title: {
+    absolute: "Daniele Buser | Creative Developer",
+  },
   description:
     "Explore Daniele Buser's creative development projects: interactive 3D web experiences, WebGL experiments, and high-performance front-end engineering.",
   alternates: {
-    canonical: "/projects",
+    canonical: "/",
   },
   openGraph: {
-    title: "Projects | Daniele Buser — Creative Developer",
+    title: "Daniele Buser | Creative Developer",
     description:
       "Explore Daniele Buser's creative development projects: interactive 3D web experiences, WebGL experiments, and high-performance front-end engineering.",
-    url: "/projects",
+    url: "/",
     type: "website",
     images: sharedOgImages,
   },
   twitter: {
-    title: "Projects | Daniele Buser — Creative Developer",
+    title: "Daniele Buser | Creative Developer",
     description:
       "Explore Daniele Buser's creative development projects: interactive 3D web experiences, WebGL experiments, and high-performance front-end engineering.",
     images: sharedTwitterImages,
@@ -118,26 +120,24 @@ export const projectsMetadata: Metadata = {
 };
 
 export const aboutMetadata: Metadata = {
-  title: {
-    absolute: "Daniele Buser | Creative Developer",
-  },
+  title: "About",
   description:
     "Daniele Buser is a Creative Developer bridging the gap between design and code with interactive, high-performance web experiences.",
   alternates: {
-    canonical: "/",
+    canonical: "/about",
   },
   openGraph: {
-    title: "Daniele Buser | Creative Developer",
+    title: "About | Daniele Buser — Creative Developer",
     description:
       "Daniele Buser is a Creative Developer bridging the gap between design and code with interactive, high-performance web experiences.",
-    url: "/",
+    url: "/about",
     type: "profile",
     firstName: "Daniele",
     lastName: "Buser",
     images: sharedOgImages,
   },
   twitter: {
-    title: "Daniele Buser | Creative Developer",
+    title: "About | Daniele Buser — Creative Developer",
     description:
       "Daniele Buser is a Creative Developer bridging the gap between design and code with interactive, high-performance web experiences.",
     images: sharedTwitterImages,
@@ -209,45 +209,13 @@ export const personJsonLd = {
 export const projectsPageJsonLd = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "@id": `${SITE_URL}/projects#webpage`,
-  url: `${SITE_URL}/projects`,
+  "@id": `${SITE_URL}/#webpage`,
+  url: SITE_URL,
   name: "Projects | Daniele Buser — Creative Developer",
   description:
     "Explore Daniele Buser's creative development projects: interactive 3D web experiences, WebGL experiments, and high-performance front-end engineering.",
   isPartOf: { "@id": `${SITE_URL}/#website` },
   author: { "@id": `${SITE_URL}/#person` },
-  inLanguage: "en-US",
-  breadcrumb: {
-    "@type": "BreadcrumbList",
-    "@id": `${SITE_URL}/projects#breadcrumb`,
-    name: "Breadcrumbs",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: SITE_URL,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Projects",
-        item: `${SITE_URL}/projects`,
-      },
-    ],
-  },
-};
-
-export const aboutPageJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "AboutPage",
-  "@id": `${SITE_URL}/#about-webpage`,
-  url: SITE_URL,
-  name: "Daniele Buser | Creative Developer",
-  description:
-    "Daniele Buser is a Creative Developer bridging the gap between design and code with interactive, high-performance web experiences.",
-  isPartOf: { "@id": `${SITE_URL}/#website` },
-  about: { "@id": `${SITE_URL}/#person` },
   inLanguage: "en-US",
   breadcrumb: {
     "@type": "BreadcrumbList",
@@ -259,6 +227,38 @@ export const aboutPageJsonLd = {
         position: 1,
         name: "Home",
         item: SITE_URL,
+      },
+    ],
+  },
+};
+
+export const aboutPageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "@id": `${SITE_URL}/about#webpage`,
+  url: `${SITE_URL}/about`,
+  name: "About | Daniele Buser — Creative Developer",
+  description:
+    "Daniele Buser is a Creative Developer bridging the gap between design and code with interactive, high-performance web experiences.",
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  about: { "@id": `${SITE_URL}/#person` },
+  inLanguage: "en-US",
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    "@id": `${SITE_URL}/about#breadcrumb`,
+    name: "Breadcrumbs",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "About",
+        item: `${SITE_URL}/about`,
       },
     ],
   },
